@@ -1,0 +1,191 @@
+2018-03-27 09:59:53,256  INFO  Hello logging world!
+2018-03-27 10:41:53,537  INFO  init
+2018-03-27 10:41:53,549  INFO  GameService - return game to platform type
+2018-03-27 10:54:53,479  INFO  init
+2018-03-27 10:54:53,492  INFO  GameService - return game to platform type
+2018-03-27 11:13:34,188  INFO  init
+2018-03-27 11:13:34,188  INFO  GameService - return game to platform type
+2018-03-27 11:14:23,240  INFO  init
+2018-03-27 11:14:23,240  INFO  GameService - return game to platform type
+2018-03-27 11:15:09,586  INFO  init
+2018-03-27 11:15:09,604  INFO  GameService - return game to platform type
+2018-03-27 11:16:00,521  INFO  init
+2018-03-27 11:16:00,538  INFO  GameService - return game to platform type
+2018-03-27 11:16:54,328  INFO  init
+2018-03-27 11:16:54,341  INFO  GameService - return game to platform type
+2018-03-27 12:49:20,103  INFO  init
+2018-03-27 12:49:20,118  INFO  GameService - return game to platform type
+2018-03-27 12:51:03,509  INFO  init
+2018-03-27 12:51:03,521  INFO  GameService - return game to platform type
+2018-03-27 12:52:38,453  INFO  init
+2018-03-27 12:52:38,467  INFO  GameService - return game to platform type
+2018-03-27 12:53:31,799  INFO  init
+2018-03-27 12:53:31,814  INFO  GameService - return game to platform type
+2018-03-27 12:54:05,061  INFO  init
+2018-03-27 12:54:05,071  INFO  GameService - return game to platform type
+2018-03-27 12:55:55,189  INFO  init
+2018-03-27 12:55:55,199  INFO  GameService - return game to platform type
+2018-03-27 12:56:30,541  INFO  init
+2018-03-27 12:56:30,544  INFO  GameService - return game to platform type
+2018-03-27 12:57:59,766  INFO  init
+2018-03-27 12:57:59,779  INFO  GameService - return game to platform type
+2018-03-27 12:58:35,097  INFO  init
+2018-03-27 12:58:35,103  INFO  GameService - return game to platform type
+2018-03-27 12:58:50,387  INFO  init
+2018-03-27 12:58:50,397  INFO  GameService - return game to platform type
+2018-03-27 13:00:04,069  INFO  init
+2018-03-27 13:00:04,079  INFO  GameService - return game to platform type
+2018-03-27 13:00:30,069  INFO  init
+2018-03-27 13:00:30,083  INFO  GameService - return game to platform type
+2018-03-27 13:04:57,701  INFO  init
+2018-03-27 13:04:57,712  INFO  GameService - return game to platform type
+2018-03-27 13:05:45,154  INFO  init
+2018-03-27 13:05:45,164  INFO  GameService - return game to platform type
+2018-03-27 13:06:41,086  INFO  init
+2018-03-27 13:06:41,097  INFO  GameService - return game to platform type
+2018-03-27 13:07:58,745  INFO  init
+2018-03-27 13:07:58,757  INFO  GameService - return game to platform type
+2018-03-27 13:12:02,171  INFO  init
+2018-03-27 13:12:02,181  INFO  GameService - return game to platform type
+2018-03-27 13:13:05,124  INFO  init
+2018-03-27 13:13:05,136  INFO  GameService - return game to platform type
+2018-03-27 13:13:32,253  INFO  init
+2018-03-27 13:13:32,267  INFO  GameService - return game to platform type
+2018-03-27 14:26:46,706  INFO  init
+2018-03-27 14:26:46,733  INFO  GameService - return game to platform type
+2018-03-27 14:27:03,347  INFO  init
+2018-03-27 14:27:03,358  INFO  GameService - return game to platform type
+2018-03-27 14:28:53,510  INFO  init
+2018-03-27 14:28:53,521  INFO  GameService - return game to platform type
+2018-03-27 14:32:32,609  INFO  init
+2018-03-27 14:32:32,622  INFO  GameService - return game to platform type
+2018-03-27 14:34:22,142  INFO  init
+2018-03-27 14:34:22,153  INFO  GameService - return game to platform type
+2018-03-27 14:35:43,140  INFO  init
+2018-03-27 14:35:43,152  INFO  GameService - return game to platform type
+2018-03-27 14:46:07,515  INFO  init
+2018-03-27 14:46:07,526  INFO  GameService - return game to platform type
+2018-03-27 14:52:38,297  INFO  init
+2018-03-27 14:52:38,309  INFO  GameService - return game to platform type
+2018-03-27 14:54:36,652  INFO  init
+2018-03-27 14:54:36,662  INFO  GameService - return game to platform type
+2018-03-27 14:54:54,820  INFO  init
+2018-03-27 14:54:54,830  INFO  GameService - return game to platform type
+2018-03-27 14:55:09,830  INFO  init
+2018-03-27 14:55:09,840  INFO  GameService - return game to platform type
+2018-03-27 14:59:10,837  INFO  init
+2018-03-27 14:59:10,849  INFO  GameService - return game to platform type
+2018-03-27 14:59:45,530  INFO  init
+2018-03-27 14:59:45,557  INFO  GameService - return game to platform type
+2018-03-27 15:05:18,649  INFO  init
+2018-03-27 15:05:18,676  INFO  GameService - return game to platform type
+2018-03-27 15:05:20,750  ERROR GameService - exception in returning game to select platform type - Object reference not set to an instance of an object.
+2018-03-27 15:05:27,201  INFO  init
+2018-03-27 15:06:25,002  INFO  init
+2018-03-27 15:06:25,018  INFO  GameService - return game to platform type
+2018-03-27 15:06:27,112  ERROR GameService - exception in returning game to select platform type - Object reference not set to an instance of an object.
+2018-03-27 15:10:16,534  INFO  init
+2018-03-27 15:10:16,546  INFO  GameService - return game to platform type
+2018-03-27 15:10:18,819  ERROR GameService - exception in returning game to select platform type - Value cannot be null.
+Parameter name: source
+2018-03-27 15:10:43,134  INFO  init
+2018-03-27 15:10:43,145  INFO  GameService - return game to platform type
+2018-03-27 15:10:45,220  ERROR GameService - exception in returning game to select platform type - Value cannot be null.
+Parameter name: source
+2018-03-27 15:22:32,139  INFO  init
+2018-03-27 15:22:32,152  INFO  GameService - return game to platform type
+2018-03-27 15:22:34,401  ERROR GameService - exception in returning game to select platform type - Object reference not set to an instance of an object.
+2018-03-27 15:23:48,699  INFO  init
+2018-03-27 15:23:48,711  INFO  GameService - return game to platform type
+2018-03-27 15:23:50,809  ERROR GameService - exception in returning game to select platform type - Object reference not set to an instance of an object.
+2018-03-27 15:24:46,199  INFO  init
+2018-03-27 15:24:48,318  ERROR GameService - exception in returning game to select platform type - Object reference not set to an instance of an object.
+2018-03-27 15:25:00,082  INFO  init
+2018-03-27 15:25:00,087  ERROR GameService - exception in returning game to select platform type - Object reference not set to an instance of an object.
+2018-03-27 15:27:01,401  INFO  init
+2018-03-27 15:27:03,531  ERROR GameService - exception in returning game to select platform type - Object reference not set to an instance of an object.
+2018-03-27 15:27:24,039  INFO  init
+2018-03-27 15:27:24,055  INFO  GameService - return game to platform type22222
+2018-03-27 15:27:26,277  ERROR GameService - exception in returning game to select platform type - Object reference not set to an instance of an object.
+2018-03-27 15:32:42,869  INFO  init
+2018-03-27 15:32:42,879  INFO  GameService - return game to platform type22222
+2018-03-27 15:32:44,932  INFO  GameService - return game to platform type22222wow  hero  
+2018-03-27 15:32:44,933  INFO  22222wow  hero  
+2018-03-27 15:32:44,934  INFO  GameService - return game to platform type
+2018-03-27 15:33:27,800  INFO  init
+2018-03-27 15:33:27,812  INFO  GameService - return game to platform type22222
+2018-03-27 15:33:30,129  ERROR GameService - exception in returning game to select platform type - Object reference not set to an instance of an object.
+2018-03-27 15:34:01,546  INFO  init
+2018-03-27 15:34:01,559  INFO  GameService - return game to platform type22222
+2018-03-27 15:34:03,677  ERROR GameService - exception in returning game to select platform type - Value cannot be null.
+Parameter name: source
+2018-03-27 15:36:24,806  INFO  init
+2018-03-27 15:36:24,817  INFO  GameService - return game to platform type22222
+2018-03-27 15:36:27,007  ERROR GameService - exception in returning game to select platform type - Value cannot be null.
+Parameter name: source
+2018-03-27 15:38:20,302  INFO  init
+2018-03-27 15:38:22,424  ERROR GameService - exception in returning game to select platform type - Value cannot be null.
+Parameter name: source
+2018-03-27 15:38:51,543  INFO  init
+2018-03-27 15:38:53,747  ERROR GameService - exception in returning game to select platform type - Value cannot be null.
+Parameter name: source
+2018-03-27 15:40:19,294  INFO  init
+2018-03-27 15:40:21,481  ERROR GameService - exception in returning game to select platform type - Object reference not set to an instance of an object.
+2018-03-27 15:43:34,340  INFO  init
+2018-03-27 15:43:36,500  ERROR GameService - exception in returning game to select platform type - Object reference not set to an instance of an object.
+2018-03-27 16:01:37,615  INFO  init
+2018-03-27 16:01:59,885  ERROR GameService - exception in returning game to select platform type - Cannot drop database "GAMESTORE_48080b1ec2424bb892e2255de8f0a6c2" because it is currently in use.
+2018-03-27 16:04:55,242  INFO  init
+2018-03-27 16:05:18,441  ERROR GameService - exception in returning game to select platform type - Cannot drop database "GAMESTORE_48080b1ec2424bb892e2255de8f0a6c2" because it is currently in use.
+2018-03-27 16:05:29,378  INFO  init
+2018-03-27 16:05:52,747  ERROR GameService - exception in returning game to select platform type - Cannot drop database "GAMESTORE_48080b1ec2424bb892e2255de8f0a6c2" because it is currently in use.
+2018-03-27 16:08:21,365  INFO  init
+2018-03-27 16:08:43,576  ERROR GameService - exception in returning game to select platform type - Cannot drop database "GAMESTORE_48080b1ec2424bb892e2255de8f0a6c2" because it is currently in use.
+2018-03-27 16:10:06,502  INFO  init
+2018-03-27 16:10:28,675  ERROR GameService - exception in returning game to select platform type - Cannot drop database "GAMESTORE_48080b1ec2424bb892e2255de8f0a6c2" because it is currently in use.
+2018-03-27 16:11:11,366  INFO  init
+2018-03-27 16:11:32,158  ERROR GameService - exception in returning game to select platform type - Cannot drop database "GAMESTORE_48080b1ec2424bb892e2255de8f0a6c2" because it is currently in use.
+2018-03-27 16:12:31,487  INFO  init
+2018-03-27 16:12:52,327  ERROR GameService - exception in returning game to select platform type - Cannot drop database "GAMESTORE_48080b1ec2424bb892e2255de8f0a6c2" because it is currently in use.
+2018-03-27 16:15:02,415  INFO  init
+2018-03-27 16:15:23,219  ERROR GameService - exception in returning game to select platform type - Cannot drop database "GAMESTORE_48080b1ec2424bb892e2255de8f0a6c2" because it is currently in use.
+2018-03-27 16:29:42,577  INFO  init
+2018-03-27 16:30:03,480  ERROR GameService - exception in returning game to select platform type - Cannot drop database "GAMESTORE_48080b1ec2424bb892e2255de8f0a6c2" because it is currently in use.
+2018-03-27 16:31:33,215  INFO  init
+2018-03-27 16:31:54,063  ERROR GameService - exception in returning game to select platform type - Cannot drop database "GAMESTORE_48080b1ec2424bb892e2255de8f0a6c2" because it is currently in use.
+2018-03-27 16:32:47,967  INFO  init
+2018-03-27 16:33:08,799  ERROR GameService - exception in returning game to select platform type - Cannot drop database "GAMESTORE_48080b1ec2424bb892e2255de8f0a6c2" because it is currently in use.
+2018-03-27 16:41:32,454  INFO  init
+2018-03-27 16:41:53,791  ERROR GameService - exception in returning game to select platform type - Cannot drop database "GAMESTORE_48080b1ec2424bb892e2255de8f0a6c2" because it is currently in use.
+2018-03-27 16:42:07,376  INFO  init
+2018-03-27 16:42:28,621  ERROR GameService - exception in returning game to select platform type - Cannot drop database "GAMESTORE_48080b1ec2424bb892e2255de8f0a6c2" because it is currently in use.
+2018-03-27 16:43:50,714  INFO  init
+2018-03-27 16:44:11,891  ERROR GameService - exception in returning game to select platform type - Cannot drop database "GAMESTORE_48080b1ec2424bb892e2255de8f0a6c2" because it is currently in use.
+2018-03-27 16:44:23,543  INFO  init
+2018-03-27 16:44:44,656  ERROR GameService - exception in returning game to select platform type - Cannot drop database "GAMESTORE_48080b1ec2424bb892e2255de8f0a6c2" because it is currently in use.
+2018-03-27 16:54:27,515  INFO  init
+2018-03-27 16:54:48,304  ERROR GameService - exception in returning game to select platform type - Cannot drop database "GAMESTORE_48080b1ec2424bb892e2255de8f0a6c2" because it is currently in use.
+2018-03-27 16:57:39,078  INFO  init
+2018-03-27 16:57:59,997  ERROR GameService - exception in returning game to select platform type - Cannot drop database "GAMESTORE_48080b1ec2424bb892e2255de8f0a6c2" because it is currently in use.
+2018-03-27 16:58:56,051  INFO  init
+2018-03-27 16:59:16,966  ERROR GameService - exception in returning game to select platform type - Cannot drop database "GAMESTORE_48080b1ec2424bb892e2255de8f0a6c2" because it is currently in use.
+2018-03-27 17:01:04,650  INFO  init
+2018-03-27 17:01:18,940  INFO  init
+2018-03-27 17:01:25,519  ERROR GameService - exception in returning game to select platform type - Cannot drop database "GAMESTORE_48080b1ec2424bb892e2255de8f0a6c2" because it is currently in use.
+2018-03-27 17:01:39,772  ERROR GameService - exception in returning game to select platform type - Cannot drop database "GAMESTORE_48080b1ec2424bb892e2255de8f0a6c2" because it is currently in use.
+2018-03-27 17:02:49,964  INFO  init
+2018-03-27 17:03:10,881  ERROR GameService - exception in returning game to select platform type - Cannot drop database "GAMESTORE_48080b1ec2424bb892e2255de8f0a6c2" because it is currently in use.
+2018-03-27 17:03:14,819  INFO  init
+2018-03-27 17:03:35,733  ERROR GameService - exception in returning game to select platform type - Cannot drop database "GAMESTORE_48080b1ec2424bb892e2255de8f0a6c2" because it is currently in use.
+2018-03-27 17:03:50,686  INFO  init
+2018-03-27 17:04:11,672  ERROR GameService - exception in returning game to select platform type - Cannot drop database "GAMESTORE_48080b1ec2424bb892e2255de8f0a6c2" because it is currently in use.
+2018-03-27 17:04:31,805  INFO  init
+2018-03-27 17:04:52,638  ERROR GameService - exception in returning game to select platform type - Cannot drop database "GAMESTORE_48080b1ec2424bb892e2255de8f0a6c2" because it is currently in use.
+2018-03-27 17:10:56,393  INFO  init
+2018-03-27 17:11:17,169  ERROR GameService - exception in returning game to select platform type - Cannot drop database "GAMESTORE_48080b1ec2424bb892e2255de8f0a6c2" because it is currently in use.
+2018-03-27 17:12:07,160  INFO  init
+2018-03-27 17:12:28,105  ERROR GameService - exception in returning game to select platform type - Cannot drop database "GAMESTORE_48080b1ec2424bb892e2255de8f0a6c2" because it is currently in use.
+2018-03-27 17:14:50,151  INFO  init
+2018-03-27 17:15:10,993  ERROR GameService - exception in returning game to select platform type - Cannot drop database "GAMESTORE_48080b1ec2424bb892e2255de8f0a6c2" because it is currently in use.
+2018-03-27 17:16:09,096  INFO  init
+2018-03-27 17:16:31,303  ERROR GameService - exception in returning game to select platform type - Cannot drop database "GAMESTORE_48080b1ec2424bb892e2255de8f0a6c2" because it is currently in use.
