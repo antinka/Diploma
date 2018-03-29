@@ -7,6 +7,7 @@ using GameStore.BAL.Interfaces;
 using GameStore.DAL.EF;
 using System.Data.Entity;
 using GameStore.DAL.Interfaces;
+using GameStore.BAL;
 
 namespace GameStore
 {
@@ -33,7 +34,7 @@ namespace GameStore
 
             // OPTIONAL: Enable property injection into action filters.
             builder.RegisterFilterProvider();
-
+            builder.RegisterModule<AutoMapperModule>();
             builder.RegisterType<GameStoreContext>() .As<DbContext>().InstancePerLifetimeScope();
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerRequest().WithParameter("connectionString", "DefaultConnection"); 
             builder.RegisterType<GameService>().As<IGameService>().InstancePerLifetimeScope();

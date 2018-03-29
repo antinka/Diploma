@@ -1,5 +1,6 @@
 ﻿using GameStore.App_Start;
 using GameStore.BAL;
+using GameStore.BAL.Infastracture;
 using System.Web.Mvc;
 using System.Web.Routing;
 
@@ -14,9 +15,8 @@ namespace GameStore
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             log4net.Config.XmlConfigurator.Configure();
 
-
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            AutoMapperConfig.Initialize();
+            DTOToViewModel.Initialize();
             //  AutomapperDalBal.CreateMap();
         }
     }

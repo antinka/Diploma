@@ -81,7 +81,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AutomapperDalBal.cs" />
+    <Compile Include="Infastracture\AutofacConfigBLL.cs" />
+    <Compile Include="Infastracture\EntitiToDTOMappingProfile.cs" />
     <Compile Include="DTO\CommentDTO.cs" />
     <Compile Include="DTO\GameDTO.cs" />
     <Compile Include="DTO\GenreDTO.cs" />

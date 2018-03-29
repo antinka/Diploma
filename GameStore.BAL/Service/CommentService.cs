@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using GameStore;
 using GameStore.BAL.DTO;
+using GameStore.BAL.Infastracture;
 using GameStore.BAL.Interfaces;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
@@ -18,8 +19,9 @@ namespace GameStore.BAL.Service
     {
         IUnitOfWork db { get; set; }
         ILog log = LogManager.GetLogger("LOGGER");
-        IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<CommentDTO, Comment>()).CreateMapper();
-
+        //  IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<CommentDTO, Comment>()).CreateMapper();
+        //   private readonly IMapper mapper;
+        
         public CommentService(IUnitOfWork uow)
         {
             db = uow;
@@ -31,7 +33,7 @@ namespace GameStore.BAL.Service
             {
                 commentDTO.ParentCommentId = parentCommentId;
             }
-            db.Comments.Create(mapper.Map<CommentDTO, Comment>(commentDTO));
+            db.Comments.Create(Mapper.Map<CommentDTO, Comment>(commentDTO));
             db.Save();
             log.Info("CommentService - add comment to game");
         }
@@ -51,7 +53,7 @@ namespace GameStore.BAL.Service
                  log.Error("CommentService - exception in returning all comment to gameId - "+ ex.Message);
             }
           
-            return mapper.Map<IEnumerable<Comment>, List<CommentDTO>>(list);
+            return Mapper.Map<IEnumerable<Comment>, List<CommentDTO>>(list);
         }
     }
 }

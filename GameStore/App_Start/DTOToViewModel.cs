@@ -9,7 +9,7 @@ using System.Web;
 
 namespace GameStore.App_Start
 {
-    public static class AutoMapperConfig
+    public static class DTOToViewModel
     {
         public static void Initialize()
         {

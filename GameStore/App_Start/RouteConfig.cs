@@ -47,25 +47,25 @@ namespace GameStore
             routes.MapRoute(
                name: "commentForGame",
                url: "game/{gamekey}/newcomment",
-               defaults: new { controller = "Comment", download = "CommentToGame", gamekey = UrlParameter.Optional }
+               defaults: new { controller = "Comment", action = "CommentToGame", gamekey = UrlParameter.Optional }
            );
 
             routes.MapRoute(
               name: "commentForComment",
               url: "game/{gamekey}/newcomment",
-              defaults: new { controller = "Comment", download = "CommentToComment", gamekey = UrlParameter.Optional }
+              defaults: new { controller = "Comment", action = "CommentToComment", gamekey = UrlParameter.Optional }
           );
 
             routes.MapRoute(
              name: "getAllComment",
              url: "game/{gamekey}/newcomment",
-             defaults: new { controller = "Comment", download = "CommentToComment", gamekey = UrlParameter.Optional }
+             defaults: new { controller = "Comment", action = "CommentToComment", gamekey = UrlParameter.Optional }
          );
 
             routes.MapRoute(
                name: "Download",
                url: "game/{gamekey}/newcomment",
-               defaults: new { controller = "Comment", download = "Download", Key = UrlParameter.Optional }
+               defaults: new { controller = "Comment", action = "Download", gamekey = UrlParameter.Optional }
            );
 
             routes.MapRoute(

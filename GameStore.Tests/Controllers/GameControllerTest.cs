@@ -26,7 +26,7 @@ namespace GameStore.Tests.Controllers
         public GameControllerTest()
         {
             AutoMapper.Mapper.Reset();
-            AutoMapperConfig.Initialize();
+            DTOToViewModel.Initialize();
             gameRepo.Setup(x => x.AddNewGame(It.IsAny<GameDTO>())).Callback(() => games.Add(It.IsAny<GameDTO>()));
             gameRepo.Setup(x => x.EditGame(It.IsAny<GameDTO>())).Callback(() => boolUpdate = true);
             gameRepo.Setup(x => x.DeleteGame(It.IsAny<Guid>())).Callback(() => boolDelete = true);
