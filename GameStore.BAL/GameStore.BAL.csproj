@@ -81,12 +81,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Infastracture\AutofacConfigBLL.cs" />
-    <Compile Include="Infastracture\EntitiToDTOMappingProfile.cs" />
+    <Compile Include="Exeption\GameStoreExeption.cs" />
+    <Compile Include="Infastracture\BLLModule.cs" />
+    <Compile Include="Infastracture\EntitiToDTO.cs" />
     <Compile Include="DTO\CommentDTO.cs" />
     <Compile Include="DTO\GameDTO.cs" />
     <Compile Include="DTO\GenreDTO.cs" />
     <Compile Include="DTO\PlatformTypeDTO.cs" />
+    <Compile Include="Infastracture\MapperConfiguration.cs" />
     <Compile Include="Interfaces\ICommentService.cs" />
     <Compile Include="Interfaces\IGameCRUDService.cs" />
     <Compile Include="Interfaces\IGameService.cs" />

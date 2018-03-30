@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using GameStore.BAL.DTO;
+using GameStore.BAL.Exeption;
 using GameStore.BAL.Infastracture;
 using GameStore.BAL.Interfaces;
 using GameStore.DAL.Entities;
@@ -16,9 +17,7 @@ namespace GameStore.BAL.Service
     {
         IUnitOfWork db { get; set; }
         ILog log = LogManager.GetLogger("LOGGER");
-
-        //  IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<GameDTO, Game>()).CreateMapper();
-       // private readonly IMapper Mapper;
+        IMapper mapper = GameStore.Infastracture.MapperConfigBLL.GetMapper();
 
         public GameService(IUnitOfWork uow)
         {
@@ -29,13 +28,13 @@ namespace GameStore.BAL.Service
             Game checkUniqueGameKey = db.Games.GetAll().Where(x =>x.Key == gameDTO.Key).FirstOrDefault();
             if (checkUniqueGameKey == null)
             {
-                db.Games.Create(Mapper.Map<GameDTO, Game>(gameDTO));
+                db.Games.Create(mapper.Map<GameDTO, Game>(gameDTO));
                 db.Save();
                 log.Info("GameService - add new game");
             }
             else
             {
-                log.Error("GameService - attempt to add new game with not unique key");
+                throw new GameStoreExeption("GameService - attempt to add new game with not unique key");
             }
         }
 
@@ -49,7 +48,7 @@ namespace GameStore.BAL.Service
                     db.Save();
                     log.Info("GameService - delete game");
                 }
-                log.Error("GameService - attempt to delete not existed game");
+                throw new GameStoreExeption("GameService - attempt to delete not existed game");
         }
 
         public void EditGame(GameDTO gameDTO)
@@ -61,18 +60,18 @@ namespace GameStore.BAL.Service
 
         public IEnumerable<GameDTO> GetAllGame()
         { 
-            return Mapper.Map<IEnumerable<Game>, List<GameDTO>>(db.Games.GetAll());
+            return mapper.Map<IEnumerable<Game>, List<GameDTO>>(db.Games.GetAll());
         }
 
         public GameDTO GetGame(Guid id)
         { 
-            return Mapper.Map<Game, GameDTO>(db.Games.Get(id));
+            return mapper.Map<Game, GameDTO>(db.Games.Get(id));
         }
 
         public IEnumerable<GameDTO> GetGamesByGenre(Guid GenreId)
         {
             IEnumerable<Game> list = new List<Game>();
-            try
+            if (db.Genres.Get(GenreId) != null)
             {
                 list = (from gm in db.Games.GetAll()
                         from g in gm.Genres
@@ -80,20 +79,19 @@ namespace GameStore.BAL.Service
                         select gm).ToList();
                 log.Info("GameService - return game to select genre");
             }
-            catch(Exception ex)
+            else
             {
-                log.Error("GameService - exception in returning game to select genre - " + ex.Message);
+                throw new GameStoreExeption("CommentService - exception in returning all games by GenreId, such genre id did not exist");
             }
-            return Mapper.Map<IEnumerable<Game>, List<GameDTO>>(list);
+            return mapper.Map<IEnumerable<Game>, List<GameDTO>>(list);
         }
 
         public IEnumerable<GameDTO> GetGamesByPlatformType(Guid platformTypeId)
         {
 
             List<Game> list = new List<Game>();
-            try
+            if (db.PlatformTypes.Get(platformTypeId) != null)
             {
-
                 list = (from gm in db.Games.GetAll()
                        from p in gm.PlatformTypes
                        where p.Id == platformTypeId
@@ -101,11 +99,11 @@ namespace GameStore.BAL.Service
 
                 log.Info("GameService - return game to platform type");
             }
-            catch(Exception ex)
+            else
             {
-                log.Error("GameService - exception in returning game to select platform type - " + ex.Message);
+                throw new GameStoreExeption("CommentService - exception in returning all games by platformTypeId, such platform type id did not exist");
             }
-            return Mapper.Map<IEnumerable<Game>, List<GameDTO>>(list);
+            return mapper.Map<IEnumerable<Game>, List<GameDTO>>(list);
         }
 
     }

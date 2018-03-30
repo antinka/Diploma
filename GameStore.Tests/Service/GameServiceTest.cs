@@ -69,7 +69,7 @@ namespace GameStore.Tests.Service
         [Fact]
         public void EditGame_GameDTO_updateDescription()
         {
-            GameDTO testGame = new GameDTO("name", "description", "key1");
+            GameDTO testGame = new GameDTO();
 
             gameService.EditGame(testGame);
 

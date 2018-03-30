@@ -24,8 +24,6 @@ namespace GameStore.Tests.Controllers
         public CommentControllerTest()
         {
             AutoMapper.Mapper.Reset();
-            DTOToViewModel.Initialize();
-
             gameRepo.Setup(x => x.AddCommentToGame(It.IsAny<CommentDTO>(),null)).Callback(() => boolAddCommentToGame=true);
             gameRepo.Setup(x => x.GetAllCommentToGameId(It.IsAny<Guid>())).Callback(() => boolGetAllCommentToGameId = true);
         }

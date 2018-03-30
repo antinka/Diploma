@@ -1,6 +1,8 @@
-﻿using GameStore.BAL.DTO;
+﻿using AutoMapper;
+using GameStore.BAL.DTO;
 using GameStore.BAL.Interfaces;
 using GameStore.Filters;
+using GameStore.Infastracture;
 using GameStore.Models;
 using log4net;
 using System;
@@ -15,6 +17,7 @@ namespace GameStore.Controllers
     {
         private readonly IGameService gameService;
         ILog log = LogManager.GetLogger("LOGGER");
+        IMapper mapper = MapperConfigUI.GetMapper();
 
         public GameController(IGameService gameService)
         {
@@ -25,7 +28,7 @@ namespace GameStore.Controllers
         [HttpPost]
         public JsonResult New(GameViewModel game)
         {
-            gameService.AddNewGame(AutoMapper.Mapper.Map<GameViewModel,GameDTO>(game));
+            gameService.AddNewGame(mapper.Map<GameViewModel,GameDTO>(game));
             return Json("Add new game", JsonRequestBehavior.AllowGet);
         }
 
@@ -33,7 +36,7 @@ namespace GameStore.Controllers
         [HttpPost]
         public ActionResult Update(GameViewModel game)
         {
-            gameService.EditGame(AutoMapper.Mapper.Map<GameViewModel, GameDTO>(game));
+            gameService.EditGame(mapper.Map<GameViewModel, GameDTO>(game));
             return Json("Add new game", JsonRequestBehavior.AllowGet);
         }
 

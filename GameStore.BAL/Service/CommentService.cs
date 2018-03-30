@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using GameStore;
 using GameStore.BAL.DTO;
+using GameStore.BAL.Exeption;
 using GameStore.BAL.Infastracture;
 using GameStore.BAL.Interfaces;
 using GameStore.DAL.Entities;
@@ -19,9 +20,8 @@ namespace GameStore.BAL.Service
     {
         IUnitOfWork db { get; set; }
         ILog log = LogManager.GetLogger("LOGGER");
-        //  IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<CommentDTO, Comment>()).CreateMapper();
-        //   private readonly IMapper mapper;
-        
+        IMapper mapper = GameStore.Infastracture.MapperConfigBLL.GetMapper();
+
         public CommentService(IUnitOfWork uow)
         {
             db = uow;
@@ -33,7 +33,7 @@ namespace GameStore.BAL.Service
             {
                 commentDTO.ParentCommentId = parentCommentId;
             }
-            db.Comments.Create(Mapper.Map<CommentDTO, Comment>(commentDTO));
+            db.Comments.Create(mapper.Map<CommentDTO, Comment>(commentDTO));
             db.Save();
             log.Info("CommentService - add comment to game");
         }
@@ -41,19 +41,19 @@ namespace GameStore.BAL.Service
         public ICollection<CommentDTO> GetAllCommentToGameId(Guid id)
         {
             IEnumerable<Comment> list = new List<Comment>();
-            try
+            if(db.Games.Get(id)!=null)
             {
                 list = from c in db.Comments.GetAll()
                        where c.GameId == id
                        select c;
                 log.Info("CommentService - return all comment to gameId");
             }
-            catch(Exception ex)
+            else
             {
-                 log.Error("CommentService - exception in returning all comment to gameId - "+ ex.Message);
+                throw new GameStoreExeption("CommentService - exception in returning all comment to gameId, such game id did not exist");
+
             }
-          
-            return Mapper.Map<IEnumerable<Comment>, List<CommentDTO>>(list);
+            return mapper.Map<IEnumerable<Comment>, List<CommentDTO>>(list);
         }
     }
 }

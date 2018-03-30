@@ -26,7 +26,6 @@ namespace GameStore.Tests.Controllers
         public GameControllerTest()
         {
             AutoMapper.Mapper.Reset();
-            DTOToViewModel.Initialize();
             gameRepo.Setup(x => x.AddNewGame(It.IsAny<GameDTO>())).Callback(() => games.Add(It.IsAny<GameDTO>()));
             gameRepo.Setup(x => x.EditGame(It.IsAny<GameDTO>())).Callback(() => boolUpdate = true);
             gameRepo.Setup(x => x.DeleteGame(It.IsAny<Guid>())).Callback(() => boolDelete = true);
@@ -47,7 +46,7 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void UpdateGame_GameDTO_boolUpdateTrue()
         {
-            GameViewModel game = new GameViewModel("name", "description", "key1");
+            GameViewModel game = new GameViewModel();
 
             gameController.Update(game);
 

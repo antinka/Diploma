@@ -15,6 +15,7 @@ namespace GameStore.BAL.DTO
         public string Body { get; set; }
         public Guid? ParentCommentId { get; set; }
         public GameDTO Game { get; set; }
+        public bool IsDelete { get; set; }
 
         public CommentDTO()
         { }
