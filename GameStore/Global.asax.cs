@@ -3,6 +3,7 @@ using GameStore.BAL;
 using GameStore.BAL.Infastracture;
 using System.Web.Mvc;
 using System.Web.Routing;
+using GameStore.Infastracture;
 
 namespace GameStore
 {
@@ -18,7 +19,6 @@ namespace GameStore
 
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
           
-            //  AutomapperDalBal.CreateMap();
         }
     }
 }

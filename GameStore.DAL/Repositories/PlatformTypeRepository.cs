@@ -12,37 +12,37 @@ namespace GameStore.DAL.Repositories
 {
     public class PlatformTypeRepository : IRepository<PlatformType>
     {
-        private GameStoreContext db;
+        private readonly GameStoreContext _db;
 
         public PlatformTypeRepository(GameStoreContext context)
         {
-            db = context;
+            _db = context;
         }
-        public void Create(PlatformType item)
+        public void Create(PlatformType platformType)
         {
-            db.PlatformTypes.Add(item);
+            _db.PlatformTypes.Add(platformType);
         }
 
         public void Delete(Guid id)
         {
-            PlatformType item = db.PlatformTypes.Find(id);
+            PlatformType item = _db.PlatformTypes.Find(id);
             if (item != null)
-                db.PlatformTypes.Remove(item);
+                _db.PlatformTypes.Remove(item);
         }
 
         public PlatformType Get(Guid id)
         {
-            return db.PlatformTypes.Find(id);
+            return _db.PlatformTypes.Find(id);
         }
 
         public IEnumerable<PlatformType> GetAll()
         {
-            return db.PlatformTypes;
+            return _db.PlatformTypes.Where(d => d.IsDelete == false);
         }
 
-        public void Update(PlatformType item)
+        public void Update(PlatformType platformType)
         {
-            db.Entry(item).State = EntityState.Modified;
+            _db.Entry(platformType).State = EntityState.Modified;
         }
     }
 }

@@ -9,7 +9,7 @@ namespace GameStore.BAL.Interfaces
 {
     public interface ICommentService
     {
-        void AddCommentToGame(CommentDTO commentDTO, Guid? parentCommentId);
+        void AddCommentToGame(CommentDTO commentDto, Guid? parentCommentId);
         ICollection<CommentDTO> GetAllCommentToGameId(Guid id);
     }
 }

@@ -118,7 +118,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\AutofacConfig.cs" />
+    <Compile Include="Infastracture\AutofacConfig.cs" />
     <Compile Include="Infastracture\DTOToViewModel.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />

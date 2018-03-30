@@ -10,7 +10,7 @@ using GameStore.DAL.Interfaces;
 using GameStore.BAL;
 using GameStore.BAL.Infastracture;
 
-namespace GameStore
+namespace GameStore.Infastracture
 {
     public class AutofacConfig
     {
@@ -37,7 +37,6 @@ namespace GameStore
             builder.RegisterFilterProvider();
 
             builder.RegisterModule(new BLLModule("DefaultConnection")); 
-
             builder.RegisterType<GameService>().As<IGameService>().InstancePerLifetimeScope();
             builder.RegisterType<CommentService>().As<ICommentService>().InstancePerLifetimeScope();
         }

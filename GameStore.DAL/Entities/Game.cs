@@ -8,36 +8,21 @@ using System.Threading.Tasks;
 
 namespace GameStore.DAL.Entities
 {
-    public class Game
+    public class Game: BaseEntity
     {
        [Key]
        public Guid Id { get; set; }
        [Index("Index_Key", 1, IsUnique = true)]
+       [MaxLength(450)]
        public string Key { get; set; }
 	   public string Name { get; set; }
        public string Description { get; set; }
 
-       public ICollection<Comment> Comments { get; set; }
-       public ICollection<Genre> Genres { get; set; }
-       public ICollection<PlatformType> PlatformTypes { get; set; }
+       public virtual IEnumerable<Comment> Comments { get; set; }
 
-        public Game()
-        { }
+       public virtual IEnumerable<Genre> Genres { get; set; }
 
-        public Game(string Name, string Description)
-        {
-            Id = Guid.NewGuid();
-            Key = Id.ToString();
-            this.Name = Name;
-            this.Description = Description;
-        }
+       public virtual IEnumerable<PlatformType> PlatformTypes { get; set; }
 
-        public Game(string Name, string Description, string Key)
-        {
-            Id = Guid.NewGuid();
-            this.Key = Key;
-            this.Name = Name;
-            this.Description = Description;
-        }
     }
 }

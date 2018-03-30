@@ -26,9 +26,9 @@ namespace GameStore.Tests.Service
         {
             gameRepo.Setup(x => x.Games.GetAll()).Returns(new List<Game>
            {
-                new Game ("name1","description1","key1"),
-                new Game ("name2","description2","key2"),
-                new Game ("name3","description3","key3")
+                new Game (),
+                new Game (),
+                new Game ()
            });
             gameRepo.Setup(x => x.Games.Create(It.IsAny<Game>())).Callback(() => games.Add(It.IsAny<Game>()));
             gameRepo.Setup(x => x.Games.Delete(It.IsAny<Guid>())).Callback(() => boolDelete = true);
@@ -45,25 +45,19 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void AddNewGame_2GamesOneWithNotUniqKey_1Games()
+        public void AddNewGame_2GamesWithUniqKey_2Games()
         {
-            GameDTO game1 = new GameDTO("name","description","key1");
-            GameDTO game2 = new GameDTO("name", "description", "key");
+            GameDTO game1 = new GameDTO();
+            game1.Key = "1";
+            GameDTO game2 = new GameDTO();
+            game2.Key = "2";
             gameService.AddNewGame(game1);
             gameService.AddNewGame(game2);
 
             gameRepo.Setup(x => x.Games.GetAll()) .Returns(games);
             var countGames = gameService.GetAllGame().Count();
 
-            Xunit.Assert.Equal(1, countGames);
-        }
-
-        [Fact]
-        public void DeleteGame_Id_True()
-        {
-            gameService.DeleteGame(id);
-
-            Xunit.Assert.True(boolDelete);
+            Xunit.Assert.Equal(2, countGames);
         }
 
         [Fact]

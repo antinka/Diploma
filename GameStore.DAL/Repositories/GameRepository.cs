@@ -12,37 +12,37 @@ namespace GameStore.DAL.Repositories
 {
     public class GameRepository : IRepository<Game>
     {
-        private GameStoreContext db;
+        private readonly GameStoreContext _db;
 
         public GameRepository(GameStoreContext context)
         {
-            db = context;
+            _db = context;
         }
-        public void Create(Game item)
+        public void Create(Game game)
         {
-             db.Games.Add(item);
+             _db.Games.Add(game);
         }
 
         public void Delete(Guid id)
         {
-            Game item = db.Games.Find(id);
+            Game item = _db.Games.Find(id);
             if (item != null)
-                db.Games.Remove(item);
+                _db.Games.Remove(item);
         }
 
         public Game Get(Guid id)
         {
-            return db.Games.Find(id);
+            return _db.Games.Find(id);
         }
 
         public IEnumerable<Game> GetAll()
         {
-            return db.Games;
+            return _db.Games.Where(d => d.IsDelete == false);
         }
 
-        public void Update(Game item)
+        public void Update(Game game)
         {
-            db.Entry(item).State = EntityState.Modified;
+            _db.Entry(game).State = EntityState.Modified;
         }
     }
 }

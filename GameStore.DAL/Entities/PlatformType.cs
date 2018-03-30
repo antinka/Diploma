@@ -8,18 +8,14 @@ using System.Threading.Tasks;
 
 namespace GameStore.DAL.Entities
 {
-    public class PlatformType
+    public class PlatformType: BaseEntity
     {
         [Key]
         public Guid Id { get; set; }
         [Index("Index_Type", 1, IsUnique = true)]
+        [MaxLength(450)]
         public string Type { get; set; }
-        public ICollection<Game> Games { get; set; }
 
-        public PlatformType(string Type)
-        {
-            Id = Guid.NewGuid();
-            this.Type = Type;
-        }
+        public virtual IEnumerable<Game> Games { get; set; }
     }
 }

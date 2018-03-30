@@ -15,17 +15,8 @@ namespace GameStore.BAL.DTO
         public string Name { get; set; }
         public ICollection<GameDTO> Games { get; set; }
 
-        public GenreDTO(string Name)
+        public GenreDTO()
         {
-            Id = Guid.NewGuid();
-            this.Name = Name;
-        }
-
-        public GenreDTO(string Name, Guid IdParentGanre)
-        {
-            Id = Guid.NewGuid();
-            this.Name = Name;
-            this.IdParentGanre = IdParentGanre;
         }
     }
 }

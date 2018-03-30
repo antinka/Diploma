@@ -1,16 +1,21 @@
-﻿using GameStore.DAL.Entities;
-using System;
 using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using GameStore.DAL.Entities;
 
-namespace GameStore.DAL.EF
+namespace GameStore.DAL.Migrations
 {
-    public class GameStoreDbInitializer : DropCreateDatabaseIfModelChanges<GameStoreContext>
+    using System;
+    using System.Data.Entity;
+    using System.Data.Entity.Migrations;
+    using System.Linq;
+
+    internal sealed class Configuration : DbMigrationsConfiguration<GameStore.DAL.EF.GameStoreContext>
     {
-        protected override void Seed(GameStoreContext context)
+        public Configuration()
+        {
+            AutomaticMigrationsEnabled = false;
+        }
+
+        protected override void Seed(GameStore.DAL.EF.GameStoreContext context)
         {
             var strategy = new Genre
             {
@@ -207,6 +212,7 @@ namespace GameStore.DAL.EF
             context.Comments.Add(cm4);
 
             context.SaveChanges();
+
         }
     }
 }

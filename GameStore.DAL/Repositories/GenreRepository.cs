@@ -12,37 +12,37 @@ namespace GameStore.DAL.Repositories
 {
     public class GenreRepository : IRepository<Genre>
     {
-        private GameStoreContext db;
+        private readonly GameStoreContext _db;
 
         public GenreRepository(GameStoreContext context)
         {
-            db = context;
+            _db = context;
         }
-        public void Create(Genre item)
+        public void Create(Genre genre)
         {
-            db.Genres.Add(item);
+            _db.Genres.Add(genre);
         }
 
         public void Delete(Guid id)
         {
-            Genre item = db.Genres.Find(id);
+            Genre item = _db.Genres.Find(id);
             if (item != null)
-                db.Genres.Remove(item);
+                _db.Genres.Remove(item);
         }
 
         public Genre Get(Guid id)
         {
-            return db.Genres.Find(id);
+            return _db.Genres.Find(id);
         }
 
         public IEnumerable<Genre> GetAll()
         {
-            return db.Genres;
+            return _db.Genres.Where(d => d.IsDelete == false);
         }
 
-        public void Update(Genre item)
+        public void Update(Genre genre)
         {
-            db.Entry(item).State = EntityState.Modified;
+            _db.Entry(genre).State = EntityState.Modified;
         }
     }
 }

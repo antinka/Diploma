@@ -22,20 +22,5 @@ namespace GameStore.BAL.DTO
         public GameDTO()
         { }
 
-        public GameDTO(string Name, string Description)
-        {
-            Id = Guid.NewGuid();
-            Key = Id.ToString();
-            this.Name = Name;
-            this.Description = Description;
-        }
-
-        public GameDTO(string Name, string Description, string Key)
-        {
-            Id = Guid.NewGuid();
-            this.Key = Key;
-            this.Name = Name;
-            this.Description = Description;
-        }
     }
 }

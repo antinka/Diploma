@@ -21,8 +21,11 @@ namespace GameStore.Controllers
 
         public string Index()
         {
-            // return gameService.GetGamesByGenre(Guid.Parse("E73C7A6C-6D9A-4606-B9FA-5F617C847125")).Count.ToString();
-            return gameService.GetGamesByPlatformType(Guid.Parse("8a36e672-683a-48c3-8ccf-5983549448e7")).Count().ToString();
+            // return gameService.GetGamesByGenre(Guid.Parse("608d7a2d-7b81-4edb-83f1-a92877e79ea8")).Count().ToString();
+             return gameService.GetGamesByPlatformType(Guid.Parse("0a7f170f-1158-4c69-8fe1-5c87ae2743a6")).Count().ToString();
+            // return "asd";
+            // return gameService.GetAllGame().Count().ToString();
+           // return gameService.GetGame(Guid.Parse("5f29f5db-9dfd-45dc-b739-57be4e8555d5")).Name.ToString();
         }
 
     }

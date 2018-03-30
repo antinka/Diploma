@@ -6,25 +6,25 @@ namespace GameStore.DAL.EF
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private GameStoreContext db;
-        private CommentRepository commentRepository;
-        private GameRepository gameRepository;
-        private GenreRepository genreRepository;
-        private PlatformTypeRepository platformTypeRepository;
+        private  GameStoreContext _db;
+        private  CommentRepository _commentRepository;
+        private  GameRepository _gameRepository;
+        private  GenreRepository _genreRepository;
+        private  PlatformTypeRepository _platformTypeRepository;
 
 
         public UnitOfWork(string connectionString)
         {
-            db = new GameStoreContext(connectionString);
+            _db = new GameStoreContext(connectionString);
         }
 
         public IRepository<Comment> Comments
         {
             get
             {
-                if (commentRepository == null)
-                    commentRepository = new CommentRepository(db);
-                return commentRepository;
+                if (_commentRepository == null)
+                    _commentRepository = new CommentRepository(_db);
+                return _commentRepository;
             }
         }
 
@@ -32,9 +32,9 @@ namespace GameStore.DAL.EF
         {
             get
             {
-                if (gameRepository == null)
-                    gameRepository = new GameRepository(db);
-                return gameRepository;
+                if (_gameRepository == null)
+                    _gameRepository = new GameRepository(_db);
+                return _gameRepository;
             }
         }
 
@@ -42,9 +42,9 @@ namespace GameStore.DAL.EF
         {
             get
             {
-                if (genreRepository == null)
-                    genreRepository = new GenreRepository(db);
-                return genreRepository;
+                if (_genreRepository == null)
+                    _genreRepository = new GenreRepository(_db);
+                return _genreRepository;
             }
         }
 
@@ -52,15 +52,15 @@ namespace GameStore.DAL.EF
         {
             get
             {
-                if (platformTypeRepository == null)
-                    platformTypeRepository = new PlatformTypeRepository(db);
-                return platformTypeRepository;
+                if (_platformTypeRepository == null)
+                    _platformTypeRepository = new PlatformTypeRepository(_db);
+                return _platformTypeRepository;
             }
         }
 
         public void Save()
         {
-            db.SaveChanges();
+            _db.SaveChanges();
         }
 
     }

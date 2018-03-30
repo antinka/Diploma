@@ -1,45 +1,47 @@
-﻿using GameStore.DAL.EF;
-using GameStore.DAL.Entities;
-using GameStore.DAL.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
+using GameStore.DAL.EF;
+using GameStore.DAL.Entities;
+using GameStore.DAL.Interfaces;
 
 namespace GameStore.DAL.Repositories
 {
     public class CommentRepository : IRepository<Comment>
     {
-        private GameStoreContext db;
+        private readonly GameStoreContext _db;
 
         public CommentRepository(GameStoreContext context)
         {
-            db = context;
+            _db = context;
         }
-        public void Create(Comment item)
+        public void Create(Comment comment)
         {
-            db.Comments.Add(item);
+            _db.Comments.Add(comment);
         }
 
         public void Delete(Guid id)
         {
-            Comment item = db.Comments.Find(id);
+            Comment item = _db.Comments.Find(id);
+
             if (item != null)
-                db.Comments.Remove(item);
+                _db.Comments.Remove(item);
         }
 
         public Comment Get(Guid id)
         {
-            return db.Comments.Find(id);
+            return _db.Comments.Find(id);
         }
 
         public IEnumerable<Comment> GetAll()
         {
-            return db.Comments;
+            return _db.Comments.Where(d=>d.IsDelete==false);
         }
 
-        public void Update(Comment item)
+        public void Update(Comment comment)
         {
-            db.Entry(item).State = EntityState.Modified;
+            _db.Entry(comment).State = EntityState.Modified;
         }
     }
 }

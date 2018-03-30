@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace GameStore.App_Start
+namespace GameStore.Infastracture
 {
         public class DTOToViewModel : Profile
         {
