@@ -41,7 +41,7 @@ namespace GameStore
             routes.MapRoute(
              name: "gamesRemove",
              url: "games/remove/{id}",
-             defaults: new { controller = "Game", action = "GetAllGames", id = UrlParameter.Optional }
+             defaults: new { controller = "Game", action = "Remove", id = UrlParameter.Optional }
          );
 
             routes.MapRoute(

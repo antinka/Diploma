@@ -14,7 +14,7 @@ namespace GameStore.Tests.Service
     public class GameServiceTest
     {
         
-        static Mock<IUnitOfWork> gameRepo = new Mock<IUnitOfWork>();
+        static Mock<IUnitOfWorkGeneric> gameRepo = new Mock<IUnitOfWorkGeneric>();
         static GameService gameService = new GameService(gameRepo.Object);
      
         List<Game> games = new List<Game>();

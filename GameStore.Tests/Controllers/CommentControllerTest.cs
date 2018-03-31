@@ -35,7 +35,7 @@ namespace GameStore.Tests.Controllers
 
             commentController.CommentToGame(id,comment);
 
-            Xunit.Assert.True(boolAddCommentToGame);
+            Assert.True(boolAddCommentToGame);
         }
 
         [Fact]
@@ -43,7 +43,7 @@ namespace GameStore.Tests.Controllers
         {
             commentController.GetAllCommentToGame(id);
 
-            Xunit.Assert.True(boolGetAllCommentToGameId);
+            Assert.True(boolGetAllCommentToGameId);
         }
 
     }

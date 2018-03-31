@@ -1,5 +1,4 @@
-﻿using GameStore.App_Start;
-using GameStore.BAL.DTO;
+﻿using GameStore.BAL.DTO;
 using GameStore.BAL.Interfaces;
 using GameStore.Controllers;
 using GameStore.Models;
@@ -7,8 +6,6 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace GameStore.Tests.Controllers
@@ -33,7 +30,7 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
-        public  void NewGame_AddNewGame_NewGameInList()
+        public void NewGame_AddNewGame_NewGameInList()
         {
             GameViewModel game = new GameViewModel();
 

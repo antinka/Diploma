@@ -13,7 +13,7 @@ namespace GameStore.Tests.Service
 {
     public class CommentServiceTest
     {
-        static Mock<IUnitOfWork> gameRepo = new Mock<IUnitOfWork>();
+        static Mock<IUnitOfWorkGeneric> gameRepo = new Mock<IUnitOfWorkGeneric>();
         static CommentService commentService = new CommentService(gameRepo.Object);
 
         List<Comment> comment = new List<Comment>();
