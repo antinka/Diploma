@@ -14,12 +14,6 @@ namespace GameStore.Models
         public Guid Id { get; set; }
         [Index("Index_Type", 1, IsUnique = true)]
         public string Type { get; set; }
-        public ICollection<GameViewModel> Games { get; set; }
 
-        public PlatformTypeViewModel(string Type)
-        {
-            Id = Guid.NewGuid();
-            this.Type = Type;
-        }
     }
 }

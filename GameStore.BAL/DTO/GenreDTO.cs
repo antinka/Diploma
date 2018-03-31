@@ -13,10 +13,6 @@ namespace GameStore.BAL.DTO
         public Guid Id { get; set; }
         public Guid? IdParentGanre { get; set; }
         public string Name { get; set; }
-        public ICollection<GameDTO> Games { get; set; }
 
-        public GenreDTO()
-        {
-        }
     }
 }

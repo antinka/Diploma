@@ -19,24 +19,5 @@ namespace GameStore.Models
         public Guid GameId { get; set; }
         public GameViewModel Game { get; set; }
 
-        public CommentViewModel()
-        { }
-
-        public CommentViewModel(GameViewModel Game, string Name, string Body)
-        {
-            Id = Guid.NewGuid();
-            this.Name = Name;
-            this.Game = Game;
-            this.Body = Body;
-        }
-
-        public CommentViewModel(GameViewModel Game, string Name, string Body, Guid ParentCommentId)
-        {
-            Id = Guid.NewGuid();
-            this.Name = Name;
-            this.Game = Game;
-            this.Body = Body;
-            this.ParentCommentId = ParentCommentId;
-        }
     }
 }

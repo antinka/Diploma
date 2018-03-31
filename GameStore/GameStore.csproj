@@ -113,6 +113,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\GameStore.mdf" />
+    <Content Include="App_Data\GameStore_log.ldf">
+      <DependentUpon>GameStore.mdf</DependentUpon>
+    </Content>
     <Content Include="Files\test.txt" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
@@ -147,9 +151,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\GameStore.BAL\GameStore.BAL.csproj">
       <Project>{D0782D1D-3927-4A45-8D57-32B107A8CF69}</Project>

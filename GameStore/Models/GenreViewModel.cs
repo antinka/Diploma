@@ -13,22 +13,8 @@ namespace GameStore.Models
         [Key]
         public Guid Id { get; set; }
         public Guid? IdParentGanre { get; set; }
-
         [Index("Index_Name", 1, IsUnique = true)]
         public string Name { get; set; }
-        public ICollection<GameViewModel> Games { get; set; }
-
-        public GenreViewModel(string Name)
-        {
-            Id = Guid.NewGuid();
-            this.Name = Name;
-        }
-
-        public GenreViewModel(string Name, Guid IdParentGanre)
-        {
-            Id = Guid.NewGuid();
-            this.Name = Name;
-            this.IdParentGanre = IdParentGanre;
-        }
+       
     }
 }

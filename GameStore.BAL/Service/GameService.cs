@@ -15,11 +15,11 @@ namespace GameStore.BAL.Service
 {
     public class GameService : IGameService
     {
-        private IUnitOfWork Db { get; set; }
+        private IUnitOfWorkGeneric Db { get; set; }
         private readonly ILog _log = LogManager.GetLogger("LOGGER");
-        private readonly IMapper _mapper = GameStore.Infastracture.MapperConfigBLL.GetMapper();
+        private IMapper _mapper = GameStore.Infastracture.MapperConfigBLL.GetMapper();
 
-        public GameService(IUnitOfWork uow)
+        public GameService(IUnitOfWorkGeneric uow)
         {
             Db = uow;
         }
@@ -59,9 +59,13 @@ namespace GameStore.BAL.Service
         }
 
         public IEnumerable<GameDTO> GetAllGame()
-        { 
-            return _mapper.Map<IEnumerable<Game>, List<GameDTO>>(Db.Games.GetAll());
+        {
+            // var gameList = Db.Games.GetAll();
+            //  return (Db.Games.GetAll()).Select(_mapper.Map<GameDTO>);
+             return _mapper.Map<IEnumerable<Game>, List<GameDTO>>(Db.Games.GetAll());
+            // return Db.Games.GetAll().Select(Mapper.Map<GameDTO>).ToList();
         }
+
 
         public GameDTO GetGame(Guid id)
         { 

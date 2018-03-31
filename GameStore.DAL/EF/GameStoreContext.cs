@@ -1,7 +1,6 @@
 ﻿using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
 using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace GameStore.DAL.EF
 {
@@ -12,6 +11,12 @@ namespace GameStore.DAL.EF
         public DbSet<Genre> Genres { get; set; }
         public DbSet<PlatformType> PlatformTypes { get; set; }
 
+        public static GameStoreContext Create()
+        {
+            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<GameStoreContext>());
+            return new GameStoreContext();
+        }
+
         public GameStoreContext()
         {
         }
@@ -19,7 +24,25 @@ namespace GameStore.DAL.EF
         public GameStoreContext(string connectionString)
             : base(connectionString)
         {
-            Database.SetInitializer(new GameStoreDbInitializer());
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            //modelBuilder.Entity<Game>()
+            //    .HasMany(s => s.Comments)
+            //    .WithRequired(e => e.Game);
+
+            //modelBuilder.Entity<Game>()
+            //    .HasMany(c => c.Genres)
+            //     .WithMany(s => s.Games)
+            //     .Map(a => a.ToTable("GamesGenres"));
+
+            //modelBuilder.Entity<Game>()
+            //    .HasMany(c => c.PlatformTypes)
+            //    .WithMany(s => s.Games)
+            //    .Map(a => a.ToTable("GamesPlatformTypes"));
         }
     }
 }

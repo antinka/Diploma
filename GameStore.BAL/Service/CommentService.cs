@@ -18,11 +18,11 @@ namespace GameStore.BAL.Service
 {
     public class CommentService : ICommentService
     {
-        private IUnitOfWork Db { get; set; }
+        private IUnitOfWorkGeneric Db { get; set; }
         private readonly ILog _log = LogManager.GetLogger("LOGGER");
         private readonly IMapper _mapper = GameStore.Infastracture.MapperConfigBLL.GetMapper();
 
-        public CommentService(IUnitOfWork uow)
+        public CommentService(IUnitOfWorkGeneric uow)
         {
             Db = uow;
         }

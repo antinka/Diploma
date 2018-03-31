@@ -15,12 +15,5 @@ namespace GameStore.BAL.DTO
         public string Name { get; set; }
         public string Description { get; set; }
 
-        public ICollection<CommentDTO> Comments { get; set; }
-        public ICollection<GenreDTO> Genres { get; set; }
-        public ICollection<PlatformTypeDTO> PlatformTypes { get; set; }
-
-        public GameDTO()
-        { }
-
     }
 }

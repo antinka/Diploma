@@ -1,5 +1,10 @@
 ﻿using AutoMapper;
+using AutoMapper.EntityFramework;
+using AutoMapper.EquivalencyExpression;
 using GameStore.BAL;
+using GameStore.BAL.DTO;
+using GameStore.DAL.Entities;
+using System.Collections.Generic;
 
 namespace GameStore.Infastracture
 {
@@ -9,7 +14,7 @@ namespace GameStore.Infastracture
         {
             MapperConfiguration mapperConfiguration = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile(new EntitiToDTO());
+                cfg.AddProfile(new EntitiToDTO()); 
             });
             return mapperConfiguration.CreateMapper();
         }

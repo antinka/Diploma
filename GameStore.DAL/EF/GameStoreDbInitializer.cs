@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GameStore.DAL.EF
 {
-    public class GameStoreDbInitializer : DropCreateDatabaseIfModelChanges<GameStoreContext>
+    public class GameStoreDbInitializer :DropCreateDatabaseAlways<GameStoreContext>
     {
         protected override void Seed(GameStoreContext context)
         {
@@ -151,7 +151,8 @@ namespace GameStore.DAL.EF
             {
                 Id = Guid.NewGuid(),
                 Name = "wow",
-                Description = "smth"
+                Description = "smth",
+                Key =Guid.NewGuid().ToString()
             };
             wow.Genres = new List<Genre>() { fps, adventure };
             wow.PlatformTypes = new List<PlatformType>() { windows };
@@ -161,7 +162,8 @@ namespace GameStore.DAL.EF
             {
                 Id = Guid.NewGuid(),
                 Name = "hero",
-                Description = "smth"
+                Description = "smth",
+               Key = Guid.NewGuid().ToString()
             };
 
             hero.Genres = new List<Genre>() { puzzleSkill, adventure, subMisc };
@@ -206,7 +208,9 @@ namespace GameStore.DAL.EF
             context.Comments.Add(cm3);
             context.Comments.Add(cm4);
 
+        
             context.SaveChanges();
+            base.Seed(context);
         }
     }
 }
