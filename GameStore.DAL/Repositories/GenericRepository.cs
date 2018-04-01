@@ -13,12 +13,12 @@ namespace GameStore.DAL.Repositories
     public class GenericRepository<TEntiy> : IGenericRepository<TEntiy> where TEntiy : class, IBaseEntity
     {
         private readonly GameStoreContext _db;
-        private DbSet<TEntiy> _dbSet;
+        private readonly DbSet<TEntiy> _dbSet;
 
-        public GenericRepository(GameStoreContext _db)
+        public GenericRepository(GameStoreContext db)
         {
-            this._db = _db;
-            this._dbSet = _db.Set<TEntiy>();
+            this._db = db;
+            this._dbSet = db.Set<TEntiy>();
         }
 
         public virtual void Create(TEntiy item)
@@ -29,7 +29,7 @@ namespace GameStore.DAL.Repositories
 
         public virtual void Delete(Guid id)
         {
-            TEntiy item = _dbSet.Find(id);
+            var item = _dbSet.Find(id);
             if (item != null)
                 _dbSet.Remove(item);
         }
@@ -41,7 +41,7 @@ namespace GameStore.DAL.Repositories
 
         public virtual IEnumerable<TEntiy> GetAll()
         {
-            return _dbSet;
+            return _dbSet.Where(x=>x.IsDelete==false);
         }
 
         public virtual void Update(TEntiy item)

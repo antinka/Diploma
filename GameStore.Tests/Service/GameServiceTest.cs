@@ -13,33 +13,30 @@ namespace GameStore.Tests.Service
 {
     public class GameServiceTest
     {
-        
-        static Mock<IUnitOfWorkGeneric> gameRepo = new Mock<IUnitOfWorkGeneric>();
-        static GameService gameService = new GameService(gameRepo.Object);
-     
-        List<Game> games = new List<Game>();
-        bool boolDelete = false;
-        bool boolUpdate = false;
-        public Guid id = Guid.NewGuid();
+        private static readonly Mock<IUnitOfWorkGeneric> GameRepo = new Mock<IUnitOfWorkGeneric>();
+        private static readonly GameService GameService = new GameService(GameRepo.Object);
+
+        private readonly List<Game> _games = new List<Game>();
+        bool _boolUpdate;
+        private Guid Id = Guid.NewGuid();
 
         public GameServiceTest()
         {
-            gameRepo.Setup(x => x.Games.GetAll()).Returns(new List<Game>
+            GameRepo.Setup(x => x.Games.GetAll()).Returns(new List<Game>
            {
                 new Game (),
                 new Game (),
                 new Game ()
            });
-            gameRepo.Setup(x => x.Games.Create(It.IsAny<Game>())).Callback(() => games.Add(It.IsAny<Game>()));
-            gameRepo.Setup(x => x.Games.Delete(It.IsAny<Guid>())).Callback(() => boolDelete = true);
-            gameRepo.Setup(x => x.Games.Get(id)).Returns(new Game { Id = id, Name = "game1" });
-            gameRepo.Setup(x => x.Games.Update(It.IsAny<Game>())).Callback(() => boolUpdate = true);
+            GameRepo.Setup(x => x.Games.Create(It.IsAny<Game>())).Callback(() => _games.Add(It.IsAny<Game>()));
+            GameRepo.Setup(x => x.Games.Get(Id)).Returns(new Game { Id = Id, Name = "game1" });
+            GameRepo.Setup(x => x.Games.Update(It.IsAny<Game>())).Callback(() => _boolUpdate = true);
         }
 
         [Fact]
         public void GetAllGame_3Games_3Games()
         {
-            var countGames = gameService.GetAllGame().Count();
+            var countGames = GameService.GetAllGame().Count();
 
             Xunit.Assert.Equal(3, countGames);
         }
@@ -47,15 +44,19 @@ namespace GameStore.Tests.Service
         [Fact]
         public void AddNewGame_2GamesWithUniqKey_2Games()
         {
-            GameDTO game1 = new GameDTO();
-            game1.Key = "1";
-            GameDTO game2 = new GameDTO();
-            game2.Key = "2";
-            gameService.AddNewGame(game1);
-            gameService.AddNewGame(game2);
+            var game1 = new GameDTO
+            {
+                Key = "1"
+            };
+            var game2 = new GameDTO
+            {
+                Key = "2"
+            };
+            GameService.AddNewGame(game1);
+            GameService.AddNewGame(game2);
 
-            gameRepo.Setup(x => x.Games.GetAll()) .Returns(games);
-            var countGames = gameService.GetAllGame().Count();
+            GameRepo.Setup(x => x.Games.GetAll()) .Returns(_games);
+            var countGames = GameService.GetAllGame().Count();
 
             Xunit.Assert.Equal(2, countGames);
         }
@@ -63,11 +64,11 @@ namespace GameStore.Tests.Service
         [Fact]
         public void EditGame_GameDTO_updateDescription()
         {
-            GameDTO testGame = new GameDTO();
+            var testGame = new GameDTO();
 
-            gameService.EditGame(testGame);
+            GameService.EditGame(testGame);
 
-            Xunit.Assert.True(boolUpdate);
+            Xunit.Assert.True(_boolUpdate);
         }
        
             

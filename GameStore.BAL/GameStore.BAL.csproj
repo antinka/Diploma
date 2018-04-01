@@ -92,6 +92,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exeption\GameStoreExeption.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Infastracture\BLLModule.cs" />
     <Compile Include="Infastracture\EntitiToDTO.cs" />
     <Compile Include="DTO\CommentDTO.cs" />

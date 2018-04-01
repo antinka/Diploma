@@ -1,20 +1,14 @@
 ﻿using AutoMapper;
-using AutoMapper.EntityFramework;
-using AutoMapper.EquivalencyExpression;
-using GameStore.BAL;
-using GameStore.BAL.DTO;
-using GameStore.DAL.Entities;
-using System.Collections.Generic;
 
-namespace GameStore.Infastracture
+namespace GameStore.BAL.Infastracture
 {
-    public class MapperConfigBLL
+    public class MapperConfigBll
     {
         public static IMapper GetMapper()
         {
-            MapperConfiguration mapperConfiguration = new MapperConfiguration(cfg =>
+            var mapperConfiguration = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile(new EntitiToDTO()); 
+                cfg.AddProfile(new EntitiToDto()); 
             });
             return mapperConfiguration.CreateMapper();
         }

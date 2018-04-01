@@ -1,14 +1,10 @@
-﻿using System.Reflection;
-using System.Web.Mvc;
-using Autofac;
+﻿using Autofac;
 using Autofac.Integration.Mvc;
-using GameStore.BAL.Service;
-using GameStore.BAL.Interfaces;
-using GameStore.DAL.EF;
-using System.Data.Entity;
-using GameStore.DAL.Interfaces;
-using GameStore.BAL;
 using GameStore.BAL.Infastracture;
+using GameStore.BAL.Interfaces;
+using GameStore.BAL.Service;
+using System.Reflection;
+using System.Web.Mvc;
 
 namespace GameStore.Infastracture
 {
@@ -36,7 +32,7 @@ namespace GameStore.Infastracture
             // OPTIONAL: Enable property injection into action filters.
             builder.RegisterFilterProvider();
 
-            builder.RegisterModule(new BLLModule("DefaultConnection")); 
+            builder.RegisterModule(new BllModule("DefaultConnection")); 
             builder.RegisterType<GameService>().As<IGameService>().InstancePerLifetimeScope();
             builder.RegisterType<CommentService>().As<ICommentService>().InstancePerLifetimeScope();
         }

@@ -1,9 +1,6 @@
-﻿using GameStore.App_Start;
-using GameStore.BAL;
-using GameStore.BAL.Infastracture;
+﻿using GameStore.Infastracture;
 using System.Web.Mvc;
 using System.Web.Routing;
-using GameStore.Infastracture;
 
 namespace GameStore
 {

@@ -10,32 +10,30 @@ using Xunit;
 
 namespace GameStore.Tests.Controllers
 {
-    public class GameControllerTest
+    public class GameControllerTest :IDisposable
     {
-        static Mock<IGameService> gameRepo = new Mock<IGameService>();
-        List<GameDTO> games = new List<GameDTO>();
-        public Guid id = Guid.NewGuid();
-        bool boolDelete = false;
-        bool boolUpdate = false;
-        bool boolGet = false;
-        GameController gameController = new GameController(gameRepo.Object);
+        private static readonly Mock<IGameService> GameRepo = new Mock<IGameService>();
+        private readonly List<GameDTO> games = new List<GameDTO>();
+        public Guid Id = Guid.NewGuid();
+        private bool _boolDelete, _boolUpdate, _boolGet;
+        private readonly GameController _gameController = new GameController(GameRepo.Object);
 
         public GameControllerTest()
         {
             AutoMapper.Mapper.Reset();
-            gameRepo.Setup(x => x.AddNewGame(It.IsAny<GameDTO>())).Callback(() => games.Add(It.IsAny<GameDTO>()));
-            gameRepo.Setup(x => x.EditGame(It.IsAny<GameDTO>())).Callback(() => boolUpdate = true);
-            gameRepo.Setup(x => x.DeleteGame(It.IsAny<Guid>())).Callback(() => boolDelete = true);
-            gameRepo.Setup(x => x.GetGame(It.IsAny<Guid>())).Callback(() => boolGet = true);
+            GameRepo.Setup(x => x.AddNewGame(It.IsAny<GameDTO>())).Callback(() => games.Add(It.IsAny<GameDTO>()));
+            GameRepo.Setup(x => x.EditGame(It.IsAny<GameDTO>())).Callback(() => _boolUpdate = true);
+            GameRepo.Setup(x => x.DeleteGame(It.IsAny<Guid>())).Callback(() => _boolDelete = true);
+            GameRepo.Setup(x => x.GetGame(It.IsAny<Guid>())).Callback(() => _boolGet = true);
         }
 
         [Fact]
         public void NewGame_AddNewGame_NewGameInList()
         {
-            GameViewModel game = new GameViewModel();
+            var game = new GameViewModel();
 
-            var result = gameController.New(game);
-            int countNewGames = games.Count();
+            var result = _gameController.New(game);
+            var countNewGames = games.Count();
 
             Assert.Equal(1, countNewGames);
         }
@@ -43,27 +41,32 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void UpdateGame_GameDTO_boolUpdateTrue()
         {
-            GameViewModel game = new GameViewModel();
+            var game = new GameViewModel();
 
-            gameController.Update(game);
+            _gameController.Update(game);
 
-            Xunit.Assert.True(boolUpdate);
+            Xunit.Assert.True(_boolUpdate);
         }
 
         [Fact]
         public void DeleteGame_Id_boolDeleteTrue()
         {
-            gameController.Remove(id);
+            _gameController.Remove(Id);
 
-            Xunit.Assert.True(boolDelete);
+            Xunit.Assert.True(_boolDelete);
         }
 
         [Fact]
         public void GetGame_Id_boolGetTrue()
         {
-            gameController.GetGameById(id);
+            _gameController.GetGameById(Id);
 
-            Xunit.Assert.True(boolGet);
+            Xunit.Assert.True(_boolGet);
+        }
+
+        public void Dispose()
+        {
+            ((IDisposable)_gameController).Dispose();
         }
     }
 }

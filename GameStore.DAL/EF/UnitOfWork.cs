@@ -1,12 +1,13 @@
 ﻿using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
 using GameStore.DAL.Repositories;
+using System;
 
 namespace GameStore.DAL.EF
 {
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork, IDisposable
     {
-        private  GameStoreContext _db;
+        private readonly GameStoreContext _db;
         private  CommentRepository _commentRepository;
         private  GameRepository _gameRepository;
         private  GenreRepository _genreRepository;
@@ -56,6 +57,11 @@ namespace GameStore.DAL.EF
                     _platformTypeRepository = new PlatformTypeRepository(_db);
                 return _platformTypeRepository;
             }
+        }
+
+        public void Dispose()
+        {
+            ((IDisposable)_db).Dispose();
         }
 
         public void Save()

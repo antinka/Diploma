@@ -23,7 +23,7 @@ namespace GameStore.Tests.Routes
             var httpContextMock = new Mock<HttpContextBase>();
             httpContextMock.Setup(c => c.Request.AppRelativeCurrentExecutionFilePath)
                 .Returns("~/games/new/id");
-            RouteData routeData = RouteTable.Routes.GetRouteData(httpContextMock.Object);
+            var routeData = RouteTable.Routes.GetRouteData(httpContextMock.Object);
 
             Assert.Equal("Game", routeData.Values["controller"]);
             Assert.Equal("New", routeData.Values["action"]);
@@ -35,7 +35,7 @@ namespace GameStore.Tests.Routes
             var httpContextMock = new Mock<HttpContextBase>();
             httpContextMock.Setup(c => c.Request.AppRelativeCurrentExecutionFilePath)
                 .Returns("~/games");
-            RouteData routeData = RouteTable.Routes.GetRouteData(httpContextMock.Object);
+            var routeData = RouteTable.Routes.GetRouteData(httpContextMock.Object);
 
             Assert.Equal("Game", routeData.Values["controller"]);
             Assert.Equal("GetAllGames", routeData.Values["action"]);
@@ -47,7 +47,7 @@ namespace GameStore.Tests.Routes
             var httpContextMock = new Mock<HttpContextBase>();
             httpContextMock.Setup(c => c.Request.AppRelativeCurrentExecutionFilePath)
                 .Returns("~/game/Key");
-            RouteData routeData = RouteTable.Routes.GetRouteData(httpContextMock.Object);
+            var routeData = RouteTable.Routes.GetRouteData(httpContextMock.Object);
 
             Assert.Equal("Game", routeData.Values["Controller"]);
             Assert.Equal("GetGameById", routeData.Values["action"]);
@@ -59,7 +59,7 @@ namespace GameStore.Tests.Routes
             var httpContextMock = new Mock<HttpContextBase>();
             httpContextMock.Setup(c => c.Request.AppRelativeCurrentExecutionFilePath)
                 .Returns("~/games/update/id");
-            RouteData routeData = RouteTable.Routes.GetRouteData(httpContextMock.Object);
+            var routeData = RouteTable.Routes.GetRouteData(httpContextMock.Object);
 
             Assert.Equal("Game", routeData.Values["Controller"]);
             Assert.Equal("Update", routeData.Values["action"]);
@@ -71,7 +71,7 @@ namespace GameStore.Tests.Routes
             var httpContextMock = new Mock<HttpContextBase>();
             httpContextMock.Setup(c => c.Request.AppRelativeCurrentExecutionFilePath)
                 .Returns("~/games/remove/{id}");
-            RouteData routeData = RouteTable.Routes.GetRouteData(httpContextMock.Object);
+            var routeData = RouteTable.Routes.GetRouteData(httpContextMock.Object);
 
             Assert.Equal("Game", routeData.Values["Controller"]);
             Assert.Equal("Remove", routeData.Values["action"]);

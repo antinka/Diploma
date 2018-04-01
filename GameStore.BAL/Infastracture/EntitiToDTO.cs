@@ -1,33 +1,24 @@
-﻿using Autofac;
-using AutoMapper;
-using AutoMapper.EquivalencyExpression;
+﻿using AutoMapper;
 using GameStore.BAL.DTO;
 using GameStore.DAL.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 
-namespace GameStore.BAL
+namespace GameStore.BAL.Infastracture
 {
-    public class EntitiToDTO : Profile
+    public class EntitiToDto : Profile
     {
-        public EntitiToDTO()
+        public EntitiToDto()
         {
-
             CreateMap<GameDTO, Game>();
             CreateMap<Game, GameDTO>() ;
-
 
             CreateMap<GenreDTO, Genre>();
             CreateMap<Genre, GenreDTO>();
 
             CreateMap<PlatformTypeDTO, PlatformType>();
-              CreateMap<PlatformType, PlatformTypeDTO>();
+            CreateMap<PlatformType, PlatformTypeDTO>();
 
             CreateMap<CommentDTO, Comment>();
             CreateMap<Comment, CommentDTO>();
-
         }
     }
 }

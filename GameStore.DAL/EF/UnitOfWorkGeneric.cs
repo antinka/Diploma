@@ -5,7 +5,7 @@ using System;
 
 namespace GameStore.DAL.EF
 {
-    public class UnitOfWorkGeneric: IUnitOfWorkGeneric
+    public class UnitOfWorkGeneric: IUnitOfWorkGeneric,IDisposable
     {
         private GameStoreContext _db;
         private GenericRepository<Comment> _commentRepository;
@@ -57,6 +57,11 @@ namespace GameStore.DAL.EF
                     _platformTypeRepository = new GenericRepository<PlatformType>(_db);
                 return _platformTypeRepository;
             }
+        }
+
+        public void Dispose()
+        {
+            ((IDisposable)_db).Dispose();
         }
 
         public void Save()

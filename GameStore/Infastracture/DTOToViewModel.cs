@@ -1,18 +1,12 @@
-﻿using Autofac;
-using AutoMapper;
+﻿using AutoMapper;
 using GameStore.BAL.DTO;
-using GameStore.DAL.Entities;
 using GameStore.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace GameStore.Infastracture
 {
-        public class DTOToViewModel : Profile
+    public class DtoToViewModel : Profile
         {
-            public DTOToViewModel()
+            public DtoToViewModel()
             {
                 CreateMap<GameViewModel, GameDTO>();
                 CreateMap<GameDTO, GameViewModel>();

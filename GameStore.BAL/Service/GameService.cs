@@ -9,7 +9,6 @@ using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace GameStore.BAL.Service
 {
@@ -17,7 +16,7 @@ namespace GameStore.BAL.Service
     {
         private IUnitOfWorkGeneric Db { get; set; }
         private readonly ILog _log = LogManager.GetLogger("LOGGER");
-        private IMapper _mapper = GameStore.Infastracture.MapperConfigBLL.GetMapper();
+        private readonly IMapper _mapper = MapperConfigBll.GetMapper();
 
         public GameService(IUnitOfWorkGeneric uow)
         {
@@ -25,7 +24,7 @@ namespace GameStore.BAL.Service
         }
         public void AddNewGame(GameDTO gameDto)
         {
-            Game checkUniqueGameKey = Db.Games.GetAll().Where(x =>x.Key == gameDto.Key).FirstOrDefault();
+            var checkUniqueGameKey = Db.Games.GetAll().FirstOrDefault(x => x.Key == gameDto.Key);
             if (checkUniqueGameKey == null)
             {
                 Db.Games.Create(_mapper.Map<GameDTO, Game>(gameDto));
@@ -41,14 +40,12 @@ namespace GameStore.BAL.Service
         public void DeleteGame(Guid id)
         {
          
-                Game subject = Db.Games.Get(id);
-                if (subject != null)
-                {
-                    Db.Games.Delete(id);
-                    Db.Save();
-                    _log.Info("GameService - delete game");
-                }
-                throw new GameStoreExeption("GameService - attempt to delete not existed game");
+                var subject = Db.Games.Get(id);
+            if (subject == null) throw new GameStoreExeption("GameService - attempt to delete not existed game");
+            Db.Games.Delete(id);
+            Db.Save();
+            _log.Info("GameService - delete game");
+            throw new GameStoreExeption("GameService - attempt to delete not existed game");
         }
 
         public void EditGame(GameDTO gameDto)
@@ -60,10 +57,7 @@ namespace GameStore.BAL.Service
 
         public IEnumerable<GameDTO> GetAllGame()
         {
-            // var gameList = Db.Games.GetAll();
-            //  return (Db.Games.GetAll()).Select(_mapper.Map<GameDTO>);
              return _mapper.Map<IEnumerable<Game>, List<GameDTO>>(Db.Games.GetAll());
-            // return Db.Games.GetAll().Select(Mapper.Map<GameDTO>).ToList();
         }
 
 

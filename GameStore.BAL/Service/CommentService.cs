@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using GameStore;
 using GameStore.BAL.DTO;
 using GameStore.BAL.Exeption;
 using GameStore.BAL.Infastracture;
@@ -10,8 +9,6 @@ using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace GameStore.BAL.Service
@@ -20,7 +17,7 @@ namespace GameStore.BAL.Service
     {
         private IUnitOfWorkGeneric Db { get; set; }
         private readonly ILog _log = LogManager.GetLogger("LOGGER");
-        private readonly IMapper _mapper = GameStore.Infastracture.MapperConfigBLL.GetMapper();
+        private readonly IMapper _mapper = MapperConfigBll.GetMapper();
 
         public CommentService(IUnitOfWorkGeneric uow)
         {

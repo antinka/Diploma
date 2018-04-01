@@ -13,24 +13,23 @@ namespace GameStore.Tests.Service
 {
     public class CommentServiceTest
     {
-        static Mock<IUnitOfWorkGeneric> gameRepo = new Mock<IUnitOfWorkGeneric>();
-        static CommentService commentService = new CommentService(gameRepo.Object);
+        private static readonly Mock<IUnitOfWorkGeneric> GameRepo = new Mock<IUnitOfWorkGeneric>();
+        private static readonly CommentService CommentService = new CommentService(GameRepo.Object);
 
-        List<Comment> comment = new List<Comment>();
-        public Guid id = Guid.NewGuid();
+        private readonly List<Comment> _comment = new List<Comment>();
 
         public CommentServiceTest()
         {
-            gameRepo.Setup(x => x.Comments.Create(It.IsAny<Comment>())).Callback(() => comment.Add(It.IsAny<Comment>()));
+            GameRepo.Setup(x => x.Comments.Create(It.IsAny<Comment>())).Callback(() => _comment.Add(It.IsAny<Comment>()));
         }
 
         [Fact]
         public void AddCommentToGame_add1Comment_1CommentInList()
          {
-            CommentDTO commentDTO = new CommentDTO();
+            var commentDto = new CommentDTO();
 
-            commentService.AddCommentToGame(commentDTO, null);
-            int result = comment.Count();
+            CommentService.AddCommentToGame(commentDto, null);
+            var result = _comment.Count();
             Xunit.Assert.Equal(1, result);
          }
     }

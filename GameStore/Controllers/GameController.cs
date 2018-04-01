@@ -6,29 +6,28 @@ using GameStore.Infastracture;
 using GameStore.Models;
 using log4net;
 using System;
-using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace GameStore.Controllers
 {
-    [TrackRequestIP]
+    [TrackRequestIp]
     [ExceptionFilter]
     public class GameController : Controller
     {
-        private readonly IGameService gameService;
-        ILog log = LogManager.GetLogger("LOGGER");
-        IMapper mapper = MapperConfigUI.GetMapper();
+        private readonly IGameService _gameService;
+        private ILog _log = LogManager.GetLogger("LOGGER");
+        private readonly IMapper _mapper = MapperConfigUi.GetMapper();
 
         public GameController(IGameService gameService)
         {
-            this.gameService = gameService;
+            _gameService = gameService;
         }
        
         [OutputCache(Duration = 60)]
         [HttpPost]
         public JsonResult New(GameViewModel game)
         {
-            gameService.AddNewGame(mapper.Map<GameViewModel,GameDTO>(game));
+            _gameService.AddNewGame(_mapper.Map<GameViewModel,GameDTO>(game));
             return Json("Add new game", JsonRequestBehavior.AllowGet);
         }
 
@@ -36,7 +35,7 @@ namespace GameStore.Controllers
         [HttpPost]
         public ActionResult Update(GameViewModel game)
         {
-            gameService.EditGame(mapper.Map<GameViewModel, GameDTO>(game));
+            _gameService.EditGame(_mapper.Map<GameViewModel, GameDTO>(game));
             return Json("Add new game", JsonRequestBehavior.AllowGet);
         }
 
@@ -44,7 +43,7 @@ namespace GameStore.Controllers
         [HttpGet]
         public ActionResult GetGameById(Guid? key)
         {
-            GameDTO game = gameService.GetGame(key.GetValueOrDefault());
+            GameDTO game = _gameService.GetGame(key.GetValueOrDefault());
             return Json("GetGameById", JsonRequestBehavior.AllowGet);
         }
 
@@ -52,7 +51,7 @@ namespace GameStore.Controllers
         [HttpGet]
         public ActionResult GetAllGames()
         {
-            IEnumerable<GameDTO> games = gameService.GetAllGame();
+            var games = _gameService.GetAllGame();
             return Json("GetAllGames", JsonRequestBehavior.AllowGet);
         }
 
@@ -60,7 +59,7 @@ namespace GameStore.Controllers
         [HttpPost]
         public ActionResult Remove(Guid key)
         {
-            gameService.DeleteGame(key);
+            _gameService.DeleteGame(key);
             return Json("Remove Games", JsonRequestBehavior.AllowGet);
         }
 
@@ -68,10 +67,10 @@ namespace GameStore.Controllers
         [HttpGet]
         public FileResult Download(Guid gamekey)
         {
-            string path = Server.MapPath("~/Files/test.txt");
-            byte[] mas = System.IO.File.ReadAllBytes(path);
-            string file_type = "application/txt";
-            string file_name = "test.txt";
+            var path = Server.MapPath("~/Files/test.txt");
+            var mas = System.IO.File.ReadAllBytes(path);
+            var file_type = "application/txt";
+            var file_name = "test.txt";
             return File(mas, file_type, file_name);
         }
     }

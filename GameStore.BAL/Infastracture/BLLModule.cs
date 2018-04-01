@@ -13,18 +13,18 @@ using System.Threading.Tasks;
 
 namespace GameStore.BAL.Infastracture
 {
-    public class BLLModule: Autofac.Module
+    public class BllModule: Autofac.Module
     {
-        string connectionString;
+        private readonly string _connectionString;
 
-        public BLLModule(string connectionString)
+        public BllModule(string connectionString)
         {
-            this.connectionString = connectionString;
+            _connectionString = connectionString;
         }
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<GameStoreContext>().As<DbContext>().InstancePerLifetimeScope();
-            builder.RegisterType<UnitOfWorkGeneric>().As<IUnitOfWorkGeneric>().InstancePerRequest().WithParameter("connectionString",connectionString);
+            builder.RegisterType<UnitOfWorkGeneric>().As<IUnitOfWorkGeneric>().InstancePerRequest().WithParameter("connectionString",_connectionString);
         }
     }
 }

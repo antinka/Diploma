@@ -2,18 +2,19 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace GameStore.BAL.Exeption
 {
-    class GameStoreExeption : Exception
+    class GameStoreExeption : Exception,ISerializable
     {
-        ILog log = LogManager.GetLogger("LOGGER");
+        readonly ILog _log = LogManager.GetLogger("LOGGER");
         public GameStoreExeption(string message)
             : base(message)
         {
-            log.Info(message);
+            _log.Info(message);
         }
     }
 }

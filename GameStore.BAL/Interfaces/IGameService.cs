@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace GameStore.BAL.Interfaces
 {
-    public interface IGameService: IGameCRUDService
+    public interface IGameService: IGameCrudService
     {
-        IEnumerable<GameDTO> GetGamesByGenre(Guid GenreId);
+        IEnumerable<GameDTO> GetGamesByGenre(Guid genreId);
         IEnumerable<GameDTO> GetGamesByPlatformType(Guid platformTypeId);
     }
 }
