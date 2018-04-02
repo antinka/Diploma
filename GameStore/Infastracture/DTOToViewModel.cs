@@ -5,20 +5,16 @@ using GameStore.Models;
 namespace GameStore.Infastracture
 {
     public class DtoToViewModel : Profile
+    {
+        public DtoToViewModel()
         {
-            public DtoToViewModel()
-            {
-                CreateMap<GameViewModel, GameDTO>();
-                CreateMap<GameDTO, GameViewModel>();
+            CreateMap<GameDTO, GameViewModel>();
 
-                CreateMap<GenreViewModel, GenreDTO>();
-                CreateMap<GenreDTO, GenreViewModel>();
+            CreateMap<GenreDTO, GenreViewModel>();
 
-                CreateMap<PlatformTypeViewModel, PlatformTypeDTO>();
-                CreateMap<PlatformTypeDTO, PlatformTypeViewModel>();
+            CreateMap<PlatformTypeDTO, PlatformTypeViewModel>();
 
-                CreateMap<CommentViewModel, CommentDTO>();
-                CreateMap<CommentDTO, CommentViewModel>();
-            }
+            CreateMap<CommentDTO, CommentViewModel>();
         }
+    }
 }

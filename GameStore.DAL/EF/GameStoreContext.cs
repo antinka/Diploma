@@ -29,20 +29,6 @@ namespace GameStore.DAL.EF
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            //modelBuilder.Entity<Game>()
-            //    .HasMany(s => s.Comments)
-            //    .WithRequired(e => e.Game);
-
-            //modelBuilder.Entity<Game>()
-            //    .HasMany(c => c.Genres)
-            //     .WithMany(s => s.Games)
-            //     .Map(a => a.ToTable("GamesGenres"));
-
-            //modelBuilder.Entity<Game>()
-            //    .HasMany(c => c.PlatformTypes)
-            //    .WithMany(s => s.Games)
-            //    .Map(a => a.ToTable("GamesPlatformTypes"));
         }
     }
 }

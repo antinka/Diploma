@@ -1,19 +1,10 @@
 ﻿using Autofac;
-using GameStore.BAL.Interfaces;
-using GameStore.BAL.Service;
 using GameStore.DAL.EF;
 using GameStore.DAL.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameStore.BAL.Infastracture
 {
-    public class BllModule: Autofac.Module
+    public class BllModule : Module
     {
         private readonly string _connectionString;
 
@@ -23,8 +14,9 @@ namespace GameStore.BAL.Infastracture
         }
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<GameStoreContext>().As<DbContext>().InstancePerLifetimeScope();
-            builder.RegisterType<UnitOfWorkGeneric>().As<IUnitOfWorkGeneric>().InstancePerRequest().WithParameter("connectionString",_connectionString);
+            builder.RegisterInstance(MapperConfigBll.GetMapper());
+            builder.RegisterType<GameStoreContext>().As<IDbContext>().InstancePerLifetimeScope();
+            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerRequest().WithParameter("connectionString", _connectionString);
         }
     }
 }

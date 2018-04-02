@@ -91,9 +91,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Exeption\GameStoreExeption.cs" />
+    <Compile Include="Exeption\EntityNotFound.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Infastracture\BLLModule.cs" />
+    <Compile Include="Infastracture\DTOToEntity.cs" />
     <Compile Include="Infastracture\EntitiToDTO.cs" />
     <Compile Include="DTO\CommentDTO.cs" />
     <Compile Include="DTO\GameDTO.cs" />

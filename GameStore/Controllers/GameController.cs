@@ -2,9 +2,7 @@
 using GameStore.BAL.DTO;
 using GameStore.BAL.Interfaces;
 using GameStore.Filters;
-using GameStore.Infastracture;
 using GameStore.Models;
-using log4net;
 using System;
 using System.Web.Mvc;
 
@@ -15,12 +13,12 @@ namespace GameStore.Controllers
     public class GameController : Controller
     {
         private readonly IGameService _gameService;
-        private ILog _log = LogManager.GetLogger("LOGGER");
-        private readonly IMapper _mapper = MapperConfigUi.GetMapper();
+        private readonly IMapper _mapper;
 
-        public GameController(IGameService gameService)
+        public GameController(IGameService gameService, IMapper mapper)
         {
             _gameService = gameService;
+            _mapper = mapper;
         }
        
         [OutputCache(Duration = 60)]
@@ -35,7 +33,7 @@ namespace GameStore.Controllers
         [HttpPost]
         public ActionResult Update(GameViewModel game)
         {
-            _gameService.EditGame(_mapper.Map<GameViewModel, GameDTO>(game));
+            _gameService.UpdateGame(_mapper.Map<GameViewModel, GameDTO>(game));
             return Json("Add new game", JsonRequestBehavior.AllowGet);
         }
 

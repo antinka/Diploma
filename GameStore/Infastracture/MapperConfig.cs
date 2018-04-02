@@ -9,6 +9,7 @@ namespace GameStore.Infastracture
             var mapperConfiguration = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new DtoToViewModel());
+                cfg.AddProfile(new ViewModelToDto());
             });
 
             return mapperConfiguration.CreateMapper();

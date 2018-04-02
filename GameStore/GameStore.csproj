@@ -135,6 +135,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infastracture\MapperConfig.cs" />
+    <Compile Include="Infastracture\ViewModelToDTO.cs" />
     <Compile Include="Models\CommentViewModel.cs" />
     <Compile Include="Models\GameViewModel.cs" />
     <Compile Include="Models\GenreViewModel.cs" />
@@ -153,9 +154,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\GameStore.BAL\GameStore.BAL.csproj">
+    <ProjectReference Include="..\GameStore.BAL\GameStore.BLL.csproj">
       <Project>{D0782D1D-3927-4A45-8D57-32B107A8CF69}</Project>
-      <Name>GameStore.BAL</Name>
+      <Name>GameStore.BLL</Name>
     </ProjectReference>
     <ProjectReference Include="..\GameStore.DAL\GameStore.DAL.csproj">
       <Project>{36F7A06D-95A3-4D75-8FE1-284806F45845}</Project>
