@@ -1,15 +1,13 @@
-﻿using GameStore.BAL.DTO;
+﻿using AutoMapper;
+using GameStore.BAL.DTO;
 using GameStore.BAL.Service;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
+using log4net;
 using Moq;
 using System.Collections.Generic;
-using Xunit;
 using System.Linq;
-using System;
-using AutoMapper;
-using GameStore.BAL;
-using log4net;
+using Xunit;
 
 namespace GameStore.Tests.Service
 {

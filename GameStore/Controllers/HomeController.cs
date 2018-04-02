@@ -1,8 +1,5 @@
 ﻿using AutoMapper;
 using GameStore.BAL.Interfaces;
-using GameStore.Infastracture;
-using log4net;
-using System;
 using System.Linq;
 using System.Web.Mvc;
 
