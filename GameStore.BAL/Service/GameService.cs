@@ -26,7 +26,7 @@ namespace GameStore.BAL.Service
         }
         public void AddNewGame(GameDTO gameDto)
         {
-            var game = _unitOfWork.Games.Get(x => x.Key == gameDto.Key);
+            var game = _unitOfWork.Games.Get(x => x.Key == gameDto.Key).FirstOrDefault();
 
             if (game == null)
             {

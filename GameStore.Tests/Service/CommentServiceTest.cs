@@ -13,16 +13,16 @@ namespace GameStore.Tests.Service
 {
     public class CommentServiceTest
     {
-        private static readonly Mock<IUnitOfWork> GameRepo = new Mock<IUnitOfWork>();
-        private static readonly Mock<IMapper> Mapper = new Mock<IMapper>();
-        private static readonly Mock<ILog> Log = new Mock<ILog>();
-        private static readonly CommentService CommentService = new CommentService(GameRepo.Object, Mapper.Object, Log.Object);
+        private static readonly Mock<IUnitOfWork> uow = new Mock<IUnitOfWork>();
+        private static readonly Mock<IMapper> mapper = new Mock<IMapper>();
+        private static readonly Mock<ILog> log = new Mock<ILog>();
+        private static readonly CommentService CommentService = new CommentService(uow.Object, mapper.Object, log.Object);
 
         private readonly List<Comment> _comment = new List<Comment>();
 
         public CommentServiceTest()
         {
-            GameRepo.Setup(x => x.Comments.Create(It.IsAny<Comment>())).Callback(() => _comment.Add(It.IsAny<Comment>()));
+            uow.Setup(x => x.Comments.Create(It.IsAny<Comment>())).Callback(() => _comment.Add(It.IsAny<Comment>()));
         }
 
         [Fact]
@@ -32,7 +32,9 @@ namespace GameStore.Tests.Service
 
             CommentService.AddComment(commentDto, null);
             var result = _comment.Count();
+
             Assert.Equal(1, result);
          }
+
     }
 }
