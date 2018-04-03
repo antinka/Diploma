@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
-using GameStore.BAL.DTO;
-using GameStore.BAL.Interfaces;
-using GameStore.Models;
+using GameStore.BLL.DTO;
+using GameStore.BLL.Interfaces;
+using GameStore.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Web.Mvc;
 
 namespace GameStore.Controllers
@@ -21,27 +22,26 @@ namespace GameStore.Controllers
 
         [OutputCache(Duration = 60)]
         [HttpPost]
-        public ActionResult CommentToGame(Guid gamekey, CommentViewModel comment)
+        public ActionResult CommentToGame(Guid gamekey, CommentViewModel comment, Guid? parentCommentId)
         {
             comment.GameId = gamekey;
-            _commentService.AddComment(_mapper.Map<CommentViewModel, CommentDTO>(comment), null);
-            return Json("CommentToGame", JsonRequestBehavior.AllowGet);
-        }
 
-        [OutputCache(Duration = 60)]
-        [HttpPost]
-        public ActionResult CommentToComment(Guid idGame, CommentViewModel comment, Guid parentCommentId)
-        {
-            comment.GameId = idGame;
-            _commentService.AddComment(_mapper.Map<CommentViewModel, CommentDTO>(comment), parentCommentId);
-            return Json("CommentToComment", JsonRequestBehavior.AllowGet);
+            if (parentCommentId!=null)
+            {
+                comment.ParentCommentId = parentCommentId;
+            }
+
+            _commentService.AddComment(_mapper.Map<CommentDTO>(comment));
+
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         [OutputCache(Duration = 60)]
         [HttpPost]
         public ActionResult GetAllCommentToGame(Guid idGame)
         {
-            var comments = _mapper.Map<IEnumerable<CommentDTO>, List<CommentViewModel>>(_commentService.GetAllComments(idGame));
+            _mapper.Map<IEnumerable<CommentDTO>>(_commentService.GetAllComments(idGame));
+
             return Json("CommentToComment", JsonRequestBehavior.AllowGet);
         }
     }

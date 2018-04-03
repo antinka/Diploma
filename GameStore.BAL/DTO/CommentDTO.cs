@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GameStore.BAL.DTO
+namespace GameStore.BLL.DTO
 {
     public class CommentDTO
     {

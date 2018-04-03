@@ -1,73 +1,69 @@
 ﻿using AutoMapper;
-using GameStore.BAL.DTO;
-using GameStore.BAL.Service;
+using GameStore.BLL.DTO;
+using GameStore.BLL.Service;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
 using log4net;
 using Moq;
 using System;
-using System.Collections.Generic;
 using Xunit;
 
 namespace GameStore.Tests.Service
 {
     public class GameServiceTest
     {
-        private static readonly Mock<IUnitOfWork> uow = new Mock<IUnitOfWork>();
-        private static readonly Mock<IMapper> mapper = new Mock<IMapper>();
-        private static readonly Mock<ILog> log = new Mock<ILog>();
-
-        private static readonly GameService _sut = new GameService(uow.Object, mapper.Object, log.Object);
-
-        private readonly List<Game> _games = new List<Game>();
-        private bool _isUpdate, _isGetById, _isCreate,_isGetAll;
+        private readonly Mock<IUnitOfWork> _uow;
+        private readonly Mock<IMapper> _mapper;
+        private readonly Mock<ILog> log;
+        private readonly GameService _sut;
 
         private readonly Guid _id = Guid.NewGuid();
 
         public GameServiceTest()
         {
-            uow.Setup(x => x.Games.GetAll()).Callback(() => _isGetAll = true);
-            uow.Setup(x => x.Games.Create(It.IsAny<Game>())).Callback(() => _isCreate = true);
-            uow.Setup(x => x.Games.GetById(_id)).Callback(() => _isGetById = true);
-            uow.Setup(x => x.Games.Update(It.IsAny<Game>())).Callback(() => _isUpdate = true);
+            _uow = new Mock<IUnitOfWork>();
+            _mapper = new Mock<IMapper>();
+            log = new Mock<ILog>();
+            _sut = new GameService(_uow.Object, _mapper.Object, log.Object);
         }
 
         [Fact]
-        public void GetAllGame_GetAllGames_TrueIsGetAll()
+        public void GetAllGame_GetAllGames_VerifyAll()
         {
+            _uow.Setup(x => x.Games.GetAll());
+
             _sut.GetAllGame();
 
-            Assert.True(_isGetAll);
+            _uow.VerifyAll();
         }
 
         [Fact]
-        public void AddNewGame_Game_TrueIsCreate()
+        public void GetGame_GameDTO_VerifyAll()
         {
-            var game1 = new GameDTO
-            {
-                Key = "123456654"
-            };
+            _uow.Setup(x => x.Games.GetById(_id));
 
-            _sut.AddNewGame(game1);
-            Assert.True(_isCreate);
+            _sut.GetGame(_id);
+
+            _uow.VerifyAll();
+        }
+        [Fact]
+        public void AddNewGame_Game_VerifyAll()
+        {
+            _uow.Setup(x => x.Games.Create(It.IsAny<Game>()));
+
+            _sut.AddNewGame(new GameDTO());
+
+            _uow.VerifyAll();
         }
 
         [Fact]
         public void UpdateGame_GameDTO_AddNewGame_Game_TrueIsUpdate()
         {
-            var testGame = new GameDTO();
+            _uow.Setup(x => x.Games.Update(It.IsAny<Game>()));
 
-            _sut.UpdateGame(testGame);
+            _sut.UpdateGame(new GameDTO());
 
-            Assert.True(_isUpdate);
-        }
-
-        [Fact]
-        public void GetGame_GameDTO_TrueIsGetById()
-        {
-            _sut.GetGame(_id);
-
-            Assert.True(_isGetById);
+            _uow.VerifyAll();
         }
     }
 }

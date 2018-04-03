@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using GameStore.BAL.DTO;
+using GameStore.BLL.DTO;
 using GameStore.DAL.Entities;
 
-namespace GameStore.BAL.Infastracture
+namespace GameStore.BLL.Infastracture
 {
     public class DtoToEntity : Profile
     {

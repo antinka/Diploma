@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using GameStore.BAL.DTO;
-using GameStore.BAL.Interfaces;
+using GameStore.BLL.DTO;
+using GameStore.BLL.Interfaces;
 using GameStore.Controllers;
-using GameStore.Models;
+using GameStore.ViewModels;
 using Moq;
 using System;
 using Xunit;
@@ -11,37 +11,40 @@ namespace GameStore.Tests.Controllers
 {
     public class CommentControllerTest 
     {
-        private static readonly Mock<IMapper> mapper = new Mock<IMapper>();
-        private static readonly Mock<ICommentService> uow = new Mock<ICommentService>();
-        private readonly CommentController _sut = new CommentController(uow.Object, mapper.Object);
+        private readonly Mock<IMapper> _mapper;
+        private readonly Mock<ICommentService> _uow;
+        private readonly CommentController _sut;
 
         private readonly Guid _id = Guid.NewGuid();
-        private bool _isAddCommentToGame,_isGetAllCommentToGameId;
-      
+
         public CommentControllerTest()
         {
             Mapper.Reset();
-            uow.Setup(x => x.AddComment(It.IsAny<CommentDTO>(),null)).Callback(() => _isAddCommentToGame=true);
-            uow.Setup(x => x.GetAllComments(It.IsAny<Guid>())).Callback(() => _isGetAllCommentToGameId = true);
+
+            _mapper = new Mock<IMapper>();
+            _uow = new Mock<ICommentService>();
+            _sut = new CommentController(_uow.Object, _mapper.Object);
         }
 
         [Fact]
-        public void AddCommentToGame_NewCommentDTO_TrueIsAddCommentToGame()
+        public void AddCommentToGame_NewComment_VerifyAll()
         {
             var comment = new CommentViewModel();
+            _uow.Setup(x => x.AddComment(It.IsAny<CommentDTO>()));
 
-            _sut.CommentToGame(_id,comment);
+            _sut.CommentToGame(_id, comment, null);
 
-            Assert.True(_isAddCommentToGame);
+            _uow.VerifyAll();
         }
 
         [Fact]
-        public void GetAllCommentToGame_GameId_TrueIsGetAllCommentToGame()
+        public void GetAllCommentToGame_GameId_VerifyAll()
         {
+            _uow.Setup(x => x.GetAllComments(_id));
+
             _sut.GetAllCommentToGame(_id);
 
-            Assert.True(_isGetAllCommentToGameId);
+            _uow.VerifyAll();
         }
-
     }
 }

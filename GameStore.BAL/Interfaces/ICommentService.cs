@@ -1,12 +1,13 @@
-﻿using GameStore.BAL.DTO;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using GameStore.BLL.DTO;
 
-namespace GameStore.BAL.Interfaces
+namespace GameStore.BLL.Interfaces
 {
     public interface ICommentService
     {
-        void AddComment(CommentDTO commentDto, Guid? parentCommentId);
+        void AddComment(CommentDTO commentDto);
+
         ICollection<CommentDTO> GetAllComments(Guid id);
     }
 }

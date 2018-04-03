@@ -9,7 +9,6 @@ namespace GameStore
         protected void Application_Start()
         { 
             AutofacConfig.Setup();
-          
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             log4net.Config.XmlConfigurator.Configure();

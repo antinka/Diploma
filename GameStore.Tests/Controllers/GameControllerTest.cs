@@ -1,71 +1,71 @@
 ﻿using AutoMapper;
-using GameStore.BAL.DTO;
-using GameStore.BAL.Interfaces;
+using GameStore.BLL.DTO;
+using GameStore.BLL.Interfaces;
 using GameStore.Controllers;
-using GameStore.Models;
+using GameStore.ViewModels;
 using Moq;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Xunit;
 
 namespace GameStore.Tests.Controllers
 {
     public class GameControllerTest 
     {
-        private static readonly Mock<IMapper> mapper = new Mock<IMapper>();
-        private static readonly Mock<IGameService> gameRepo = new Mock<IGameService>();
-        private readonly GameController _sut = new GameController(gameRepo.Object, mapper.Object);
+        private readonly Mock<IMapper> mapper;
+        private readonly Mock<IGameService> _uow;
+        private readonly GameController _sut;
 
-        private readonly List<GameDTO> _games = new List<GameDTO>();
         public Guid Id = Guid.NewGuid();
-        private bool _isDelete, _isUpdate, _isGet;
         
-
         public GameControllerTest()
         {
             Mapper.Reset();
-            gameRepo.Setup(x => x.AddNewGame(It.IsAny<GameDTO>())).Callback(() => _games.Add(It.IsAny<GameDTO>()));
-            gameRepo.Setup(x => x.UpdateGame(It.IsAny<GameDTO>())).Callback(() => _isUpdate = true);
-            gameRepo.Setup(x => x.DeleteGame(It.IsAny<Guid>())).Callback(() => _isDelete = true);
-            gameRepo.Setup(x => x.GetGame(It.IsAny<Guid>())).Callback(() => _isGet = true);
+            mapper = new Mock<IMapper>();
+            _uow = new Mock<IGameService>();
+            _sut = new GameController(_uow.Object, mapper.Object);
+
         }
 
         [Fact]
-        public void NewGame_Game_NewGameInList()
+        public void NewGame_Game_VerifyAll()
         {
             var game = new GameViewModel();
+            _uow.Setup(x => x.AddNewGame(It.IsAny<GameDTO>()));
 
             _sut.New(game);
-            var countNewGames = _games.Count();
 
-            Assert.Equal(1, countNewGames);
+            _uow.VerifyAll();
         }
 
         [Fact]
-        public void UpdateGame_Game_TrueIsUpdate()
+        public void UpdateGame_Game_VerifyAll()
         {
             var game = new GameViewModel();
+            _uow.Setup(x => x.UpdateGame(It.IsAny<GameDTO>()));
 
             _sut.Update(game);
 
-            Assert.True(_isUpdate);
+            _uow.VerifyAll();
         }
 
         [Fact]
-        public void RemoveGame_IdGame_TrueIsDelete()
+        public void RemoveGame_IdGame_VerifyAll()
         {
+            _uow.Setup(x => x.DeleteGame(Id));
+
             _sut.Remove(Id);
 
-            Assert.True(_isDelete);
+            _uow.VerifyAll();
         }
 
         [Fact]
-        public void GetGameById_IdGame_TrueIsGetGameById()
+        public void GetGameById_IdGame_VerifyAll()
         {
+            _uow.Setup(x => x.GetGame(Id));
+
             _sut.GetGameById(Id);
 
-            Assert.True(_isGet);
+            _uow.VerifyAll();
         }
 
     }

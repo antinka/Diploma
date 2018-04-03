@@ -94,13 +94,12 @@
     <Compile Include="Exeption\EntityNotFound.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Infastracture\BLLModule.cs" />
-    <Compile Include="Infastracture\DTOToEntity.cs" />
-    <Compile Include="Infastracture\EntitiToDTO.cs" />
+    <Compile Include="Infastracture\Mapper\DTOToEntity.cs" />
+    <Compile Include="Infastracture\Mapper\EntityToDTO.cs" />
     <Compile Include="DTO\CommentDTO.cs" />
     <Compile Include="DTO\GameDTO.cs" />
     <Compile Include="DTO\GenreDTO.cs" />
     <Compile Include="DTO\PlatformTypeDTO.cs" />
-    <Compile Include="Infastracture\MapperConfiguration.cs" />
     <Compile Include="Interfaces\ICommentService.cs" />
     <Compile Include="Interfaces\IGameCRUDService.cs" />
     <Compile Include="Interfaces\IGameService.cs" />

@@ -71,6 +71,5 @@ namespace GameStore.Tests.Routes
             Assert.Equal("Game", routeData.Values["Controller"]);
             Assert.Equal("Remove", routeData.Values["action"]);
         }
-        
     }
 }

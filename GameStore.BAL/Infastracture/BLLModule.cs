@@ -2,7 +2,7 @@
 using GameStore.DAL.EF;
 using GameStore.DAL.Interfaces;
 
-namespace GameStore.BAL.Infastracture
+namespace GameStore.BLL.Infastracture
 {
     public class BllModule : Module
     {
@@ -14,7 +14,6 @@ namespace GameStore.BAL.Infastracture
         }
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterInstance(MapperConfigBll.GetMapper());
             builder.RegisterType<GameStoreContext>().As<IDbContext>().InstancePerLifetimeScope();
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerRequest().WithParameter("connectionString", _connectionString);
         }

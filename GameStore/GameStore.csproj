@@ -123,7 +123,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Infastracture\AutofacConfig.cs" />
-    <Compile Include="Infastracture\DTOToViewModel.cs" />
+    <Compile Include="Infastracture\Mapper\DTOToViewModel.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CommentController.cs" />
@@ -134,12 +134,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Infastracture\MapperConfig.cs" />
-    <Compile Include="Infastracture\ViewModelToDTO.cs" />
-    <Compile Include="Models\CommentViewModel.cs" />
-    <Compile Include="Models\GameViewModel.cs" />
-    <Compile Include="Models\GenreViewModel.cs" />
-    <Compile Include="Models\PlatformTypeViewModel.cs" />
+    <Compile Include="Infastracture\Mapper\MapperConfig.cs" />
+    <Compile Include="Infastracture\Mapper\ViewModelToDTO.cs" />
+    <Compile Include="Infastracture\RegisterInstanceModule.cs" />
+    <Compile Include="Infastracture\WebModule.cs" />
+    <Compile Include="ViewModels\CommentViewModel.cs" />
+    <Compile Include="ViewModels\GameViewModel.cs" />
+    <Compile Include="ViewModels\GenreViewModel.cs" />
+    <Compile Include="ViewModels\PlatformTypeViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

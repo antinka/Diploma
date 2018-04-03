@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
-using GameStore.BAL.DTO;
-using GameStore.BAL.Interfaces;
+using GameStore.BLL.DTO;
+using GameStore.BLL.Interfaces;
 using GameStore.Filters;
-using GameStore.Models;
+using GameStore.ViewModels;
 using System;
+using System.Net;
 using System.Web.Mvc;
 
 namespace GameStore.Controllers
@@ -23,18 +24,20 @@ namespace GameStore.Controllers
        
         [OutputCache(Duration = 60)]
         [HttpPost]
-        public JsonResult New(GameViewModel game)
+        public ActionResult New(GameViewModel game)
         {
-            _gameService.AddNewGame(_mapper.Map<GameViewModel,GameDTO>(game));
-            return Json("Add new game", JsonRequestBehavior.AllowGet);
+            _gameService.AddNewGame(_mapper.Map<GameDTO>(game));
+
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         [OutputCache(Duration = 60)]
         [HttpPost]
         public ActionResult Update(GameViewModel game)
         {
-            _gameService.UpdateGame(_mapper.Map<GameViewModel, GameDTO>(game));
-            return Json("Add new game", JsonRequestBehavior.AllowGet);
+            _gameService.UpdateGame(_mapper.Map<GameDTO>(game));
+
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         [OutputCache(Duration = 60)]
@@ -42,6 +45,7 @@ namespace GameStore.Controllers
         public ActionResult GetGameById(Guid? key)
         {
             GameDTO game = _gameService.GetGame(key.GetValueOrDefault());
+
             return Json("GetGameById", JsonRequestBehavior.AllowGet);
         }
 
@@ -50,6 +54,7 @@ namespace GameStore.Controllers
         public ActionResult GetAllGames()
         {
             var games = _gameService.GetAllGame();
+
             return Json("GetAllGames", JsonRequestBehavior.AllowGet);
         }
 
@@ -58,7 +63,8 @@ namespace GameStore.Controllers
         public ActionResult Remove(Guid key)
         {
             _gameService.DeleteGame(key);
-            return Json("Remove Games", JsonRequestBehavior.AllowGet);
+
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         [OutputCache(Duration = 60)]
@@ -67,9 +73,10 @@ namespace GameStore.Controllers
         {
             var path = Server.MapPath("~/Files/test.txt");
             var mas = System.IO.File.ReadAllBytes(path);
-            var file_type = "application/txt";
-            var file_name = "test.txt";
-            return File(mas, file_type, file_name);
+            var fileType = "application/txt";
+            var fileName = "test.txt";
+
+            return File(mas, fileType, fileName);
         }
     }
 }

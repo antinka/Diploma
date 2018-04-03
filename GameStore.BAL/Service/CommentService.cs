@@ -1,16 +1,16 @@
 ﻿using AutoMapper;
-using GameStore.BAL.DTO;
-using GameStore.BAL.Exeption;
-using GameStore.BAL.Interfaces;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
 using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GameStore.BLL.DTO;
+using GameStore.BLL.Exeption;
+using GameStore.BLL.Interfaces;
 
 
-namespace GameStore.BAL.Service
+namespace GameStore.BLL.Service
 {
     public class CommentService : ICommentService
     {
@@ -25,17 +25,13 @@ namespace GameStore.BAL.Service
             _log = log;
         }
 
-        public void AddComment(CommentDTO commentDto,Guid? parentCommentId)
+        public void AddComment(CommentDTO commentDto)
         {
-            if(parentCommentId != null)
-            {
-                commentDto.ParentCommentId = parentCommentId;
-            }
             commentDto.Id=Guid.NewGuid();
             _unitOfWork.Comments.Create(_mapper.Map<Comment>(commentDto));
             _unitOfWork.Save();
 
-            _log.Info("CommentService - add comment " + commentDto.Id);
+            _log.Info($"{nameof(CommentService)} - add comment{commentDto.Id}");
         }
 
         public ICollection<CommentDTO> GetAllComments(Guid id)
@@ -44,13 +40,12 @@ namespace GameStore.BAL.Service
 
             if(_unitOfWork.Games.GetById(id)!=null)
             {
-                listCommentToGame = _unitOfWork.Comments.GetAll().ToList().Where(game => game.Id == id).ToList();
-                _log.Info("CommentService - return all comment to gameId "+ id);
+                listCommentToGame = _unitOfWork.Comments.GetAll().Where(game => game.Id == id).ToList();
             }
             else
             {
                 throw new EntityNotFound(
-                    "CommentService - exception in returning all comment to gameId "+ id + ", such game id did not exist", _log);
+                    "CommentService - exception in returning all comment to gameId "+ id + ", such game id did not exist");
             }
 
             return _mapper.Map<List<CommentDTO>>(listCommentToGame);

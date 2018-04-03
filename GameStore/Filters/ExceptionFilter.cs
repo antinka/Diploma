@@ -5,12 +5,21 @@ namespace GameStore.Filters
 {
     public class ExceptionFilter : FilterAttribute, IExceptionFilter
     {
-        private readonly ILog _log = LogManager.GetLogger("LOGGER");
+        private readonly ILog _log;
+
+        public ExceptionFilter()
+        { }
+
+        public ExceptionFilter(ILog log)
+        {
+            _log = log;
+        }
+
         public void OnException(ExceptionContext filterContext)
         {
             if (!filterContext.ExceptionHandled)
             {
-                _log.Info("Exception: "+filterContext.Exception.Message+" " + "source "+ filterContext.Exception.Source+ " StackTrace: "+ filterContext.Exception.StackTrace);
+                _log.Info($"Exception: {filterContext.Exception.Message} source { filterContext.Exception.Source} StackTrace: { filterContext.Exception.StackTrace}");
                 filterContext.ExceptionHandled = true;
             }
         }

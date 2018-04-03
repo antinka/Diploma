@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
-using GameStore.BAL.DTO;
+using GameStore.BLL.DTO;
 using GameStore.DAL.Entities;
 
-namespace GameStore.BAL.Infastracture
+namespace GameStore.BLL.Infastracture
 {
-    public class EntitiToDto : Profile
+    public class EntityToDto : Profile
     {
-        public EntitiToDto()
+        public EntityToDto()
         {
             CreateMap<Game, GameDTO>() ;
 

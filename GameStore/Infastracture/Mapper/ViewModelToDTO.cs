@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using GameStore.BAL.DTO;
-using GameStore.Models;
+using GameStore.BLL.DTO;
+using GameStore.ViewModels;
 
 namespace GameStore.Infastracture
 {

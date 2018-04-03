@@ -1,40 +1,38 @@
 ﻿using AutoMapper;
-using GameStore.BAL.DTO;
-using GameStore.BAL.Service;
+using GameStore.BLL.DTO;
+using GameStore.BLL.Service;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
 using log4net;
 using Moq;
-using System.Collections.Generic;
-using System.Linq;
 using Xunit;
 
 namespace GameStore.Tests.Service
 {
     public class CommentServiceTest
     {
-        private static readonly Mock<IUnitOfWork> uow = new Mock<IUnitOfWork>();
-        private static readonly Mock<IMapper> mapper = new Mock<IMapper>();
-        private static readonly Mock<ILog> log = new Mock<ILog>();
-        private static readonly CommentService _sut = new CommentService(uow.Object, mapper.Object, log.Object);
-
-        private readonly List<Comment> _comment = new List<Comment>();
+        private readonly Mock<IUnitOfWork> _uow;
+        private readonly Mock<IMapper> _mapper;
+        private readonly Mock<ILog> log;
+        private readonly CommentService _sut;
 
         public CommentServiceTest()
         {
-            uow.Setup(x => x.Comments.Create(It.IsAny<Comment>())).Callback(() => _comment.Add(It.IsAny<Comment>()));
+            _uow = new Mock<IUnitOfWork>();
+            _mapper = new Mock<IMapper>();
+            log = new Mock<ILog>();
+            _sut = new CommentService(_uow.Object, _mapper.Object, log.Object);
         }
 
         [Fact]
-        public void AddComment_Comment_OneCommentInList()
-         {
+        public void AddComment_Comment_VerifyAll()
+        {
             var commentDto = new CommentDTO();
+            _uow.Setup(x => x.Comments.Create(It.IsAny<Comment>()));
 
-            _sut.AddComment(commentDto, null);
-            var result = _comment.Count();
+            _sut.AddComment(commentDto);
 
-            Assert.Equal(1, result);
-         }
-
+            _uow.VerifyAll();
+        }
     }
 }

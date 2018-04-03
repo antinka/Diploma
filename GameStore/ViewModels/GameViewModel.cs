@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GameStore.Models
+namespace GameStore.ViewModels
 {
     public class GameViewModel
     {

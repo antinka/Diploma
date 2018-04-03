@@ -5,7 +5,16 @@ namespace GameStore.Filters
 {
     public class TrackRequestIp : FilterAttribute, IActionFilter
     {
-        private readonly ILog _log = LogManager.GetLogger("LOGGER");
+        private readonly ILog _log;
+
+        public TrackRequestIp()
+        { }
+
+        public TrackRequestIp(ILog log)
+        {
+            _log = log;
+        }
+
         public void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var userIp = filterContext.HttpContext.Request.UserHostAddress;

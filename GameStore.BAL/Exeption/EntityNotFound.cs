@@ -1,17 +1,13 @@
 ﻿using log4net;
 using System;
 
-namespace GameStore.BAL.Exeption
+namespace GameStore.BLL.Exeption
 {
-    class EntityNotFound : Exception
+    public class EntityNotFound : Exception
     {
-        private readonly ILog _log;
-
-        public EntityNotFound(string message, ILog log)
+        public EntityNotFound(string message)
             : base(message)
         {
-            _log.Info(message);
-            _log=log;
         }
     }
 }
