@@ -14,92 +14,100 @@ namespace GameStore.BAL.Service
 {
     public class GameService : IGameService
     {
-        private IUnitOfWorkGeneric Db { get; set; }
-        private readonly ILog _log = LogManager.GetLogger("LOGGER");
-        private readonly IMapper _mapper = MapperConfigBll.GetMapper();
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly ILog _log;
+        private readonly IMapper _mapper;
 
-        public GameService(IUnitOfWorkGeneric uow)
+        public GameService(IUnitOfWork uow, IMapper mapper, ILog log)
         {
-            Db = uow;
+            _unitOfWork = uow;
+            _mapper = mapper;
+            _log = log;
         }
         public void AddNewGame(GameDTO gameDto)
         {
-            var checkUniqueGameKey = Db.Games.GetAll().FirstOrDefault(x => x.Key == gameDto.Key);
-            if (checkUniqueGameKey == null)
+            var game = _unitOfWork.Games.Get(x => x.Key == gameDto.Key);
+
+            if (game == null)
             {
-                Db.Games.Create(_mapper.Map<GameDTO, Game>(gameDto));
-                Db.Save();
-                _log.Info("GameService - add new game");
+                gameDto.Id = Guid.NewGuid();
+                _unitOfWork.Games.Create(_mapper.Map<Game>(gameDto));
+                _unitOfWork.Save();
+
+                _log.Info("GameService - add new game "+ gameDto.Id);
             }
             else
             {
-                throw new GameStoreExeption("GameService - attempt to add new game with not unique key");
+                throw new EntityNotFound("GameService - attempt to add new game with not unique key");
             }
         }
 
         public void DeleteGame(Guid id)
         {
-         
-                var subject = Db.Games.Get(id);
-            if (subject == null) throw new GameStoreExeption("GameService - attempt to delete not existed game");
-            Db.Games.Delete(id);
-            Db.Save();
-            _log.Info("GameService - delete game");
-            throw new GameStoreExeption("GameService - attempt to delete not existed game");
+            var subject = _unitOfWork.Games.GetById(id);
+
+            if (subject == null)
+                throw new EntityNotFound("GameService - attempt to delete not existed game");
+
+            _unitOfWork.Games.Delete(id);
+            _unitOfWork.Save();
+
+            _log.Info("GameService - delete game " + id);
         }
 
-        public void EditGame(GameDTO gameDto)
+        public void UpdateGame(GameDTO gameDto)
         {
-            Db.Games.Update(_mapper.Map<GameDTO, Game>(gameDto));
-            Db.Save();
-            _log.Info("GameService - update game");
+            _unitOfWork.Games.Update(_mapper.Map<Game>(gameDto));
+            _unitOfWork.Save();
+
+            _log.Info("GameService - update game "+ gameDto.Id);
         }
 
         public IEnumerable<GameDTO> GetAllGame()
         {
-             return _mapper.Map<IEnumerable<Game>, List<GameDTO>>(Db.Games.GetAll());
+             return _mapper.Map<List<GameDTO>>(_unitOfWork.Games.GetAll());
         }
 
 
         public GameDTO GetGame(Guid id)
         { 
-            return _mapper.Map<Game, GameDTO>(Db.Games.Get(id));
+            return _mapper.Map<GameDTO>(_unitOfWork.Games.GetById(id));
         }
 
         public IEnumerable<GameDTO> GetGamesByGenre(Guid genreId)
         {
-            IEnumerable<Game> gamesListByGenre = new List<Game>();
+            IEnumerable<Game> gamesListByGenre;
 
-            if (Db.Genres.Get(genreId) != null)
+            if (_unitOfWork.Genres.GetById(genreId) != null)
             {
-                gamesListByGenre = Db.Games.GetAll().ToList().Where(game => game.Genres.Any(x => x.Id == genreId)).ToList();
+                gamesListByGenre = _unitOfWork.Games.GetAll().ToList().Where(game => game.Genres.Any(x => x.Id == genreId));
 
-                _log.Info("GameService - return game to select genre");
+                _log.Info("GameService - return game to select genre "+ genreId);
             }
             else
             {
-                throw new GameStoreExeption("CommentService - exception in returning all games by GenreId, such genre id did not exist");
+                throw new EntityNotFound("CommentService - exception in returning all games by GenreId, such genre id did not exist");
             }
 
-            return _mapper.Map<IEnumerable<Game>, List<GameDTO>>(gamesListByGenre);
+            return _mapper.Map<List<GameDTO>>(gamesListByGenre);
         }
 
         public IEnumerable<GameDTO> GetGamesByPlatformType(Guid platformTypeId)
         {
-            IEnumerable<Game> gamesList = new List<Game>();
+            IEnumerable<Game> gamesList;
 
-            if (Db.PlatformTypes.Get(platformTypeId)!= null)
+            if (_unitOfWork.PlatformTypes.GetById(platformTypeId)!= null)
             {
-                gamesList = Db.Games.GetAll().ToList().Where(game => game.PlatformTypes.Any(x=>x.Id == platformTypeId)).ToList();
+                gamesList = _unitOfWork.Games.GetAll().ToList().Where(game => game.PlatformTypes.Any(x=>x.Id == platformTypeId)).ToList();
 
-                _log.Info("GameService - return game to platform type");
+                _log.Info("GameService - return game to platform type "+ platformTypeId);
             }
             else
             {
-                throw new GameStoreExeption("CommentService - exception in returning all games by platformTypeId, such platform type id did not exist");
+                throw new EntityNotFound("CommentService - exception in returning all games by platformTypeId, such platform type id did not exist");
             }
 
-            return _mapper.Map<IEnumerable<Game>, List<GameDTO>>(gamesList);
+            return _mapper.Map<List<GameDTO>>(gamesList);
         }
 
     }

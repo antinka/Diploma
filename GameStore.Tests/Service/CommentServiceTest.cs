@@ -7,14 +7,18 @@ using System.Collections.Generic;
 using Xunit;
 using System.Linq;
 using System;
+using AutoMapper;
 using GameStore.BAL;
+using log4net;
 
 namespace GameStore.Tests.Service
 {
     public class CommentServiceTest
     {
-        private static readonly Mock<IUnitOfWorkGeneric> GameRepo = new Mock<IUnitOfWorkGeneric>();
-        private static readonly CommentService CommentService = new CommentService(GameRepo.Object);
+        private static readonly Mock<IUnitOfWork> GameRepo = new Mock<IUnitOfWork>();
+        private static readonly Mock<IMapper> Mapper = new Mock<IMapper>();
+        private static readonly Mock<ILog> Log = new Mock<ILog>();
+        private static readonly CommentService CommentService = new CommentService(GameRepo.Object, Mapper.Object, Log.Object);
 
         private readonly List<Comment> _comment = new List<Comment>();
 
@@ -28,9 +32,9 @@ namespace GameStore.Tests.Service
          {
             var commentDto = new CommentDTO();
 
-            CommentService.AddCommentToGame(commentDto, null);
+            CommentService.AddComment(commentDto, null);
             var result = _comment.Count();
-            Xunit.Assert.Equal(1, result);
+            Assert.Equal(1, result);
          }
     }
 }

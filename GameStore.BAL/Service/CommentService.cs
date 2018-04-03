@@ -15,42 +15,46 @@ namespace GameStore.BAL.Service
 {
     public class CommentService : ICommentService
     {
-        private IUnitOfWorkGeneric Db { get; set; }
-        private readonly ILog _log = LogManager.GetLogger("LOGGER");
-        private readonly IMapper _mapper = MapperConfigBll.GetMapper();
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly ILog _log;
+        private readonly IMapper _mapper;
 
-        public CommentService(IUnitOfWorkGeneric uow)
+        public CommentService(IUnitOfWork uow, IMapper mapper, ILog log)
         {
-            Db = uow;
+            _unitOfWork = uow;
+            _mapper = mapper;
+            _log = log;
         }
 
-        public void AddCommentToGame(CommentDTO commentDto,Guid? parentCommentId)
+        public void AddComment(CommentDTO commentDto,Guid? parentCommentId)
         {
             if(parentCommentId != null)
             {
                 commentDto.ParentCommentId = parentCommentId;
             }
-            Db.Comments.Create(_mapper.Map<CommentDTO, Comment>(commentDto));
-            Db.Save();
+            commentDto.Id=Guid.NewGuid();
+            _unitOfWork.Comments.Create(_mapper.Map<Comment>(commentDto));
+            _unitOfWork.Save();
 
-            _log.Info("CommentService - add comment to game");
+            _log.Info("CommentService - add comment " + commentDto.Id);
         }
 
-        public ICollection<CommentDTO> GetAllCommentToGameId(Guid id)
+        public ICollection<CommentDTO> GetAllComments(Guid id)
         {
-            IEnumerable<Comment> listCommentToGame = new List<Comment>();
-            if(Db.Games.Get(id)!=null)
+            IEnumerable<Comment> listCommentToGame;
+
+            if(_unitOfWork.Games.GetById(id)!=null)
             {
-                listCommentToGame = Db.Comments.GetAll().ToList().Where(game => game.Id == id).ToList();
-                _log.Info("CommentService - return all comment to gameId");
+                listCommentToGame = _unitOfWork.Comments.GetAll().ToList().Where(game => game.Id == id).ToList();
+                _log.Info("CommentService - return all comment to gameId "+ id);
             }
             else
             {
-                throw new GameStoreExeption(
+                throw new EntityNotFound(
                     "CommentService - exception in returning all comment to gameId, such game id did not exist");
             }
 
-            return _mapper.Map<IEnumerable<Comment>, List<CommentDTO>>(listCommentToGame);
+            return _mapper.Map<List<CommentDTO>>(listCommentToGame);
         }
     }
 }

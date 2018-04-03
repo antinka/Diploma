@@ -1,8 +1,9 @@
-﻿
+﻿using AutoMapper;
 using GameStore.BAL.DTO;
 using GameStore.BAL.Service;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
+using log4net;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -13,12 +14,14 @@ namespace GameStore.Tests.Service
 {
     public class GameServiceTest
     {
-        private static readonly Mock<IUnitOfWorkGeneric> GameRepo = new Mock<IUnitOfWorkGeneric>();
-        private static readonly GameService GameService = new GameService(GameRepo.Object);
+        private static readonly Mock<IUnitOfWork> GameRepo = new Mock<IUnitOfWork>();
+        private static readonly Mock<IMapper> Mapper = new Mock<IMapper>();
+        private static readonly Mock<ILog> Log = new Mock<ILog>();
+        private static readonly GameService GameService = new GameService(GameRepo.Object, Mapper.Object, Log.Object);
 
         private readonly List<Game> _games = new List<Game>();
-        bool _boolUpdate;
-        private Guid Id = Guid.NewGuid();
+        private bool _isUpdate;
+        private readonly Guid _id = Guid.NewGuid();
 
         public GameServiceTest()
         {
@@ -29,8 +32,8 @@ namespace GameStore.Tests.Service
                 new Game ()
            });
             GameRepo.Setup(x => x.Games.Create(It.IsAny<Game>())).Callback(() => _games.Add(It.IsAny<Game>()));
-            GameRepo.Setup(x => x.Games.Get(Id)).Returns(new Game { Id = Id, Name = "game1" });
-            GameRepo.Setup(x => x.Games.Update(It.IsAny<Game>())).Callback(() => _boolUpdate = true);
+            GameRepo.Setup(x => x.Games.GetById(_id)).Returns(new Game { Id = _id, Name = "game1" });
+            GameRepo.Setup(x => x.Games.Update(It.IsAny<Game>())).Callback(() => _isUpdate = true);
         }
 
         [Fact]
@@ -38,7 +41,7 @@ namespace GameStore.Tests.Service
         {
             var countGames = GameService.GetAllGame().Count();
 
-            Xunit.Assert.Equal(3, countGames);
+            Assert.Equal(3, countGames);
         }
 
         [Fact]
@@ -58,7 +61,7 @@ namespace GameStore.Tests.Service
             GameRepo.Setup(x => x.Games.GetAll()) .Returns(_games);
             var countGames = GameService.GetAllGame().Count();
 
-            Xunit.Assert.Equal(2, countGames);
+            Assert.Equal(2, countGames);
         }
 
         [Fact]
@@ -66,9 +69,9 @@ namespace GameStore.Tests.Service
         {
             var testGame = new GameDTO();
 
-            GameService.EditGame(testGame);
+            GameService.UpdateGame(testGame);
 
-            Xunit.Assert.True(_boolUpdate);
+            Assert.True(_isUpdate);
         }
        
             

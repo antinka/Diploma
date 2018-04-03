@@ -1,12 +1,9 @@
 ﻿using GameStore.DAL.EF;
-using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameStore.DAL.Repositories
 {
@@ -34,7 +31,7 @@ namespace GameStore.DAL.Repositories
                 _dbSet.Remove(item);
         }
 
-        public virtual TEntiy Get(Guid id)
+        public virtual TEntiy GetById(Guid id)
         {
             return _dbSet.Find(id);
         }
@@ -47,6 +44,11 @@ namespace GameStore.DAL.Repositories
         public virtual void Update(TEntiy item)
         {
             _db.Entry(item).State = EntityState.Modified;
+        }
+
+        public virtual IEnumerable<TEntiy> Get(Func<TEntiy, bool> predicate)
+        {
+            return _dbSet.AsNoTracking().Where(predicate).ToList();
         }
     }
 }
