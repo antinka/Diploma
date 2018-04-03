@@ -1,8 +1,6 @@
 ﻿using Autofac;
-using AutoMapper;
 using GameStore.DAL.EF;
 using GameStore.DAL.Interfaces;
-using log4net;
 
 namespace GameStore.BAL.Infastracture
 {

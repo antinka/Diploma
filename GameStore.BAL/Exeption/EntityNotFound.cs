@@ -5,12 +5,13 @@ namespace GameStore.BAL.Exeption
 {
     class EntityNotFound : Exception
     {
-        public readonly ILog _log = LogManager.GetLogger("LOGGER");
+        private readonly ILog _log;
 
-        public EntityNotFound(string message)
+        public EntityNotFound(string message, ILog log)
             : base(message)
         {
             _log.Info(message);
+            _log=log;
         }
     }
 }

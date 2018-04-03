@@ -26,7 +26,7 @@ namespace GameStore.BAL.Service
         }
         public void AddNewGame(GameDTO gameDto)
         {
-            var game = _unitOfWork.Games.Get(x => x.Key == gameDto.Key);
+            var game = _unitOfWork.Games.Get(x => x.Key == gameDto.Key).FirstOrDefault();
 
             if (game == null)
             {
@@ -38,16 +38,16 @@ namespace GameStore.BAL.Service
             }
             else
             {
-                throw new EntityNotFound("GameService - attempt to add new game with not unique key");
+                throw new EntityNotFound("GameService - attempt to add new game with not unique key", _log);
             }
         }
 
         public void DeleteGame(Guid id)
         {
-            var subject = _unitOfWork.Games.GetById(id);
+            var game = _unitOfWork.Games.GetById(id);
 
-            if (subject == null)
-                throw new EntityNotFound("GameService - attempt to delete not existed game");
+            if (game == null)
+                throw new EntityNotFound("GameService - attempt to delete not existed game", _log);
 
             _unitOfWork.Games.Delete(id);
             _unitOfWork.Save();
@@ -86,7 +86,7 @@ namespace GameStore.BAL.Service
             }
             else
             {
-                throw new EntityNotFound("CommentService - exception in returning all games by GenreId, such genre id did not exist");
+                throw new EntityNotFound("CommentService - exception in returning all games by GenreId, such genre id did not exist", _log);
             }
 
             return _mapper.Map<List<GameDTO>>(gamesListByGenre);
@@ -104,7 +104,7 @@ namespace GameStore.BAL.Service
             }
             else
             {
-                throw new EntityNotFound("CommentService - exception in returning all games by platformTypeId, such platform type id did not exist");
+                throw new EntityNotFound("CommentService - exception in returning all games by platformTypeId, such platform type id did not exist", _log);
             }
 
             return _mapper.Map<List<GameDTO>>(gamesList);

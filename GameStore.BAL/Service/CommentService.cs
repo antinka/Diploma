@@ -51,7 +51,7 @@ namespace GameStore.BAL.Service
             else
             {
                 throw new EntityNotFound(
-                    "CommentService - exception in returning all comment to gameId, such game id did not exist");
+                    "CommentService - exception in returning all comment to gameId "+ id + ", such game id did not exist", _log);
             }
 
             return _mapper.Map<List<CommentDTO>>(listCommentToGame);

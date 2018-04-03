@@ -11,18 +11,18 @@ namespace GameStore.Tests.Controllers
 {
     public class CommentControllerTest 
     {
-        private static readonly Mock<IMapper> Mapper = new Mock<IMapper>();
-        private static readonly Mock<ICommentService> GameRepo = new Mock<ICommentService>();
-        public Guid Id = Guid.NewGuid();
+        private static readonly Mock<IMapper> mapper = new Mock<IMapper>();
+        private static readonly Mock<ICommentService> uow = new Mock<ICommentService>();
+        private readonly Guid _id = Guid.NewGuid();
         private bool _isAddCommentToGame = false;
         private bool _isGetAllCommentToGameId = false;
-        private readonly CommentController _commentController = new CommentController(GameRepo.Object, Mapper.Object);
+        private readonly CommentController _commentController = new CommentController(uow.Object, mapper.Object);
 
         public CommentControllerTest()
         {
-            AutoMapper.Mapper.Reset();
-            GameRepo.Setup(x => x.AddComment(It.IsAny<CommentDTO>(),null)).Callback(() => _isAddCommentToGame=true);
-            GameRepo.Setup(x => x.GetAllComments(It.IsAny<Guid>())).Callback(() => _isGetAllCommentToGameId = true);
+            Mapper.Reset();
+            uow.Setup(x => x.AddComment(It.IsAny<CommentDTO>(),null)).Callback(() => _isAddCommentToGame=true);
+            uow.Setup(x => x.GetAllComments(It.IsAny<Guid>())).Callback(() => _isGetAllCommentToGameId = true);
         }
 
         [Fact]
@@ -30,7 +30,7 @@ namespace GameStore.Tests.Controllers
         {
             var comment = new CommentViewModel();
 
-            _commentController.CommentToGame(Id,comment);
+            _commentController.CommentToGame(_id,comment);
 
             Assert.True(_isAddCommentToGame);
         }
@@ -38,7 +38,7 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void GetAllCommentToGameId_Id_boolGetAllCommentToGameId()
         {
-            _commentController.GetAllCommentToGame(Id);
+            _commentController.GetAllCommentToGame(_id);
 
             Assert.True(_isGetAllCommentToGameId);
         }

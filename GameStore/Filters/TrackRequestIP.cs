@@ -1,6 +1,4 @@
 ﻿using log4net;
-using System;
-using System.Diagnostics;
 using System.Web.Mvc;
 
 namespace GameStore.Filters
