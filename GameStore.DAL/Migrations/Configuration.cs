@@ -137,19 +137,19 @@ namespace GameStore.DAL.Migrations
             var windows = new PlatformType
             {
                 Id = Guid.NewGuid(),
-                Type = "windows"
+                Name = "windows"
             };
 
             var android = new PlatformType
             {
                 Id = Guid.NewGuid(),
-                Type = "android"
+                Name = "android"
             };
 
             var ios = new PlatformType
             {
                 Id = Guid.NewGuid(),
-                Type = "ios"
+                Name = "ios"
             };
 
             var wow = new Game

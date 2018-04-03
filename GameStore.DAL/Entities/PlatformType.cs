@@ -8,7 +8,7 @@ namespace GameStore.DAL.Entities
     {
         [Index("PlatformType_Index_Type", 1, IsUnique = true)]
         [MaxLength(450)]
-        public string Type { get; set; }
+        public string Name { get; set; }
 
         public virtual ICollection<Game> Games { get; set; }
     }

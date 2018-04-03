@@ -17,10 +17,11 @@ namespace GameStore.Tests.Service
         private static readonly Mock<IMapper> mapper = new Mock<IMapper>();
         private static readonly Mock<ILog> log = new Mock<ILog>();
 
-        private static readonly GameService GameService = new GameService(uow.Object, mapper.Object, log.Object);
+        private static readonly GameService _sut = new GameService(uow.Object, mapper.Object, log.Object);
 
         private readonly List<Game> _games = new List<Game>();
         private bool _isUpdate, _isGetById, _isCreate,_isGetAll;
+
         private readonly Guid _id = Guid.NewGuid();
 
         public GameServiceTest()
@@ -34,7 +35,7 @@ namespace GameStore.Tests.Service
         [Fact]
         public void GetAllGame_GetAllGames_TrueIsGetAll()
         {
-            var games = GameService.GetAllGame();
+            _sut.GetAllGame();
 
             Assert.True(_isGetAll);
         }
@@ -47,8 +48,7 @@ namespace GameStore.Tests.Service
                 Key = "123456654"
             };
 
-            GameService.AddNewGame(game1);
-
+            _sut.AddNewGame(game1);
             Assert.True(_isCreate);
         }
 
@@ -57,7 +57,7 @@ namespace GameStore.Tests.Service
         {
             var testGame = new GameDTO();
 
-            GameService.UpdateGame(testGame);
+            _sut.UpdateGame(testGame);
 
             Assert.True(_isUpdate);
         }
@@ -65,7 +65,7 @@ namespace GameStore.Tests.Service
         [Fact]
         public void GetGame_GameDTO_TrueIsGetById()
         {
-            GameService.GetGame(_id);
+            _sut.GetGame(_id);
 
             Assert.True(_isGetById);
         }

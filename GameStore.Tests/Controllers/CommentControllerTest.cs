@@ -13,11 +13,11 @@ namespace GameStore.Tests.Controllers
     {
         private static readonly Mock<IMapper> mapper = new Mock<IMapper>();
         private static readonly Mock<ICommentService> uow = new Mock<ICommentService>();
-        private readonly Guid _id = Guid.NewGuid();
-        private bool _isAddCommentToGame = false;
-        private bool _isGetAllCommentToGameId = false;
-        private readonly CommentController _commentController = new CommentController(uow.Object, mapper.Object);
+        private readonly CommentController _sut = new CommentController(uow.Object, mapper.Object);
 
+        private readonly Guid _id = Guid.NewGuid();
+        private bool _isAddCommentToGame,_isGetAllCommentToGameId;
+      
         public CommentControllerTest()
         {
             Mapper.Reset();
@@ -26,19 +26,19 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
-        public void AddCommentToGame_idGame_CommentDTO_boolAddCommentToGame()
+        public void AddCommentToGame_NewCommentDTO_TrueIsAddCommentToGame()
         {
             var comment = new CommentViewModel();
 
-            _commentController.CommentToGame(_id,comment);
+            _sut.CommentToGame(_id,comment);
 
             Assert.True(_isAddCommentToGame);
         }
 
         [Fact]
-        public void GetAllCommentToGameId_Id_boolGetAllCommentToGameId()
+        public void GetAllCommentToGame_GameId_TrueIsGetAllCommentToGame()
         {
-            _commentController.GetAllCommentToGame(_id);
+            _sut.GetAllCommentToGame(_id);
 
             Assert.True(_isGetAllCommentToGameId);
         }

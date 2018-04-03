@@ -16,7 +16,7 @@ namespace GameStore.Tests.Service
         private static readonly Mock<IUnitOfWork> uow = new Mock<IUnitOfWork>();
         private static readonly Mock<IMapper> mapper = new Mock<IMapper>();
         private static readonly Mock<ILog> log = new Mock<ILog>();
-        private static readonly CommentService CommentService = new CommentService(uow.Object, mapper.Object, log.Object);
+        private static readonly CommentService _sut = new CommentService(uow.Object, mapper.Object, log.Object);
 
         private readonly List<Comment> _comment = new List<Comment>();
 
@@ -26,11 +26,11 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void AddCommentToGame_add1Comment_1CommentInList()
+        public void AddComment_Comment_OneCommentInList()
          {
             var commentDto = new CommentDTO();
 
-            CommentService.AddComment(commentDto, null);
+            _sut.AddComment(commentDto, null);
             var result = _comment.Count();
 
             Assert.Equal(1, result);
