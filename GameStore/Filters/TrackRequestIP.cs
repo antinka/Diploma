@@ -5,15 +5,7 @@ namespace GameStore.Filters
 {
     public class TrackRequestIp : FilterAttribute, IActionFilter
     {
-        private readonly ILog _log;
-
-        public TrackRequestIp()
-        { }
-
-        public TrackRequestIp(ILog log)
-        {
-            _log = log;
-        }
+        private static readonly ILog _log = DependencyResolver.Current.GetService<ILog>();
 
         public void OnActionExecuting(ActionExecutingContext filterContext)
         {

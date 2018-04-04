@@ -11,6 +11,12 @@ namespace GameStore
             routes.MapMvcAttributeRoutes();
 
             routes.MapRoute(
+                name: "game",
+                url: "game/{Key}",
+                defaults: new { controller = "Game", action = "GetGameById", Key = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 name: "editGame",
                 url: "games/update/{id}",
                 defaults: new { controller = "Game", action = "Update", id = UrlParameter.Optional }
@@ -29,27 +35,15 @@ namespace GameStore
             );
 
             routes.MapRoute(
-                name: "commentForComment",
-                url: "game/{gamekey}/newcomment",
-                defaults: new { controller = "Comment", action = "CommentToComment", gamekey = UrlParameter.Optional }
-            );
-
-            routes.MapRoute(
                 name: "getAllComment",
-                url: "game/{gamekey}/newcomment",
-                defaults: new { controller = "Comment", action = "CommentToComment", gamekey = UrlParameter.Optional }
+                url: "game/{gamekey}/comments",
+                defaults: new { controller = "Comment", action = "GetAllCommentToGame", gamekey = UrlParameter.Optional }
             );
 
             routes.MapRoute(
                 name: "Download",
-                url: "game/{gamekey}/newcomment",
-                defaults: new { controller = "Comment", action = "Download", gamekey = UrlParameter.Optional }
-            );
-
-            routes.MapRoute(
-                name: "game",
-                url: "game/{Key}",
-                defaults: new { controller = "Game", action = "GetGameById", Key = UrlParameter.Optional }
+                url: "game/{gamekey}/download",
+                defaults: new { controller = "Game", action = "Download", gamekey = UrlParameter.Optional }
             );
 
             routes.MapRoute(
