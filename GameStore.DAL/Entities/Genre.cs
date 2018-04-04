@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GameStore.DAL.Entities
 {
-    public class Genre: BaseEntity
+    public class Genre : BaseEntity
     {
         [Column("IdParentGenre")]
         public Guid? ParentGenreId { get; set; }

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GameStore.DAL.Entities
 {
-    public class PlatformType: BaseEntity
+    public class PlatformType : BaseEntity
     {
         [Index("PlatformType_Index_Type", 1, IsUnique = true)]
         [MaxLength(450)]

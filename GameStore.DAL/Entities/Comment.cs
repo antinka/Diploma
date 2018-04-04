@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GameStore.DAL.Entities
 {
-    public class Comment: BaseEntity
+    public class Comment : BaseEntity
     {
         public string Name { get; set; }
 
