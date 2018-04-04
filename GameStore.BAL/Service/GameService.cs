@@ -37,7 +37,7 @@ namespace GameStore.BLL.Service
             }
             else
             {
-                throw new EntityNotFound("GameService - attempt to add new game with not unique key");
+                throw new EntityNotFound($"{nameof(GameService)} - attempt to add new game with not unique key");
             }
         }
 
@@ -46,7 +46,7 @@ namespace GameStore.BLL.Service
             var game = _unitOfWork.Games.GetById(id);
 
             if (game == null)
-                throw new EntityNotFound("GameService - attempt to delete not existed game");
+                throw new EntityNotFound($"{nameof(GameService)} - attempt to delete not existed game, id {id}");
 
             _unitOfWork.Games.Delete(id);
             _unitOfWork.Save();
@@ -78,13 +78,13 @@ namespace GameStore.BLL.Service
             IEnumerable<Game> gamesListByGenre;
             var genre = _unitOfWork.Genres.GetById(genreId);
 
-            if (genre!= null)
+            if (genre != null)
             {
                 gamesListByGenre = _unitOfWork.Games.GetAll().Where(game => game.Genres.Any(x => x.Id == genreId));
             }
             else
             {
-                throw new EntityNotFound("CommentService - exception in returning all games by GenreId, such genre id did not exist");
+                throw new EntityNotFound($"{nameof(GameService)} - exception in returning all games by GenreId, such genre id {genreId} did not exist");
             }
 
             return _mapper.Map<IEnumerable<GameDTO>>(gamesListByGenre);
@@ -101,7 +101,7 @@ namespace GameStore.BLL.Service
             }
             else
             {
-                throw new EntityNotFound("CommentService - exception in returning all games by platformTypeId, such platform type id did not exist");
+                throw new EntityNotFound($"{nameof(GameService)}- exception in returning all games by platformTypeId, such platform type id {platformTypeId} did not exist");
             }
 
             return _mapper.Map<IEnumerable<GameDTO>>(gamesList);

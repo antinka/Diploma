@@ -15,19 +15,20 @@ namespace GameStore.Tests.Controllers
         private readonly Mock<ICommentService> _uow;
         private readonly CommentController _sut;
 
-        private readonly Guid _id = Guid.NewGuid();
+        private readonly Guid _id;
 
         public CommentControllerTest()
         {
             Mapper.Reset();
 
+            _id = Guid.NewGuid();
             _mapper = new Mock<IMapper>();
             _uow = new Mock<ICommentService>();
             _sut = new CommentController(_uow.Object, _mapper.Object);
         }
 
         [Fact]
-        public void AddCommentToGame_NewComment_VerifyAll()
+        public void AddCommentToGame_NewComment_CommentAdded()
         {
             var comment = new CommentViewModel();
             _uow.Setup(x => x.AddComment(It.IsAny<CommentDTO>()));
@@ -38,7 +39,7 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
-        public void GetAllCommentToGame_GameId_VerifyAll()
+        public void GetAllCommentToGame_GameId_CommentGet()
         {
             _uow.Setup(x => x.GetCommentsByGameId(_id));
 

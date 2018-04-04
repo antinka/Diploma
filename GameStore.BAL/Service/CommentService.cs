@@ -37,15 +37,16 @@ namespace GameStore.BLL.Service
         public IEnumerable<CommentDTO> GetCommentsByGameId(Guid id)
         {
             IEnumerable<Comment> listCommentToGame;
+            var games = _unitOfWork.Games.GetById(id);
 
-            if(_unitOfWork.Games.GetById(id)!=null)
+            if (games != null)
             {
                 listCommentToGame = _unitOfWork.Comments.GetAll().Where(game => game.Id == id);
             }
             else
             {
                 throw new EntityNotFound(
-                    "CommentService - exception in returning all comment to gameId "+ id + ", such game id did not exist");
+                    $"{nameof(CommentService)}- exception in returning all comment to gameId {id} such game id did not exist");
             }
 
             return _mapper.Map<IEnumerable<CommentDTO>>(listCommentToGame);

@@ -7,6 +7,7 @@ namespace GameStore.DAL.Entities
 {
     public class Genre: BaseEntity
     {
+        [Column("IdParentGenre")]
         public Guid? ParentGenreId { get; set; }
 
         [Index("Genre_Index_Name", 1, IsUnique = true)]

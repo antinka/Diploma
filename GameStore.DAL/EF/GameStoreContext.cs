@@ -30,6 +30,11 @@ namespace GameStore.DAL.EF
         {
             base.OnModelCreating(modelBuilder);
         }
+
+        public new IDbSet<TEntity> Set<TEntity>() where TEntity : class
+        {
+            return base.Set<TEntity>();
+        }
     }
 }
 

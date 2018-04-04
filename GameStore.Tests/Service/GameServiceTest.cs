@@ -14,21 +14,22 @@ namespace GameStore.Tests.Service
     {
         private readonly Mock<IUnitOfWork> _uow;
         private readonly Mock<IMapper> _mapper;
-        private readonly Mock<ILog> log;
+        private readonly Mock<ILog> _log;
         private readonly GameService _sut;
 
-        private readonly Guid _id = Guid.NewGuid();
+        private readonly Guid _id;
 
         public GameServiceTest()
         {
+            _id = Guid.NewGuid();
             _uow = new Mock<IUnitOfWork>();
             _mapper = new Mock<IMapper>();
-            log = new Mock<ILog>();
-            _sut = new GameService(_uow.Object, _mapper.Object, log.Object);
+            _log = new Mock<ILog>();
+            _sut = new GameService(_uow.Object, _mapper.Object, _log.Object);
         }
 
         [Fact]
-        public void GetAllGame_GetAllGames_VerifyAll()
+        public void GetAllGame_GetAllGames_AllGameGeted()
         {
             _uow.Setup(x => x.Games.GetAll());
 
@@ -38,7 +39,7 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void GetGame_GameDTO_VerifyAll()
+        public void GetGame_GameDTO_GameGeted()
         {
             _uow.Setup(x => x.Games.GetById(_id));
 
@@ -47,7 +48,7 @@ namespace GameStore.Tests.Service
             _uow.VerifyAll();
         }
         [Fact]
-        public void AddNewGame_Game_VerifyAll()
+        public void AddNewGame_Game_NewGameAdded()
         {
             _uow.Setup(x => x.Games.Create(It.IsAny<Game>()));
 
@@ -57,7 +58,7 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void UpdateGame_GameDTO_AddNewGame_Game_TrueIsUpdate()
+        public void UpdateGame_Game_GameUpdated()
         {
             _uow.Setup(x => x.Games.Update(It.IsAny<Game>()));
 

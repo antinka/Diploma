@@ -26,7 +26,7 @@ namespace GameStore.Controllers
         {
             comment.GameId = gamekey;
 
-            if (parentCommentId!=null)
+            if (parentCommentId != null)
             {
                 comment.ParentCommentId = parentCommentId;
             }
@@ -38,11 +38,11 @@ namespace GameStore.Controllers
 
         [OutputCache(Duration = 60)]
         [HttpPost]
-        public ActionResult GetAllCommentToGame(Guid idGame)
+        public ActionResult GetAllCommentToGame(Guid gamekey)
         {
-            _mapper.Map<IEnumerable<CommentDTO>>(_commentService.GetCommentsByGameId(idGame));
+            _mapper.Map<IEnumerable<CommentDTO>>(_commentService.GetCommentsByGameId(gamekey));
 
-            return Json("CommentToComment", JsonRequestBehavior.AllowGet);
+            return Json("CommentToComment");
         }
     }
 }

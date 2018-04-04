@@ -42,9 +42,9 @@ namespace GameStore.Controllers
 
         [OutputCache(Duration = 60)]
         [HttpGet]
-        public ActionResult GetGameById(Guid? key)
+        public ActionResult GetGameById(Guid? gamekey)
         {
-            GameDTO game = _gameService.Get(key.GetValueOrDefault());
+            GameDTO game = _gameService.Get(gamekey.GetValueOrDefault());
 
             return Json("GetGameById", JsonRequestBehavior.AllowGet);
         }
@@ -60,9 +60,9 @@ namespace GameStore.Controllers
 
         [OutputCache(Duration = 60)]
         [HttpPost]
-        public ActionResult Remove(Guid key)
+        public ActionResult Remove(Guid gamekey)
         {
-            _gameService.Delete(key);
+            _gameService.Delete(gamekey);
 
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }

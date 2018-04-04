@@ -11,23 +11,25 @@ namespace GameStore.Tests.Controllers
 {
     public class GameControllerTest 
     {
-        private readonly Mock<IMapper> mapper;
+        private readonly Mock<IMapper> _mapper;
         private readonly Mock<IGameService> _uow;
         private readonly GameController _sut;
 
-        public Guid Id = Guid.NewGuid();
+        private readonly Guid _id;
         
         public GameControllerTest()
         {
             Mapper.Reset();
-            mapper = new Mock<IMapper>();
+
+            _id = Guid.NewGuid();
+            _mapper = new Mock<IMapper>();
             _uow = new Mock<IGameService>();
-            _sut = new GameController(_uow.Object, mapper.Object);
+            _sut = new GameController(_uow.Object, _mapper.Object);
 
         }
 
         [Fact]
-        public void NewGame_Game_VerifyAll()
+        public void NewGame_Game_GameAdded()
         {
             var game = new GameViewModel();
             _uow.Setup(x => x.AddNew(It.IsAny<GameDTO>()));
@@ -38,7 +40,7 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
-        public void UpdateGame_Game_VerifyAll()
+        public void UpdateGame_Game_GameUpdated()
         {
             var game = new GameViewModel();
             _uow.Setup(x => x.Update(It.IsAny<GameDTO>()));
@@ -49,21 +51,21 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
-        public void RemoveGame_IdGame_VerifyAll()
+        public void RemoveGame_IdGame_GameRemoved()
         {
-            _uow.Setup(x => x.Delete(Id));
+            _uow.Setup(x => x.Delete(_id));
 
-            _sut.Remove(Id);
+            _sut.Remove(_id);
 
             _uow.VerifyAll();
         }
 
         [Fact]
-        public void GetGameById_IdGame_VerifyAll()
+        public void GetGameById_IdGame_GameGetById()
         {
-            _uow.Setup(x => x.Get(Id));
+            _uow.Setup(x => x.Get(_id));
 
-            _sut.GetGameById(Id);
+            _sut.GetGameById(_id);
 
             _uow.VerifyAll();
         }

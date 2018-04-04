@@ -7,7 +7,7 @@ namespace GameStore.DAL.EF
 {
     public class UnitOfWork: IUnitOfWork
     {
-        private readonly GameStoreContext _db;
+        private readonly IDbContext _context;
 
         private readonly Lazy<GenericRepository<Game>> _lazyGameRepository;
         private readonly Lazy<GenericRepository<Genre>> _lazyGenreRepository;
@@ -15,14 +15,14 @@ namespace GameStore.DAL.EF
         private readonly Lazy<GenericRepository<PlatformType>> _lazyPlatformTypeRepository;
 
 
-        public UnitOfWork(string connectionString)
+        public UnitOfWork(IDbContext context)
         {
-            _db = new GameStoreContext(connectionString);
+            _context = context; //new GameStoreContext(connectionString);
 
-            _lazyGameRepository = new Lazy<GenericRepository<Game>>(() => new GenericRepository<Game>(_db));
-            _lazyGenreRepository = new Lazy<GenericRepository<Genre>>(() => new GenericRepository<Genre>(_db));
-            _lazyCommentRepository = new Lazy<GenericRepository<Comment>>(() => new GenericRepository<Comment>(_db));
-            _lazyPlatformTypeRepository = new Lazy<GenericRepository<PlatformType>>(() => new GenericRepository<PlatformType>(_db));
+            _lazyGameRepository = new Lazy<GenericRepository<Game>>(() => new GenericRepository<Game>(_context));
+            _lazyGenreRepository = new Lazy<GenericRepository<Genre>>(() => new GenericRepository<Genre>(_context));
+            _lazyCommentRepository = new Lazy<GenericRepository<Comment>>(() => new GenericRepository<Comment>(_context));
+            _lazyPlatformTypeRepository = new Lazy<GenericRepository<PlatformType>>(() => new GenericRepository<PlatformType>(_context));
         }
 
         public IGenericRepository<Game> Games => _lazyGameRepository.Value;
@@ -33,6 +33,6 @@ namespace GameStore.DAL.EF
 
         public IGenericRepository<PlatformType> PlatformTypes => _lazyPlatformTypeRepository.Value;
 
-        public void Save() => _db.SaveChanges();
+        public void Save() => _context.SaveChanges();
     }
 }
