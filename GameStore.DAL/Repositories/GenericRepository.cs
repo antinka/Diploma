@@ -1,5 +1,4 @@
-﻿using GameStore.DAL.EF;
-using GameStore.DAL.Interfaces;
+﻿using GameStore.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;

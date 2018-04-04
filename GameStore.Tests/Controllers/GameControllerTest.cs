@@ -65,7 +65,7 @@ namespace GameStore.Tests.Controllers
         {
             _uow.Setup(x => x.Get(_id));
 
-            _sut.GetGameById(_id);
+            _sut.GetGame(_id);
 
             _uow.VerifyAll();
         }

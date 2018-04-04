@@ -42,7 +42,7 @@ namespace GameStore.Controllers
 
         [OutputCache(Duration = 60)]
         [HttpGet]
-        public ActionResult GetGameById(Guid? gamekey)
+        public ActionResult GetGame(Guid? gamekey)
         {
             GameDTO game = _gameService.Get(gamekey.GetValueOrDefault());
 
