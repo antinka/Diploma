@@ -27,14 +27,14 @@ namespace GameStore.DAL.Migrations
             {
                 Id = Guid.NewGuid(),
                 Name = "RTS",
-                IdParentGanre = strategy.Id
+                ParentGenreId = strategy.Id
             };
 
             var tbs = new Genre
             {
                 Id = Guid.NewGuid(),
                 Name = "TBS",
-                IdParentGanre = strategy.Id
+                ParentGenreId = strategy.Id
             };
 
             context.Genres.AddOrUpdate(rts);
@@ -51,25 +51,25 @@ namespace GameStore.DAL.Migrations
             {
                 Id = Guid.NewGuid(),
                 Name = "rally",
-                IdParentGanre = races.Id
+                ParentGenreId = races.Id
             };
             var arcade = new Genre
             {
                 Id = Guid.NewGuid(),
                 Name = "arcade",
-                IdParentGanre = races.Id
+                ParentGenreId = races.Id
             };
             var formula = new Genre
             {
                 Id = Guid.NewGuid(),
                 Name = "formula",
-                IdParentGanre = races.Id
+                ParentGenreId = races.Id
             };
             var offRoad = new Genre
             {
                 Id = Guid.NewGuid(),
                 Name = "off-road",
-                IdParentGanre = races.Id
+                ParentGenreId = races.Id
             };
 
             context.Genres.AddOrUpdate(rally);
@@ -87,19 +87,19 @@ namespace GameStore.DAL.Migrations
             {
                 Id = Guid.NewGuid(),
                 Name = "FPS",
-                IdParentGanre = action.Id
+                ParentGenreId = action.Id
             };
             var tps = new Genre
             {
                 Id = Guid.NewGuid(),
                 Name = "TPS",
-                IdParentGanre = action.Id
+                ParentGenreId = action.Id
             };
             var subMisc = new Genre
             {
                 Id = Guid.NewGuid(),
                 Name = "Misc",
-                IdParentGanre = action.Id
+                ParentGenreId = action.Id
             };
 
             context.Genres.AddOrUpdate(fps);

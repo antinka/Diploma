@@ -6,14 +6,14 @@ namespace GameStore.BLL.Interfaces
 {
     public interface IGameCrudService
     {
-        void AddNewGame(GameDTO gameDto);
+        void AddNew(GameDTO gameDto);
 
-        void UpdateGame(GameDTO gameDto);
+        void Update(GameDTO gameDto);
 
-        void DeleteGame(Guid id);
+        void Delete(Guid id);
 
-        GameDTO GetGame(Guid id);
+        GameDTO Get(Guid id);
 
-        IEnumerable<GameDTO> GetAllGame();
+        IEnumerable<GameDTO> GetAll();
     }
 }

@@ -40,7 +40,7 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void GetAllCommentToGame_GameId_VerifyAll()
         {
-            _uow.Setup(x => x.GetAllComments(_id));
+            _uow.Setup(x => x.GetCommentsByGameId(_id));
 
             _sut.GetAllCommentToGame(_id);
 

@@ -40,7 +40,7 @@ namespace GameStore.Controllers
         [HttpPost]
         public ActionResult GetAllCommentToGame(Guid idGame)
         {
-            _mapper.Map<IEnumerable<CommentDTO>>(_commentService.GetAllComments(idGame));
+            _mapper.Map<IEnumerable<CommentDTO>>(_commentService.GetCommentsByGameId(idGame));
 
             return Json("CommentToComment", JsonRequestBehavior.AllowGet);
         }

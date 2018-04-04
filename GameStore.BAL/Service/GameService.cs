@@ -23,7 +23,7 @@ namespace GameStore.BLL.Service
             _mapper = mapper;
             _log = log;
         }
-        public void AddNewGame(GameDTO gameDto)
+        public void AddNew(GameDTO gameDto)
         {
             var game = _unitOfWork.Games.Get(x => x.Key == gameDto.Key).FirstOrDefault();
 
@@ -41,7 +41,7 @@ namespace GameStore.BLL.Service
             }
         }
 
-        public void DeleteGame(Guid id)
+        public void Delete(Guid id)
         {
             var game = _unitOfWork.Games.GetById(id);
 
@@ -54,7 +54,7 @@ namespace GameStore.BLL.Service
             _log.Info($"{nameof(GameService)} - delete game{id}");
         }
 
-        public void UpdateGame(GameDTO gameDto)
+        public void Update(GameDTO gameDto)
         {
             _unitOfWork.Games.Update(_mapper.Map<Game>(gameDto));
             _unitOfWork.Save();
@@ -62,13 +62,13 @@ namespace GameStore.BLL.Service
             _log.Info($"{nameof(GameService)} - update game{gameDto.Id}");
         }
 
-        public IEnumerable<GameDTO> GetAllGame()
+        public IEnumerable<GameDTO> GetAll()
         {
-             return _mapper.Map<List<GameDTO>>(_unitOfWork.Games.GetAll());
+             return _mapper.Map<IEnumerable<GameDTO>>(_unitOfWork.Games.GetAll());
         }
 
 
-        public GameDTO GetGame(Guid id)
+        public GameDTO Get(Guid id)
         { 
             return _mapper.Map<GameDTO>(_unitOfWork.Games.GetById(id));
         }
@@ -76,33 +76,35 @@ namespace GameStore.BLL.Service
         public IEnumerable<GameDTO> GetGamesByGenre(Guid genreId)
         {
             IEnumerable<Game> gamesListByGenre;
+            var genre = _unitOfWork.Genres.GetById(genreId);
 
-            if (_unitOfWork.Genres.GetById(genreId) != null)
+            if (genre!= null)
             {
-                gamesListByGenre = _unitOfWork.Games.GetAll().ToList().Where(game => game.Genres.Any(x => x.Id == genreId));
+                gamesListByGenre = _unitOfWork.Games.GetAll().Where(game => game.Genres.Any(x => x.Id == genreId));
             }
             else
             {
                 throw new EntityNotFound("CommentService - exception in returning all games by GenreId, such genre id did not exist");
             }
 
-            return _mapper.Map<List<GameDTO>>(gamesListByGenre);
+            return _mapper.Map<IEnumerable<GameDTO>>(gamesListByGenre);
         }
 
         public IEnumerable<GameDTO> GetGamesByPlatformType(Guid platformTypeId)
         {
             IEnumerable<Game> gamesList;
+            var platformType = _unitOfWork.Genres.GetById(platformTypeId);
 
-            if (_unitOfWork.PlatformTypes.GetById(platformTypeId)!= null)
+            if (platformType != null)
             {
-                gamesList = _unitOfWork.Games.GetAll().ToList().Where(game => game.PlatformTypes.Any(x=>x.Id == platformTypeId)).ToList();
+                gamesList = _unitOfWork.Games.GetAll().Where(game => game.PlatformTypes.Any(x=>x.Id == platformTypeId));
             }
             else
             {
                 throw new EntityNotFound("CommentService - exception in returning all games by platformTypeId, such platform type id did not exist");
             }
 
-            return _mapper.Map<List<GameDTO>>(gamesList);
+            return _mapper.Map<IEnumerable<GameDTO>>(gamesList);
         }
 
     }

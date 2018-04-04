@@ -26,7 +26,7 @@ namespace GameStore.Controllers
         [HttpPost]
         public ActionResult New(GameViewModel game)
         {
-            _gameService.AddNewGame(_mapper.Map<GameDTO>(game));
+            _gameService.AddNew(_mapper.Map<GameDTO>(game));
 
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
@@ -35,7 +35,7 @@ namespace GameStore.Controllers
         [HttpPost]
         public ActionResult Update(GameViewModel game)
         {
-            _gameService.UpdateGame(_mapper.Map<GameDTO>(game));
+            _gameService.Update(_mapper.Map<GameDTO>(game));
 
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
@@ -44,7 +44,7 @@ namespace GameStore.Controllers
         [HttpGet]
         public ActionResult GetGameById(Guid? key)
         {
-            GameDTO game = _gameService.GetGame(key.GetValueOrDefault());
+            GameDTO game = _gameService.Get(key.GetValueOrDefault());
 
             return Json("GetGameById", JsonRequestBehavior.AllowGet);
         }
@@ -53,7 +53,7 @@ namespace GameStore.Controllers
         [HttpGet]
         public ActionResult GetAllGames()
         {
-            var games = _gameService.GetAllGame();
+            var games = _gameService.GetAll();
 
             return Json("GetAllGames", JsonRequestBehavior.AllowGet);
         }
@@ -62,7 +62,7 @@ namespace GameStore.Controllers
         [HttpPost]
         public ActionResult Remove(Guid key)
         {
-            _gameService.DeleteGame(key);
+            _gameService.Delete(key);
 
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }

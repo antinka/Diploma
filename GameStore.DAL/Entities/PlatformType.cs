@@ -6,7 +6,7 @@ namespace GameStore.DAL.Entities
 {
     public class PlatformType: BaseEntity
     {
-        [Index("PlatformType_Index_Type", 1, IsUnique = true)]
+        [Index("PlatformType_Index_Name", 1, IsUnique = true)]
         [MaxLength(450)]
         public string Name { get; set; }
 

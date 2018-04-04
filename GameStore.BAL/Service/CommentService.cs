@@ -27,20 +27,20 @@ namespace GameStore.BLL.Service
 
         public void AddComment(CommentDTO commentDto)
         {
-            commentDto.Id=Guid.NewGuid();
+            commentDto.Id = Guid.NewGuid();
             _unitOfWork.Comments.Create(_mapper.Map<Comment>(commentDto));
             _unitOfWork.Save();
 
             _log.Info($"{nameof(CommentService)} - add comment{commentDto.Id}");
         }
 
-        public ICollection<CommentDTO> GetAllComments(Guid id)
+        public IEnumerable<CommentDTO> GetCommentsByGameId(Guid id)
         {
             IEnumerable<Comment> listCommentToGame;
 
             if(_unitOfWork.Games.GetById(id)!=null)
             {
-                listCommentToGame = _unitOfWork.Comments.GetAll().Where(game => game.Id == id).ToList();
+                listCommentToGame = _unitOfWork.Comments.GetAll().Where(game => game.Id == id);
             }
             else
             {
@@ -48,7 +48,7 @@ namespace GameStore.BLL.Service
                     "CommentService - exception in returning all comment to gameId "+ id + ", such game id did not exist");
             }
 
-            return _mapper.Map<List<CommentDTO>>(listCommentToGame);
+            return _mapper.Map<IEnumerable<CommentDTO>>(listCommentToGame);
         }
     }
 }

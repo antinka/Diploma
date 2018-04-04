@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GameStore.DAL.Entities
 {
-    public class BaseEntity: IBaseEntity
+    public class BaseEntity : IBaseEntity
     {
         [Key]
         public Guid Id { get; set; }

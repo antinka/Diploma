@@ -8,6 +8,6 @@ namespace GameStore.BLL.Interfaces
     {
         void AddComment(CommentDTO commentDto);
 
-        ICollection<CommentDTO> GetAllComments(Guid id);
+        IEnumerable<CommentDTO> GetCommentsByGameId(Guid id);
     }
 }

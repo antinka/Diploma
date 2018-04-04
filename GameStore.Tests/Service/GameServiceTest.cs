@@ -32,7 +32,7 @@ namespace GameStore.Tests.Service
         {
             _uow.Setup(x => x.Games.GetAll());
 
-            _sut.GetAllGame();
+            _sut.GetAll();
 
             _uow.VerifyAll();
         }
@@ -42,7 +42,7 @@ namespace GameStore.Tests.Service
         {
             _uow.Setup(x => x.Games.GetById(_id));
 
-            _sut.GetGame(_id);
+            _sut.Get(_id);
 
             _uow.VerifyAll();
         }
@@ -51,7 +51,7 @@ namespace GameStore.Tests.Service
         {
             _uow.Setup(x => x.Games.Create(It.IsAny<Game>()));
 
-            _sut.AddNewGame(new GameDTO());
+            _sut.AddNew(new GameDTO());
 
             _uow.VerifyAll();
         }
@@ -61,7 +61,7 @@ namespace GameStore.Tests.Service
         {
             _uow.Setup(x => x.Games.Update(It.IsAny<Game>()));
 
-            _sut.UpdateGame(new GameDTO());
+            _sut.Update(new GameDTO());
 
             _uow.VerifyAll();
         }

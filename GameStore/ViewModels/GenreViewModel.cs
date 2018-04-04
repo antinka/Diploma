@@ -6,7 +6,7 @@ namespace GameStore.ViewModels
     {
         public Guid Id { get; set; }
 
-        public Guid? IdParentGanre { get; set; }
+        public Guid? ParentGenreId { get; set; }
 
         public string Name { get; set; }
     }

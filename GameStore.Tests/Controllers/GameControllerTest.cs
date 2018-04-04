@@ -30,7 +30,7 @@ namespace GameStore.Tests.Controllers
         public void NewGame_Game_VerifyAll()
         {
             var game = new GameViewModel();
-            _uow.Setup(x => x.AddNewGame(It.IsAny<GameDTO>()));
+            _uow.Setup(x => x.AddNew(It.IsAny<GameDTO>()));
 
             _sut.New(game);
 
@@ -41,7 +41,7 @@ namespace GameStore.Tests.Controllers
         public void UpdateGame_Game_VerifyAll()
         {
             var game = new GameViewModel();
-            _uow.Setup(x => x.UpdateGame(It.IsAny<GameDTO>()));
+            _uow.Setup(x => x.Update(It.IsAny<GameDTO>()));
 
             _sut.Update(game);
 
@@ -51,7 +51,7 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void RemoveGame_IdGame_VerifyAll()
         {
-            _uow.Setup(x => x.DeleteGame(Id));
+            _uow.Setup(x => x.Delete(Id));
 
             _sut.Remove(Id);
 
@@ -61,7 +61,7 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void GetGameById_IdGame_VerifyAll()
         {
-            _uow.Setup(x => x.GetGame(Id));
+            _uow.Setup(x => x.Get(Id));
 
             _sut.GetGameById(Id);
 

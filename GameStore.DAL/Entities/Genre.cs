@@ -7,7 +7,7 @@ namespace GameStore.DAL.Entities
 {
     public class Genre: BaseEntity
     {
-        public Guid? IdParentGanre { get; set; }
+        public Guid? ParentGenreId { get; set; }
 
         [Index("Genre_Index_Name", 1, IsUnique = true)]
         [MaxLength(450)]
