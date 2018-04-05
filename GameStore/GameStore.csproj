@@ -154,6 +154,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Logs\" />
     <Folder Include="Views\Home\" />
   </ItemGroup>
   <ItemGroup>

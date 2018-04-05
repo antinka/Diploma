@@ -6,6 +6,8 @@ using GameStore.DAL.Interfaces;
 using log4net;
 using Moq;
 using System;
+using System.Collections.Generic;
+using GameStore.BLL.Exeption;
 using Xunit;
 
 namespace GameStore.Tests.Service
@@ -13,40 +15,50 @@ namespace GameStore.Tests.Service
     public class GameServiceTest
     {
         private readonly Mock<IUnitOfWork> _uow;
-        private readonly Mock<IMapper> _mapper;
-        private readonly Mock<ILog> _log;
         private readonly GameService _sut;
-
+        private readonly Game _game;
+        private readonly List<Game> _games;
         private readonly Guid _id;
 
         public GameServiceTest()
         {
             _id = Guid.NewGuid();
             _uow = new Mock<IUnitOfWork>();
-            _mapper = new Mock<IMapper>();
-            _log = new Mock<ILog>();
-            _sut = new GameService(_uow.Object, _mapper.Object, _log.Object);
+            var mapper = new Mock<IMapper>();
+            var log = new Mock<ILog>();
+            _sut = new GameService(_uow.Object, mapper.Object, log.Object);
+            _game = new Game();
+            _games = new List<Game>();
         }
 
         [Fact]
         public void GetAllGame_GetAllGames_AllGameGeted()
         {
-            _uow.Setup(x => x.Games.GetAll());
+            _uow.Setup(x => x.Games.GetAll()).Returns(_games);
 
             _sut.GetAll();
 
-            _uow.VerifyAll();
+            Assert.NotNull(_game);
         }
 
         [Fact]
-        public void GetGame_GameDTO_GameGeted()
+        public void GetGame_ExistingGameId_GameGeted()
         {
-            _uow.Setup(x => x.Games.GetById(_id));
+            _uow.Setup(x => x.Games.GetById(_id)).Returns(_game);
 
             _sut.Get(_id);
 
-            _uow.VerifyAll();
+           Assert.NotNull(_game);
         }
+
+        [Fact]
+        public void GetGame_NotExistingGameId_Exeption()
+        {
+            _uow.Setup(x => x.Games.GetById(_id)).Throws(new EntityNotFound("NotExistingGameId"));
+
+            Assert.Throws<EntityNotFound>(() => _sut.Get(_id));
+        }
+
         [Fact]
         public void AddNewGame_Game_NewGameAdded()
         {
@@ -54,7 +66,7 @@ namespace GameStore.Tests.Service
 
             _sut.AddNew(new GameDTO());
 
-            _uow.VerifyAll();
+            _uow.Verify(x => x.Games.Create(It.IsAny<Game>()), Times.Once);
         }
 
         [Fact]
@@ -64,7 +76,7 @@ namespace GameStore.Tests.Service
 
             _sut.Update(new GameDTO());
 
-            _uow.VerifyAll();
+            _uow.Verify(x => x.Games.Update(It.IsAny<Game>()), Times.Once);
         }
     }
 }

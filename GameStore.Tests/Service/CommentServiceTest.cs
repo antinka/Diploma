@@ -12,27 +12,24 @@ namespace GameStore.Tests.Service
     public class CommentServiceTest
     {
         private readonly Mock<IUnitOfWork> _uow;
-        private readonly Mock<IMapper> _mapper;
-        private readonly Mock<ILog> _log;
         private readonly CommentService _sut;
 
-        public CommentServiceTest()
+       public CommentServiceTest()
         {
             _uow = new Mock<IUnitOfWork>();
-            _mapper = new Mock<IMapper>();
-            _log = new Mock<ILog>();
-            _sut = new CommentService(_uow.Object, _mapper.Object, _log.Object);
+            var mapper = new Mock<IMapper>();
+            var log = new Mock<ILog>();
+            _sut = new CommentService(_uow.Object, mapper.Object, log.Object);
         }
 
         [Fact]
         public void AddComment_Comment_CommentAdded()
         {
-            var commentDto = new CommentDTO();
             _uow.Setup(x => x.Comments.Create(It.IsAny<Comment>()));
 
-            _sut.AddComment(commentDto);
+            _sut.AddComment(new CommentDTO());
 
-            _uow.VerifyAll();
+            _uow.Verify(x => x.Comments.Create(It.IsAny<Comment>()),Times.Once);
         }
     }
 }

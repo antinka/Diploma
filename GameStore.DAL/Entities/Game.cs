@@ -19,6 +19,5 @@ namespace GameStore.DAL.Entities
         public virtual ICollection<Genre> Genres { get; set; }
 
         public virtual ICollection<PlatformType> PlatformTypes { get; set; }
-
     }
 }

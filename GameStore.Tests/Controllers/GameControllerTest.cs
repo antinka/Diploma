@@ -11,10 +11,9 @@ namespace GameStore.Tests.Controllers
 {
     public class GameControllerTest 
     {
-        private readonly Mock<IMapper> _mapper;
-        private readonly Mock<IGameService> _uow;
+        private readonly Mock<IGameService> _gameService;
         private readonly GameController _sut;
-
+        private readonly GameDTO _faceGame;
         private readonly Guid _id;
         
         public GameControllerTest()
@@ -22,53 +21,50 @@ namespace GameStore.Tests.Controllers
             Mapper.Reset();
 
             _id = Guid.NewGuid();
-            _mapper = new Mock<IMapper>();
-            _uow = new Mock<IGameService>();
-            _sut = new GameController(_uow.Object, _mapper.Object);
-
+            var mapper = new Mock<IMapper>();
+            _gameService = new Mock<IGameService>();
+            _sut = new GameController(_gameService.Object, mapper.Object);
+            _faceGame = new GameDTO();
         }
 
         [Fact]
         public void NewGame_Game_GameAdded()
         {
-            var game = new GameViewModel();
-            _uow.Setup(x => x.AddNew(It.IsAny<GameDTO>()));
+            _gameService.Setup(x => x.AddNew(It.IsAny<GameDTO>()));
 
-            _sut.New(game);
+            _sut.New(new GameViewModel());
 
-            _uow.VerifyAll();
+            _gameService.Verify(x => x.AddNew(It.IsAny<GameDTO>()),Times.Once);
         }
 
         [Fact]
         public void UpdateGame_Game_GameUpdated()
         {
-            var game = new GameViewModel();
-            _uow.Setup(x => x.Update(It.IsAny<GameDTO>()));
+            _gameService.Setup(x => x.Update(It.IsAny<GameDTO>()));
 
-            _sut.Update(game);
+            _sut.Update(new GameViewModel());
 
-            _uow.VerifyAll();
+            _gameService.Verify(x => x.Update(It.IsAny<GameDTO>()), Times.Once);
         }
 
         [Fact]
         public void RemoveGame_IdGame_GameRemoved()
         {
-            _uow.Setup(x => x.Delete(_id));
+            _gameService.Setup(x => x.Delete(_id));
 
             _sut.Remove(_id);
 
-            _uow.VerifyAll();
+            _gameService.Verify(x => x.Delete(_id), Times.Once);
         }
 
         [Fact]
-        public void GetGameById_IdGame_GameGetById()
+        public void GetGameById_ExistingGameId_GameGetById()
         {
-            _uow.Setup(x => x.Get(_id));
+            _gameService.Setup(x => x.Get(_id)).Returns(_faceGame);
 
-            _sut.GetGame(_id);
+            var game =_sut.GetGame(_id);
 
-            _uow.VerifyAll();
+           Assert.NotNull(game);
         }
-
     }
 }

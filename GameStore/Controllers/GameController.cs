@@ -44,9 +44,9 @@ namespace GameStore.Controllers
         [HttpGet]
         public ActionResult GetGame(Guid? gamekey)
         {
-            GameDTO game = _gameService.Get(gamekey.GetValueOrDefault());
+            var game = _gameService.Get(gamekey.GetValueOrDefault());
 
-            return Json("GetGameById", JsonRequestBehavior.AllowGet);
+            return Json(game, JsonRequestBehavior.AllowGet);
         }
 
         [OutputCache(Duration = 60)]
@@ -55,7 +55,7 @@ namespace GameStore.Controllers
         {
             var games = _gameService.GetAll();
 
-            return Json("GetAllGames", JsonRequestBehavior.AllowGet);
+            return Json(games, JsonRequestBehavior.AllowGet);
         }
 
         [OutputCache(Duration = 60)]

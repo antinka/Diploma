@@ -5,15 +5,16 @@ using GameStore.Controllers;
 using GameStore.ViewModels;
 using Moq;
 using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace GameStore.Tests.Controllers
 {
     public class CommentControllerTest 
     {
-        private readonly Mock<IMapper> _mapper;
-        private readonly Mock<ICommentService> _uow;
+        private readonly Mock<ICommentService> _commentService;
         private readonly CommentController _sut;
+        private readonly List<CommentDTO> _fakeListCommentDto;
 
         private readonly Guid _id;
 
@@ -22,30 +23,33 @@ namespace GameStore.Tests.Controllers
             Mapper.Reset();
 
             _id = Guid.NewGuid();
-            _mapper = new Mock<IMapper>();
-            _uow = new Mock<ICommentService>();
-            _sut = new CommentController(_uow.Object, _mapper.Object);
+            var mapper = new Mock<IMapper>();
+            _commentService = new Mock<ICommentService>();
+            _sut = new CommentController(_commentService.Object, mapper.Object);
+            _fakeListCommentDto = new List<CommentDTO>{ 
+                new CommentDTO{Body = "body1",Game = new GameDTO(),Id=Guid.NewGuid(),Name = "name1",ParentCommentId = null},
+                new CommentDTO{Body = "body2",Game = new GameDTO(),Id=Guid.NewGuid(),Name = "name2",ParentCommentId = null}
+               };
         }
 
         [Fact]
-        public void AddCommentToGame_NewComment_CommentAdded()
+        public void AddCommentToGame_ValidComment_CommentAdded()
         {
-            var comment = new CommentViewModel();
-            _uow.Setup(x => x.AddComment(It.IsAny<CommentDTO>()));
+            _commentService.Setup(service => service.AddComment(It.IsAny<CommentDTO>()));
 
-            _sut.CommentToGame(_id, comment, null);
+            _sut.CommentToGame(_id, new CommentViewModel(), null);
 
-            _uow.VerifyAll();
+            _commentService.Verify(service => service.AddComment(It.IsAny<CommentDTO>()), Times.Once);
         }
 
         [Fact]
-        public void GetAllCommentToGame_GameId_CommentGet()
+        public void GetAllCommentToGame_ExitingGameId_ReturnsGame()
         {
-            _uow.Setup(x => x.GetCommentsByGameId(_id));
+            _commentService.Setup(service => service.GetCommentsByGameId(_id)).Returns(_fakeListCommentDto);
 
-            _sut.GetAllCommentToGame(_id);
+            var comments = _sut.GetAllCommentToGame(_id);
 
-            _uow.VerifyAll();
+            Assert.NotNull(comments);
         }
     }
 }
