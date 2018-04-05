@@ -93,7 +93,7 @@ namespace GameStore.BLL.Service
         public IEnumerable<GameDTO> GetGamesByPlatformType(Guid platformTypeId)
         {
             IEnumerable<Game> gamesList;
-            var platformType = _unitOfWork.Genres.GetById(platformTypeId);
+            var platformType = _unitOfWork.PlatformTypes.GetById(platformTypeId);
 
             if (platformType != null)
             {

@@ -16,8 +16,10 @@ namespace GameStore.Tests.Service
     {
         private readonly Mock<IUnitOfWork> _uow;
         private readonly GameService _sut;
-        private readonly Game _game;
-        private readonly List<Game> _games;
+        private readonly Game _faceGame;
+        private readonly Genre _faceGenre;
+        private readonly PlatformType _facePlatformType;
+        private readonly List<Game> _faceGames;
         private readonly Guid _id;
 
         public GameServiceTest()
@@ -27,28 +29,30 @@ namespace GameStore.Tests.Service
             var mapper = new Mock<IMapper>();
             var log = new Mock<ILog>();
             _sut = new GameService(_uow.Object, mapper.Object, log.Object);
-            _game = new Game();
-            _games = new List<Game>();
+            _faceGame = new Game();
+            _faceGames = new List<Game>();
+            _faceGenre = new Genre();
+            _facePlatformType = new PlatformType();
         }
 
         [Fact]
         public void GetAllGame_GetAllGames_AllGameGeted()
         {
-            _uow.Setup(x => x.Games.GetAll()).Returns(_games);
+            _uow.Setup(x => x.Games.GetAll()).Returns(_faceGames);
 
             _sut.GetAll();
 
-            Assert.NotNull(_game);
+            Assert.NotNull(_faceGame);
         }
 
         [Fact]
         public void GetGame_ExistingGameId_GameGeted()
         {
-            _uow.Setup(x => x.Games.GetById(_id)).Returns(_game);
+            _uow.Setup(x => x.Games.GetById(_id)).Returns(_faceGame);
 
             _sut.Get(_id);
 
-           Assert.NotNull(_game);
+            Assert.NotNull(_faceGame);
         }
 
         [Fact]
@@ -77,6 +81,52 @@ namespace GameStore.Tests.Service
             _sut.Update(new GameDTO());
 
             _uow.Verify(x => x.Games.Update(It.IsAny<Game>()), Times.Once);
+        }
+
+        [Fact]
+        public void DeleteGame_NotExistGameId__ExeptionEntityNotFound()
+        {
+            _uow.Setup(x => x.Games.Delete(_id)).Throws(new EntityNotFound("NotExistingGameId"));
+
+            Assert.Throws<EntityNotFound>(() => _sut.Delete(_id));
+        }
+
+        [Fact]
+        public void GetGamesByGenre_NotExistGenreId_ExeptionEntityNotFound()
+        {
+            _uow.Setup(x => x.Genres.GetById(_id)).Throws(new EntityNotFound("NotExistingGameId"));
+
+            Assert.Throws<EntityNotFound>(() => _sut.GetGamesByGenre(_id));
+        }
+
+        [Fact]
+        public void GetGamesByPlatformType_NotExistPlatformTypeId_ExeptionEntityNotFound()
+        {
+            _uow.Setup(x => x.PlatformTypes.GetById(_id)).Throws(new EntityNotFound("NotExistingGameId"));
+
+            Assert.Throws<EntityNotFound>(() => _sut.GetGamesByPlatformType(_id));
+        }
+
+        [Fact]
+        public void GetGamesByGenre_ExistGenred_GetedGamesByGenre()
+        {
+            _uow.Setup(x => x.Genres.GetById(_id)).Returns(_faceGenre);
+            _uow.Setup(x => x.Games.GetAll()).Returns(_faceGames);
+
+            var commentsByGameId = _sut.GetGamesByGenre(_id);
+
+            Assert.NotNull(commentsByGameId);
+        }
+
+        [Fact]
+        public void GetGamesByPlatformType_ExistPlatformTypeId_GetedGamesByPlatformType()
+        {
+            _uow.Setup(x => x.PlatformTypes.GetById(_id)).Returns(_facePlatformType);
+            _uow.Setup(x => x.Games.GetAll()).Returns(_faceGames);
+
+            var commentsByGameId = _sut.GetGamesByPlatformType(_id);
+
+            Assert.NotNull(commentsByGameId);
         }
     }
 }
