@@ -8,12 +8,12 @@ namespace GameStore
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-           // routes.MapMvcAttributeRoutes();
+            routes.MapMvcAttributeRoutes();
 
             routes.MapRoute(
                 name: "game",
                 url: "game/{Key}",
-                defaults: new { controller = "Game", action = "GetGameById", Key = UrlParameter.Optional }
+                defaults: new { controller = "Game", action = "GetGame", Key = UrlParameter.Optional }
             );
 
             routes.MapRoute(
