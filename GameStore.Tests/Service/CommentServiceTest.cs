@@ -42,13 +42,13 @@ namespace GameStore.Tests.Service
 
             _sut.AddComment(new CommentDTO());
 
-            _uow.Verify(x => x.Comments.Create(It.IsAny<Comment>()),Times.Once);
+            _uow.Verify(repository => repository.Comments.Create(It.IsAny<Comment>()),Times.Once);
         }
 
         [Fact]
         public void GetCommentsByGameId_NotExistGameId_ExeptionEntityNotFound()
         {
-            _uow.Setup(x => x.Games.GetById(_id)).Throws(new EntityNotFound("NotExistingGameId"));
+            _uow.Setup(repository => repository.Games.GetById(_id)).Throws(new EntityNotFound("NotExistingGameId"));
 
             Assert.Throws<EntityNotFound>(() => _sut.GetCommentsByGameId(_id));
         }
@@ -56,8 +56,8 @@ namespace GameStore.Tests.Service
         [Fact]
         public void GetCommentsByGameId_ExistGameId_GetedCommentsByGameId()
         {
-            _uow.Setup(x => x.Games.GetById(_id)).Returns(_faceGame);
-            _uow.Setup(x => x.Comments.GetAll()).Returns(_faceComment);
+            _uow.Setup(repository => repository.Games.GetById(_id)).Returns(_faceGame);
+            _uow.Setup(repository => repository.Comments.GetAll()).Returns(_faceComment);
 
             var commentsByGameId = _sut.GetCommentsByGameId(_id);
 

@@ -38,7 +38,7 @@ namespace GameStore.Tests.Service
         [Fact]
         public void GetAllGame_GetAllGames_AllGameGeted()
         {
-            _uow.Setup(x => x.Games.GetAll()).Returns(_faceGames);
+            _uow.Setup(repository => repository.Games.GetAll()).Returns(_faceGames);
 
             _sut.GetAll();
 
@@ -48,7 +48,7 @@ namespace GameStore.Tests.Service
         [Fact]
         public void GetGame_ExistingGameId_GameGeted()
         {
-            _uow.Setup(x => x.Games.GetById(_id)).Returns(_faceGame);
+            _uow.Setup(repository => repository.Games.GetById(_id)).Returns(_faceGame);
 
             _sut.Get(_id);
 
@@ -58,7 +58,7 @@ namespace GameStore.Tests.Service
         [Fact]
         public void GetGame_NotExistingGameId_Exeption()
         {
-            _uow.Setup(x => x.Games.GetById(_id)).Throws(new EntityNotFound("NotExistingGameId"));
+            _uow.Setup(repository => repository.Games.GetById(_id)).Throws(new EntityNotFound("NotExistingGameId"));
 
             Assert.Throws<EntityNotFound>(() => _sut.Get(_id));
         }
@@ -70,7 +70,7 @@ namespace GameStore.Tests.Service
 
             _sut.AddNew(new GameDTO());
 
-            _uow.Verify(x => x.Games.Create(It.IsAny<Game>()), Times.Once);
+            _uow.Verify(repository => repository.Games.Create(It.IsAny<Game>()), Times.Once);
         }
 
         [Fact]
@@ -80,7 +80,7 @@ namespace GameStore.Tests.Service
 
             _sut.Update(new GameDTO());
 
-            _uow.Verify(x => x.Games.Update(It.IsAny<Game>()), Times.Once);
+            _uow.Verify(repository => repository.Games.Update(It.IsAny<Game>()), Times.Once);
         }
 
         [Fact]
@@ -94,7 +94,7 @@ namespace GameStore.Tests.Service
         [Fact]
         public void GetGamesByGenre_NotExistGenreId_ExeptionEntityNotFound()
         {
-            _uow.Setup(x => x.Genres.GetById(_id)).Throws(new EntityNotFound("NotExistingGameId"));
+            _uow.Setup(repository => repository.Genres.GetById(_id)).Throws(new EntityNotFound("NotExistingGameId"));
 
             Assert.Throws<EntityNotFound>(() => _sut.GetGamesByGenre(_id));
         }
@@ -102,7 +102,7 @@ namespace GameStore.Tests.Service
         [Fact]
         public void GetGamesByPlatformType_NotExistPlatformTypeId_ExeptionEntityNotFound()
         {
-            _uow.Setup(x => x.PlatformTypes.GetById(_id)).Throws(new EntityNotFound("NotExistingGameId"));
+            _uow.Setup(repository => repository.PlatformTypes.GetById(_id)).Throws(new EntityNotFound("NotExistingGameId"));
 
             Assert.Throws<EntityNotFound>(() => _sut.GetGamesByPlatformType(_id));
         }
@@ -110,8 +110,8 @@ namespace GameStore.Tests.Service
         [Fact]
         public void GetGamesByGenre_ExistGenred_GetedGamesByGenre()
         {
-            _uow.Setup(x => x.Genres.GetById(_id)).Returns(_faceGenre);
-            _uow.Setup(x => x.Games.GetAll()).Returns(_faceGames);
+            _uow.Setup(repository => repository.Genres.GetById(_id)).Returns(_faceGenre);
+            _uow.Setup(repository => repository.Games.GetAll()).Returns(_faceGames);
 
             var commentsByGameId = _sut.GetGamesByGenre(_id);
 
@@ -121,8 +121,8 @@ namespace GameStore.Tests.Service
         [Fact]
         public void GetGamesByPlatformType_ExistPlatformTypeId_GetedGamesByPlatformType()
         {
-            _uow.Setup(x => x.PlatformTypes.GetById(_id)).Returns(_facePlatformType);
-            _uow.Setup(x => x.Games.GetAll()).Returns(_faceGames);
+            _uow.Setup(repository => repository.PlatformTypes.GetById(_id)).Returns(_facePlatformType);
+            _uow.Setup(repository => repository.Games.GetAll()).Returns(_faceGames);
 
             var commentsByGameId = _sut.GetGamesByPlatformType(_id);
 

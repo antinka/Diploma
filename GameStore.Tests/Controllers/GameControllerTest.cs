@@ -30,37 +30,37 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void NewGame_Game_GameAdded()
         {
-            _gameService.Setup(x => x.AddNew(It.IsAny<GameDTO>()));
+            _gameService.Setup(service => service.AddNew(It.IsAny<GameDTO>()));
 
             _sut.New(new GameViewModel());
 
-            _gameService.Verify(x => x.AddNew(It.IsAny<GameDTO>()),Times.Once);
+            _gameService.Verify(service => service.AddNew(It.IsAny<GameDTO>()),Times.Once);
         }
 
         [Fact]
         public void UpdateGame_Game_GameUpdated()
         {
-            _gameService.Setup(x => x.Update(It.IsAny<GameDTO>()));
+            _gameService.Setup(service => service.Update(It.IsAny<GameDTO>()));
 
             _sut.Update(new GameViewModel());
 
-            _gameService.Verify(x => x.Update(It.IsAny<GameDTO>()), Times.Once);
+            _gameService.Verify(service => service.Update(It.IsAny<GameDTO>()), Times.Once);
         }
 
         [Fact]
         public void RemoveGame_IdGame_GameRemoved()
         {
-            _gameService.Setup(x => x.Delete(_id));
+            _gameService.Setup(service => service.Delete(_id));
 
             _sut.Remove(_id);
 
-            _gameService.Verify(x => x.Delete(_id), Times.Once);
+            _gameService.Verify(service => service.Delete(_id), Times.Once);
         }
 
         [Fact]
         public void GetGameById_ExistingGameId_GameGetById()
         {
-            _gameService.Setup(x => x.Get(_id)).Returns(_faceGame);
+            _gameService.Setup(service => service.Get(_id)).Returns(_faceGame);
 
             var game =_sut.GetGame(_id);
 
