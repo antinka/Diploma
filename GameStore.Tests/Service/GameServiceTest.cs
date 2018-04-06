@@ -17,128 +17,186 @@ namespace GameStore.Tests.Service
     public class GameServiceTest
     {
         private readonly Mock<IUnitOfWork> _uow;
-
         private readonly GameService _sut;
         private readonly IMapper _mapper;
 
         private readonly Game _fakeGame;
         private readonly Genre _fakeGenre;
-        private readonly PlatformType _facePlatformType;
+        private readonly PlatformType _fakePlatformType;
         private readonly List<Game> _fakeGames;
-        private readonly Guid _id;
-        
+        private readonly List<Genre> _fakeGenres;
+        private readonly List<PlatformType> _fakePlatformTypes;
+        private readonly Guid _fakeGameId, _fakeGenreId, _fakePlatformTypeId;
 
         public GameServiceTest()
         {
-            _id = Guid.NewGuid();
             _uow = new Mock<IUnitOfWork>();
-            _mapper = MapperConfigUi.GetMapper().CreateMapper();
             var log = new Mock<ILog>();
+            _mapper = MapperConfigUi.GetMapper().CreateMapper();
             _sut = new GameService(_uow.Object, _mapper, log.Object);
-            _fakeGame = new Game(){ Id = _id };
-            _fakeGames = new List<Game>();
-            _fakeGenre = new Genre();
-            _facePlatformType = new PlatformType();
+
+            _fakeGameId = Guid.NewGuid();
+            _fakeGenreId = Guid.NewGuid();
+            _fakePlatformTypeId = Guid.NewGuid();
+
+            _fakeGenre = new Genre
+            {
+                Id = _fakeGenreId,
+                Name = "genre1"
+            };
+
+            _fakeGenres = new List<Genre>()
+            {
+                _fakeGenre,
+                new Genre() { Id = new Guid() }
+            };
+
+            _fakePlatformType = new PlatformType()
+            {
+                Id = _fakePlatformTypeId,
+                Name = "platformType1"
+            };
+
+            _fakePlatformTypes = new List<PlatformType>()
+            {
+                _fakePlatformType 
+            };
+
+            _fakeGame = new Game()
+            {
+                Id = _fakeGameId,
+                Key = "123",
+                Genres = _fakeGenres,
+                PlatformTypes = _fakePlatformTypes
+            };
+
+            _fakeGames = new List<Game>
+            {
+                _fakeGame,
+                new Game()
+                {
+                    Id = Guid.NewGuid(),
+                    Key = "1234",
+                    Genres = _fakeGenres,
+                    PlatformTypes = _fakePlatformTypes
+                }
+            };
         }
 
         [Fact]
-        public void GetAllGame_GetAllGames_AllGameGeted()
+        public void AddNewGame_GameWithUniqueKey_NewGameAdded()
         {
-            _uow.Setup(repository => repository.Games.GetAll()).Returns(_fakeGames);
+            var fakeGameDTO = new GameDTO() { Id = Guid.NewGuid(), Key = "qweqwe", Name = "1", Description = "2" };
+            var fakeGame = _mapper.Map<Game>(fakeGameDTO);
 
-            var resultGames = _sut.GetAll();
+            _uow.Setup(uow => uow.Games.Get(It.IsAny<Func<Game, bool>>())).Returns(null as IEnumerable<Game>);
+            _uow.Setup(uow => uow.Games.Create(fakeGame)).Verifiable();
+
+            _sut.AddNew(fakeGameDTO);
+
+            _uow.Verify(uow => uow.Games.Create(It.IsAny<Game>()), Times.Once);
+        }
+
+        [Fact]
+        public void AddNewGame_GameWithoutUniqueKey_ExeptionEntityNotFound()
+        {
+            var fakeGameDTO = new GameDTO() { Id = Guid.NewGuid(), Key = "123" };
+            var fakeGame = _mapper.Map<Game>(fakeGameDTO);
+
+            _uow.Setup(uow => uow.Games.Get(It.IsAny<Func<Game, bool>>())).Returns(_fakeGames);
+            _uow.Setup(uow => uow.Games.Create(fakeGame)).Verifiable();
+
+            Assert.Throws<EntityNotFound>(() => _sut.AddNew(fakeGameDTO));
+        }
+
+        [Fact]
+        public void GetAllGame_AllGamesReturned()
+        {
+            _uow.Setup(uow => uow.Games.GetAll()).Returns(_fakeGames);
+
+            var resultGames = _mapper.Map<IList<GameDTO>>(_sut.GetAll());
 
             Assert.Equal(resultGames.Count(), _fakeGames.Count);
         }
 
         [Fact]
-        public void GetGame_ExistingGameId_GameGeted()
+        public void GetGame_ExistedGameId_GameReturned()
         {
-            _uow.Setup(repository => repository.Games.GetById(_id)).Returns(_fakeGame);
+            _uow.Setup(uow => uow.Games.GetById(_fakeGameId)).Returns(_fakeGame);
 
-            var resultGame = _sut.Get(_id);
+            var resultGame = _sut.Get(_fakeGameId);
 
-            Assert.NotNull(resultGame);
-        }
-
-        //todo fix
-        [Fact]
-        public void GetGame_NotExistingGameId_Exeption()
-        {
-            _uow.Setup(repository => repository.Games.GetById(_id)).Returns(null as Game);
-
-            Assert.Throws<EntityNotFound>(() => _sut.Get(_id));
+            Assert.True(resultGame.Id == _fakeGameId);
         }
 
         [Fact]
-        public void AddNewGame_Game_NewGameAdded()
+        public void GetGame_NotExistedGameId_ExeptionEntityNotFound()
         {
-            var fakeGameDTO = new GameDTO(){ Key = "qq"};
-            var fakeGame = _mapper.Map<Game>(fakeGameDTO);
+            _uow.Setup(uow => uow.Games.GetById(_fakeGameId)).Returns(null as Game);
 
-            _uow.Setup(uof => uof.Games.Get(It.IsAny<Func<Game, bool>>())).Returns(new List<Game>() { new Game() { Key = "qq" } });
-            _uow.Setup(x => x.Games.Create(fakeGame)).Verifiable();
-            
-
-            _sut.AddNew(fakeGameDTO);
-
-            _uow.Verify(repository => repository.Games.Create(It.IsAny<Game>()), Times.Once);
+            Assert.Throws<EntityNotFound>(() => _sut.Get(_fakeGameId));
         }
 
         [Fact]
         public void UpdateGame_Game_GameUpdated()
         {
-            _uow.Setup(x => x.Games.Update(It.IsAny<Game>()));
+            var fakeGameDTO = new GameDTO() { Id = Guid.NewGuid(), Key = "123" };
+            var fakeGame = _mapper.Map<Game>(fakeGameDTO);
 
-            _sut.Update(new GameDTO());
+            _uow.Setup(uow => uow.Games.Update(fakeGame)).Verifiable();
 
-            _uow.Verify(repository => repository.Games.Update(It.IsAny<Game>()), Times.Once);
+            _sut.Update(fakeGameDTO);
+
+            _uow.Verify(uow => uow.Games.Update(It.IsAny<Game>()), Times.Once);
         }
 
         [Fact]
-        public void DeleteGame_NotExistGameId__ExeptionEntityNotFound()
+        public void DeleteGame_NotExistedGameId__ExeptionEntityNotFound()
         {
-            _uow.Setup(x => x.Games.Delete(_id)).Throws(new EntityNotFound("NotExistingGameId"));
+            var notExistGameId = Guid.NewGuid();
 
-            Assert.Throws<EntityNotFound>(() => _sut.Delete(_id));
+            _uow.Setup(uow => uow.Games.GetById(notExistGameId)).Returns(null as Game);
+            _uow.Setup(uow => uow.Games.Delete(notExistGameId));
+
+            Assert.Throws<EntityNotFound>(() => _sut.Delete(_fakeGameId));
         }
 
         [Fact]
-        public void GetGamesByGenre_NotExistGenreId_ExeptionEntityNotFound()
+        public void GetGamesByGenre_NotExistedGenreId_ExeptionEntityNotFound()
         {
-            _uow.Setup(repository => repository.Genres.GetById(_id)).Returns(null as Genre);
+            _uow.Setup(uow => uow.Genres.GetById(_fakeGameId)).Returns(null as Genre);
 
-            Assert.Throws<EntityNotFound>(() => _sut.GetGamesByGenre(_id));
+            Assert.Throws<EntityNotFound>(() => _sut.GetGamesByGenre(_fakeGameId));
         }
 
         [Fact]
-        public void GetGamesByPlatformType_NotExistPlatformTypeId_ExeptionEntityNotFound()
+        public void GetGamesByPlatformType_NotExistedPlatformTypeId_ExeptionEntityNotFound()
         {
-            _uow.Setup(repository => repository.PlatformTypes.GetById(_id)).Throws(new EntityNotFound("NotExistingGameId"));
+            _uow.Setup(uow => uow.PlatformTypes.GetById(_fakeGameId)).Returns(null as PlatformType);
 
-            Assert.Throws<EntityNotFound>(() => _sut.GetGamesByPlatformType(_id));
+            Assert.Throws<EntityNotFound>(() => _sut.GetGamesByPlatformType(_fakeGameId));
         }
 
         [Fact]
-        public void GetGamesByGenre_ExistGenred_GetedGamesByGenre()
+        public void GetGamesByGenre_ExistedGenred_ReturnedGamesByGenre()
         {
-            _uow.Setup(repository => repository.Genres.GetById(_id)).Returns(_fakeGenre);
-            _uow.Setup(repository => repository.Games.GetAll()).Returns(_fakeGames);
+            _uow.Setup(uow => uow.Genres.GetById(_fakeGenreId)).Returns(_fakeGenre);
+            _uow.Setup(uow => uow.Games.Get(It.IsAny<Func<Game, bool>>())).Returns(_fakeGames);
 
-            var commentsByGameId = _sut.GetGamesByGenre(_id);
+            var getGamesByGenreId = _sut.GetGamesByGenre(_fakeGenreId);
 
-            //Assert.True(commentsByGameId.All(x=>x.Genres.any(x)));
+            Assert.Equal(_fakeGames.Count, getGamesByGenreId.Count(g => g.Genres.Any(x => x.Id == _fakeGenreId)));
         }
 
         [Fact]
-        public void GetGamesByPlatformType_ExistPlatformTypeId_GetedGamesByPlatformType()
+        public void GetGamesByPlatformType_ExistedPlatformTypeId_ReturnedGamesByPlatformType()
         {
-            _uow.Setup(repository => repository.PlatformTypes.GetById(_id)).Returns(_facePlatformType);
-            _uow.Setup(repository => repository.Games.GetAll()).Returns(_fakeGames);
+            _uow.Setup(uow => uow.PlatformTypes.GetById(_fakePlatformTypeId)).Returns(_fakePlatformType);
+            _uow.Setup(uow => uow.Games.Get(It.IsAny<Func<Game, bool>>())).Returns(_fakeGames);
 
-            var commentsByGameId = _sut.GetGamesByPlatformType(_id);
+            var getGamesByPlatformTypeId = _sut.GetGamesByPlatformType(_fakePlatformTypeId);
 
-            Assert.NotNull(commentsByGameId);
+            Assert.Equal(_fakeGames.Count, getGamesByPlatformTypeId.Count(g => g.PlatformTypes.Any(x => x.Id == _fakePlatformTypeId)));
         }
     }
 }

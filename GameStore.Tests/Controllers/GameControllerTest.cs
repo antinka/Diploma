@@ -5,66 +5,80 @@ using GameStore.Controllers;
 using GameStore.ViewModels;
 using Moq;
 using System;
+using System.Collections.Generic;
+using System.Web.Mvc;
 using Xunit;
 
 namespace GameStore.Tests.Controllers
 {
-    public class GameControllerTest 
+    public class GameControllerTest
     {
         private readonly Mock<IGameService> _gameService;
         private readonly GameController _sut;
-        private readonly GameDTO _fakeGame;
-        private readonly Guid _id;
-        
+        private readonly List<GameDTO> _fakeGames;
+        private readonly Guid _gamekey;
+
         public GameControllerTest()
         {
-            Mapper.Reset();
-
-            _id = Guid.NewGuid();
+            _gamekey = Guid.NewGuid();
             var mapper = new Mock<IMapper>();
             _gameService = new Mock<IGameService>();
             _sut = new GameController(_gameService.Object, mapper.Object);
-            _fakeGame = new GameDTO();
+
+            _fakeGames = new List<GameDTO>
+            {
+                new GameDTO()
+                {
+                    Id = Guid.NewGuid(),
+                    Key = "1"
+                },
+                new GameDTO()
+                {
+                Id = Guid.NewGuid(),
+                Key = "2"
+                }
+            };
         }
 
         [Fact]
-        public void NewGame_Game_GameAdded()
+        public void NewGame_ValidGame_HttpStatusCodeOK()
         {
             _gameService.Setup(service => service.AddNew(It.IsAny<GameDTO>()));
 
-            _sut.New(new GameViewModel());
+            var httpStatusCodeResult = _sut.New(It.IsAny<GameViewModel>()) as HttpStatusCodeResult;
 
-            _gameService.Verify(service => service.AddNew(It.IsAny<GameDTO>()), Times.Once);
+            Assert.Equal(200, httpStatusCodeResult.StatusCode);
         }
 
         [Fact]
-        public void UpdateGame_Game_GameUpdated()
+        public void UpdateGame_Game_HttpStatusCodeOK()
         {
-            _gameService.Setup(service => service.Update(It.IsAny<GameDTO>()));
+            _gameService.Setup(service => service.Update(It.IsAny<GameDTO>())).Verifiable();
 
-            _sut.Update(It.IsAny <GameViewModel>());
+            var httpStatusCodeResult = _sut.Update(It.IsAny<GameViewModel>()) as HttpStatusCodeResult;
 
-            _gameService.Verify(service => service.Update(It.IsAny<GameDTO>()), Times.Once);
+            Assert.Equal(200, httpStatusCodeResult.StatusCode);
         }
 
         [Fact]
-        public void RemoveGame_IdGame_GameRemoved()
+        public void RemoveGame_GameKey_HttpStatusCodeOK()
         {
-            _gameService.Setup(service => service.Delete(_id));
+            _gameService.Setup(service => service.Delete(_gamekey)).Verifiable();
 
-            _sut.Remove(_id);
+            var httpStatusCodeResult = _sut.Remove(_gamekey) as HttpStatusCodeResult;
 
-            _gameService.Verify(service => service.Delete(_id), Times.Once);
+            Assert.Equal(200, httpStatusCodeResult.StatusCode);
         }
 
         [Fact]
-        public void GetGameById_ExistingGameId_GameGetById()
+        public void GetAllGames_ReturnedGames()
         {
-            _gameService.Setup(service => service.Get(_id)).Returns(_fakeGame);
+            _gameService.Setup(service => service.GetAll()).Returns(_fakeGames);
 
-            var game =_sut.GetGame(_id);
+            var game = _sut.GetAllGames() as JsonResult;
+            IDictionary<string, object> data = new System.Web.Routing.RouteValueDictionary(game.Data);
 
-           Assert.NotNull(game);
+            Assert.Equal(_fakeGames.Count, data.Count);
         }
     }
 }

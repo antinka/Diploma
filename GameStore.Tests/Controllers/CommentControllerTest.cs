@@ -2,10 +2,12 @@
 using GameStore.BLL.DTO;
 using GameStore.BLL.Interfaces;
 using GameStore.Controllers;
+using GameStore.Infastracture;
 using GameStore.ViewModels;
 using Moq;
 using System;
 using System.Collections.Generic;
+using System.Web.Mvc;
 using Xunit;
 
 namespace GameStore.Tests.Controllers
@@ -13,43 +15,58 @@ namespace GameStore.Tests.Controllers
     public class CommentControllerTest 
     {
         private readonly Mock<ICommentService> _commentService;
+        private readonly IMapper _mapper;
         private readonly CommentController _sut;
-        private readonly List<CommentDTO> _fakeListCommentDto;
 
-        private readonly Guid _id;
+        private readonly List<CommentDTO> _fakeComments;
+        private readonly Guid _gamekey;
 
         public CommentControllerTest()
         {
-            Mapper.Reset();
-
-            _id = Guid.NewGuid();
-            var mapper = new Mock<IMapper>();
+            _gamekey = Guid.NewGuid();
+            _mapper = MapperConfigUi.GetMapper().CreateMapper();
             _commentService = new Mock<ICommentService>();
-            _sut = new CommentController(_commentService.Object, mapper.Object);
-            _fakeListCommentDto = new List<CommentDTO>{ 
-                new CommentDTO{Body = "body1",Game = new GameDTO(),Id=Guid.NewGuid(),Name = "name1",ParentCommentId = null},
-                new CommentDTO{Body = "body2",Game = new GameDTO(),Id=Guid.NewGuid(),Name = "name2",ParentCommentId = null}
+            _sut = new CommentController(_commentService.Object, _mapper);
+
+            _fakeComments = new List<CommentDTO>{ 
+                new CommentDTO
+                {
+                    Body = "body1",
+                    Game = new GameDTO(),
+                    Id =Guid.NewGuid(),
+                    Name = "name1",
+                    ParentCommentId = null
+                },
+                new CommentDTO
+                {
+                    Body = "body2",
+                    Game = new GameDTO(),
+                    Id =Guid.NewGuid(),
+                    Name = "name2",
+                    ParentCommentId = null
+                }
                };
         }
 
         [Fact]
-        public void AddCommentToGame_ValidComment_CommentAdded()
+        public void AddCommentToGame_ValidComment_HttpStatusCodeOK()
         {
             _commentService.Setup(service => service.AddComment(It.IsAny<CommentDTO>()));
 
-            _sut.CommentToGame(_id, new CommentViewModel(), null);
+            var httpStatusCodeResult = _sut.AddCommentToGame(_gamekey, new CommentViewModel()) as HttpStatusCodeResult;
 
-            _commentService.Verify(service => service.AddComment(It.IsAny<CommentDTO>()), Times.Once);
+            Assert.Equal(200, httpStatusCodeResult.StatusCode);
         }
 
         [Fact]
-        public void GetAllCommentToGame_ExitingGameId_ReturnsGame()
+        public void GetAllCommentToGame_GameKey_ReturnedGames()
         {
-            _commentService.Setup(service => service.GetCommentsByGameId(_id)).Returns(_fakeListCommentDto);
+            _commentService.Setup(service => service.GetCommentsByGameId(_gamekey)).Returns(_fakeComments);
 
-            var comments = _sut.GetAllCommentToGame(_id);
+            var commentResult = _sut.GetAllCommentToGame(_gamekey) as JsonResult;
+            IDictionary<string, object> data = new System.Web.Routing.RouteValueDictionary(commentResult.Data);
 
-            Assert.NotNull(comments);
+            Assert.Equal(_fakeComments.Count, data.Count);
         }
     }
 }

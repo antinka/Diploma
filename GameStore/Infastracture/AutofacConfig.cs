@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
 using GameStore.BLL.Infastracture;
-using log4net;
 using System.Reflection;
 using System.Web.Mvc;
 
@@ -23,10 +22,8 @@ namespace GameStore.Infastracture
 
         public static void RegisterDependencies(Assembly currentAssembly, ContainerBuilder builder)
         {
-            // Register your MVC controllers.
             builder.RegisterControllers(currentAssembly);
 
-            // OPTIONAL: Enable property injection into action filters.
             builder.RegisterFilterProvider();
             builder.RegisterModule(new WebModule());
             builder.RegisterModule(new BllModule("DefaultConnection"));

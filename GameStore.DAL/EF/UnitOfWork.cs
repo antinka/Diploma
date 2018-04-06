@@ -14,7 +14,6 @@ namespace GameStore.DAL.EF
         private readonly Lazy<GenericRepository<Comment>> _lazyCommentRepository;
         private readonly Lazy<GenericRepository<PlatformType>> _lazyPlatformTypeRepository;
 
-
         public UnitOfWork(IDbContext context)
         {
             _context = context;

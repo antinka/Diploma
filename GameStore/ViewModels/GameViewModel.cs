@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace GameStore.ViewModels
 {
@@ -11,5 +12,11 @@ namespace GameStore.ViewModels
         public string Name { get; set; }
 
         public string Description { get; set; }
+
+        public ICollection<CommentViewModel> Comments { get; set; }
+
+        public ICollection<GenreViewModel> Genres { get; set; }
+
+        public ICollection<PlatformTypeViewModel> PlatformTypes { get; set; }
     }
 }

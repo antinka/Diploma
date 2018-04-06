@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace GameStore.ViewModels
 {
@@ -9,5 +10,7 @@ namespace GameStore.ViewModels
         public Guid? ParentGenreId { get; set; }
 
         public string Name { get; set; }
+
+        public ICollection<GameViewModel> Games { get; set; }
     }
 }

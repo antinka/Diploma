@@ -42,9 +42,9 @@ namespace GameStore.Controllers
 
         [OutputCache(Duration = 60)]
         [HttpGet]
-        public ActionResult GetGame(Guid? gamekey)
+        public ActionResult GetGame(Guid gamekey)
         {
-            var game = _gameService.Get(gamekey.GetValueOrDefault());
+            var game = _gameService.Get(gamekey);
 
             return Json(game, JsonRequestBehavior.AllowGet);
         }

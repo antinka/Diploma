@@ -11,12 +11,6 @@ namespace GameStore.DAL.EF
         public DbSet<Genre> Genres { get; set; }
         public DbSet<PlatformType> PlatformTypes { get; set; }
 
-        public static GameStoreContext Create()
-        {
-            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<GameStoreContext>());
-            return new GameStoreContext();
-        }
-
         public GameStoreContext()
         {
         }
@@ -24,11 +18,6 @@ namespace GameStore.DAL.EF
         public GameStoreContext(string connectionString)
             : base(connectionString)
         {
-        }
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
         }
 
         public new IDbSet<TEntity> Set<TEntity>() where TEntity : class

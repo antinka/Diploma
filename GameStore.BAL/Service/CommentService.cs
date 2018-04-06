@@ -4,11 +4,9 @@ using GameStore.DAL.Interfaces;
 using log4net;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Exeption;
 using GameStore.BLL.Interfaces;
-
 
 namespace GameStore.BLL.Service
 {
@@ -41,7 +39,7 @@ namespace GameStore.BLL.Service
 
             if (games != null)
             {
-                listCommentToGame = _unitOfWork.Comments.GetAll().Where(game => game.Id == id);
+                listCommentToGame = _unitOfWork.Comments.Get(game => game.Id == id);
             }
             else
             {

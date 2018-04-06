@@ -6,9 +6,12 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Web.Mvc;
+using GameStore.Filters;
 
 namespace GameStore.Controllers
 {
+    [TrackRequestIp]
+    [ExceptionFilter]
     public class CommentController : Controller
     {
         private readonly ICommentService _commentService;
@@ -22,14 +25,9 @@ namespace GameStore.Controllers
 
         [OutputCache(Duration = 60)]
         [HttpPost]
-        public ActionResult CommentToGame(Guid gamekey, CommentViewModel comment, Guid? parentCommentId)
+        public ActionResult AddCommentToGame(Guid gamekey, CommentViewModel comment)
         {
             comment.GameId = gamekey;
-
-            if (parentCommentId != null)
-            {
-                comment.ParentCommentId = parentCommentId;
-            }
 
             _commentService.AddComment(_mapper.Map<CommentDTO>(comment));
 
@@ -38,7 +36,7 @@ namespace GameStore.Controllers
 
         [OutputCache(Duration = 60)]
         [HttpPost]
-        public ActionResult GetAllCommentToGame(Guid gamekey)
+        public JsonResult GetAllCommentToGame(Guid gamekey)
         {
              var comments = _mapper.Map<IEnumerable<CommentDTO>>(_commentService.GetCommentsByGameId(gamekey));
 
