@@ -36,7 +36,7 @@ namespace GameStore.Controllers
 
         [OutputCache(Duration = 60)]
         [HttpPost]
-        public JsonResult GetAllCommentToGame(Guid gamekey)
+        public ActionResult GetAllCommentToGame(Guid gamekey)
         {
              var comments = _mapper.Map<IEnumerable<CommentDTO>>(_commentService.GetCommentsByGameId(gamekey));
 
