@@ -13,7 +13,7 @@ namespace GameStore.Tests.Controllers
     {
         private readonly Mock<IGameService> _gameService;
         private readonly GameController _sut;
-        private readonly GameDTO _faceGame;
+        private readonly GameDTO _fakeGame;
         private readonly Guid _id;
         
         public GameControllerTest()
@@ -24,7 +24,7 @@ namespace GameStore.Tests.Controllers
             var mapper = new Mock<IMapper>();
             _gameService = new Mock<IGameService>();
             _sut = new GameController(_gameService.Object, mapper.Object);
-            _faceGame = new GameDTO();
+            _fakeGame = new GameDTO();
         }
 
         [Fact]
@@ -34,7 +34,7 @@ namespace GameStore.Tests.Controllers
 
             _sut.New(new GameViewModel());
 
-            _gameService.Verify(service => service.AddNew(It.IsAny<GameDTO>()),Times.Once);
+            _gameService.Verify(service => service.AddNew(It.IsAny<GameDTO>()), Times.Once);
         }
 
         [Fact]
@@ -42,7 +42,7 @@ namespace GameStore.Tests.Controllers
         {
             _gameService.Setup(service => service.Update(It.IsAny<GameDTO>()));
 
-            _sut.Update(new GameViewModel());
+            _sut.Update(It.IsAny <GameViewModel>());
 
             _gameService.Verify(service => service.Update(It.IsAny<GameDTO>()), Times.Once);
         }
@@ -60,7 +60,7 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void GetGameById_ExistingGameId_GameGetById()
         {
-            _gameService.Setup(service => service.Get(_id)).Returns(_faceGame);
+            _gameService.Setup(service => service.Get(_id)).Returns(_fakeGame);
 
             var game =_sut.GetGame(_id);
 

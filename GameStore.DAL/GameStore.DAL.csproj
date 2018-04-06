@@ -60,7 +60,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EF\GameStoreDbInitializer.cs" />
     <Compile Include="EF\GameStoreContext.cs" />
     <Compile Include="EF\UnitOfWork.cs" />
     <Compile Include="Entities\BaseEntity.cs" />

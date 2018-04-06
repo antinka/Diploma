@@ -7,8 +7,8 @@
     <ProjectGuid>{D0782D1D-3927-4A45-8D57-32B107A8CF69}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GameStore.BAL</RootNamespace>
-    <AssemblyName>GameStore.BAL</AssemblyName>
+    <RootNamespace>GameStore.BLL</RootNamespace>
+    <AssemblyName>GameStore.BLL</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

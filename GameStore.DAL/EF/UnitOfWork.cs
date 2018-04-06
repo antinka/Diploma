@@ -17,7 +17,7 @@ namespace GameStore.DAL.EF
 
         public UnitOfWork(IDbContext context)
         {
-            _context = context; //new GameStoreContext(connectionString);
+            _context = context;
 
             _lazyGameRepository = new Lazy<GenericRepository<Game>>(() => new GenericRepository<Game>(_context));
             _lazyGenreRepository = new Lazy<GenericRepository<Genre>>(() => new GenericRepository<Genre>(_context));

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using AutoMapper;
+﻿using AutoMapper;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Exeption;
 using GameStore.BLL.Service;
@@ -9,6 +6,8 @@ using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
 using log4net;
 using Moq;
+using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace GameStore.Tests.Service
@@ -18,8 +17,8 @@ namespace GameStore.Tests.Service
         private readonly Mock<IUnitOfWork> _uow;
         private readonly CommentService _sut;
         private readonly Guid _id;
-        private readonly List<Comment> _faceComment;
-        private readonly Game _faceGame;
+        private readonly List<Comment> _fakeComment;
+        private readonly Game _fakeGame;
         public CommentServiceTest()
         {
             _uow = new Mock<IUnitOfWork>();
@@ -27,12 +26,12 @@ namespace GameStore.Tests.Service
             var log = new Mock<ILog>();
             _sut = new CommentService(_uow.Object, mapper.Object, log.Object);
             _id = Guid.NewGuid();
-            _faceComment = new List<Comment>
+            _fakeComment = new List<Comment>
             {
                 new Comment(),
                 new Comment()
             };
-            _faceGame = new Game();
+            _fakeGame = new Game();
         }
 
         [Fact]
@@ -56,8 +55,8 @@ namespace GameStore.Tests.Service
         [Fact]
         public void GetCommentsByGameId_ExistGameId_GetedCommentsByGameId()
         {
-            _uow.Setup(repository => repository.Games.GetById(_id)).Returns(_faceGame);
-            _uow.Setup(repository => repository.Comments.GetAll()).Returns(_faceComment);
+            _uow.Setup(repository => repository.Games.GetById(_id)).Returns(_fakeGame);
+            _uow.Setup(repository => repository.Comments.GetAll()).Returns(_fakeComment);
 
             var commentsByGameId = _sut.GetCommentsByGameId(_id);
 

@@ -23,6 +23,7 @@ namespace GameStore.BLL.Service
             _mapper = mapper;
             _log = log;
         }
+
         public void AddNew(GameDTO gameDto)
         {
             var game = _unitOfWork.Games.Get(x => x.Key == gameDto.Key).FirstOrDefault();
@@ -69,8 +70,15 @@ namespace GameStore.BLL.Service
 
 
         public GameDTO Get(Guid id)
-        { 
-            return _mapper.Map<GameDTO>(_unitOfWork.Games.GetById(id));
+        {
+                var game = _unitOfWork.Games.GetById(id);
+
+            if (game == null)
+            {
+
+            }
+
+            return _mapper.Map<GameDTO>(game);
         }
 
         public IEnumerable<GameDTO> GetGamesByGenre(Guid genreId)
@@ -80,7 +88,7 @@ namespace GameStore.BLL.Service
 
             if (genre != null)
             {
-                gamesListByGenre = _unitOfWork.Games.GetAll().Where(game => game.Genres.Any(x => x.Id == genreId));
+                gamesListByGenre = _unitOfWork.Games.Get(game => game.Genres.Any(x => x.Id == genreId));
             }
             else
             {
