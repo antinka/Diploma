@@ -33,7 +33,7 @@ namespace GameStore.Tests.Controllers
                 {
                     Body = "body1",
                     Game = new GameDTO(),
-                    Id =Guid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     Name = "name1",
                     ParentCommentId = null
                 },
@@ -41,7 +41,7 @@ namespace GameStore.Tests.Controllers
                 {
                     Body = "body2",
                     Game = new GameDTO(),
-                    Id =Guid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     Name = "name2",
                     ParentCommentId = null
                 }
