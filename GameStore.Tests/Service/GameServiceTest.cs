@@ -24,8 +24,6 @@ namespace GameStore.Tests.Service
         private readonly Genre _fakeGenre;
         private readonly PlatformType _fakePlatformType;
         private readonly List<Game> _fakeGames;
-        private readonly List<Genre> _fakeGenres;
-        private readonly List<PlatformType> _fakePlatformTypes;
         private readonly Guid _fakeGameId, _fakeGenreId, _fakePlatformTypeId;
 
         public GameServiceTest()
@@ -45,7 +43,7 @@ namespace GameStore.Tests.Service
                 Name = "genre1"
             };
 
-            _fakeGenres = new List<Genre>()
+            var fakeGenres = new List<Genre>()
             {
                 _fakeGenre,
                 new Genre() { Id = new Guid() }
@@ -57,7 +55,7 @@ namespace GameStore.Tests.Service
                 Name = "platformType1"
             };
 
-            _fakePlatformTypes = new List<PlatformType>()
+            var fakePlatformTypes = new List<PlatformType>()
             {
                 _fakePlatformType 
             };
@@ -66,8 +64,8 @@ namespace GameStore.Tests.Service
             {
                 Id = _fakeGameId,
                 Key = "123",
-                Genres = _fakeGenres,
-                PlatformTypes = _fakePlatformTypes
+                Genres = fakeGenres,
+                PlatformTypes = fakePlatformTypes
             };
 
             _fakeGames = new List<Game>
@@ -77,8 +75,8 @@ namespace GameStore.Tests.Service
                 {
                     Id = Guid.NewGuid(),
                     Key = "1234",
-                    Genres = _fakeGenres,
-                    PlatformTypes = _fakePlatformTypes
+                    Genres = fakeGenres,
+                    PlatformTypes = fakePlatformTypes
                 }
             };
         }
