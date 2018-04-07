@@ -15,15 +15,17 @@ namespace GameStore.Tests.Controllers
     {
         private readonly Mock<IGameService> _gameService;
         private readonly GameController _sut;
+
         private readonly List<GameDTO> _fakeGames;
         private readonly Guid _gamekey;
 
         public GameControllerTest()
         {
-            _gamekey = Guid.NewGuid();
             var mapper = new Mock<IMapper>();
             _gameService = new Mock<IGameService>();
             _sut = new GameController(_gameService.Object, mapper.Object);
+
+            _gamekey = Guid.NewGuid();
 
             _fakeGames = new List<GameDTO>
             {

@@ -101,19 +101,19 @@ namespace GameStore.BLL.Service
 
         public IEnumerable<GameDTO> GetGamesByPlatformType(Guid platformTypeId)
         {
-            IEnumerable<Game> gamesList;
+            IEnumerable<Game> gamesListByPlatformType;
             var platformType = _unitOfWork.PlatformTypes.GetById(platformTypeId);
 
             if (platformType != null)
             {
-                gamesList = _unitOfWork.Games.Get(game => game.PlatformTypes.Any(x => x.Id == platformTypeId));
+                gamesListByPlatformType = _unitOfWork.Games.Get(game => game.PlatformTypes.Any(x => x.Id == platformTypeId));
             }
             else
             {
                 throw new EntityNotFound($"{nameof(GameService)}- exception in returning all games by platformTypeId, such platform type id {platformTypeId} did not exist");
             }
 
-            return _mapper.Map<IEnumerable<GameDTO>>(gamesList);
+            return _mapper.Map<IEnumerable<GameDTO>>(gamesListByPlatformType);
         }
     }
 }

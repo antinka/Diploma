@@ -12,7 +12,7 @@ using Xunit;
 
 namespace GameStore.Tests.Controllers
 {
-    public class CommentControllerTest 
+    public class CommentControllerTest
     {
         private readonly Mock<ICommentService> _commentService;
         private readonly IMapper _mapper;
@@ -23,12 +23,13 @@ namespace GameStore.Tests.Controllers
 
         public CommentControllerTest()
         {
-            _gamekey = Guid.NewGuid();
             _mapper = MapperConfigUi.GetMapper().CreateMapper();
             _commentService = new Mock<ICommentService>();
             _sut = new CommentController(_commentService.Object, _mapper);
 
-            _fakeComments = new List<CommentDTO>{ 
+            _gamekey = Guid.NewGuid();
+
+            _fakeComments = new List<CommentDTO>{
                 new CommentDTO
                 {
                     Body = "body1",
