@@ -46,6 +46,7 @@ namespace GameStore.Tests.Service
             var fakeGenres = new List<Genre>()
             {
                 _fakeGenre,
+
                 new Genre() { Id = new Guid() }
             };
 
@@ -71,6 +72,7 @@ namespace GameStore.Tests.Service
             _fakeGames = new List<Game>
             {
                 _fakeGame,
+
                 new Game()
                 {
                     Id = Guid.NewGuid(),
@@ -99,10 +101,8 @@ namespace GameStore.Tests.Service
         public void AddNewGame_GameWithoutUniqueKey_ExeptionEntityNotFound()
         {
             var fakeGameDTO = new GameDTO() { Id = Guid.NewGuid(), Key = "123" };
-            var fakeGame = _mapper.Map<Game>(fakeGameDTO);
 
             _uow.Setup(uow => uow.Games.Get(It.IsAny<Func<Game, bool>>())).Returns(_fakeGames);
-            _uow.Setup(uow => uow.Games.Create(fakeGame)).Verifiable();
 
             Assert.Throws<EntityNotFound>(() => _sut.AddNew(fakeGameDTO));
         }
@@ -112,7 +112,7 @@ namespace GameStore.Tests.Service
         {
             _uow.Setup(uow => uow.Games.GetAll()).Returns(_fakeGames);
 
-            var resultGames = _mapper.Map<IList<GameDTO>>(_sut.GetAll());
+            var resultGames = _sut.GetAll();
 
             Assert.Equal(resultGames.Count(), _fakeGames.Count);
         }

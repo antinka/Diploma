@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Exeption;
 using GameStore.BLL.Interfaces;
+using System.Linq;
 
 namespace GameStore.BLL.Service
 {
@@ -32,19 +33,19 @@ namespace GameStore.BLL.Service
             _log.Info($"{nameof(CommentService)} - add comment{commentDto.Id}");
         }
 
-        public IEnumerable<CommentDTO> GetCommentsByGameId(Guid id)
+        public IEnumerable<CommentDTO> GetCommentsByGameKey(string gameKey)
         {
             IEnumerable<Comment> listCommentToGame;
-            var games = _unitOfWork.Games.GetById(id);
+            var games = _unitOfWork.Games.Get(x => x.Key == gameKey);
 
             if (games != null)
             {
-                listCommentToGame = _unitOfWork.Comments.Get(game => game.Id == id);
+                listCommentToGame = _unitOfWork.Comments.Get(game => game.Game.Key == gameKey);
             }
             else
             {
                 throw new EntityNotFound(
-                    $"{nameof(CommentService)}- exception in returning all comment to gameId {id} such game id did not exist");
+                    $"{nameof(CommentService)}- exception in returning all comment to gameKey {gameKey} such game key did not exist");
             }
 
             return _mapper.Map<IEnumerable<CommentDTO>>(listCommentToGame);

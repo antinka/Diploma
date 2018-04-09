@@ -34,6 +34,7 @@ namespace GameStore.Tests.Controllers
                     Id = Guid.NewGuid(),
                     Key = "1"
                 },
+
                 new GameDTO()
                 {
                 Id = Guid.NewGuid(),

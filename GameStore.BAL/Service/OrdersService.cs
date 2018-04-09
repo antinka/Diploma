@@ -44,20 +44,14 @@ namespace GameStore.BLL.Service
                     GameId = gameId,
                     Price = game.Price * quantity,
                     Quantity = quantity,
-                };
-
-                var newOrder = new OrderDTO()
-                {
-                    Id = Guid.NewGuid(),
-                    UserId = userId,
-                    Date = DateTime.UtcNow,
-                    OrderDetails = new List<OrderDetailDTO>
+                    Order = new OrderDTO()
                     {
-                        orderDetail
+                        Id = Guid.NewGuid(),
+                        UserId = userId,
+                        Date = DateTime.UtcNow
                     }
-                };
-
-                _unitOfWork.Orders.Create(_mapper.Map<Order>(newOrder));
+            };
+                _unitOfWork.OrderDetails.Create(_mapper.Map<OrderDetail>(orderDetail));
                 _unitOfWork.Save();
             }
             else

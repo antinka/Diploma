@@ -94,7 +94,7 @@
 </div>
 <p>
     @Html.ActionLink("Download", "Download", new { gamekey = Model.Id })|
-    @Html.ActionLink("Buy", "AddGameToOrder", "Order", new { idGame = Model.Id }, null)|
+    @Html.ActionLink("Buy", "AddGameToOrder", "Order", new { gameId = Model.Id , unitsInStock = Model.UnitsInStock }, null)|
     @Html.ActionLink("comment", "Edit", new { id = Model.Id })
 
 </p>

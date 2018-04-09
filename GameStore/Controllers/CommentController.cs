@@ -25,10 +25,8 @@ namespace GameStore.Controllers
 
         [OutputCache(Duration = 60)]
         [HttpPost]
-        public ActionResult AddCommentToGame(Guid gamekey, CommentViewModel comment)
+        public ActionResult AddCommentToGame(CommentViewModel comment)
         {
-            comment.GameId = gamekey;
-
             _commentService.AddComment(_mapper.Map<CommentDTO>(comment));
 
             return new HttpStatusCodeResult(HttpStatusCode.OK);
@@ -36,9 +34,9 @@ namespace GameStore.Controllers
 
         [OutputCache(Duration = 60)]
         [HttpPost]
-        public ActionResult GetAllCommentToGame(Guid gamekey)
+        public ActionResult GetAllCommentToGame(string gamekey)
         {
-             var comments = _mapper.Map<IEnumerable<CommentDTO>>(_commentService.GetCommentsByGameId(gamekey));
+             var comments = _mapper.Map<IEnumerable<CommentDTO>>(_commentService.GetCommentsByGameKey(gamekey));
 
             return Json(comments, JsonRequestBehavior.AllowGet);
         }

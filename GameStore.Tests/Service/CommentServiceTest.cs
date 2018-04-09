@@ -20,7 +20,7 @@ namespace GameStore.Tests.Service
         private readonly CommentService _sut;
         private readonly IMapper _mapper;
 
-        private readonly Guid _id;
+        private readonly string _gameKey;
         private readonly List<Comment> _fakeComment;
         private readonly Game _fakeGame;
 
@@ -31,12 +31,12 @@ namespace GameStore.Tests.Service
             var log = new Mock<ILog>();
             _sut = new CommentService(_uow.Object, _mapper, log.Object);
 
-            _id = Guid.NewGuid();
+            _gameKey = Guid.NewGuid().ToString();
 
             _fakeGame = new Game()
             {
-                Id = _id,
-                Key = "123"
+                Id = Guid.NewGuid(),
+                Key = _gameKey
             };
 
             _fakeComment = new List<Comment>
@@ -48,6 +48,7 @@ namespace GameStore.Tests.Service
                     Name = "1",
                     Body = "1"
                 },
+
                 new Comment()
                 {
                     Id = Guid.NewGuid(),
@@ -72,22 +73,22 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void GetCommentsByGameId_NotExistGameId_ExeptionEntityNotFound()
+        public void GetCommentsByGameKey_NotExistGameId_ExeptionEntityNotFound()
         {
-            _uow.Setup(uow => uow.Games.GetById(_id)).Returns(null as Game);
+            _uow.Setup(uow => uow.Games.Get(It.IsAny<Func<Game, bool>>())).Returns(null as IEnumerable<Game>);
 
-            Assert.Throws<EntityNotFound>(() => _sut.GetCommentsByGameId(_id));
+            Assert.Throws<EntityNotFound>(() => _sut.GetCommentsByGameKey(_gameKey));
         }
 
         [Fact]
-        public void GetCommentsByGameId_ExistGameId_ReturnedCommentsByGameId()
+        public void GetCommentsByGameKey_ExistGameId_ReturnedCommentsByGameKey()
         {
-            _uow.Setup(uow => uow.Games.GetById(_id)).Returns(_fakeGame);
+            _uow.Setup(uow => uow.Games.Get(It.IsAny<Func<Game, bool>>())).Returns(new List<Game>() { _fakeGame });
             _uow.Setup(uow => uow.Comments.Get(It.IsAny<Func<Comment, bool>>())).Returns(_fakeComment);
 
-            var resultCommentsByGameId = _sut.GetCommentsByGameId(_id);
+            var resultCommentsByGameId = _sut.GetCommentsByGameKey(_gameKey);
 
-            Assert.True(resultCommentsByGameId.All(x => x.Game.Id == _id));
+            Assert.True(resultCommentsByGameId.All(x => x.Game.Key == _gameKey));
         }
     }
 }
