@@ -14,6 +14,12 @@ namespace GameStore.DAL.Interfaces
 
         DbSet<PlatformType> PlatformTypes { get; set; }
 
+        DbSet<OrderDetail> OrderDetails { get; set; }
+
+        DbSet<Order> Orders { get; set; }
+
+        DbSet<Publisher> Publishers { get; set; }
+
         int SaveChanges();
 
         IDbSet<TEntity> Set<TEntity>() where TEntity : class;

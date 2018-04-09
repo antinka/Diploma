@@ -10,6 +10,8 @@ namespace GameStore.Infastracture
         {
             builder.RegisterType<GameService>().As<IGameService>().InstancePerLifetimeScope();
             builder.RegisterType<CommentService>().As<ICommentService>().InstancePerLifetimeScope();
+            builder.RegisterType<PublisherService>().As<IPublisherService>().InstancePerLifetimeScope();
+            builder.RegisterType<OrdersService>().As<IOrdersService>().InstancePerLifetimeScope();
         }
     }
 }

@@ -12,6 +12,12 @@ namespace GameStore.DAL.Interfaces
 
         IGenericRepository<PlatformType> PlatformTypes { get; }
 
+        IGenericRepository<OrderDetail> OrderDetails { get; }
+
+        IGenericRepository<Order> Orders { get; }
+
+        IGenericRepository<Publisher> Publishers { get; }
+
         void Save();
     }
 }

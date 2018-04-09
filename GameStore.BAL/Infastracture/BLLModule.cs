@@ -14,7 +14,7 @@ namespace GameStore.BLL.Infastracture
         }
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<GameStoreContext>().As<IDbContext>().InstancePerLifetimeScope().WithParameter("connectionString", _connectionString);
+            builder.RegisterType<GameStoreDBContext>().As<IDbContext>().InstancePerLifetimeScope().WithParameter("connectionString", _connectionString);
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
         }
     }

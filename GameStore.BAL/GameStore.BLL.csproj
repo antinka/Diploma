@@ -91,6 +91,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\OrderDetailDTO.cs" />
+    <Compile Include="DTO\OrderDTO.cs" />
+    <Compile Include="DTO\PublisherDTO.cs" />
     <Compile Include="Exeption\EntityNotFound.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Infastracture\BLLModule.cs" />
@@ -103,9 +106,13 @@
     <Compile Include="Interfaces\ICommentService.cs" />
     <Compile Include="Interfaces\IGameCRUDService.cs" />
     <Compile Include="Interfaces\IGameService.cs" />
+    <Compile Include="Interfaces\IOrdersService.cs" />
+    <Compile Include="Interfaces\IPublisherService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\CommentService.cs" />
     <Compile Include="Service\GameService.cs" />
+    <Compile Include="Service\OrdersService.cs" />
+    <Compile Include="Service\PublisherService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GameStore.DAL\GameStore.DAL.csproj">

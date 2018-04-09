@@ -8,13 +8,19 @@ namespace GameStore.BLL.Infastracture
     {
         public DtoToEntity()
         {
+            CreateMap<CommentDTO, Comment>();
+
+            CreateMap<OrderDTO, Order>();
+
+            CreateMap<OrderDetailDTO, OrderDetail>();
+
+            CreateMap<PublisherDTO, Publisher>();
+
             CreateMap<GameDTO, Game>();
         
             CreateMap<GenreDTO, Genre>();
 
             CreateMap<PlatformTypeDTO, PlatformType>();
-       
-            CreateMap<CommentDTO, Comment>();
         }
     }
 }

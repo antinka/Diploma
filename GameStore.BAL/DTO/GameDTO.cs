@@ -13,6 +13,16 @@ namespace GameStore.BLL.DTO
 
         public string Description { get; set; }
 
+        public decimal Price { get; set; }
+
+        public short UnitsInStock { get; set; }
+
+        public bool Discountinues { get; set; }
+
+        public Guid? PublisherId { get; set; }
+
+        public PublisherDTO Publisher { get; set; }
+
         public ICollection<CommentDTO> Comments { get; set; }
 
         public ICollection<GenreDTO> Genres { get; set; }

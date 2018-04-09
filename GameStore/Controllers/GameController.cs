@@ -4,6 +4,8 @@ using GameStore.BLL.Interfaces;
 using GameStore.Filters;
 using GameStore.ViewModels;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 
@@ -22,7 +24,6 @@ namespace GameStore.Controllers
             _mapper = mapper;
         }
        
-        [OutputCache(Duration = 60)]
         [HttpPost]
         public ActionResult New(GameViewModel game)
         {
@@ -31,7 +32,6 @@ namespace GameStore.Controllers
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
-        [OutputCache(Duration = 60)]
         [HttpPost]
         public ActionResult Update(GameViewModel game)
         {
@@ -40,22 +40,20 @@ namespace GameStore.Controllers
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
-        [OutputCache(Duration = 60)]
         [HttpGet]
         public ActionResult GetGame(Guid gamekey)
         {
             var game = _gameService.Get(gamekey);
 
-            return Json(game, JsonRequestBehavior.AllowGet);
+            return View(_mapper.Map<GameViewModel>(game));
         }
 
-        [OutputCache(Duration = 60)]
         [HttpGet]
         public ActionResult GetAllGames()
         {
             var games = _gameService.GetAll();
 
-            return Json(games, JsonRequestBehavior.AllowGet);
+            return View((_mapper.Map <IEnumerable<GameViewModel>>(games)));
         }
 
         [OutputCache(Duration = 60)]
@@ -77,6 +75,14 @@ namespace GameStore.Controllers
             var fileName = "test.txt";
 
             return File(mas, fileType, fileName);
+        }
+
+        [OutputCache(Duration = 60)]
+        public ActionResult CountGames()
+        {
+            var count = _gameService.GetAll().Count();
+
+            return PartialView("CountGames", count);
         }
     }
 }

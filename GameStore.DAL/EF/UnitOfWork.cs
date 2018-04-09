@@ -13,6 +13,9 @@ namespace GameStore.DAL.EF
         private readonly Lazy<GenericRepository<Genre>> _lazyGenreRepository;
         private readonly Lazy<GenericRepository<Comment>> _lazyCommentRepository;
         private readonly Lazy<GenericRepository<PlatformType>> _lazyPlatformTypeRepository;
+        private readonly Lazy<GenericRepository<OrderDetail>> _lazyOrderDetailRepository;
+        private readonly Lazy<GenericRepository<Order>> _lazyOrderRepository;
+        private readonly Lazy<GenericRepository<Publisher>> _lazyPublisherRepository;
 
         public UnitOfWork(IDbContext context)
         {
@@ -22,6 +25,9 @@ namespace GameStore.DAL.EF
             _lazyGenreRepository = new Lazy<GenericRepository<Genre>>(() => new GenericRepository<Genre>(_context));
             _lazyCommentRepository = new Lazy<GenericRepository<Comment>>(() => new GenericRepository<Comment>(_context));
             _lazyPlatformTypeRepository = new Lazy<GenericRepository<PlatformType>>(() => new GenericRepository<PlatformType>(_context));
+            _lazyOrderDetailRepository = new Lazy<GenericRepository<OrderDetail>>(() => new GenericRepository<OrderDetail>(_context));
+            _lazyOrderRepository = new Lazy<GenericRepository<Order>>(() => new GenericRepository<Order>(_context));
+            _lazyPublisherRepository = new Lazy<GenericRepository<Publisher>>(() => new GenericRepository<Publisher>(_context));
         }
 
         public IGenericRepository<Game> Games => _lazyGameRepository.Value;
@@ -31,6 +37,12 @@ namespace GameStore.DAL.EF
         public IGenericRepository<Comment> Comments => _lazyCommentRepository.Value;
 
         public IGenericRepository<PlatformType> PlatformTypes => _lazyPlatformTypeRepository.Value;
+
+        public IGenericRepository<OrderDetail> OrderDetails => _lazyOrderDetailRepository.Value;
+
+        public IGenericRepository<Order> Orders => _lazyOrderRepository.Value;
+
+        public IGenericRepository<Publisher> Publishers => _lazyPublisherRepository.Value;
 
         public void Save() => _context.SaveChanges();
     }

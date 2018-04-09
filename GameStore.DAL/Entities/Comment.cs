@@ -14,6 +14,6 @@ namespace GameStore.DAL.Entities
         [ForeignKey("Game")]
         public Guid GameId { get; set; }
 
-        public Game Game { get; set; }
+        public virtual Game Game { get; set; }
     }
 }

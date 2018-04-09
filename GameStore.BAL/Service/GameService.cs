@@ -65,7 +65,7 @@ namespace GameStore.BLL.Service
 
         public IEnumerable<GameDTO> GetAll()
         {
-            return _mapper.Map<IEnumerable<GameDTO>>(_unitOfWork.Games.GetAll());
+            return _mapper.Map<IEnumerable<GameDTO>>(_unitOfWork.Games.GetAll()).ToList();
         }
 
         public GameDTO Get(Guid id)

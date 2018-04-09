@@ -1,0 +1,14 @@
+﻿@model GameStore.ViewModels.BasketViewModel
+
+@{
+    ViewBag.Title = "AddGameToOrder";
+}
+
+<h2>AddGameToOrder</h2>
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(x => x.GameId)
+    @Html.HiddenFor(x => x.UserId)
+    <input type="text" id="Quantity" name="Quantity" min="1" value="1" max="@Model.UnitsInStock" />
+    @Html.ValidationMessageFor(model => model.Quantity, "")
+}

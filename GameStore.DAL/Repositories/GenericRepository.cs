@@ -47,7 +47,7 @@ namespace GameStore.DAL.Repositories
 
         public virtual IEnumerable<TEntiy> Get(Func<TEntiy, bool> predicate)
         {
-            return _dbSet.Where(predicate).ToList();
+            return _dbSet.Where(predicate);
         }
     }
 }

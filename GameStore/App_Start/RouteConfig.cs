@@ -11,7 +11,7 @@ namespace GameStore
             routes.MapMvcAttributeRoutes();
 
             routes.MapRoute(
-                name: "game",
+                name: "getGame",
                 url: "game/{Key}",
                 defaults: new { controller = "Game", action = "GetGame", Key = UrlParameter.Optional }
             );
@@ -53,10 +53,11 @@ namespace GameStore
               );
 
             routes.MapRoute(
-               name: "games",
-               url: "games",
-               defaults: new { controller = "Game", action = "GetAllGames" }
-           );
+              name: "games",
+              url: "games",
+              defaults: new { controller = "Game", action = "GetAllGames" }
+          );
+
 
             routes.MapRoute(
                 name: "Default",
