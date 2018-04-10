@@ -72,9 +72,9 @@
     <Compile Include="Interfaces\IDbContext.cs" />
     <Compile Include="Interfaces\IGenericRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
-    <Compile Include="Migrations\201804010648048_InitialCreate.cs" />
-    <Compile Include="Migrations\201804010648048_InitialCreate.Designer.cs">
-      <DependentUpon>201804010648048_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201804100728217_InitialCreate.cs" />
+    <Compile Include="Migrations\201804100728217_InitialCreate.Designer.cs">
+      <DependentUpon>201804100728217_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -85,8 +85,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201804010648048_InitialCreate.resx">
-      <DependentUpon>201804010648048_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804100728217_InitialCreate.resx">
+      <DependentUpon>201804100728217_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

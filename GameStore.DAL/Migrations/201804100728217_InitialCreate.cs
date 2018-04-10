@@ -1,7 +1,8 @@
 namespace GameStore.DAL.Migrations
 {
+    using System;
     using System.Data.Entity.Migrations;
-
+    
     public partial class InitialCreate : DbMigration
     {
         public override void Up()
@@ -32,30 +33,30 @@ namespace GameStore.DAL.Migrations
                         IsDelete = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .Index(t => t.Key, unique: true, name: "Index_Key");
+                .Index(t => t.Key, unique: true, name: "Game_Index_Key");
             
             CreateTable(
                 "dbo.Genres",
                 c => new
                     {
                         Id = c.Guid(nullable: false),
-                        IdParentGanre = c.Guid(),
+                        ParentGenreId = c.Guid(),
                         Name = c.String(maxLength: 450),
                         IsDelete = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .Index(t => t.Name, unique: true, name: "Index_Name");
+                .Index(t => t.Name, unique: true, name: "Genre_Index_Name");
             
             CreateTable(
                 "dbo.PlatformTypes",
                 c => new
                     {
                         Id = c.Guid(nullable: false),
-                        Type = c.String(maxLength: 450),
+                        Name = c.String(maxLength: 450),
                         IsDelete = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .Index(t => t.Type, unique: true, name: "Index_Type");
+                .Index(t => t.Name, unique: true, name: "PlatformType_Index_Name");
             
             CreateTable(
                 "dbo.GenreGames",
@@ -96,9 +97,9 @@ namespace GameStore.DAL.Migrations
             DropIndex("dbo.PlatformTypeGames", new[] { "PlatformType_Id" });
             DropIndex("dbo.GenreGames", new[] { "Game_Id" });
             DropIndex("dbo.GenreGames", new[] { "Genre_Id" });
-            DropIndex("dbo.PlatformTypes", "Index_Type");
-            DropIndex("dbo.Genres", "Index_Name");
-            DropIndex("dbo.Games", "Index_Key");
+            DropIndex("dbo.PlatformTypes", "PlatformType_Index_Name");
+            DropIndex("dbo.Genres", "Genre_Index_Name");
+            DropIndex("dbo.Games", "Game_Index_Key");
             DropIndex("dbo.Comments", new[] { "GameId" });
             DropTable("dbo.PlatformTypeGames");
             DropTable("dbo.GenreGames");

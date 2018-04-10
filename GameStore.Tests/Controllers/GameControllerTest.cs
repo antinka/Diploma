@@ -17,7 +17,7 @@ namespace GameStore.Tests.Controllers
         private readonly GameController _sut;
 
         private readonly List<GameDTO> _fakeGames;
-        private readonly Guid _gamekey;
+        private readonly string _gameKey;
 
         public GameControllerTest()
         {
@@ -25,7 +25,7 @@ namespace GameStore.Tests.Controllers
             _gameService = new Mock<IGameService>();
             _sut = new GameController(_gameService.Object, mapper.Object);
 
-            _gamekey = Guid.NewGuid();
+            _gameKey = Guid.NewGuid().ToString();
 
             _fakeGames = new List<GameDTO>
             {
@@ -36,8 +36,8 @@ namespace GameStore.Tests.Controllers
                 },
                 new GameDTO()
                 {
-                Id = Guid.NewGuid(),
-                Key = "2"
+                    Id = Guid.NewGuid(),
+                    Key = "2"
                 }
             };
         }
@@ -65,9 +65,9 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void RemoveGame_GameKey_HttpStatusCodeOK()
         {
-            _gameService.Setup(service => service.Delete(_gamekey)).Verifiable();
+            _gameService.Setup(service => service.Delete(_gameKey)).Verifiable();
 
-            var httpStatusCodeResult = _sut.Remove(_gamekey) as HttpStatusCodeResult;
+            var httpStatusCodeResult = _sut.Remove(_gameKey) as HttpStatusCodeResult;
 
             Assert.Equal(200, httpStatusCodeResult.StatusCode);
         }

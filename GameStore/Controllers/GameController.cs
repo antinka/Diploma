@@ -42,7 +42,7 @@ namespace GameStore.Controllers
 
         [OutputCache(Duration = 60)]
         [HttpGet]
-        public ActionResult GetGame(Guid gamekey)
+        public ActionResult GetGame(string gamekey)
         {
             var game = _gameService.Get(gamekey);
 
@@ -60,7 +60,7 @@ namespace GameStore.Controllers
 
         [OutputCache(Duration = 60)]
         [HttpPost]
-        public ActionResult Remove(Guid gamekey)
+        public ActionResult Remove(string gamekey)
         {
             _gameService.Delete(gamekey);
 

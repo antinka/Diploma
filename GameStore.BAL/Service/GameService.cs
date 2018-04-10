@@ -42,17 +42,17 @@ namespace GameStore.BLL.Service
             }
         }
 
-        public void Delete(Guid id)
+        public void Delete(string gamekey)
         {
-            var game = _unitOfWork.Games.GetById(id);
+            var gameExist = _unitOfWork.Games.Get(game => game.Key == gamekey);
 
-            if (game == null)
-                throw new EntityNotFound($"{nameof(GameService)} - attempt to delete not existed game, id {id}");
+            if (gameExist == null)
+                throw new EntityNotFound($"{nameof(GameService)} - attempt to delete not existed game, gamekey {gamekey}");
 
-            _unitOfWork.Games.Delete(id);
+            _unitOfWork.Games.Delete(gameExist.First().Id);
             _unitOfWork.Save();
 
-            _log.Info($"{nameof(GameService)} - delete game{id}");
+            _log.Info($"{nameof(GameService)} - delete game gamekey {gamekey}");
         }
 
         public void Update(GameDTO gameDto)
@@ -68,17 +68,17 @@ namespace GameStore.BLL.Service
             return _mapper.Map<IEnumerable<GameDTO>>(_unitOfWork.Games.GetAll());
         }
 
-        public GameDTO Get(Guid id)
+        public GameDTO Get(string gamekey)
         {
-            var game = _unitOfWork.Games.GetById(id);
+            var gameExist = _unitOfWork.Games.Get(game => game.Key == gamekey).First();
 
-            if (game == null)
+            if (gameExist == null)
             {
-                throw new EntityNotFound($"{nameof(GameService)} - game with such id {id} did not exist");
+                throw new EntityNotFound($"{nameof(GameService)} - game with such gamekey {gamekey} did not exist");
             }
             else
             {
-                return _mapper.Map<GameDTO>(game);
+                return _mapper.Map<GameDTO>(gameExist);
             }
         }
 

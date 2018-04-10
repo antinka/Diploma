@@ -156,8 +156,8 @@ namespace GameStore.DAL.Migrations
                 Name = "wow",
                 Description = "smth",
                 Key = Guid.NewGuid().ToString(),
-                Genres = new List<Genre>() {fps, adventure},
-                PlatformTypes = new List<PlatformType>() {windows}
+                Genres = new List<Genre>() { fps, adventure },
+                PlatformTypes = new List<PlatformType>() { windows }
             };
             context.Games.Add(wow);
 
@@ -167,8 +167,8 @@ namespace GameStore.DAL.Migrations
                 Name = "hero",
                 Description = "smth",
                 Key = Guid.NewGuid().ToString(),
-                Genres = new List<Genre>() {puzzleSkill, adventure, subMisc},
-                PlatformTypes = new List<PlatformType>() {windows, android, ios}
+                Genres = new List<Genre>() { puzzleSkill, adventure, subMisc },
+                PlatformTypes = new List<PlatformType>() { windows, android, ios }
             };
 
             context.Games.AddOrUpdate(hero);
@@ -217,3 +217,4 @@ namespace GameStore.DAL.Migrations
         }
     }
 }
+

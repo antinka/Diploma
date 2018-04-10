@@ -19,7 +19,7 @@ namespace GameStore.Tests.Controllers
         private readonly CommentController _sut;
 
         private readonly List<CommentDTO> _fakeComments;
-        private readonly Guid _gamekey;
+        private readonly string _gameKey;
 
         public CommentControllerTest()
         {
@@ -27,9 +27,10 @@ namespace GameStore.Tests.Controllers
             _commentService = new Mock<ICommentService>();
             _sut = new CommentController(_commentService.Object, _mapper);
 
-            _gamekey = Guid.NewGuid();
+            _gameKey = Guid.NewGuid().ToString();
 
-            _fakeComments = new List<CommentDTO>{
+            _fakeComments = new List<CommentDTO>
+            {
                 new CommentDTO
                 {
                     Body = "body1",
@@ -46,7 +47,7 @@ namespace GameStore.Tests.Controllers
                     Name = "name2",
                     ParentCommentId = null
                 }
-               };
+            };
         }
 
         [Fact]
@@ -54,7 +55,7 @@ namespace GameStore.Tests.Controllers
         {
             _commentService.Setup(service => service.AddComment(It.IsAny<CommentDTO>()));
 
-            var httpStatusCodeResult = _sut.AddCommentToGame(_gamekey, new CommentViewModel()) as HttpStatusCodeResult;
+            var httpStatusCodeResult = _sut.AddCommentToGame( new CommentViewModel()) as HttpStatusCodeResult;
 
             Assert.Equal(200, httpStatusCodeResult.StatusCode);
         }
@@ -62,9 +63,9 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void GetAllCommentToGame_GameKey_ReturnedGames()
         {
-            _commentService.Setup(service => service.GetCommentsByGameId(_gamekey)).Returns(_fakeComments);
+            _commentService.Setup(service => service.GetCommentsByGameKey(_gameKey)).Returns(_fakeComments);
 
-            var commentResult = _sut.GetAllCommentToGame(_gamekey) as JsonResult;
+            var commentResult = _sut.GetAllCommentToGame(_gameKey) as JsonResult;
             IDictionary<string, object> data = new System.Web.Routing.RouteValueDictionary(commentResult.Data);
 
             Assert.Equal(_fakeComments.Count, data.Count);
