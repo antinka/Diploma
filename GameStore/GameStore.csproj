@@ -158,6 +158,12 @@
     <Compile Include="Infastracture\Mapper\ViewModelToDTO.cs" />
     <Compile Include="Infastracture\RegisterInstanceModule.cs" />
     <Compile Include="Infastracture\WebModule.cs" />
+    <Compile Include="Payments\Bank.cs" />
+    <Compile Include="Payments\Enums\PaymentTypes.cs" />
+    <Compile Include="Payments\Box.cs" />
+    <Compile Include="Payments\IPayment.cs" />
+    <Compile Include="Payments\Payment.cs" />
+    <Compile Include="Payments\Visa.cs" />
     <Compile Include="ViewModels\BasketViewModel.cs" />
     <Compile Include="ViewModels\CommentViewModel.cs" />
     <Compile Include="ViewModels\GameViewModel.cs" />
@@ -181,6 +187,10 @@
     <Content Include="Views\Order\BasketInfo.cshtml" />
     <Content Include="Views\Game\GetGame.cshtml" />
     <Content Include="Views\Order\AddGameToOrder.cshtml" />
+    <Content Include="Views\Comment\GetAllCommentToGame.cshtml" />
+    <Content Include="Views\Comment\CommentToGame.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\GameViewModel.cshtml" />
+    <Content Include="Views\Game\New.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -192,6 +202,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Logs\" />
     <Folder Include="Views\Home\" />
+    <Folder Include="Views\Shared\DisplayTemplates\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GameStore.BAL\GameStore.BLL.csproj">

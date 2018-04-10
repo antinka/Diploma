@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using GameStore.BLL.Interfaces;
+using GameStore.Payments.Enums;
 using GameStore.ViewModels;
 using System;
 using System.Web.Mvc;
+using GameStore.Payments;
 
 namespace GameStore.Controllers
 {
@@ -51,6 +53,21 @@ namespace GameStore.Controllers
             }
 
             return View(basket);
+        }
+
+        [HttpGet]
+
+        public ActionResult Pay(PaymentTypes payment)
+        {
+            var userId = Guid.Empty;
+            var order = Mapper.Map<OrderViewModel>(_ordersService.GetOrderDetail(userId));
+
+            Payment pay = new Payment(payment);
+
+            //_service.Pay(username);
+
+            return pay.Pay(order, View);
+           // return View();
         }
     }
 }

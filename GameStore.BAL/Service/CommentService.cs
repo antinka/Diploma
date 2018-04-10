@@ -36,11 +36,11 @@ namespace GameStore.BLL.Service
         public IEnumerable<CommentDTO> GetCommentsByGameKey(string gameKey)
         {
             IEnumerable<Comment> listCommentToGame;
-            var games = _unitOfWork.Games.Get(x => x.Key == gameKey);
+            var games = _unitOfWork.Games.Get(g => g.Key == gameKey).FirstOrDefault();
 
             if (games != null)
             {
-                listCommentToGame = _unitOfWork.Comments.Get(game => game.Game.Key == gameKey);
+                listCommentToGame = _unitOfWork.Comments.Get(g => g.GameId == games.Id);
             }
             else
             {

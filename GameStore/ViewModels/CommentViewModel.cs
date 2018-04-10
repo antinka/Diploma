@@ -10,8 +10,12 @@ namespace GameStore.ViewModels
 
         public string Body { get; set; }
 
+        public string Quote { get; set; }
+
         public Guid? ParentCommentId { get; set; }
 
         public Guid GameId { get; set; }
+
+        public GameViewModel Game { get; set; }
     }
 }

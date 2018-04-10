@@ -9,5 +9,9 @@ namespace GameStore.BLL.Interfaces
         IEnumerable<GameDTO> GetGamesByGenre(Guid genreId);
 
         IEnumerable<GameDTO> GetGamesByPlatformType(Guid platformTypeId);
+
+        IEnumerable<GenreDTO> GetAllGenres();
+
+        IEnumerable<PlatformTypeDTO> GetAllPlatformType();
     }
 }

@@ -65,7 +65,7 @@ namespace GameStore.BLL.Service
 
         public IEnumerable<GameDTO> GetAll()
         {
-            return _mapper.Map<IEnumerable<GameDTO>>(_unitOfWork.Games.GetAll()).ToList();
+            return _mapper.Map<IEnumerable<GameDTO>>(_unitOfWork.Games.GetAll());
         }
 
         public GameDTO Get(Guid id)
@@ -114,6 +114,16 @@ namespace GameStore.BLL.Service
             }
 
             return _mapper.Map<IEnumerable<GameDTO>>(gamesListByPlatformType);
+        }
+
+        public IEnumerable<GenreDTO> GetAllGenres()
+        {
+            return _mapper.Map<IEnumerable<GenreDTO>>(_unitOfWork.Genres.GetAll());
+        }
+
+        public IEnumerable<PlatformTypeDTO> GetAllPlatformType()
+        {
+            return _mapper.Map<IEnumerable<PlatformTypeDTO>>(_unitOfWork.Genres.GetAll());
         }
     }
 }

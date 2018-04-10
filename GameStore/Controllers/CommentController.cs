@@ -4,6 +4,7 @@ using GameStore.BLL.Interfaces;
 using GameStore.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using GameStore.Filters;
@@ -22,23 +23,36 @@ namespace GameStore.Controllers
             _commentService = commentService;
             _mapper = mapper;
         }
-
-        [OutputCache(Duration = 60)]
-        [HttpPost]
-        public ActionResult AddCommentToGame(CommentViewModel comment)
+        [HttpGet]
+        public ActionResult CommentToGame(Guid gameId, string quote, Guid parentsCommentId)
         {
-            _commentService.AddComment(_mapper.Map<CommentDTO>(comment));
+            CommentViewModel comment = new CommentViewModel();
+            comment.GameId = gameId;
+            comment.Quote = quote;
+            comment.ParentCommentId = parentsCommentId;
 
-            return new HttpStatusCodeResult(HttpStatusCode.OK);
+            return PartialView(comment);
         }
 
         [OutputCache(Duration = 60)]
         [HttpPost]
+        public ActionResult CommentToGame(CommentViewModel comment)
+        {
+            if (ModelState.IsValid)
+            {
+                _commentService.AddComment(_mapper.Map<CommentDTO>(comment));
+                return RedirectToAction("GetAllCommentToGame", "Comment", new { gamekey = comment.Game.Key });
+            }
+
+            return PartialView(comment);
+        }
+
         public ActionResult GetAllCommentToGame(string gamekey)
         {
-             var comments = _mapper.Map<IEnumerable<CommentDTO>>(_commentService.GetCommentsByGameKey(gamekey));
+             var comments = _mapper.Map<IEnumerable<CommentViewModel>>(_commentService.GetCommentsByGameKey(gamekey));
 
-            return Json(comments, JsonRequestBehavior.AllowGet);
+           return View(comments);
+            //return comments.Count().ToString();
         }
     }
 }

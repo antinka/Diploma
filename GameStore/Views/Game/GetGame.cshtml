@@ -93,8 +93,12 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Download", "Download", new { gamekey = Model.Id })|
-    @Html.ActionLink("Buy", "AddGameToOrder", "Order", new { gameId = Model.Id , unitsInStock = Model.UnitsInStock }, null)|
-    @Html.ActionLink("comment", "Edit", new { id = Model.Id })
+    @if (Model.PublisherId != null)
+    {
+        @Html.ActionLink("Publisher", "Get", "Publisher", new { companyName = Model.Publisher.Name }, null)
+    }|
+    @Html.ActionLink("Download", "Download", new {gamekey = Model.Id})|
+    @Html.ActionLink("Buy", "AddGameToOrder", "Order", new {gameId = Model.Id, unitsInStock = Model.UnitsInStock}, null)|
+    @Html.ActionLink("Comment", "GetAllCommentToGame", "Comment", new {gamekey = Model.Key}, null)
 
 </p>

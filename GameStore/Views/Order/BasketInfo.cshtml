@@ -1,4 +1,5 @@
-﻿@model GameStore.ViewModels.OrderViewModel
+﻿@using GameStore.Payments.Enums
+@model GameStore.ViewModels.OrderViewModel
 
 @{
     ViewBag.Title = "BasketInfo";
@@ -45,7 +46,7 @@
                 </th>
             </tr>
 
-            @*@foreach (var item in Model.OrderDetails)
+            @foreach (var item in Model.OrderDetails)
             {
                 <tr>
                     <td>
@@ -64,7 +65,24 @@
                         @Html.DisplayFor(modelItem => item.Price)
                     </td>
                 </tr>
-            }*@
+            }
+                <td>
+                    <div>
+
+                        <span class="glyphicons glyphicons-bank">  </span>
+
+                        @Html.ActionLink("Bank", "Pay", new { payment = PaymentTypes.Bank}) |
+
+                        <span class="glyphicons glyphicons-inbox-in">  </span>
+
+                        @Html.ActionLink("IBox", "Pay", new { payment = PaymentTypes.Box}) |
+
+                        <span class="glyphicons glyphicons-credit-card"> </span>
+
+                        @Html.ActionLink("Pay", "Pay", new { payment = PaymentTypes.Visa})
+
+                    </div>
+                </td>
         </table>
 </div>
 <p>

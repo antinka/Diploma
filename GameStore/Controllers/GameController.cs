@@ -16,14 +16,30 @@ namespace GameStore.Controllers
     public class GameController : Controller
     {
         private readonly IGameService _gameService;
+        private readonly IPublisherService _publisherService;
         private readonly IMapper _mapper;
 
-        public GameController(IGameService gameService, IMapper mapper)
+        public GameController(IGameService gameService, IMapper mapper, IPublisherService publisherService)
         {
             _gameService = gameService;
             _mapper = mapper;
+            _publisherService = publisherService;
         }
-       
+
+        public ActionResult New()
+        {
+            var genres = _mapper.Map <IEnumerable<GenreViewModel>>(_gameService.GetAllGenres());
+            ViewBag.Genres = new SelectList(genres, "Id", "Name");
+
+            var platformTypes = _mapper.Map<IEnumerable<PlatformTypeViewModel>>(_gameService.GetAllPlatformType());
+            ViewBag.PlatformTypes = new SelectList(platformTypes, "Id", "Name");
+
+            var publishers = _mapper.Map<IEnumerable<PublisherViewModel>>(_publisherService.GetAll());
+            ViewBag.Publisher = new SelectList(publishers, "Id", "Name");
+
+            return View();
+        }
+
         [HttpPost]
         public ActionResult New(GameViewModel game)
         {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Interfaces;
 using AutoMapper;
@@ -53,6 +54,11 @@ namespace GameStore.BLL.Service
             {
                 return _mapper.Map<PublisherDTO>(publisher);
             }
+        }
+
+        public IEnumerable<PublisherDTO> GetAll()
+        {
+            return _mapper.Map<IEnumerable<PublisherDTO>>(_unitOfWork.Publishers.GetAll());
         }
     }
 }
