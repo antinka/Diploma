@@ -18,7 +18,7 @@ namespace GameStore.Controllers
         private readonly IGameService _gameService;
         private readonly IMapper _mapper;
 
-        public CommentController(ICommentService commentService, IGameService gameService,  IMapper mapper)
+        public CommentController(ICommentService commentService, IGameService gameService, IMapper mapper)
         {
             _commentService = commentService;
             _gameService = gameService;
@@ -43,21 +43,77 @@ namespace GameStore.Controllers
             return PartialView(comment);
         }
 
-        [OutputCache(Duration = 60)]
-        [HttpPost]
-        public ActionResult AddCommentToGame(Guid gamekey, CommentViewModel comment)
+        public ActionResult CommentToGameWithQuote(Guid gameId, string quote)
         {
-            comment.GameId = gamekey;
+            CommentViewModel comment = new CommentViewModel();
+            comment.GameId = gameId;
+            comment.Quote = quote;
 
-            _commentService.AddComment(_mapper.Map<CommentDTO>(comment));
+            return PartialView(comment);
+        }
+
+        [HttpGet]
+        public ActionResult CommentToGame(Guid gameId)
+        {
+            CommentViewModel comment = new CommentViewModel();
+            comment.GameId = gameId;
+
+            return PartialView(comment);
+        }
+
+        [HttpPost]
+        public ActionResult CommentToGame(CommentViewModel comment)
+        {
+            if (ModelState.IsValid)
+            {
+                _commentService.AddComment(_mapper.Map<CommentDTO>(comment));
+
+                return RedirectToAction("GetAllCommentToGame", "Comment", new { gamekey = comment.Game.Key });
+            }
+            else
+            {
+                return PartialView(comment);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult Delete(Guid commentId)
+        {
+            ViewBag.commentId = commentId;
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Delete(Guid commentId, string sure)
+        {
+            ViewBag.commentId = commentId;
+            var gamekey = TempData["gamekey"];
+
+            if (sure == "Yes")
+            {
+                _commentService.Delete(commentId);
+
+                return RedirectToAction("GetAllCommentToGame", "Comment", new { gamekey = gamekey });
+            }
+            else
+            {
+                return RedirectToAction("GetAllCommentToGame", "Comment", new { gamekey = gamekey });
+            }
+        }
+
+        [HttpGet]
+        public ActionResult Ban(Guid commentId)
+        {
+            ViewBag.commentId = commentId;
 
             return PartialView();
         }
 
         [HttpPost]
-        public ActionResult GetAllCommentToGame(Guid gamekey)
+        public ActionResult Ban(Guid commentId, BanPeriod period)
         {
-             var comments = _mapper.Map<IEnumerable<CommentDTO>>(_commentService.GetCommentsByGameId(gamekey));
+            _commentService.Ban(period, commentId);
 
             return RedirectToAction("GetAllGames", "Game");
         }

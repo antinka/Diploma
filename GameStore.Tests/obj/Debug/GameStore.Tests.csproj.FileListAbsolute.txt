@@ -217,3 +217,7 @@ E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore.Tests\bin\Debug\
 E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore.Tests\bin\Debug\NCase.Core.xml
 E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore.Tests\bin\Debug\NDsl.Core.xml
 E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore.Tests\bin\Debug\NVisitor.xml
+E:\EPAM\!WORK\Kateryna_Antonova\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore.Tests\obj\Debug\GameStore.Tests.csprojResolveAssemblyReference.cache
+E:\EPAM\!WORK\Kateryna_Antonova\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore.Tests\obj\Debug\GameStore.Tests.csproj.CoreCompileInputs.cache
+E:\EPAM\!WORK\Kateryna_Antonova\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore.Tests\obj\Debug\GameStore.Tests.dll
+E:\EPAM\!WORK\Kateryna_Antonova\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore.Tests\obj\Debug\GameStore.Tests.pdb

@@ -48,17 +48,17 @@ namespace GameStore.BLL.Service
             }
         }
 
-        public void Delete(string gamekey)
+        public void Delete(Guid id)
         {
-            var gameExist = _unitOfWork.Games.Get(game => game.Key == gamekey);
+            var game = _unitOfWork.Games.GetById(id);
 
-            if (gameExist == null)
-                throw new EntityNotFound($"{nameof(GameService)} - attempt to delete not existed game, gamekey {gamekey}");
+            if (game == null)
+                throw new EntityNotFound($"{nameof(GameService)} - attempt to delete not existed game, id {id}");
 
-            _unitOfWork.Games.Delete(gameExist.First().Id);
+            _unitOfWork.Games.Delete(id);
             _unitOfWork.Save();
 
-            _log.Info($"{nameof(GameService)} - delete game gamekey {gamekey}");
+            _log.Info($"{nameof(GameService)} - delete game{id}");
         }
 
         public void Update(GameDTO gameDto)
@@ -74,17 +74,31 @@ namespace GameStore.BLL.Service
             return _mapper.Map<IEnumerable<GameDTO>>(_unitOfWork.Games.GetAll());
         }
 
-        public GameDTO Get(Guid id)
+        public GameDTO GetByKey(string gamekey)
         {
-            var gameExist = _unitOfWork.Games.Get(game => game.Key == gamekey).First();
+            var game = _unitOfWork.Games.Get(g => g.Key == gamekey);
 
-            if (gameExist == null)
+            if (game == null)
             {
                 throw new EntityNotFound($"{nameof(GameService)} - game with such gamekey {gamekey} did not exist");
             }
             else
             {
-                return _mapper.Map<GameDTO>(gameExist);
+                return _mapper.Map<GameDTO>(game.First());
+            }
+        }
+
+        public GameDTO GetById(Guid id)
+        {
+            var game = _unitOfWork.Games.GetById(id);
+
+            if (game == null)
+            {
+                throw new EntityNotFound($"{nameof(GameService)} - game with such id {id} did not exist");
+            }
+            else
+            {
+                return _mapper.Map<GameDTO>(game);
             }
         }
 
@@ -123,3 +137,4 @@ namespace GameStore.BLL.Service
         }
     }
 }
+
