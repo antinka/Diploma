@@ -75,17 +75,9 @@
     <Compile Include="Interfaces\IDbContext.cs" />
     <Compile Include="Interfaces\IGenericRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
-    <Compile Include="Migrations\201804091454527_initial.cs" />
-    <Compile Include="Migrations\201804091454527_initial.Designer.cs">
-      <DependentUpon>201804091454527_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804130915491_update comment.cs" />
-    <Compile Include="Migrations\201804130915491_update comment.Designer.cs">
-      <DependentUpon>201804130915491_update comment.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804131011373_update comment return parentComment.cs" />
-    <Compile Include="Migrations\201804131011373_update comment return parentComment.Designer.cs">
-      <DependentUpon>201804131011373_update comment return parentComment.cs</DependentUpon>
+    <Compile Include="Migrations\201804010648048_InitialCreate.cs" />
+    <Compile Include="Migrations\201804010648048_InitialCreate.Designer.cs">
+      <DependentUpon>201804010648048_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -96,14 +88,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201804091454527_initial.resx">
-      <DependentUpon>201804091454527_initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804130915491_update comment.resx">
-      <DependentUpon>201804130915491_update comment.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804131011373_update comment return parentComment.resx">
-      <DependentUpon>201804131011373_update comment return parentComment.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804010648048_InitialCreate.resx">
+      <DependentUpon>201804010648048_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

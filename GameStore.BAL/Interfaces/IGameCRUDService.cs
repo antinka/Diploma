@@ -10,11 +10,9 @@ namespace GameStore.BLL.Interfaces
 
         void Update(GameDTO gameDto);
 
-        void Delete(Guid id);
+        void Delete(string gamekey);
 
-        GameDTO GetById(Guid id);
-
-        GameDTO GetByKey(string gamekey);
+        GameDTO Get(Guid id);
 
         IEnumerable<GameDTO> GetAll();
     }

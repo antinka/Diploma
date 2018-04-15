@@ -218,3 +218,4 @@ namespace GameStore.DAL.Migrations
         }
     }
 }
+

@@ -43,77 +43,21 @@ namespace GameStore.Controllers
             return PartialView(comment);
         }
 
-        public ActionResult CommentToGameWithQuote(Guid gameId, string quote)
-        {
-            CommentViewModel comment = new CommentViewModel();
-            comment.GameId = gameId;
-            comment.Quote = quote;
-
-            return PartialView(comment);
-        }
-
-        [HttpGet]
-        public ActionResult CommentToGame(Guid gameId)
-        {
-            CommentViewModel comment = new CommentViewModel();
-            comment.GameId = gameId;
-
-            return PartialView(comment);
-        }
-
+        [OutputCache(Duration = 60)]
         [HttpPost]
-        public ActionResult CommentToGame(CommentViewModel comment)
+        public ActionResult AddCommentToGame(Guid gamekey, CommentViewModel comment)
         {
-            if (ModelState.IsValid)
-            {
-                _commentService.AddComment(_mapper.Map<CommentDTO>(comment));
+            comment.GameId = gamekey;
 
-                return RedirectToAction("GetAllCommentToGame", "Comment", new { gamekey = comment.Game.Key });
-            }
-            else
-            {
-                return PartialView(comment);
-            }
-        }
-
-        [HttpGet]
-        public ActionResult Delete(Guid commentId)
-        {
-            ViewBag.commentId = commentId;
-
-            return View();
-        }
-
-       [HttpPost]
-        public ActionResult Delete(Guid commentId, string sure)
-        {
-            ViewBag.commentId = commentId;
-            var gamekey = TempData["gamekey"];
-
-            if (sure == "Yes")
-            {
-                _commentService.Delete(commentId);
-
-                return RedirectToAction("GetAllCommentToGame", "Comment", new { gamekey = gamekey });
-            }
-            else
-            {
-                return RedirectToAction("GetAllCommentToGame", "Comment", new { gamekey = gamekey });
-            }
-        }
-
-        [HttpGet]
-        public ActionResult Ban(Guid commentId)
-        {
-            ViewBag.commentId = commentId;
+            _commentService.AddComment(_mapper.Map<CommentDTO>(comment));
 
             return PartialView();
         }
 
         [HttpPost]
-        public ActionResult Ban(Guid commentId, BanPeriod period)
+        public ActionResult GetAllCommentToGame(Guid gamekey)
         {
-            _commentService.Ban(period, commentId);
+             var comments = _mapper.Map<IEnumerable<CommentDTO>>(_commentService.GetCommentsByGameId(gamekey));
 
             return RedirectToAction("GetAllGames", "Game");
         }

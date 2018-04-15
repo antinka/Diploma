@@ -34,34 +34,7 @@ namespace GameStore.BLL.Service
             _log.Info($"{nameof(CommentService)} - add comment{commentDto.Id}");
         }
 
-        public CommentDTO GetById(Guid id)
-        {
-            var comment = _unitOfWork.Comments.GetById(id);
-
-            if (comment == null)
-            {
-                throw new EntityNotFound($"{nameof(CommentService)} - comment with such id {id} did not exist");
-            }
-            else
-            {
-                return _mapper.Map<CommentDTO>(comment);
-            }
-        }
-
-        public void Delete(Guid id)
-        {
-            var comment = _unitOfWork.Comments.GetById(id);
-
-            if (comment == null)
-                throw new EntityNotFound($"{nameof(CommentService)} - attempt to delete not existed comment, id {id}");
-
-            _unitOfWork.Comments.Delete(id);
-            _unitOfWork.Save();
-
-            _log.Info($"{nameof(CommentService)} - delete comment{id}");
-        }
-
-        public void Ban(BanPeriod period, Guid commentId)
+        public IEnumerable<CommentDTO> GetCommentsByGameId(Guid id)
         {
             throw new NotImplementedException();
         }
@@ -69,13 +42,11 @@ namespace GameStore.BLL.Service
         public IEnumerable<CommentDTO> GetCommentsByGameKey(string gameKey)
         {
             IEnumerable<Comment> listCommentToGame;
-            var games = _unitOfWork.Games.Get(g => g.Key == gameKey);
+            var games = _unitOfWork.Games.GetById(id);
 
             if (games.Count() != 0)
             {
-                listCommentToGame = _unitOfWork.Comments.Get(g => g.GameId == games.First().Id);
-
-                return _mapper.Map<IEnumerable<CommentDTO>>(listCommentToGame);
+                listCommentToGame = _unitOfWork.Comments.Get(game => game.Id == id);
             }
             else
             {

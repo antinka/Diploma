@@ -24,6 +24,7 @@ namespace GameStore.Tests.Controllers
         private readonly Guid _fakeCommentId, _fakeGameId;
         private readonly string _fakeGameKey;
         private readonly List<GameDTO> _fakeGames;
+        private readonly Guid _gamekey;
 
         public GameControllerTest()
         {
