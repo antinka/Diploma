@@ -7,7 +7,7 @@
 <h2>GetAllGames</h2>
 
 <p>
-    @Html.ActionLink("Create New", "New")
+    @Html.ActionLink("Create New", "New","Game")
 </p>
 <table class="table">
     <tr>
@@ -59,9 +59,8 @@
             @Html.DisplayFor(modelItem => item.Publisher.Name)
         </td>
         <td>
-            @Html.ActionLink("Details", "GetGame", new { gamekey = item.Id })
+            @Html.ActionLink("Details", "GetGame", new { gamekey = item.Key })
         </td>
     </tr>
 }
-
 </table>

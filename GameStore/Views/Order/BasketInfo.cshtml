@@ -66,25 +66,20 @@
                     </td>
                 </tr>
             }
-                <td>
-                    <div>
-
-                        <span class="glyphicons glyphicons-bank">  </span>
-
-                        @Html.ActionLink("Bank", "Pay", new { payment = PaymentTypes.Bank}) |
-
-                        <span class="glyphicons glyphicons-inbox-in">  </span>
-
-                        @Html.ActionLink("IBox", "Pay", new { payment = PaymentTypes.Box}) |
-
-                        <span class="glyphicons glyphicons-credit-card"> </span>
-
-                        @Html.ActionLink("Pay", "Pay", new { payment = PaymentTypes.Visa})
-
-                    </div>
-                </td>
+                <tr>
+                    <td>
+                        <div>
+                            <a href='@Url.Action("Pay","Order", new { paymentType = PaymentTypes.Bank },null)' %>
+                                <img src="~/fonts/Bank.png" alt="QQQQQ" height="80px" />
+                            </a>
+                            <a href='@Url.Action("Pay","Order", new { paymentType = PaymentTypes.Box })' %>
+                                <img src="~/fonts/IBox.png" alt="QQQQQ" height="80px" />
+                            </a>
+                            <a href='@Url.Action("Pay","Order", new { paymentType = PaymentTypes.Visa })' %>
+                                <img src="~/fonts/Visa.png" alt="QQQQQ" height="80px" />
+                            </a>
+                        </div>
+                    </td>
+                </tr>
         </table>
 </div>
-<p>
-    @Html.ActionLink("Back to List", "Index")
-</p>

@@ -1,14 +1,16 @@
-﻿using System;
+﻿using GameStore.ViewModels;
+using System.IO;
 using System.Web.Mvc;
-using GameStore.ViewModels;
 
 namespace GameStore.Payments
 {
     public class Bank : IPayment
     {
-        public ActionResult Pay(OrderViewModel order, Func<string, object, ViewResult> viewResult)
+        public ActionResult Pay(OrderPayment order)
         {
-            throw new NotImplementedException();
+            Stream stream = new MemoryStream();
+
+            return new FileStreamResult(stream, "application/txt");
         }
     }
 }

@@ -1,14 +1,25 @@
 ﻿using GameStore.ViewModels;
-using System;
 using System.Web.Mvc;
+using GameStore.Payments.ViewModels;
 
 namespace GameStore.Payments
 {
     public class Box : IPayment
     {
-        public ActionResult Pay(OrderViewModel order, Func<string, object, ViewResult> viewResult)
+        public ActionResult Pay(OrderPayment order)
         {
-            throw new NotImplementedException();
+            var box = new BoxViewModel()
+            {
+                Cost = order.Cost,
+                OrderId = order.Id,
+                UserId = order.UserId
+            };
+
+            return new ViewResult()
+            {
+                ViewName = "~/Views/Payments/IBox.cshtml",
+                ViewData = new ViewDataDictionary(box)
+            };
         }
     }
 }

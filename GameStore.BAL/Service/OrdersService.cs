@@ -1,13 +1,12 @@
 ﻿using AutoMapper;
 using GameStore.BLL.DTO;
-using GameStore.BLL.Exeption;
 using GameStore.BLL.Interfaces;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
 using log4net;
 using System;
-using System.Collections.Generic;
 using System.Linq;
+using GameStore.BLL.Exeption;
 
 namespace GameStore.BLL.Service
 {
@@ -26,46 +25,62 @@ namespace GameStore.BLL.Service
 
         public OrderDTO GetOrderDetail(Guid userId)
         {
-            var orders = _unitOfWork.Orders.Get(x => x.UserId == userId).FirstOrDefault();
+            var orders = _unitOfWork.Orders.Get(x => x.UserId == userId);
 
-            return _mapper.Map<OrderDTO>(orders);
+            if (orders.Count() == 0)
+            {
+                return null;
+                throw new EntityNotFound($"{nameof(OrdersService)} - Orders with such id user {userId} did not exist");
+            }
+            else
+            {
+                return _mapper.Map<OrderDTO>(orders.First());
+            }
         }
 
         public void AddNewOrderDetails(Guid userId, Guid gameId, short quantity)
         {
             var game = _unitOfWork.Games.GetById(gameId);
-            var order = _unitOfWork.Orders.Get(x => x.UserId == userId).FirstOrDefault();
 
-            if (order == null)
+            if (game != null)
             {
-                var orderDetail = new OrderDetailDTO()
+                var order = _unitOfWork.Orders.Get(x => x.UserId == userId);
+
+                if (order.Count() == 0)
                 {
-                    Id = Guid.NewGuid(),
-                    GameId = gameId,
-                    Price = game.Price * quantity,
-                    Quantity = quantity,
-                    Order = new OrderDTO()
+                    var orderDetail = new OrderDetailDTO()
                     {
                         Id = Guid.NewGuid(),
-                        UserId = userId,
-                        Date = DateTime.UtcNow
-                    }
-            };
-                _unitOfWork.OrderDetails.Create(_mapper.Map<OrderDetail>(orderDetail));
-                _unitOfWork.Save();
+                        GameId = gameId,
+                        Price = game.Price * quantity,
+                        Quantity = quantity,
+                        Order = new OrderDTO()
+                        {
+                            Id = Guid.NewGuid(),
+                            UserId = userId,
+                            Date = DateTime.UtcNow
+                        }
+                    };
+                    _unitOfWork.OrderDetails.Create(_mapper.Map<OrderDetail>(orderDetail));
+                    _unitOfWork.Save();
+                }
+                else
+                {
+                    var orderDetail = new OrderDetailDTO()
+                    {
+                        Id = Guid.NewGuid(),
+                        GameId = gameId,
+                        Price = game.Price * quantity,
+                        Quantity = quantity,
+                    };
+
+                    order.First().OrderDetails.Add(_mapper.Map<OrderDetail>(orderDetail));
+                    _unitOfWork.Save();
+                }
             }
             else
             {
-                var orderDetail = new OrderDetailDTO()
-                {
-                    Id = Guid.NewGuid(),
-                    GameId = gameId,
-                    Price = game.Price * quantity,
-                    Quantity = quantity,
-                };
-
-                order.OrderDetails.Add(_mapper.Map<OrderDetail>(orderDetail));
-                _unitOfWork.Save();
+                throw new EntityNotFound($"{nameof(OrdersService)} - game with such id  {gameId} did not exist");
             }
         }
     }

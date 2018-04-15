@@ -6,9 +6,13 @@ namespace GameStore.Payments
 {
     public class Visa : IPayment
     {
-        public ActionResult Pay(OrderViewModel order, Func<string, object, ViewResult> viewResult)
+        public ActionResult Pay(OrderPayment order)
         {
-            throw new NotImplementedException();
+            return new ViewResult()
+            {
+                ViewName = "~/Views/Payments/Visa.cshtml",
+                ViewData = new ViewDataDictionary(),
+            };
         }
     }
 }

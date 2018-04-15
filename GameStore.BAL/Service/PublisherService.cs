@@ -42,7 +42,7 @@ namespace GameStore.BLL.Service
             }
         }
 
-        public PublisherDTO Get(string companyName)
+        public PublisherDTO GetByName(string companyName)
         {
             var publisher = _unitOfWork.Publishers.Get(x => x.Name == companyName).FirstOrDefault();
 

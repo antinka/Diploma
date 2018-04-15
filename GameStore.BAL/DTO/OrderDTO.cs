@@ -11,6 +11,6 @@ namespace GameStore.BLL.DTO
 
         public DateTime Date { get; set; }
 
-        public virtual ICollection<OrderDetailDTO> OrderDetails { get; set; }
+        public ICollection<OrderDetailDTO> OrderDetails { get; set; }
     }
 }

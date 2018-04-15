@@ -16,36 +16,58 @@ namespace GameStore.Controllers
     public class GameController : Controller
     {
         private readonly IGameService _gameService;
+        private readonly IGenreService _genreService;
+        private readonly IPlatformTypeService _platformTypeService;
         private readonly IPublisherService _publisherService;
         private readonly IMapper _mapper;
 
-        public GameController(IGameService gameService, IMapper mapper, IPublisherService publisherService)
+        public GameController(IGameService gameService, 
+            IGenreService genreService, 
+            IPlatformTypeService platformTypeService,
+            IMapper mapper,
+            IPublisherService publisherService)
         {
             _gameService = gameService;
             _mapper = mapper;
             _publisherService = publisherService;
+            _genreService = genreService;
+            _platformTypeService = platformTypeService;
         }
 
+        [HttpGet]
         public ActionResult New()
         {
-            var genres = _mapper.Map <IEnumerable<GenreViewModel>>(_gameService.GetAllGenres());
-            ViewBag.Genres = new SelectList(genres, "Id", "Name");
-
-            var platformTypes = _mapper.Map<IEnumerable<PlatformTypeViewModel>>(_gameService.GetAllPlatformType());
-            ViewBag.PlatformTypes = new SelectList(platformTypes, "Id", "Name");
-
+            GameViewModel game = new GameViewModel();
+            var genres = _mapper.Map<IEnumerable<GenreViewModel>>(_genreService.GetAll());
+            game.GenreList = new SelectList(genres, "Id", "Name");
+            var platformTypes = _mapper.Map<IEnumerable<PlatformTypeViewModel>>(_platformTypeService.GetAll());
+            game.PlatformTypeList = new SelectList(platformTypes, "Id", "Name");
             var publishers = _mapper.Map<IEnumerable<PublisherViewModel>>(_publisherService.GetAll());
-            ViewBag.Publisher = new SelectList(publishers, "Id", "Name");
+            game.PublisherList = new SelectList(publishers, "Id", "Name");
 
-            return View();
+            return View(game);
         }
 
         [HttpPost]
         public ActionResult New(GameViewModel game)
         {
-            _gameService.AddNew(_mapper.Map<GameDTO>(game));
+            if (ModelState.IsValid)
+            {
+                _gameService.AddNew(_mapper.Map<GameDTO>(game));
 
-            return new HttpStatusCodeResult(HttpStatusCode.OK);
+                return RedirectToAction("GetAllGames");
+            }
+            else
+            {
+                var genres = _mapper.Map<IEnumerable<GenreViewModel>>(_genreService.GetAll());
+                game.GenreList = new SelectList(genres, "Id", "Name");
+                var platformTypes = _mapper.Map<IEnumerable<PlatformTypeViewModel>>(_platformTypeService.GetAll());
+                game.PlatformTypeList = new SelectList(platformTypes, "Id", "Name");
+                var publishers = _mapper.Map<IEnumerable<PublisherViewModel>>(_publisherService.GetAll());
+                game.PublisherList = new SelectList(publishers, "Id", "Name");
+
+                return View(game);
+            }
         }
 
         [HttpPost]
@@ -57,9 +79,9 @@ namespace GameStore.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetGame(Guid gamekey)
+        public ActionResult GetGame(string gamekey)
         {
-            var game = _gameService.Get(gamekey);
+            var game = _gameService.GetByKey(gamekey);
 
             return View(_mapper.Map<GameViewModel>(game));
         }
@@ -74,9 +96,9 @@ namespace GameStore.Controllers
 
         [OutputCache(Duration = 60)]
         [HttpPost]
-        public ActionResult Remove(Guid gamekey)
+        public ActionResult Remove(Guid gameId)
         {
-            _gameService.Delete(gamekey);
+            _gameService.Delete(gameId);
 
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
@@ -93,12 +115,11 @@ namespace GameStore.Controllers
             return File(mas, fileType, fileName);
         }
 
-        [OutputCache(Duration = 60)]
         public ActionResult CountGames()
         {
-            var count = _gameService.GetAll().Count();
+            var gameCount = _gameService.GetAll().Count();
 
-            return PartialView("CountGames", count);
+            return PartialView("CountGames", gameCount);
         }
     }
 }

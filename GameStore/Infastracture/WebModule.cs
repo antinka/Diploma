@@ -12,6 +12,8 @@ namespace GameStore.Infastracture
             builder.RegisterType<CommentService>().As<ICommentService>().InstancePerLifetimeScope();
             builder.RegisterType<PublisherService>().As<IPublisherService>().InstancePerLifetimeScope();
             builder.RegisterType<OrdersService>().As<IOrdersService>().InstancePerLifetimeScope();
+            builder.RegisterType<GenreService>().As<IGenreService>().InstancePerLifetimeScope();
+            builder.RegisterType<PlatformTypeService>().As<IPlatformTypeService>().InstancePerLifetimeScope();
         }
     }
 }

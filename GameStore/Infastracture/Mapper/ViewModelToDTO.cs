@@ -8,8 +8,6 @@ namespace GameStore.Infastracture
     {
         public ViewModelToDto()
         {
-            
-
             CreateMap<CommentViewModel, CommentDTO>();
 
             CreateMap<PublisherViewModel, PublisherDTO>();

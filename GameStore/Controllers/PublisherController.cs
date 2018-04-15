@@ -39,7 +39,7 @@ namespace GameStore.Controllers
         [HttpGet]
         public ActionResult Get(string companyName)
         {
-            var publisher = _publisherService.Get(companyName);
+            var publisher = _publisherService.GetByName(companyName);
 
             return View(_mapper.Map<PublisherViewModel>(publisher));
         }

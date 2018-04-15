@@ -1,13 +1,14 @@
 ﻿using AutoMapper;
+using GameStore.BLL.DTO;
+using GameStore.BLL.Exeption;
+using GameStore.BLL.Interfaces;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
 using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using GameStore.BLL.DTO;
-using GameStore.BLL.Exeption;
-using GameStore.BLL.Interfaces;
+using System.Security.Cryptography.X509Certificates;
 
 namespace GameStore.BLL.Service
 {
@@ -28,10 +29,15 @@ namespace GameStore.BLL.Service
         {
             var game = _unitOfWork.Games.Get(x => x.Key == gameDto.Key);
 
-            if (game == null)
+            if (game.Count() == 0)
             {
                 gameDto.Id = Guid.NewGuid();
-                _unitOfWork.Games.Create(_mapper.Map<Game>(gameDto));
+                Game newGame = _mapper.Map<Game>(gameDto);
+                newGame.Genres = _unitOfWork.Genres.Find(genre => gameDto.GenresId.Contains(genre.Id)).ToList();
+                newGame.PlatformTypes = _unitOfWork.PlatformTypes
+                    .Find(platformType => gameDto.PlatformTypesId.Contains(platformType.Id)).ToList();
+
+                _unitOfWork.Games.Create(newGame);
                 _unitOfWork.Save();
 
                 _log.Info($"{nameof(GameService)} - add new game{ gameDto.Id}");
@@ -68,7 +74,21 @@ namespace GameStore.BLL.Service
             return _mapper.Map<IEnumerable<GameDTO>>(_unitOfWork.Games.GetAll());
         }
 
-        public GameDTO Get(Guid id)
+        public GameDTO GetByKey(string gamekey)
+        {
+            var game = _unitOfWork.Games.Get(g => g.Key == gamekey);
+
+            if (game == null)
+            {
+                throw new EntityNotFound($"{nameof(GameService)} - game with such gamekey {gamekey} did not exist");
+            }
+            else
+            {
+                return _mapper.Map<GameDTO>(game.First());
+            }
+        }
+
+        public GameDTO GetById(Guid id)
         {
             var game = _unitOfWork.Games.GetById(id);
 
@@ -114,16 +134,6 @@ namespace GameStore.BLL.Service
             }
 
             return _mapper.Map<IEnumerable<GameDTO>>(gamesListByPlatformType);
-        }
-
-        public IEnumerable<GenreDTO> GetAllGenres()
-        {
-            return _mapper.Map<IEnumerable<GenreDTO>>(_unitOfWork.Genres.GetAll());
-        }
-
-        public IEnumerable<PlatformTypeDTO> GetAllPlatformType()
-        {
-            return _mapper.Map<IEnumerable<PlatformTypeDTO>>(_unitOfWork.Genres.GetAll());
         }
     }
 }

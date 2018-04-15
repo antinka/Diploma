@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 
 namespace GameStore.DAL.Repositories
@@ -27,7 +28,7 @@ namespace GameStore.DAL.Repositories
         {
             var item = _dbSet.Find(id);
             if (item != null)
-                _dbSet.Remove(item);
+                item.IsDelete = true;
         }
 
         public virtual TEntiy GetById(Guid id)
@@ -42,12 +43,17 @@ namespace GameStore.DAL.Repositories
 
         public virtual void Update(TEntiy item)
         {
-            _db.Entry(item).State = EntityState.Modified;
+           _db.Entry(item).State = EntityState.Modified;
         }
 
         public virtual IEnumerable<TEntiy> Get(Func<TEntiy, bool> predicate)
         {
-            return _dbSet.Where(predicate);
+            return _dbSet.Where(predicate).Where(x => x.IsDelete == false);
+        }
+
+        public virtual IEnumerable<TEntiy> Find(Func<TEntiy, bool> predicate)
+        {
+            return _dbSet.Where(predicate).ToList();
         }
     }
 }

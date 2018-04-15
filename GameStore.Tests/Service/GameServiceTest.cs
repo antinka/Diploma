@@ -20,6 +20,7 @@ namespace GameStore.Tests.Service
         private readonly GameService _sut;
         private readonly IMapper _mapper;
 
+        private readonly string _fakeGameKey;
         private readonly Game _fakeGame;
         private readonly Genre _fakeGenre;
         private readonly PlatformType _fakePlatformType;
@@ -33,6 +34,7 @@ namespace GameStore.Tests.Service
             _mapper = MapperConfigUi.GetMapper().CreateMapper();
             _sut = new GameService(_uow.Object, _mapper, log.Object);
 
+            _fakeGameKey = Guid.NewGuid().ToString();
             _fakeGameId = Guid.NewGuid();
             _fakeGenreId = Guid.NewGuid();
             _fakePlatformTypeId = Guid.NewGuid();
@@ -64,22 +66,14 @@ namespace GameStore.Tests.Service
             _fakeGame = new Game()
             {
                 Id = _fakeGameId,
-                Key = "123",
+                Key = _fakeGameKey,
                 Genres = fakeGenres,
                 PlatformTypes = fakePlatformTypes
             };
 
             _fakeGames = new List<Game>
             {
-                _fakeGame,
-
-                new Game()
-                {
-                    Id = Guid.NewGuid(),
-                    Key = "1234",
-                    Genres = fakeGenres,
-                    PlatformTypes = fakePlatformTypes
-                }
+                _fakeGame
             };
         }
 
@@ -90,6 +84,9 @@ namespace GameStore.Tests.Service
             var fakeGame = _mapper.Map<Game>(fakeGameDTO);
 
             _uow.Setup(uow => uow.Games.Get(It.IsAny<Func<Game, bool>>())).Returns(null as IEnumerable<Game>);
+            _uow.Setup(uow => uow.Genres.Find(It.IsAny<Func<Genre, bool>>())).Returns(new List<Genre>());
+            _uow.Setup(uow => uow.PlatformTypes.Find(It.IsAny<Func<PlatformType, bool>>())).Returns(new List<PlatformType>());
+
             _uow.Setup(uow => uow.Games.Create(fakeGame)).Verifiable();
 
             _sut.AddNew(fakeGameDTO);
@@ -100,7 +97,7 @@ namespace GameStore.Tests.Service
         [Fact]
         public void AddNewGame_GameWithoutUniqueKey_ExeptionEntityNotFound()
         {
-            var fakeGameDTO = new GameDTO() { Id = Guid.NewGuid(), Key = "123" };
+            var fakeGameDTO = new GameDTO() { Id = Guid.NewGuid(), Key = _fakeGameKey };
 
             _uow.Setup(uow => uow.Games.Get(It.IsAny<Func<Game, bool>>())).Returns(_fakeGames);
 
@@ -118,21 +115,39 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void GetGame_ExistedGameId_GameReturned()
+        public void GetGameById_ExistedGameId_GameReturned()
         {
             _uow.Setup(uow => uow.Games.GetById(_fakeGameId)).Returns(_fakeGame);
 
-            var resultGame = _sut.Get(_fakeGameId);
+            var resultGame = _sut.GetById(_fakeGameId);
 
             Assert.True(resultGame.Id == _fakeGameId);
         }
 
         [Fact]
-        public void GetGame_NotExistedGameId_ExeptionEntityNotFound()
+        public void GetGameById_NotExistedGameKey_ExeptionEntityNotFound()
         {
             _uow.Setup(uow => uow.Games.GetById(_fakeGameId)).Returns(null as Game);
 
-            Assert.Throws<EntityNotFound>(() => _sut.Get(_fakeGameId));
+            Assert.Throws<EntityNotFound>(() => _sut.GetById(_fakeGameId));
+        }
+
+        [Fact]
+        public void GetGameByKey_ExistedGameKey_GameReturned()
+        {
+            _uow.Setup(uow => uow.Games.Get(It.IsAny<Func<Game, bool>>())).Returns(_fakeGames);
+
+            var resultGame = _sut.GetByKey(_fakeGameKey);
+
+            Assert.True(resultGame.Key == _fakeGameKey);
+        }
+
+        [Fact]
+        public void GetGameByKey_NotExistedGameKey_ExeptionEntityNotFound()
+        {
+            _uow.Setup(uow => uow.Games.Get(It.IsAny<Func<Game, bool>>())).Returns(null as List<Game>);
+
+            Assert.Throws<EntityNotFound>(() => _sut.GetByKey(_fakeGameKey));
         }
 
         [Fact]

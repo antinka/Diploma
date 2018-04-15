@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace GameStore.ViewModels
 {
@@ -7,14 +9,19 @@ namespace GameStore.ViewModels
     {
         public Guid Id { get; set; }
 
+        [Required]
         public string Key { get; set; }
 
+        [Required]
         public string Name { get; set; }
 
+        [Required]
         public string Description { get; set; }
 
+        [Required]
         public decimal Price { get; set; }
 
+        [Required]
         public short UnitsInStock { get; set; }
 
         public bool Discountinues { get; set; }
@@ -23,10 +30,22 @@ namespace GameStore.ViewModels
 
         public PublisherViewModel Publisher { get; set; }
 
+        public SelectList PublisherList { get; set; }
+
         public ICollection<CommentViewModel> Comments { get; set; }
 
         public ICollection<GenreViewModel> Genres { get; set; }
 
+        public IEnumerable<Guid> GenresId { get; set; }
+
+        public SelectList GenreList { get; set; }
+
         public ICollection<PlatformTypeViewModel> PlatformTypes { get; set; }
+
+        public IEnumerable<Guid> PlatformTypesId { get; set; }
+
+        public SelectList PlatformTypeList { get; set; }
+
+        public IEnumerable<Guid> PlatformTypesIs { get; set; }
     }
 }

@@ -8,7 +8,7 @@ namespace GameStore.BLL.Interfaces
     {
         void AddNew(PublisherDTO publisherDTO);
 
-        PublisherDTO Get(string companyName);
+        PublisherDTO GetByName(string companyName);
 
         IEnumerable<PublisherDTO> GetAll();
     }

@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using GameStore.BLL.Interfaces;
+using GameStore.Payments;
 using GameStore.Payments.Enums;
 using GameStore.ViewModels;
 using System;
 using System.Web.Mvc;
-using GameStore.Payments;
 
 namespace GameStore.Controllers
 {
@@ -12,7 +12,9 @@ namespace GameStore.Controllers
     {
         private readonly IOrdersService _ordersService;
         private readonly IMapper _mapper;
-        
+
+        private IPayment payment { get; set; }
+
         public OrderController(IOrdersService ordersService, IMapper mapper)
         {
             _ordersService = ordersService;
@@ -24,7 +26,12 @@ namespace GameStore.Controllers
             var userId = Guid.Empty;
             var orders = _mapper.Map<OrderViewModel>(_ordersService.GetOrderDetail(userId));
 
-            return View(orders);
+            if (orders != null)
+            {
+                return View(orders);
+            }
+
+            return View("EmptyBasket");
         }
         
         [HttpGet]
@@ -49,25 +56,45 @@ namespace GameStore.Controllers
             {
                 _ordersService.AddNewOrderDetails(basket.UserId, basket.GameId, basket.Quantity);
 
-                return View("BasketInfo");
+                return RedirectToAction("BasketInfo");
             }
 
             return View(basket);
         }
 
         [HttpGet]
-
-        public ActionResult Pay(PaymentTypes payment)
+        public ActionResult Pay(PaymentTypes paymentType)
         {
             var userId = Guid.Empty;
-            var order = Mapper.Map<OrderViewModel>(_ordersService.GetOrderDetail(userId));
+            var order = _ordersService.GetOrderDetail(userId);
+            decimal costOrder = 0;
 
-            Payment pay = new Payment(payment);
+            foreach (var i in order.OrderDetails)
+            {
+                costOrder += i.Price;
+            }
 
-            //_service.Pay(username);
+            var orderPay = new OrderPayment()
+            {
+                Id = order.Id,
+                UserId = order.UserId,
+                Cost = costOrder
+            };
+            
+            if (paymentType == PaymentTypes.Bank)
+            {
+                payment = new Bank();
+            }
+            else if (paymentType == PaymentTypes.Box)
+            {
+                payment = new Box();
+            }
+            else if (paymentType == PaymentTypes.Visa)
+            {
+                payment = new Visa();
+            }
 
-            return pay.Pay(order, View);
-           // return View();
+             return payment.Pay(orderPay);
         }
-    }
+    }   
 }

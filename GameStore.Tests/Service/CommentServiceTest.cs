@@ -9,6 +9,7 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GameStore.BLL.Enums;
 using GameStore.Infastracture;
 using Xunit;
 
@@ -20,8 +21,10 @@ namespace GameStore.Tests.Service
         private readonly CommentService _sut;
         private readonly IMapper _mapper;
 
+        private readonly Guid _fakeCommentId;
         private readonly string _gameKey;
-        private readonly List<Comment> _fakeComment;
+        private readonly List<Comment> _fakeComments;
+        private readonly Comment _fakeComment;
         private readonly Game _fakeGame;
 
         public CommentServiceTest()
@@ -32,6 +35,7 @@ namespace GameStore.Tests.Service
             _sut = new CommentService(_uow.Object, _mapper, log.Object);
 
             _gameKey = Guid.NewGuid().ToString();
+            _fakeCommentId = Guid.Empty;
 
             _fakeGame = new Game()
             {
@@ -39,7 +43,15 @@ namespace GameStore.Tests.Service
                 Key = _gameKey
             };
 
-            _fakeComment = new List<Comment>
+            _fakeComment = new Comment()
+            {
+                Id = _fakeCommentId,
+                Game = _fakeGame,
+                Name = "1",
+                Body = "1"
+            };
+
+            _fakeComments = new List<Comment>
             {
                 new Comment()
                 {
@@ -84,11 +96,53 @@ namespace GameStore.Tests.Service
         public void GetCommentsByGameKey_ExistGameId_ReturnedCommentsByGameKey()
         {
             _uow.Setup(uow => uow.Games.Get(It.IsAny<Func<Game, bool>>())).Returns(new List<Game>() { _fakeGame });
-            _uow.Setup(uow => uow.Comments.Get(It.IsAny<Func<Comment, bool>>())).Returns(_fakeComment);
+            _uow.Setup(uow => uow.Comments.Get(It.IsAny<Func<Comment, bool>>())).Returns(_fakeComments);
 
             var resultCommentsByGameId = _sut.GetCommentsByGameKey(_gameKey);
 
             Assert.True(resultCommentsByGameId.All(x => x.Game.Key == _gameKey));
+        }
+
+        [Fact]
+        public void GetCommentById_ExistedCommentId_CommentReturned()
+        {
+            _uow.Setup(uow => uow.Comments.GetById(_fakeCommentId)).Returns(_fakeComment);
+
+            var resultComment = _sut.GetById(_fakeCommentId);
+
+            Assert.True(resultComment.Id == _fakeCommentId);
+        }
+
+        [Fact]
+        public void GetCommentById_NotExistedGameId_ExeptionEntityNotFound()
+        {
+            _uow.Setup(uow => uow.Comments.GetById(_fakeCommentId)).Returns(null as Comment);
+
+            Assert.Throws<EntityNotFound>(() => _sut.GetById(_fakeCommentId));
+        }
+
+        [Fact]
+        public void DeleteComment_ExistedCommentId_CommentDeleted()
+        {
+            _uow.Setup(uow => uow.Comments.GetById(_fakeCommentId)).Returns(_fakeComment).Verifiable();
+
+            _sut.Delete(_fakeCommentId);
+
+            _uow.Verify(uow => uow.Comments.Delete(_fakeCommentId), Times.Once);
+        }
+
+        [Fact]
+        public void DeleteComment_ExistedCommentId_ExeptionEntityNotFound()
+        {
+            _uow.Setup(uow => uow.Comments.GetById(_fakeCommentId)).Returns(null as Comment);
+
+            Assert.Throws<EntityNotFound>(() => _sut.Delete(_fakeCommentId));
+        }
+
+        [Fact]
+        public void Ban_NotImplementedException()
+        {
+            Assert.Throws<NotImplementedException>(() => _sut.Ban(BanPeriod.Week, _fakeCommentId));
         }
     }
 }

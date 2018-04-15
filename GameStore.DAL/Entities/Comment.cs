@@ -11,6 +11,8 @@ namespace GameStore.DAL.Entities
 
         public Guid? ParentCommentId { get; set; }
 
+        public string Quote { get; set; }
+
         [ForeignKey("Game")]
         public Guid GameId { get; set; }
 

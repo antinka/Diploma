@@ -16,6 +16,17 @@ namespace GameStore
                 defaults: new { controller = "Game", action = "GetAllGames" }
             );
 
+            routes.MapRoute(
+                name: "createGame",
+                url: "game/new",
+                defaults: new { controller = "Game", action = "New" }
+            );
+
+            routes.MapRoute(
+                name: "getGame",
+                url: "game/{Key}",
+                defaults: new { controller = "Game", action = "GetGame", Key = UrlParameter.Optional }
+            );
 
             routes.MapRoute(
                 name: "editGame",
@@ -50,21 +61,8 @@ namespace GameStore
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Game", action = "GetAllGames", id = UrlParameter.Optional }
             );
-
-            routes.MapRoute(
-                name: "getGame",
-                url: "game/{Key}",
-                defaults: new { controller = "Game", action = "GetGame", Key = UrlParameter.Optional }
-            );
-            //routes.MapRoute(
-            //      name: "createGame",
-            //      url: "game/new",
-            //      defaults: new { controller = "Game", action = "New" }
-            //  );
-
-
         }
     }
 }

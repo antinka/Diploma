@@ -29,6 +29,5 @@ namespace GameStore.Infastracture
             builder.RegisterModule(new BllModule("DefaultConnection"));
             builder.RegisterModule(new RegisterInstanceModule());
         }
-
     }
 }

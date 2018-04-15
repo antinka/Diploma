@@ -120,6 +120,9 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Files\test.txt" />
+    <Content Include="fonts\Bank.png" />
+    <Content Include="fonts\Visa.png" />
+    <Content Include="fonts\IBox.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -131,6 +134,8 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -162,13 +167,15 @@
     <Compile Include="Payments\Enums\PaymentTypes.cs" />
     <Compile Include="Payments\Box.cs" />
     <Compile Include="Payments\IPayment.cs" />
-    <Compile Include="Payments\Payment.cs" />
+    <Compile Include="Payments\ViewModels\BoxViewModel.cs" />
+    <Compile Include="Payments\ViewModels\VisaViewModel.cs" />
     <Compile Include="Payments\Visa.cs" />
     <Compile Include="ViewModels\BasketViewModel.cs" />
     <Compile Include="ViewModels\CommentViewModel.cs" />
     <Compile Include="ViewModels\GameViewModel.cs" />
     <Compile Include="ViewModels\GenreViewModel.cs" />
     <Compile Include="ViewModels\OrderDetailViewModel.cs" />
+    <Compile Include="ViewModels\OrderPayment.cs" />
     <Compile Include="ViewModels\OrderViewModel.cs" />
     <Compile Include="ViewModels\PlatformTypeViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -187,10 +194,17 @@
     <Content Include="Views\Order\BasketInfo.cshtml" />
     <Content Include="Views\Game\GetGame.cshtml" />
     <Content Include="Views\Order\AddGameToOrder.cshtml" />
-    <Content Include="Views\Comment\GetAllCommentToGame.cshtml" />
     <Content Include="Views\Comment\CommentToGame.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\GameViewModel.cshtml" />
     <Content Include="Views\Game\New.cshtml" />
+    <Content Include="Views\Payments\IBox.cshtml" />
+    <Content Include="Views\Payments\Visa.cshtml" />
+    <Content Include="Views\Comment\CommentToGameWithQuote.cshtml" />
+    <Content Include="Views\Comment\CommentToGameForParent.cshtml" />
+    <Content Include="Views\Comment\GetAllCommentToGame.cshtml" />
+    <Content Include="Views\Comment\Ban.cshtml" />
+    <Content Include="Views\Comment\Delete.cshtml" />
+    <Content Include="Views\Order\EmptyBasket.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -201,7 +215,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Logs\" />
-    <Folder Include="Views\Home\" />
     <Folder Include="Views\Shared\DisplayTemplates\" />
   </ItemGroup>
   <ItemGroup>
@@ -229,7 +242,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>53364</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:53364/</IISUrl>
+          <IISUrl>http://localhost:50333/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
