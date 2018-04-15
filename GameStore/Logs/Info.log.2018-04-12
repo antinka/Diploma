@@ -1,0 +1,76 @@
+2018-04-12 12:34:04,878  INFO  Path: /games IP: ::1 Attempted
+2018-04-12 12:34:08,431  INFO  Path: /games IP: ::1 Attempted
+2018-04-12 12:34:12,970  INFO  Path: /games IP: ::1 Completed
+2018-04-12 12:34:12,970  INFO  Path: /games IP: ::1 Completed
+2018-04-12 12:34:13,196  INFO  Path: /games IP: ::1 Attempted
+2018-04-12 12:34:13,196  INFO  Path: /games IP: ::1 Attempted
+2018-04-12 12:34:13,202  INFO  Path: /games IP: ::1 Completed
+2018-04-12 12:34:13,202  INFO  Path: /games IP: ::1 Completed
+2018-04-12 12:34:17,483  INFO  Path: /Game/GetGame?gamekey=a5f99553-3b39-4b7b-98c3-f497e895552e IP: ::1 Attempted
+2018-04-12 12:34:17,530  INFO  Path: /Game/GetGame?gamekey=a5f99553-3b39-4b7b-98c3-f497e895552e IP: ::1 Completed
+2018-04-12 12:34:17,552  INFO  Path: /Game/GetGame?gamekey=a5f99553-3b39-4b7b-98c3-f497e895552e IP: ::1 Attempted
+2018-04-12 12:34:17,554  INFO  Path: /Game/GetGame?gamekey=a5f99553-3b39-4b7b-98c3-f497e895552e IP: ::1 Completed
+2018-04-12 12:34:18,991  INFO  Path: /game/838d6677-a1af-42c6-951e-13eeb71a6957/comments IP: ::1 Attempted
+2018-04-12 12:34:19,028  INFO  Path: /game/838d6677-a1af-42c6-951e-13eeb71a6957/comments IP: ::1 Completed
+2018-04-12 12:34:25,252  INFO  Path: /game/838d6677-a1af-42c6-951e-13eeb71a6957/comments IP: ::1 Attempted
+2018-04-12 12:34:25,254  INFO  Path: /game/838d6677-a1af-42c6-951e-13eeb71a6957/comments IP: ::1 Completed
+2018-04-12 14:09:06,836  INFO  Path: /Game/New IP: ::1 Attempted
+2018-04-12 14:09:10,554  INFO  Path: /Game/New IP: ::1 Attempted
+2018-04-12 14:09:12,772  INFO  Path: /Game/New IP: ::1 Completed
+2018-04-12 14:09:12,772  INFO  Path: /Game/New IP: ::1 Completed
+2018-04-12 14:09:15,492  INFO  Path: /Game/New IP: ::1 Attempted
+2018-04-12 14:09:15,493  INFO  Path: /Game/New IP: ::1 Attempted
+2018-04-12 14:09:15,512  INFO  Path: /Game/New IP: ::1 Completed
+2018-04-12 14:09:15,512  INFO  Path: /Game/New IP: ::1 Completed
+2018-04-12 14:09:21,256  INFO  Path: /games IP: ::1 Attempted
+2018-04-12 14:09:21,277  INFO  Path: /games IP: ::1 Completed
+2018-04-12 14:09:21,330  INFO  Path: /games IP: ::1 Attempted
+2018-04-12 14:09:21,332  INFO  Path: /games IP: ::1 Completed
+2018-04-12 14:09:25,368  INFO  Path: /Game/GetGame?gamekey=a5f99553-3b39-4b7b-98c3-f497e895552e IP: ::1 Attempted
+2018-04-12 14:09:25,422  INFO  Path: /Game/GetGame?gamekey=a5f99553-3b39-4b7b-98c3-f497e895552e IP: ::1 Completed
+2018-04-12 14:09:25,437  INFO  Path: /Game/GetGame?gamekey=a5f99553-3b39-4b7b-98c3-f497e895552e IP: ::1 Attempted
+2018-04-12 14:09:25,439  INFO  Path: /Game/GetGame?gamekey=a5f99553-3b39-4b7b-98c3-f497e895552e IP: ::1 Completed
+2018-04-12 14:10:29,101  INFO  Path: /Game/GetGame IP: ::1 Attempted
+2018-04-12 14:10:29,122  INFO  Path: /Game/GetGame IP: ::1 Completed
+2018-04-12 14:10:29,126  INFO  Exception: The parameters dictionary contains a null entry for parameter 'gamekey' of non-nullable type 'System.Guid' for method 'System.Web.Mvc.ActionResult GetGame(System.Guid)' in 'GameStore.Controllers.GameController'. An optional parameter must be a reference type, a nullable type, or be declared as an optional parameter.
+Parameter name: parameters source System.Web.Mvc StackTrace:    at System.Web.Mvc.ActionDescriptor.ExtractParameterFromDictionary(ParameterInfo parameterInfo, IDictionary`2 parameters, MethodInfo methodInfo)
+   at System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<BeginInvokeSynchronousActionMethod>b__39(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3d()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__32(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
+2018-04-12 14:10:32,942  INFO  Path: /Game/New IP: ::1 Attempted
+2018-04-12 14:10:33,394  INFO  Path: /games IP: ::1 Attempted
+2018-04-12 14:10:36,279  INFO  Path: /games IP: ::1 Completed
+2018-04-12 14:10:36,309  INFO  Path: /Game/New IP: ::1 Completed
+2018-04-12 14:10:36,584  INFO  Path: /games IP: ::1 Attempted
+2018-04-12 14:10:36,591  INFO  Path: /games IP: ::1 Completed
+2018-04-12 14:10:36,603  INFO  Path: /Game/New IP: ::1 Attempted
+2018-04-12 14:10:36,660  INFO  Path: /Game/New IP: ::1 Completed
+2018-04-12 14:10:38,971  INFO  Path: /Game/GetGame?gamekey=a5f99553-3b39-4b7b-98c3-f497e895552e IP: ::1 Attempted
+2018-04-12 14:10:39,033  INFO  Path: /Game/GetGame?gamekey=a5f99553-3b39-4b7b-98c3-f497e895552e IP: ::1 Completed
+2018-04-12 14:10:39,993  INFO  Path: /Game/GetGame?gamekey=a5f99553-3b39-4b7b-98c3-f497e895552e IP: ::1 Attempted
+2018-04-12 14:10:39,995  INFO  Path: /Game/GetGame?gamekey=a5f99553-3b39-4b7b-98c3-f497e895552e IP: ::1 Completed
+2018-04-12 14:10:40,960  INFO  Path: /game/838d6677-a1af-42c6-951e-13eeb71a6957/newcomment IP: ::1 Attempted
+2018-04-12 14:10:41,022  INFO  Path: /game/838d6677-a1af-42c6-951e-13eeb71a6957/newcomment IP: ::1 Completed
+2018-04-12 14:10:41,613  INFO  Path: /game/838d6677-a1af-42c6-951e-13eeb71a6957/newcomment IP: ::1 Attempted
+2018-04-12 14:10:41,621  INFO  Path: /game/838d6677-a1af-42c6-951e-13eeb71a6957/newcomment IP: ::1 Completed
+2018-04-12 14:10:55,244  INFO  Path: /game/838d6677-a1af-42c6-951e-13eeb71a6957/newcomment?gameId=a5f99553-3b39-4b7b-98c3-f497e895552e&Quote=why%20you%20think%20so%3F IP: ::1 Attempted
+2018-04-12 14:10:55,272  INFO  Path: /game/838d6677-a1af-42c6-951e-13eeb71a6957/newcomment?gameId=a5f99553-3b39-4b7b-98c3-f497e895552e&Quote=why%20you%20think%20so%3F IP: ::1 Completed
+2018-04-12 14:10:55,276  INFO  Path: /game/838d6677-a1af-42c6-951e-13eeb71a6957/newcomment?gameId=a5f99553-3b39-4b7b-98c3-f497e895552e&Quote=why%20you%20think%20so%3F IP: ::1 Attempted
+2018-04-12 14:10:55,279  INFO  Path: /game/838d6677-a1af-42c6-951e-13eeb71a6957/newcomment?gameId=a5f99553-3b39-4b7b-98c3-f497e895552e&Quote=why%20you%20think%20so%3F IP: ::1 Completed
+2018-04-12 14:10:56,765  INFO  Path: /game/838d6677-a1af-42c6-951e-13eeb71a6957/newcomment?gameId=a5f99553-3b39-4b7b-98c3-f497e895552e&Quote=why%20you%20think%20so%3F IP: ::1 Attempted
+2018-04-12 14:10:56,789  INFO  Path: /game/838d6677-a1af-42c6-951e-13eeb71a6957/newcomment?gameId=a5f99553-3b39-4b7b-98c3-f497e895552e&Quote=why%20you%20think%20so%3F IP: ::1 Completed
+2018-04-12 14:10:56,795  INFO  Path: /game/838d6677-a1af-42c6-951e-13eeb71a6957/newcomment?gameId=a5f99553-3b39-4b7b-98c3-f497e895552e&Quote=why%20you%20think%20so%3F IP: ::1 Attempted
+2018-04-12 14:10:56,798  INFO  Path: /game/838d6677-a1af-42c6-951e-13eeb71a6957/newcomment?gameId=a5f99553-3b39-4b7b-98c3-f497e895552e&Quote=why%20you%20think%20so%3F IP: ::1 Completed
+2018-04-12 14:11:00,130  INFO  Path: /game/838d6677-a1af-42c6-951e-13eeb71a6957/newcomment IP: ::1 Attempted

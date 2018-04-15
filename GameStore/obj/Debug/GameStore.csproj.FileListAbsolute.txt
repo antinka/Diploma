@@ -1,0 +1,277 @@
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\GameStore.dll.config
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\GameStore.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\GameStore.pdb
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\csc.exe
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\csc.exe.config
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\csc.rsp
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\csi.exe
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\csi.exe.config
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\csi.rsp
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\Microsoft.Win32.Primitives.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\System.AppContext.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\System.Collections.Immutable.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\System.Console.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\System.Diagnostics.Process.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\System.Diagnostics.StackTrace.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\System.IO.Compression.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\System.IO.FileSystem.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\System.IO.FileSystem.DriveInfo.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\System.IO.FileSystem.Primitives.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\System.IO.Pipes.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\System.Reflection.Metadata.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\System.Security.AccessControl.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\System.Security.Claims.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\System.Security.Cryptography.Encoding.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\System.Security.Cryptography.Primitives.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\System.Security.Principal.Windows.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\System.Text.Encoding.CodePages.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\System.Threading.Thread.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\System.ValueTuple.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\System.Xml.ReaderWriter.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\System.Xml.XmlDocument.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\System.Xml.XPath.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\System.Xml.XPath.XDocument.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\vbc.exe
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\vbc.exe.config
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\vbc.rsp
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\VBCSCompiler.exe
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\roslyn\VBCSCompiler.exe.config
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\Autofac.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\Autofac.Integration.Mvc.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\AutoMapper.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\EntityFramework.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\EntityFramework.SqlServer.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\GameStore.BLL.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\GameStore.DAL.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\log4net.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\Microsoft.Web.Infrastructure.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\Newtonsoft.Json.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\StyleCop.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\System.Web.Helpers.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\System.Web.Mvc.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\System.Web.Razor.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\System.Web.Webpages.Deployment.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\System.Web.Webpages.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\System.Web.Webpages.Razor.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\GameStore.BLL.pdb
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\GameStore.BLL.dll.config
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\GameStore.DAL.pdb
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\GameStore.DAL.dll.config
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\Autofac.xml
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\Autofac.Integration.Mvc.xml
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\AutoMapper.xml
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\EntityFramework.xml
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\EntityFramework.SqlServer.xml
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\log4net.xml
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\Newtonsoft.Json.xml
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\StyleCop.xml
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\System.Web.Razor.xml
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\System.Web.Webpages.xml
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\System.Web.Webpages.Deployment.xml
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\System.Web.Webpages.Razor.xml
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\System.Web.Helpers.xml
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\bin\System.Web.Mvc.xml
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\obj\Debug\GameStore.csprojResolveAssemblyReference.cache
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\obj\Debug\GameStore.csproj.CoreCompileInputs.cache
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\obj\Debug\GameStore.dll
+E:\EPAM\!WORK\Kateryna_Antonova\GameStore\obj\Debug\GameStore.pdb
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\GameStore.dll.config
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\GameStore.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\GameStore.pdb
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\csc.exe
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\csc.exe.config
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\csc.rsp
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\csi.exe
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\csi.exe.config
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\csi.rsp
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\Microsoft.Win32.Primitives.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\System.AppContext.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\System.Collections.Immutable.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\System.Console.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\System.Diagnostics.Process.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\System.IO.Compression.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\System.IO.FileSystem.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\System.IO.FileSystem.DriveInfo.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\System.IO.Pipes.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\System.Reflection.Metadata.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\System.Security.AccessControl.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\System.Security.Claims.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\System.Security.Principal.Windows.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\System.Threading.Thread.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\System.ValueTuple.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\System.Xml.XmlDocument.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\System.Xml.XPath.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\vbc.exe
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\vbc.exe.config
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\vbc.rsp
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\VBCSCompiler.exe
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\roslyn\VBCSCompiler.exe.config
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\Autofac.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\Autofac.Integration.Mvc.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\AutoMapper.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\EntityFramework.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\EntityFramework.SqlServer.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\GameStore.BLL.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\GameStore.DAL.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\log4net.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\Microsoft.Web.Infrastructure.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\Newtonsoft.Json.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\StyleCop.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\System.Web.Helpers.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\System.Web.Mvc.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\System.Web.Razor.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\System.Web.Webpages.Deployment.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\System.Web.Webpages.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\System.Web.Webpages.Razor.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\GameStore.BLL.pdb
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\GameStore.BLL.dll.config
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\GameStore.DAL.pdb
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\GameStore.DAL.dll.config
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\Autofac.xml
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\Autofac.Integration.Mvc.xml
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\AutoMapper.xml
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\EntityFramework.xml
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\EntityFramework.SqlServer.xml
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\log4net.xml
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\Newtonsoft.Json.xml
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\StyleCop.xml
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\System.Web.Razor.xml
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\System.Web.Webpages.xml
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\System.Web.Webpages.Deployment.xml
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\System.Web.Webpages.Razor.xml
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\System.Web.Helpers.xml
+D:\MVC\task2\Kateryna_Antonova\GameStore\bin\System.Web.Mvc.xml
+D:\MVC\task2\Kateryna_Antonova\GameStore\obj\Debug\GameStore.csprojResolveAssemblyReference.cache
+D:\MVC\task2\Kateryna_Antonova\GameStore\obj\Debug\GameStore.csproj.CoreCompileInputs.cache
+D:\MVC\task2\Kateryna_Antonova\GameStore\obj\Debug\GameStore.csproj.CopyComplete
+D:\MVC\task2\Kateryna_Antonova\GameStore\obj\Debug\GameStore.dll
+D:\MVC\task2\Kateryna_Antonova\GameStore\obj\Debug\GameStore.pdb
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\GameStore.dll.config
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\GameStore.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\GameStore.pdb
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\csc.exe
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\csc.exe.config
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\csc.rsp
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\csi.exe
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\csi.exe.config
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\csi.rsp
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\Microsoft.Win32.Primitives.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\System.AppContext.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\System.Collections.Immutable.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\System.Console.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\System.Diagnostics.Process.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\System.Diagnostics.StackTrace.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\System.IO.Compression.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\System.IO.FileSystem.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\System.IO.FileSystem.DriveInfo.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\System.IO.FileSystem.Primitives.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\System.IO.Pipes.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\System.Reflection.Metadata.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\System.Security.AccessControl.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\System.Security.Claims.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\System.Security.Cryptography.Encoding.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\System.Security.Cryptography.Primitives.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\System.Security.Principal.Windows.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\System.Text.Encoding.CodePages.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\System.Threading.Thread.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\System.ValueTuple.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\System.Xml.ReaderWriter.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\System.Xml.XmlDocument.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\System.Xml.XPath.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\System.Xml.XPath.XDocument.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\vbc.exe
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\vbc.exe.config
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\vbc.rsp
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\VBCSCompiler.exe
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\roslyn\VBCSCompiler.exe.config
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\Autofac.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\Autofac.Integration.Mvc.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\AutoMapper.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\EntityFramework.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\EntityFramework.SqlServer.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\GameStore.BLL.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\GameStore.DAL.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\log4net.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\Microsoft.Web.Infrastructure.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\Newtonsoft.Json.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\StyleCop.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\System.Web.Helpers.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\System.Web.Mvc.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\System.Web.Razor.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\System.Web.Webpages.Deployment.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\System.Web.Webpages.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\System.Web.Webpages.Razor.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\GameStore.BLL.pdb
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\GameStore.BLL.dll.config
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\GameStore.DAL.pdb
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\GameStore.DAL.dll.config
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\Autofac.xml
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\Autofac.Integration.Mvc.xml
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\AutoMapper.xml
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\EntityFramework.xml
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\EntityFramework.SqlServer.xml
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\log4net.xml
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\Newtonsoft.Json.xml
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\StyleCop.xml
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\System.Web.Razor.xml
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\System.Web.Webpages.xml
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\System.Web.Webpages.Deployment.xml
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\System.Web.Webpages.Razor.xml
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\System.Web.Helpers.xml
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\bin\System.Web.Mvc.xml
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\obj\Debug\GameStore.csprojResolveAssemblyReference.cache
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\obj\Debug\GameStore.csproj.CoreCompileInputs.cache
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\obj\Debug\GameStore.dll
+E:\EPAM\!WORK\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\obj\Debug\GameStore.pdb
