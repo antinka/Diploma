@@ -24,25 +24,22 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.Quote, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Quote, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.HiddenFor(model => model.Quote, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Quote, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ParentCommentId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ParentCommentId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.HiddenFor(model => model.ParentCommentId, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ParentCommentId, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.GameId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.GameId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.HiddenFor(model => model.GameId, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.GameId, "", new { @class = "text-danger" })
             </div>
         </div>

@@ -33,7 +33,7 @@
         <tr>
             @if (comment.Quote != null)
             {
-                <i>@Html.DisplayFor(modelItem => comment.Quote)</i>
+                <td style="font-family: 'Times New Roman', Times, serif; font-style: italic;">"@Html.DisplayFor(modelItem => comment.Quote)"</td>
             }
             <td>
                 @if (answerTo != string.Empty)

@@ -67,8 +67,9 @@ namespace GameStore.Controllers
             if (ModelState.IsValid)
             {
                 _commentService.AddComment(_mapper.Map<CommentDTO>(comment));
+                var gamekey = TempData["gamekey"];
 
-                return RedirectToAction("GetAllCommentToGame", "Comment", new { gamekey = comment.Game.Key });
+                return RedirectToAction("GetAllCommentToGame", "Comment", new { gamekey = gamekey });
             }
             else
             {
