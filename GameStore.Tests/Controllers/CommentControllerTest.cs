@@ -15,6 +15,7 @@ namespace GameStore.Tests.Controllers
     public class CommentControllerTest
     {
         private readonly Mock<ICommentService> _commentService;
+        private readonly Mock<IGameService> _gameService;
         private readonly Mock<TempDataDictionary> _tempDataMock;
         private readonly IMapper _mapper;
         private readonly CommentController _sut;
@@ -25,9 +26,10 @@ namespace GameStore.Tests.Controllers
         public CommentControllerTest()
         {
             _commentService = new Mock<ICommentService>();
+            _gameService = new Mock<IGameService>();
             _tempDataMock = new Mock<TempDataDictionary>();
             _mapper = MapperConfigUi.GetMapper().CreateMapper();
-            _sut = new CommentController(_commentService.Object, _mapper);
+            _sut = new CommentController(_commentService.Object, _gameService.Object, _mapper);
 
             _fakeCommentId = Guid.NewGuid();
             _fakeGameKey = _fakeCommentId.ToString();

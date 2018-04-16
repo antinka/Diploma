@@ -3719,3 +3719,68 @@ System.Data.Entity.Infrastructure.DbQuery`1[[GameStore.DAL.Entities.Game, GameSt
 2018-04-16 11:12:39,648  INFO  Path: / IP: ::1 Completed
 2018-04-16 11:12:42,599  INFO  Path: / IP: ::1 Attempted
 2018-04-16 11:12:42,605  INFO  Path: / IP: ::1 Completed
+2018-04-16 11:30:24,085  INFO  Path: / IP: ::1 Attempted
+2018-04-16 11:30:29,472  INFO  Path: / IP: ::1 Completed
+2018-04-16 11:30:31,641  INFO  Path: / IP: ::1 Attempted
+2018-04-16 11:30:31,646  INFO  Path: / IP: ::1 Completed
+2018-04-16 11:30:33,871  INFO  Path: /Order/BasketInfo IP: ::1 Attempted
+2018-04-16 11:30:33,975  INFO  Path: /Order/BasketInfo IP: ::1 Completed
+2018-04-16 11:30:34,298  INFO  Path: /Order/BasketInfo IP: ::1 Attempted
+2018-04-16 11:30:34,300  INFO  Path: /Order/BasketInfo IP: ::1 Completed
+2018-04-16 11:30:35,691  INFO  Path: /Order/BasketInfo IP: ::1 Attempted
+2018-04-16 11:30:35,721  INFO  Path: /Order/BasketInfo IP: ::1 Completed
+2018-04-16 11:30:35,725  INFO  Path: /Order/BasketInfo IP: ::1 Attempted
+2018-04-16 11:30:35,728  INFO  Path: /Order/BasketInfo IP: ::1 Completed
+2018-04-16 11:30:36,124  INFO  Path: /Publisher/New IP: ::1 Attempted
+2018-04-16 11:30:36,125  INFO  Path: /Publisher/New IP: ::1 Completed
+2018-04-16 11:30:36,447  INFO  Path: /Publisher/New IP: ::1 Attempted
+2018-04-16 11:30:36,460  INFO  Path: /Publisher/New IP: ::1 Completed
+2018-04-16 11:30:37,500  INFO  Path: /games IP: ::1 Attempted
+2018-04-16 11:30:37,514  INFO  Path: /games IP: ::1 Completed
+2018-04-16 11:30:37,518  INFO  Path: /games IP: ::1 Attempted
+2018-04-16 11:30:37,520  INFO  Path: /games IP: ::1 Completed
+2018-04-16 11:30:38,941  INFO  Path: /game?gamekey=test IP: ::1 Attempted
+2018-04-16 11:30:38,972  INFO  Path: /game?gamekey=test IP: ::1 Completed
+2018-04-16 11:30:38,992  INFO  Path: /game?gamekey=test IP: ::1 Attempted
+2018-04-16 11:30:38,994  INFO  Path: /game?gamekey=test IP: ::1 Completed
+2018-04-16 11:30:39,951  INFO  Path: /game/test/comments IP: ::1 Attempted
+2018-04-16 11:30:39,998  INFO  Path: /game/test/comments IP: ::1 Completed
+2018-04-16 11:30:40,498  INFO  Path: /game/test/comments IP: ::1 Attempted
+2018-04-16 11:30:40,500  INFO  Path: /game/test/comments IP: ::1 Completed
+2018-04-16 11:30:40,528  INFO  Path: /game/test/comments IP: ::1 Attempted
+2018-04-16 11:30:40,530  INFO  Path: /game/test/comments IP: ::1 Completed
+2018-04-16 11:30:43,666  INFO  Path: /game/test/newcomment IP: ::1 Attempted
+2018-04-16 11:30:43,948  INFO  CommentService - add comment5e5671f0-5c66-41ed-919d-660c58687699
+2018-04-16 11:30:43,950  INFO  Path: /game/test/newcomment IP: ::1 Completed
+2018-04-16 11:30:43,961  INFO  Exception: Object reference not set to an instance of an object. source GameStore StackTrace:    at GameStore.Controllers.CommentController.CommentToGame(CommentViewModel comment) in D:\MVC\task2\Kateryna_Antonova (2)\Kateryna_Antonova\GameStore\Controllers\CommentController.cs:line 71
+   at lambda_method(Closure , ControllerBase , Object[] )
+   at System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   at System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<BeginInvokeSynchronousActionMethod>b__39(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3d()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__32(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
+2018-04-16 11:30:46,613  INFO  Path: / IP: ::1 Attempted
+2018-04-16 11:30:46,625  INFO  Path: / IP: ::1 Completed
+2018-04-16 11:30:46,630  INFO  Path: / IP: ::1 Attempted
+2018-04-16 11:30:46,633  INFO  Path: / IP: ::1 Completed
+2018-04-16 11:30:47,972  INFO  Path: /game?gamekey=test IP: ::1 Attempted
+2018-04-16 11:30:47,998  INFO  Path: /game?gamekey=test IP: ::1 Completed
+2018-04-16 11:30:48,001  INFO  Path: /game?gamekey=test IP: ::1 Attempted
+2018-04-16 11:30:48,004  INFO  Path: /game?gamekey=test IP: ::1 Completed
+2018-04-16 11:30:48,882  INFO  Path: /game/test/comments IP: ::1 Attempted
+2018-04-16 11:30:48,902  INFO  Path: /game/test/comments IP: ::1 Completed
+2018-04-16 11:30:48,904  INFO  Path: /game/test/comments IP: ::1 Attempted
+2018-04-16 11:30:48,905  INFO  Path: /game/test/comments IP: ::1 Completed
+2018-04-16 11:30:48,908  INFO  Path: /game/test/comments IP: ::1 Attempted
+2018-04-16 11:30:48,910  INFO  Path: /game/test/comments IP: ::1 Completed

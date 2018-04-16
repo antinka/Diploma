@@ -68,19 +68,16 @@ namespace GameStore.BLL.Service
 
         public IEnumerable<CommentDTO> GetCommentsByGameKey(string gameKey)
         {
-            IEnumerable<Comment> listCommentToGame;
             var games = _unitOfWork.Games.Get(g => g.Key == gameKey);
 
-            if (games.Count() != 0)
+            if (games != null)
             {
-                listCommentToGame = _unitOfWork.Comments.Get(g => g.GameId == games.First().Id);
+                var listCommentToGame = _unitOfWork.Comments.Get(g => g.GameId == games.First().Id);
 
                 return _mapper.Map<IEnumerable<CommentDTO>>(listCommentToGame);
             }
             else
             {
-                return null;
-
                 throw new EntityNotFound(
                     $"{nameof(CommentService)}- exception in returning all comment to gameKey {gameKey} such game key did not exist");
             }

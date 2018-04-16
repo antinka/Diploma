@@ -29,7 +29,7 @@ namespace GameStore.BLL.Service
         {
             var game = _unitOfWork.Games.Get(x => x.Key == gameDto.Key);
 
-            if (game.Count() == 0)
+            if (game == null)
             {
                 gameDto.Id = Guid.NewGuid();
                 Game newGame = _mapper.Map<Game>(gameDto);

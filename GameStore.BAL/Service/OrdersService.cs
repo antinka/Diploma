@@ -27,14 +27,13 @@ namespace GameStore.BLL.Service
         {
             var orders = _unitOfWork.Orders.Get(x => x.UserId == userId);
 
-            if (orders.Count() == 0)
+            if (orders == null)
             {
-                return null;
                 throw new EntityNotFound($"{nameof(OrdersService)} - Orders with such id user {userId} did not exist");
             }
             else
             {
-                return _mapper.Map<OrderDTO>(orders.First());
+                return _mapper.Map<OrderDTO>(orders.FirstOrDefault());
             }
         }
 
@@ -46,7 +45,7 @@ namespace GameStore.BLL.Service
             {
                 var order = _unitOfWork.Orders.Get(x => x.UserId == userId);
 
-                if (order.Count() == 0)
+                if (order == null)
                 {
                     var orderDetail = new OrderDetailDTO()
                     {
