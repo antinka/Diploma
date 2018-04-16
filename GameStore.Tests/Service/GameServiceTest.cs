@@ -26,7 +26,6 @@ namespace GameStore.Tests.Service
         private readonly PlatformType _fakePlatformType;
         private readonly List<Game> _fakeGames;
         private readonly Guid _fakeGameId, _fakeGenreId, _fakePlatformTypeId;
-        private readonly string _gameKey;
 
         public GameServiceTest()
         {
@@ -39,7 +38,6 @@ namespace GameStore.Tests.Service
             _fakeGameId = Guid.NewGuid();
             _fakeGenreId = Guid.NewGuid();
             _fakePlatformTypeId = Guid.NewGuid();
-            _gameKey = Guid.NewGuid().ToString();
 
             _fakeGenre = new Genre
             {
@@ -62,13 +60,13 @@ namespace GameStore.Tests.Service
 
             var fakePlatformTypes = new List<PlatformType>()
             {
-                _fakePlatformType 
+                _fakePlatformType
             };
 
             _fakeGame = new Game()
             {
                 Id = _fakeGameId,
-                Key = "123",
+                Key = _fakeGameKey,
                 Genres = fakeGenres,
                 PlatformTypes = fakePlatformTypes
             };
@@ -99,8 +97,7 @@ namespace GameStore.Tests.Service
         [Fact]
         public void AddNewGame_GameWithoutUniqueKey_ExeptionEntityNotFound()
         {
-            var fakeGameDTO = new GameDTO() { Id = Guid.NewGuid(), Key = "123" };
-            var fakeGame = _mapper.Map<Game>(fakeGameDTO);
+            var fakeGameDTO = new GameDTO() { Id = Guid.NewGuid(), Key = _fakeGameKey };
 
             _uow.Setup(uow => uow.Games.Get(It.IsAny<Func<Game, bool>>())).Returns(_fakeGames);
 
@@ -112,27 +109,45 @@ namespace GameStore.Tests.Service
         {
             _uow.Setup(uow => uow.Games.GetAll()).Returns(_fakeGames);
 
-            var resultGames = _mapper.Map<IList<GameDTO>>(_sut.GetAll());
+            var resultGames = _sut.GetAll();
 
             Assert.Equal(resultGames.Count(), _fakeGames.Count);
         }
 
         [Fact]
-        public void GetGame_ExistedGameId_GameReturned()
+        public void GetGameById_ExistedGameId_GameReturned()
         {
-            _uow.Setup(uow => uow.Games.Get(It.IsAny<Func<Game, bool>>())).Returns(_fakeGames);
+            _uow.Setup(uow => uow.Games.GetById(_fakeGameId)).Returns(_fakeGame);
 
-            var resultGame = _sut.Get(_fakeGameId);
+            var resultGame = _sut.GetById(_fakeGameId);
 
-            Assert.True(resultGame.Key == _gameKey);
+            Assert.True(resultGame.Id == _fakeGameId);
         }
 
         [Fact]
-        public void GetGame_NotExistedGameId_ExeptionEntityNotFound()
+        public void GetGameById_NotExistedGameKey_ExeptionEntityNotFound()
+        {
+            _uow.Setup(uow => uow.Games.GetById(_fakeGameId)).Returns(null as Game);
+
+            Assert.Throws<EntityNotFound>(() => _sut.GetById(_fakeGameId));
+        }
+
+        [Fact]
+        public void GetGameByKey_ExistedGameKey_GameReturned()
+        {
+            _uow.Setup(uow => uow.Games.Get(It.IsAny<Func<Game, bool>>())).Returns(_fakeGames);
+
+            var resultGame = _sut.GetByKey(_fakeGameKey);
+
+            Assert.True(resultGame.Key == _fakeGameKey);
+        }
+
+        [Fact]
+        public void GetGameByKey_NotExistedGameKey_ExeptionEntityNotFound()
         {
             _uow.Setup(uow => uow.Games.Get(It.IsAny<Func<Game, bool>>())).Returns(null as List<Game>);
 
-            Assert.Throws<EntityNotFound>(() => _sut.Get(_fakeGameId));
+            Assert.Throws<EntityNotFound>(() => _sut.GetByKey(_fakeGameKey));
         }
 
         [Fact]
@@ -151,9 +166,12 @@ namespace GameStore.Tests.Service
         [Fact]
         public void DeleteGame_NotExistedGameId__ExeptionEntityNotFound()
         {
-            _uow.Setup(uow => uow.Games.Get(It.IsAny<Func<Game, bool>>())).Returns(null as List<Game>);
+            var notExistGameId = Guid.NewGuid();
 
-            Assert.Throws<EntityNotFound>(() => _sut.Delete(_gameKey));
+            _uow.Setup(uow => uow.Games.GetById(notExistGameId)).Returns(null as Game);
+            _uow.Setup(uow => uow.Games.Delete(notExistGameId));
+
+            Assert.Throws<EntityNotFound>(() => _sut.Delete(_fakeGameId));
         }
 
         [Fact]

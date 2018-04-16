@@ -57,7 +57,7 @@ namespace GameStore.Tests.Controllers
         {
             _publisherService.Setup(service => service.GetByName(_fakePublisherName)).Verifiable();
 
-            var res = _sut.Get(_fakePublisherName);
+            _sut.Get(_fakePublisherName);
 
             _publisherService.Verify(s => s.GetByName(It.IsAny<string>()), Times.Once);
         }

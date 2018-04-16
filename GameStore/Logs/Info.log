@@ -3715,3 +3715,7 @@ System.Data.Entity.Infrastructure.DbQuery`1[[GameStore.DAL.Entities.Game, GameSt
 2018-04-16 02:30:59,288  INFO  Path: /game/test/comments IP: ::1 Completed
 2018-04-16 02:30:59,326  INFO  Path: /game/test/comments IP: ::1 Attempted
 2018-04-16 02:30:59,350  INFO  Path: /game/test/comments IP: ::1 Completed
+2018-04-16 11:12:32,841  INFO  Path: / IP: ::1 Attempted
+2018-04-16 11:12:39,648  INFO  Path: / IP: ::1 Completed
+2018-04-16 11:12:42,599  INFO  Path: / IP: ::1 Attempted
+2018-04-16 11:12:42,605  INFO  Path: / IP: ::1 Completed

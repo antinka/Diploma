@@ -19,8 +19,8 @@ namespace GameStore.Tests.Controllers
         private readonly IMapper _mapper;
         private readonly CommentController _sut;
 
-        private readonly List<CommentDTO> _fakeComments;
-        private readonly Guid _gamekey;
+        private readonly Guid _fakeCommentId;
+        private readonly string _fakeGameKey;
 
         public CommentControllerTest()
         {
@@ -29,26 +29,30 @@ namespace GameStore.Tests.Controllers
             _mapper = MapperConfigUi.GetMapper().CreateMapper();
             _sut = new CommentController(_commentService.Object, _mapper);
 
-            _gamekey = Guid.NewGuid();
+            _fakeCommentId = Guid.NewGuid();
+            _fakeGameKey = _fakeCommentId.ToString();
+        }
 
-            _fakeComments = new List<CommentDTO>{
-                new CommentDTO
-                {
-                    Body = "body1",
-                    Game = new GameDTO(),
-                    Id = Guid.NewGuid(),
-                    Name = "name1",
-                    ParentCommentId = null
-                },
-                new CommentDTO
-                {
-                    Body = "body2",
-                    Game = new GameDTO(),
-                    Id = Guid.NewGuid(),
-                    Name = "name2",
-                    ParentCommentId = null
-                }
-               };
+        [Fact]
+        public void GetAllCommentToGame_GameKey_Verifiable()
+        {
+            _commentService.Setup(service => service.GetCommentsByGameKey(_fakeGameKey)).Verifiable();
+
+            var res = _sut.GetAllCommentToGame(_fakeGameKey);
+
+            _commentService.Verify(s => s.GetCommentsByGameKey(It.IsAny<string>()), Times.Once);
+        }
+
+        [Fact]
+        public void DeleteComment_CommentIdAndSure_RedirectToActionResult()
+        {
+            _commentService.Setup(service => service.Delete(It.IsAny<Guid>()));
+            _sut.TempData = _tempDataMock.Object;
+
+            var res = _sut.Delete(Guid.NewGuid(), "Sure") as RedirectToRouteResult;
+
+            Assert.Equal("Comment", res.RouteValues["controller"]);
+            Assert.Equal("GetAllCommentToGame", res.RouteValues["action"]);
         }
 
         [Fact]
@@ -56,7 +60,7 @@ namespace GameStore.Tests.Controllers
         {
             _commentService.Setup(service => service.Ban(It.IsAny<BanPeriod>(), It.IsAny<Guid>()));
 
-            var httpStatusCodeResult = _sut.AddCommentToGame(_gamekey, new CommentViewModel()) as HttpStatusCodeResult;
+            var res = _sut.Ban(_fakeCommentId, BanPeriod.Day) as RedirectToRouteResult;
 
             Assert.Equal("Game", res.RouteValues["controller"]);
             Assert.Equal("GetAllGames", res.RouteValues["action"]);
@@ -65,10 +69,12 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void CommentToGame_ValidComment_RedirectToActionResult()
         {
-            _commentService.Setup(service => service.GetCommentsByGameId(_gamekey)).Returns(_fakeComments);
+            var fakeCommentViewModel = new CommentViewModel() { Name = "test", Body = "test", Game = new GameViewModel() };
+            var fakeCommentDTO = _mapper.Map<CommentDTO>(fakeCommentViewModel);
 
-            var commentResult = _sut.GetAllCommentToGame(_gamekey) as JsonResult;
-            IDictionary<string, object> data = new System.Web.Routing.RouteValueDictionary(commentResult.Data);
+            _commentService.Setup(service => service.AddComment(fakeCommentDTO));
+
+            var res = _sut.CommentToGame(fakeCommentViewModel) as RedirectToRouteResult;
 
             Assert.Equal("Comment", res.RouteValues["controller"]);
             Assert.Equal("GetAllCommentToGame", res.RouteValues["action"]);

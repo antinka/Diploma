@@ -37,7 +37,7 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void AddGameToOrder_ValidBasketViewModel_Verifiable()
         {
-            var fakeBasketViewModel = new BasketViewModel() { UserId = Guid.NewGuid(), GameId = Guid.NewGuid(), Quantity =5};
+            var fakeBasketViewModel = new BasketViewModel() { UserId = Guid.NewGuid(), GameId = Guid.NewGuid(), Quantity = 5 };
 
             _ordersService.Setup(service => service.AddNewOrderDetails(fakeBasketViewModel.UserId, fakeBasketViewModel.GameId, fakeBasketViewModel.Quantity)).Verifiable();
 
