@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Exeption;
+using GameStore.BLL.Filtration.Implementation;
+using GameStore.BLL.Filtration.Interfaces;
 using GameStore.BLL.Interfaces;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
@@ -8,7 +10,7 @@ using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
+using GameStore.BLL.Enums;
 
 namespace GameStore.BLL.Service
 {
@@ -84,7 +86,7 @@ namespace GameStore.BLL.Service
             }
             else
             {
-                return _mapper.Map<GameDTO>(game.First());
+                return _mapper.Map<GameDTO>(game.FirstOrDefault());
             }
         }
 
@@ -134,6 +136,54 @@ namespace GameStore.BLL.Service
             }
 
             return _mapper.Map<IEnumerable<GameDTO>>(gamesListByPlatformType);
+        }
+
+        public IEnumerable<GameDTO> GetGamesByFilter(FilterDTO filter, int page = 1, PageSize pageSize = PageSize.All)
+        {
+            GamePipeline gamePipeline = new GamePipeline();
+            RegisterFilter(gamePipeline, filter, page, pageSize);
+            var filterGames = gamePipeline.Process(_unitOfWork.Games.GetAll());
+
+            return _mapper.Map<IEnumerable<GameDTO>>(filterGames);
+        }
+
+        private void RegisterFilter(GamePipeline gamePipeline, FilterDTO filter, int page, PageSize pageSize)
+        {
+            if (filter.SelectedGenresName != null && filter.SelectedGenresName.Any())
+            {
+                gamePipeline.Register(new FilterByGenre(filter.SelectedGenresName));
+            }
+
+            if (filter.MaxPrice != null)
+            {
+                gamePipeline.Register(new FilterByMaxPrice(filter.MaxPrice.Value));
+            }
+
+            if (filter.MinPrice != null)
+            {
+                gamePipeline.Register(new FilterByMinPrice(filter.MinPrice.Value));
+
+            }
+
+            if (filter.SelectedPlatformTypesName != null && filter.SelectedPlatformTypesName.Any())
+            {
+                gamePipeline.Register(new FilterByPlatform(filter.SelectedPlatformTypesName));
+            }
+
+            if (filter.SelectedPublishersName != null && filter.SelectedPublishersName.Any())
+            {
+                gamePipeline.Register(new FilterByPublisher(filter.SelectedPublishersName));
+            }
+
+            if (filter.SearchGameName != null && filter.SearchGameName.Length >= 3)
+            {
+                gamePipeline.Register(new FilterByName(filter.SearchGameName));
+            }
+
+            gamePipeline.Register(new FilterByDate(filter.SortDate))
+                .Register(new SortFilter(filter.SortType))
+                .Register(new FilterByPage(page, pageSize));
+
         }
     }
 }

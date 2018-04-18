@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
+using GameStore.BLL.Enums;
 
 namespace GameStore.Controllers
 {
@@ -76,6 +78,93 @@ namespace GameStore.Controllers
             _gameService.Update(_mapper.Map<GameDTO>(game));
 
             return new HttpStatusCodeResult(HttpStatusCode.OK);
+        }
+
+
+        
+
+        [HttpGet]
+        public ActionResult Games(FilterViewModel filterViewModel)
+        {
+            var page = (filterViewModel.Page >= 1) ? filterViewModel.Page : 1;
+            filterViewModel.Page = page;
+            filterViewModel.PageSize = PageSize.All;
+
+            var gamesByFilter = _gameService.GetGamesByFilter(_mapper.Map<FilterDTO>(filterViewModel), filterViewModel.Page, filterViewModel.PageSize);
+            filterViewModel.TotalItems = gamesByFilter.Count();
+
+            return View(filterViewModel);
+        }
+
+        [HttpGet]
+        public ActionResult GamesFilters(FilterViewModel filterViewModel)
+        {
+            var model = GetFilterViewModel(filterViewModel);
+          
+            return PartialView(model);
+        }
+
+        [HttpGet]
+        public ActionResult FilteredGames(FilterViewModel filterViewModel)
+        {
+            var gamesByFilter = _gameService.GetGamesByFilter(_mapper.Map<FilterDTO>(filterViewModel), filterViewModel.Page, filterViewModel.PageSize);
+            var gameViewModel = _mapper.Map<IEnumerable<GameViewModel>>(gamesByFilter);
+
+            var gamesListViewModel = new GamesListViewModel()
+            {
+                Games = gameViewModel,
+                ItemsPerPage = filterViewModel.PageSize,
+                Page = filterViewModel.Page,
+                TotalItems = gamesByFilter.Count()
+            };
+
+            return PartialView(gamesListViewModel); ;
+        }
+
+        private FilterViewModel GetInitFilterViewModel()
+        {
+            var model = new FilterViewModel();
+
+            var genrelist = _mapper.Map<IEnumerable<GenreViewModel>>(_genreService.GetAll());
+            var platformlist = _mapper.Map<IEnumerable<PlatformTypeViewModel>>(_platformTypeService.GetAll());
+            var publisherlist = _mapper.Map<IEnumerable<PublisherViewModel>>(_publisherService.GetAll());
+
+            var listGenreBoxs = new List<CheckBox>();
+            genrelist.ToList().ForEach(genre => listGenreBoxs.Add(new CheckBox() { Text = genre.Name }));
+            model.ListGenres = listGenreBoxs;
+            var listPlatformBoxs = new List<CheckBox>();
+            platformlist.ToList().ForEach(platform => listPlatformBoxs.Add(new CheckBox() { Text = platform.Name }));
+            model.ListPlatformTypes = listPlatformBoxs;
+            var listPublisherBoxs = new List<CheckBox>();
+            publisherlist.ToList().ForEach(publisher => listPublisherBoxs.Add(new CheckBox() { Text = publisher.Name}));
+            model.ListPublishers = listPublisherBoxs;
+
+            return model;
+        }
+
+        private FilterViewModel GetFilterViewModel(FilterViewModel filterViewMode)
+        {
+            var model = GetInitFilterViewModel();
+
+            if (filterViewMode.SelectedGenresName != null)
+            {
+                model.SelectedGenres = model.ListGenres.Where(x => filterViewMode.SelectedGenresName.Contains(x.Text));
+                model.SelectedGenresName = filterViewMode.SelectedGenresName;
+            }
+
+            if (filterViewMode.SelectedPlatformTypesName != null)
+            {
+                model.SelectedPlatformTypes = model.ListPlatformTypes.Where(x => filterViewMode.SelectedPlatformTypesName.Contains(x.Text));
+                model.SelectedPlatformTypesName = filterViewMode.SelectedPlatformTypesName;
+            }
+
+            if (filterViewMode.SelectedPublishersName != null)
+            {
+                model.SelectedPublishers = model.ListPublishers.Where(x => filterViewMode.SelectedPublishersName.Contains(x.Text));
+                model.SelectedPublishersName = filterViewMode.SelectedPublishersName;
+            }
+
+            return model;
         }
 
         [HttpGet]

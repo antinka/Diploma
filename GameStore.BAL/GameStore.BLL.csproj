@@ -91,11 +91,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\FilterDTO.cs" />
     <Compile Include="DTO\OrderDetailDTO.cs" />
     <Compile Include="DTO\OrderDTO.cs" />
     <Compile Include="DTO\PublisherDTO.cs" />
     <Compile Include="Enums\BanPeriod.cs" />
+    <Compile Include="Enums\PageSize.cs" />
+    <Compile Include="Enums\SortDate.cs" />
+    <Compile Include="Enums\SortType.cs" />
     <Compile Include="Exeption\EntityNotFound.cs" />
+    <Compile Include="Filtration\Implementation\FilterByDate.cs" />
+    <Compile Include="Filtration\Implementation\FilterByGenre.cs" />
+    <Compile Include="Filtration\Implementation\FilterByName.cs" />
+    <Compile Include="Filtration\Implementation\FilterByPage.cs" />
+    <Compile Include="Filtration\Implementation\FilterByPlatform.cs" />
+    <Compile Include="Filtration\Implementation\FilterByPrice.cs" />
+    <Compile Include="Filtration\Implementation\FilterByPublisher.cs" />
+    <Compile Include="Filtration\Implementation\GamePipeline.cs" />
+    <Compile Include="Filtration\Implementation\Filter.cs" />
+    <Compile Include="Filtration\Implementation\SortFilter.cs" />
+    <Compile Include="Filtration\Interfaces\IPipeLine.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Infastracture\BLLModule.cs" />
     <Compile Include="Infastracture\Mapper\DTOToEntity.cs" />

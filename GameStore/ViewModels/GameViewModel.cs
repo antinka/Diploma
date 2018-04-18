@@ -36,16 +36,16 @@ namespace GameStore.ViewModels
 
         public ICollection<GenreViewModel> Genres { get; set; }
 
-        public IEnumerable<Guid> GenresId { get; set; }
+        public ICollection<Guid> GenresId { get; set; }
 
         public SelectList GenreList { get; set; }
 
         public ICollection<PlatformTypeViewModel> PlatformTypes { get; set; }
 
-        public IEnumerable<Guid> PlatformTypesId { get; set; }
+        public ICollection<Guid> PlatformTypesId { get; set; }
 
         public SelectList PlatformTypeList { get; set; }
 
-        public IEnumerable<Guid> PlatformTypesIs { get; set; }
+        public ICollection<Guid> PlatformTypesIs { get; set; }
     }
 }

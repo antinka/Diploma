@@ -21,6 +21,8 @@ namespace GameStore.Infastracture
             CreateMap<GenreDTO, GenreViewModel>();
 
             CreateMap<PlatformTypeDTO, PlatformTypeViewModel>();
+
+            CreateMap<FilterDTO, FilterViewModel>();
         }
     }
 }

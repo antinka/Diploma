@@ -40,7 +40,7 @@ namespace GameStore.Controllers
             comment.GameId = gameId;
             comment.ParentCommentId = parentsCommentId;
 
-            return PartialView(comment);
+            return PartialView(comment); 
         }
 
         public ActionResult CommentToGameWithQuote(Guid gameId, string quote)
