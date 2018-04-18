@@ -39,6 +39,7 @@ namespace GameStore.Tests.Controllers
         public void GetAllCommentToGame_GameKey_Verifiable()
         {
             _commentService.Setup(service => service.GetCommentsByGameKey(_fakeGameKey)).Verifiable();
+            _sut.TempData = _tempDataMock.Object;
 
             var res = _sut.GetAllCommentToGame(_fakeGameKey);
 

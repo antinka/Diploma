@@ -22,6 +22,7 @@ namespace GameStore.ViewModels
         public decimal Price { get; set; }
 
         [Required]
+        [Display(Name = "Units in stock")]
         public short UnitsInStock { get; set; }
 
         public bool Discountinues { get; set; }
@@ -40,6 +41,7 @@ namespace GameStore.ViewModels
 
         public SelectList GenreList { get; set; }
 
+        [Display(Name = "Platform types")]
         public ICollection<PlatformTypeViewModel> PlatformTypes { get; set; }
 
         public IEnumerable<Guid> PlatformTypesId { get; set; }
