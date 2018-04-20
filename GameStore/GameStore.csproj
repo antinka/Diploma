@@ -182,6 +182,7 @@
     <Compile Include="ViewModels\OrderDetailViewModel.cs" />
     <Compile Include="ViewModels\OrderPayment.cs" />
     <Compile Include="ViewModels\OrderViewModel.cs" />
+    <Compile Include="ViewModels\PagingInfo.cs" />
     <Compile Include="ViewModels\PlatformTypeViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\PublisherViewModel.cs" />
@@ -211,8 +212,8 @@
     <Content Include="Views\Comment\Delete.cshtml" />
     <Content Include="Views\Order\EmptyBasket.cshtml" />
     <Content Include="Views\Game\GamesFilters.cshtml" />
-    <Content Include="Views\Game\Games.cshtml" />
     <Content Include="Views\Game\FilteredGames.cshtml" />
+    <Content Include="Views\Game\NothingWasFound.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

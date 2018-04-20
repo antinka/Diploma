@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using GameStore.BLL.DTO;
+using GameStore.BLL.Enums;
 using GameStore.BLL.Exeption;
 using GameStore.BLL.Filtration.Implementation;
-using GameStore.BLL.Filtration.Interfaces;
 using GameStore.BLL.Interfaces;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
@@ -10,7 +10,6 @@ using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using GameStore.BLL.Enums;
 
 namespace GameStore.BLL.Service
 {
@@ -138,7 +137,7 @@ namespace GameStore.BLL.Service
             return _mapper.Map<IEnumerable<GameDTO>>(gamesListByPlatformType);
         }
 
-        public IEnumerable<GameDTO> GetGamesByFilter(FilterDTO filter, int page = 1, PageSize pageSize = PageSize.All)
+        public IEnumerable<GameDTO> GetGamesByFilter(FilterDTO filter, int page = 1, PageSize pageSize = PageSize.Twenty)
         {
             GamePipeline gamePipeline = new GamePipeline();
             RegisterFilter(gamePipeline, filter, page, pageSize);
@@ -162,7 +161,6 @@ namespace GameStore.BLL.Service
             if (filter.MinPrice != null)
             {
                 gamePipeline.Register(new FilterByMinPrice(filter.MinPrice.Value));
-
             }
 
             if (filter.SelectedPlatformTypesName != null && filter.SelectedPlatformTypesName.Any())

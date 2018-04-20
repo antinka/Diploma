@@ -9,7 +9,6 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
-using GameStore.BLL.Enums;
 
 namespace GameStore.Controllers
 {
@@ -80,45 +79,48 @@ namespace GameStore.Controllers
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
-
-        
-
-        [HttpGet]
-        public ActionResult Games(FilterViewModel filterViewModel)
-        {
-            var page = (filterViewModel.Page >= 1) ? filterViewModel.Page : 1;
-            filterViewModel.Page = page;
-            filterViewModel.PageSize = PageSize.All;
-
-            var gamesByFilter = _gameService.GetGamesByFilter(_mapper.Map<FilterDTO>(filterViewModel), filterViewModel.Page, filterViewModel.PageSize);
-            filterViewModel.TotalItems = gamesByFilter.Count();
-
-            return View(filterViewModel);
-        }
-
         [HttpGet]
         public ActionResult GamesFilters(FilterViewModel filterViewModel)
         {
             var model = GetFilterViewModel(filterViewModel);
-          
+
             return PartialView(model);
         }
 
         [HttpGet]
-        public ActionResult FilteredGames(FilterViewModel filterViewModel)
+        public ActionResult FilteredGames(FilterViewModel filterViewModel, int page = 1)
         {
-            var gamesByFilter = _gameService.GetGamesByFilter(_mapper.Map<FilterDTO>(filterViewModel), filterViewModel.Page, filterViewModel.PageSize);
-            var gameViewModel = _mapper.Map<IEnumerable<GameViewModel>>(gamesByFilter);
 
-            var gamesListViewModel = new GamesListViewModel()
+            var gamesByFilter = _gameService.GetGamesByFilter(_mapper.Map<FilterDTO>(filterViewModel), page, filterViewModel.PageSize);
+            int totalItem;
+
+            if ((int) filterViewModel.PageSize == 0)
             {
-                Games = gameViewModel,
-                ItemsPerPage = filterViewModel.PageSize,
-                Page = filterViewModel.Page,
-                TotalItems = gamesByFilter.Count()
+                totalItem = _gameService.GetAll().Count();
+            }
+            else
+            {
+                totalItem = (int) filterViewModel.PageSize;
+            }
+            var gameViewModel = _mapper.Map<IEnumerable<GameViewModel>>(gamesByFilter);
+            filterViewModel.Games = gameViewModel;
+
+            var pagingInfo = new PagingInfo()
+            {
+                CurrentPage = page,
+                ItemsPerPage = totalItem,
+                TotalItems = _gameService.GetGamesByFilter(_mapper.Map<FilterDTO>(filterViewModel)).Count()
             };
 
-            return PartialView(gamesListViewModel); ;
+            filterViewModel.PagingInfo = pagingInfo;
+            if (filterViewModel.PagingInfo.TotalItems != 0)
+            {
+                return View(filterViewModel);
+            }
+            else
+            {
+                return View("NothingWasFound");
+            }
         }
 
         private FilterViewModel GetInitFilterViewModel()
@@ -151,7 +153,6 @@ namespace GameStore.Controllers
                 model.SelectedGenres = model.ListGenres.Where(x => filterViewMode.SelectedGenresName.Contains(x.Text));
                 model.SelectedGenresName = filterViewMode.SelectedGenresName;
             }
-
             if (filterViewMode.SelectedPlatformTypesName != null)
             {
                 model.SelectedPlatformTypes = model.ListPlatformTypes.Where(x => filterViewMode.SelectedPlatformTypesName.Contains(x.Text));
@@ -162,6 +163,20 @@ namespace GameStore.Controllers
             {
                 model.SelectedPublishers = model.ListPublishers.Where(x => filterViewMode.SelectedPublishersName.Contains(x.Text));
                 model.SelectedPublishersName = filterViewMode.SelectedPublishersName;
+            }
+            if (filterViewMode.MaxPrice != null)
+            {
+                model.MaxPrice = filterViewMode.MaxPrice;
+            }
+
+            if (filterViewMode.MinPrice != null)
+            {
+                model.MinPrice = filterViewMode.MinPrice;
+            }
+
+            if (filterViewMode.SearchGameName != null)
+            {
+                model.SearchGameName = filterViewMode.SearchGameName;
             }
 
             return model;

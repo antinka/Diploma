@@ -24,7 +24,7 @@ namespace GameStore.BLL.Filtration.Implementation
                 condition = game => game.Comments.Count()*-1;
             else if (_sortOption == SortType.MostPopular)
             {
-                condition = game => game.Views;
+                condition = game => game.Views * -1;
             }
             else if (_sortOption == SortType.NewByDate)
             {

@@ -15,6 +15,7 @@ namespace GameStore.ViewModels
         public string Description { get; set; }
 
         [Required]
+        [Display(Name = "Home page")]
         public string HomePage { get; set; }
 
         public ICollection<GameViewModel> Games { get; set; }

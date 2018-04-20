@@ -5,80 +5,58 @@
     ViewBag.Title = "GamesFilters";
 }
 
-<h2>GamesFilters</h2>
-
-@using (Html.BeginForm("Games","Game",FormMethod.Get, null))
+@using (Html.BeginForm("FilteredGames","Game", FormMethod.Get, null))
 {
-    @Html.AntiForgeryToken()
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <div class="form-horizontal">
-        <h4>FilterViewModel</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        
-        <div class="form-group">
-            <div class="col-md-10">
-                @Html.LabelFor(model => model.SearchGameName, htmlAttributes: new { @class = "control-label col-md-2" })
-                @Html.EditorFor(model => model.SearchGameName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SearchGameName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-10">
-                @Html.LabelFor(model => model.MinPrice, htmlAttributes: new { @class = "control-label col-md-2" })
-                @Html.EditorFor(model => model.MinPrice, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MinPrice, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-10">
-                @Html.LabelFor(model => model.MaxPrice, htmlAttributes: new { @class = "control-label col-md-2" })
-                @Html.EditorFor(model => model.MaxPrice, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MaxPrice, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.SortDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EnumDropDownListFor(model => model.SortDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SortDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.SortType, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EnumDropDownListFor(model => model.SortType, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SortType, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.Label("Platform types", htmlAttributes: new {@class = "control-label col-md-6"})
-            <div class="col-md-10" style="border-width: 1px; border-style: dashed;">
-                @Html.CheckBoxListFor(model => model.SelectedPlatformTypesName, model => model.ListPlatformTypes, model => model.Text, model => model.Text, model => model.SelectedPlatformTypes, Position.Vertical)
-            </div>
-        </div>
-    
-        <div class="form-group">
-            @Html.Label("Genres", htmlAttributes: new {@class = "control-label col-md-6"})
-            <div class="col-md-10" style="border-width: 1px; border-style: dashed;">
-                @Html.CheckBoxListFor(model => model.SelectedGenresName, model => model.ListGenres, model => model.Text, model => model.Text, model => model.SelectedGenres, Position.Vertical)
-            </div>
-        </div>
-        
-        <div class="form-group">
-            @Html.Label("Publishers", htmlAttributes: new { @class = "control-label col-md-6" })
-            <div class="col-md-10" style="border-width: 1px; border-style: dashed;">
-                @Html.CheckBoxListFor(model => model.SelectedPublishersName, model => model.ListPublishers, model => model.Text, model => model.Text, model => model.SelectedPublishers, Position.Vertical)
-            </div>
+    <div class="form-group">
+        <div class="col-md-10">
+            @Html.LabelFor(model => model.SearchGameName)
+            @Html.EditorFor(model => model.SearchGameName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.SearchGameName, "", new { @class = "text-danger" })
         </div>
     </div>
 
-   
+    <div class="form-group">
+        <div class="col-md-10">
+            @Html.LabelFor(model => model.MinPrice)
+            @Html.EditorFor(model => model.MinPrice, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MinPrice, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            @Html.LabelFor(model => model.MaxPrice)
+            @Html.EditorFor(model => model.MaxPrice, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MaxPrice, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Platform types", htmlAttributes: new { @class = "control-label col-md-6" })
+        <div class="col-md-10" style="border-width: 1px; border-style: dashed;">
+            @Html.CheckBoxListFor(model => model.SelectedPlatformTypesName, model => model.ListPlatformTypes, model => model.Text, model => model.Text, model => model.SelectedPlatformTypes, Position.Vertical)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Genres", htmlAttributes: new { @class = "control-label col-md-6" })
+        <div class="col-md-10" style="border-width: 1px; border-style: dashed;">
+            @Html.CheckBoxListFor(model => model.SelectedGenresName, model => model.ListGenres, model => model.Text, model => model.Text, model => model.SelectedGenres, Position.Vertical)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Publishers", htmlAttributes: new { @class = "control-label col-md-6" })
+        <div class="col-md-10" style="border-width: 1px; border-style: dashed;">
+            @Html.CheckBoxListFor(model => model.SelectedPublishersName, model => model.ListPublishers, model => model.Text, model => model.Text, model => model.SelectedPublishers, Position.Vertical)
+        </div>
+    </div>
+
+</div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Filter" class="btn btn-default" />

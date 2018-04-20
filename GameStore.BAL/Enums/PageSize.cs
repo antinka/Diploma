@@ -2,10 +2,10 @@
 {
     public enum PageSize
     {
-        Ten = 10,
-        Twenty = 20,
-        Fifty = 50,
-        OneHundred = 100,
+        Ten = 1,
+        Twenty = 2,
+        Fifty = 5,
+        OneHundred = 10,
         All = 0
     }
 }

@@ -19,18 +19,11 @@ namespace GameStore.BLL.Filtration.Implementation
 
         public IEnumerable<Game> Execute(IEnumerable<Game> input)
         {
-            int? itemsPerPage = null;
+            int size = (int) _pageSize;
 
-            if (_pageSize != PageSize.All)
+            if (size != 0)
             {
-                itemsPerPage = (int)_pageSize;
-            }
-
-            var pageIndex = _page == 0 ? 1 : _page;
-
-            if (itemsPerPage != null)
-            {
-                input.Skip(itemsPerPage.Value * (pageIndex - 1)).Take(itemsPerPage.Value);
+                return input.Skip((_page - 1) * size) .Take(size);
             }
 
             return input;

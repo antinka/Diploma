@@ -1,15 +1,17 @@
 ﻿using AutoMapper;
 using GameStore.BLL.DTO;
+using GameStore.BLL.Exeption;
+using GameStore.BLL.Filtration.Implementation;
 using GameStore.BLL.Service;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
+using GameStore.Infastracture;
 using log4net;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using GameStore.BLL.Exeption;
-using GameStore.Infastracture;
+using GameStore.BLL.Enums;
 using Xunit;
 
 namespace GameStore.Tests.Service
@@ -23,8 +25,9 @@ namespace GameStore.Tests.Service
         private readonly string _fakeGameKey;
         private readonly Game _fakeGame;
         private readonly Genre _fakeGenre;
+        private readonly Publisher _fakePublisher;
         private readonly PlatformType _fakePlatformType;
-        private readonly List<Game> _fakeGames;
+        private readonly List<Game> _fakeGames, _fakeGamesForFilter;
         private readonly Guid _fakeGameId, _fakeGenreId, _fakePlatformTypeId;
 
         public GameServiceTest()
@@ -45,11 +48,21 @@ namespace GameStore.Tests.Service
                 Name = "genre1"
             };
 
+            _fakePublisher = new Publisher()
+            {
+                Id = Guid.NewGuid(),
+                Name = "Publisher"
+            };
+
             var fakeGenres = new List<Genre>()
             {
                 _fakeGenre,
 
-                new Genre() { Id = new Guid() }
+                new Genre()
+                {
+                    Id = new Guid(),
+                    Name = "genre1"
+                }
             };
 
             _fakePlatformType = new PlatformType()
@@ -68,12 +81,35 @@ namespace GameStore.Tests.Service
                 Id = _fakeGameId,
                 Key = _fakeGameKey,
                 Genres = fakeGenres,
-                PlatformTypes = fakePlatformTypes
+                PlatformTypes = fakePlatformTypes,
+                Name = "game",
+                Price = 10,
+                Publisher = _fakePublisher,
+                PublishDate = DateTime.Today,
+                Views = 200
             };
 
             _fakeGames = new List<Game>
             {
                 _fakeGame
+            };
+
+            _fakeGamesForFilter = new List<Game>
+            {
+                _fakeGame,
+
+                new Game()
+                {
+                    Id = Guid.NewGuid(),
+                    Key = Guid.NewGuid().ToString(),
+                    Name = "gamegame",
+                    Genres = fakeGenres,
+                    PlatformTypes = fakePlatformTypes,
+                    Price = 15,
+                    Publisher = _fakePublisher,
+                    PublishDate = DateTime.Today.AddMonths(-2),
+                    Views = 10
+                }
             };
         }
 
@@ -210,6 +246,150 @@ namespace GameStore.Tests.Service
             var getGamesByPlatformTypeId = _sut.GetGamesByPlatformType(_fakePlatformTypeId);
 
             Assert.Equal(_fakeGames.Count, getGamesByPlatformTypeId.Count(g => g.PlatformTypes.Any(x => x.Id == _fakePlatformTypeId)));
+        }
+
+        [Fact]
+        public void GetGamesByFilter_FilterByGenre_GetedGames()
+        {
+            FilterDTO filterDto = new FilterDTO()
+            {
+                SelectedGenresName =new List<string>()
+                {
+                    "genre1"
+                }
+            };
+            GamePipeline gamePipeline = new GamePipeline();
+
+            gamePipeline.Register(new FilterByGenre(filterDto.SelectedGenresName));
+            var gamesAfteFilter = gamePipeline.Process(_fakeGamesForFilter);
+
+            Assert.Equal(_fakeGamesForFilter.Count, gamesAfteFilter.Count());
+        }
+
+        [Fact]
+        public void GetGamesByFilter_FilterByName_GetedGames()
+        {
+            FilterDTO filterDto = new FilterDTO()
+            {
+                SearchGameName = "game"
+            };
+            GamePipeline gamePipeline = new GamePipeline();
+
+            gamePipeline.Register(new FilterByName(filterDto.SearchGameName));
+            var gamesAfteFilter = gamePipeline.Process(_fakeGamesForFilter);
+
+            Assert.Equal(_fakeGamesForFilter.Count, gamesAfteFilter.Count());
+        }
+
+        [Fact]
+        public void GetGamesByFilter_FilterByPlatform_GetedGames()
+        {
+            FilterDTO filterDto = new FilterDTO()
+            {
+                SelectedPlatformTypesName = new List<string>()
+                {
+                    "platformType1"
+                }
+            };
+            GamePipeline gamePipeline = new GamePipeline();
+
+            gamePipeline.Register(new FilterByPlatform(filterDto.SelectedPlatformTypesName));
+            var gamesAfteFilter = gamePipeline.Process(_fakeGamesForFilter);
+
+            Assert.Equal(_fakeGamesForFilter.Count, gamesAfteFilter.Count());
+        }
+
+        [Fact]
+        public void GetGamesByFilter_FilterByFilterByMaxPrice_GetedGames()
+        {
+            FilterDTO filterDto = new FilterDTO()
+            {
+               MinPrice = 5
+            };
+            GamePipeline gamePipeline = new GamePipeline();
+
+            gamePipeline.Register(new FilterByMinPrice(filterDto.MinPrice.Value));
+            var gamesAfteFilter = gamePipeline.Process(_fakeGamesForFilter);
+
+            Assert.Equal(_fakeGamesForFilter.Count, gamesAfteFilter.Count());
+        }
+
+        [Fact]
+        public void GetGamesByFilter_FilterByFilterByMinPrice_GetedGames()
+        {
+            FilterDTO filterDto = new FilterDTO()
+            {
+                MaxPrice = 30
+            };
+            GamePipeline gamePipeline = new GamePipeline();
+
+            gamePipeline.Register(new FilterByMaxPrice(filterDto.MaxPrice.Value));
+            var gamesAfteFilter = gamePipeline.Process(_fakeGamesForFilter);
+
+            Assert.Equal(_fakeGamesForFilter.Count, gamesAfteFilter.Count());
+        }
+
+        [Fact]
+        public void GetGamesByFilter_FilterByPublisher_GetedGames()
+        {
+            FilterDTO filterDto = new FilterDTO()
+            {
+               SelectedPublishersName = new List<string>()
+               {
+                   "Publisher"
+               }
+            };
+            GamePipeline gamePipeline = new GamePipeline();
+
+            gamePipeline.Register(new FilterByPublisher(filterDto.SelectedPublishersName));
+            var gamesAfteFilter = gamePipeline.Process(_fakeGamesForFilter);
+
+            Assert.Equal(_fakeGamesForFilter.Count, gamesAfteFilter.Count());
+        }
+
+        [Fact]
+        public void GetGamesByFilter_SortFilterPriceDesc_GetedGames()
+        {
+            FilterDTO filterDto = new FilterDTO()
+            {
+                SortType = SortType.PriceDesc
+            };
+            GamePipeline gamePipeline = new GamePipeline();
+
+            gamePipeline.Register(new SortFilter(filterDto.SortType));
+            var gamesAfteFilter = gamePipeline.Process(_fakeGamesForFilter);
+
+            Assert.True(gamesAfteFilter.ElementAt(0).Price > gamesAfteFilter.ElementAt(1).Price);
+        }
+
+        [Fact]
+        public void GetGamesByFilter_SortFilterMostPopular_GetedGames()
+        {
+            FilterDTO filterDto = new FilterDTO()
+            {
+                SortType = SortType.MostPopular
+            };
+            GamePipeline gamePipeline = new GamePipeline();
+
+            gamePipeline.Register(new SortFilter(filterDto.SortType));
+            var gamesAfteFilter = gamePipeline.Process(_fakeGamesForFilter);
+
+            Assert.True(gamesAfteFilter.ElementAt(0).Views > gamesAfteFilter.ElementAt(1).Views);
+        }
+
+        [Fact]
+        public void GetGamesByFilter_FilterByDate_GetedGames()
+        {
+            FilterDTO filterDto = new FilterDTO()
+            {
+                SortDate = SortDate.month
+            };
+            GamePipeline gamePipeline = new GamePipeline();
+
+            gamePipeline.Register(new FilterByDate(filterDto.SortDate));
+            var gamesAfteFilter = gamePipeline.Process(_fakeGamesForFilter);
+
+            Assert.True(gamesAfteFilter.ElementAt(0).PublishDate < gamesAfteFilter.ElementAt(1).PublishDate);
         }
     }
 }

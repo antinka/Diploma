@@ -7,21 +7,27 @@ namespace GameStore.ViewModels
 {
     public class FilterViewModel
     {
+        public IEnumerable<GameViewModel> Games { get; set; }
+
+        public PagingInfo PagingInfo { get; set; }
+
+        [Display(Name = "Sort Date")]
         public SortDate SortDate { get; set; }
 
+        [Display(Name = "Sort Type")]
         public SortType SortType { get; set; }
 
+        [Display(Name = "Page Size")]
         public PageSize PageSize { get; set; }
 
-        public int Page { get; set; }
-
-        public int TotalItems { get; set; }
-
+        [Display(Name = "Search Game Name")]
         [MinLength(3)]
         public string SearchGameName { get; set; }
 
+        [Display(Name = "Min Price")]
         public decimal? MinPrice { get; set; }
 
+        [Display(Name = "Max Price")]
         public decimal? MaxPrice { get; set; }
 
         public IEnumerable<CheckBox> ListGenres { get; set; }
