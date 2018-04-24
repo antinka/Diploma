@@ -27,8 +27,10 @@ namespace GameStore.Controllers
 
         public ActionResult GetAllCommentToGame(string gamekey)
         {
+			//todo path gomeKey with viewModel
             TempData["gamekey"] = gamekey;
             var comments = _mapper.Map<List<CommentViewModel>>(_commentService.GetCommentsByGameKey(gamekey));
+			//todo same, don't use ViewBag
             ViewBag.gameId = _gameService.GetByKey(gamekey).Id;
 
             return View(comments);
@@ -36,6 +38,7 @@ namespace GameStore.Controllers
 
         public ActionResult CommentToGameForParent(Guid gameId, Guid parentsCommentId)
         {
+			//todo obj initializer
             CommentViewModel comment = new CommentViewModel();
             comment.GameId = gameId;
             comment.ParentCommentId = parentsCommentId;
@@ -52,6 +55,7 @@ namespace GameStore.Controllers
             return PartialView(comment);
         }
 
+		//todo Why you need this?
         [HttpGet]
         public ActionResult CommentToGame(Guid gameId)
         {
@@ -67,16 +71,19 @@ namespace GameStore.Controllers
             if (ModelState.IsValid)
             {
                 _commentService.AddComment(_mapper.Map<CommentDTO>(comment));
+				//todo temp data
                 var gamekey = TempData["gamekey"];
 
                 return RedirectToAction("GetAllCommentToGame", "Comment", new { gamekey = gamekey });
             }
+			//todo remove else
             else
             {
                 return PartialView(comment);
             }
         }
 
+		//todo why you need this?
         [HttpGet]
         public ActionResult Delete(Guid commentId)
         {
@@ -85,9 +92,12 @@ namespace GameStore.Controllers
             return View();
         }
 
-        [HttpPost]
+
+		//todo remove "sure" pls
+		[HttpPost]
         public ActionResult Delete(Guid commentId, string sure)
         {
+			//todo use viewmodel
             ViewBag.commentId = commentId;
             var gamekey = TempData["gamekey"];
 
@@ -103,6 +113,7 @@ namespace GameStore.Controllers
             }
         }
 
+		//todo how you can ban comment? or why you need this action?
         [HttpGet]
         public ActionResult Ban(Guid commentId)
         {
@@ -111,6 +122,7 @@ namespace GameStore.Controllers
             return PartialView();
         }
 
+		//todo why you need to ban commen?
         [HttpPost]
         public ActionResult Ban(Guid commentId, BanPeriod period)
         {

@@ -13,6 +13,7 @@ namespace GameStore.BLL.Service
     public class OrdersService : IOrdersService
     {
         private readonly IUnitOfWork _unitOfWork;
+		//todo log?
         private readonly ILog _log;
         private readonly IMapper _mapper;
 
@@ -23,6 +24,7 @@ namespace GameStore.BLL.Service
             _log = log;
         }
 
+		//todo GetOrderDetail return Order, not order details
         public OrderDTO GetOrderDetail(Guid userId)
         {
             var orders = _unitOfWork.Orders.Get(x => x.UserId == userId);
@@ -31,6 +33,7 @@ namespace GameStore.BLL.Service
             {
                 throw new EntityNotFound($"{nameof(OrdersService)} - Orders with such id user {userId} did not exist");
             }
+			//todo else
             else
             {
                 return _mapper.Map<OrderDTO>(orders.FirstOrDefault());
@@ -39,12 +42,14 @@ namespace GameStore.BLL.Service
 
         public void AddNewOrderDetails(Guid userId, Guid gameId, short quantity)
         {
+			//todo simplify, too big method. hint: you could use several private methods
             var game = _unitOfWork.Games.GetById(gameId);
 
             if (game != null)
             {
                 var order = _unitOfWork.Orders.Get(x => x.UserId == userId);
 
+				//todo are u sure that here could be null?
                 if (order == null)
                 {
                     var orderDetail = new OrderDetailDTO()

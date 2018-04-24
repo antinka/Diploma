@@ -28,6 +28,7 @@ namespace GameStore.Controllers
         {
             if (ModelState.IsValid)
             {
+				//todo
                 _publisherService.AddNew(_mapper.Map<PublisherDTO>(publisher));
 
                 return RedirectToAction("Get", new { companyName = publisher.Name });
@@ -41,6 +42,7 @@ namespace GameStore.Controllers
         {
             var publisher = _publisherService.GetByName(companyName);
 
+			//todo
             return View(_mapper.Map<PublisherViewModel>(publisher));
         }
     }

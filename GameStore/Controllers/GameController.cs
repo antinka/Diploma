@@ -37,6 +37,7 @@ namespace GameStore.Controllers
         [HttpGet]
         public ActionResult New()
         {
+			//todo refactor please, unreadable
             GameViewModel game = new GameViewModel();
             var genres = _mapper.Map<IEnumerable<GenreViewModel>>(_genreService.GetAll());
             game.GenreList = new SelectList(genres, "Id", "Name");
@@ -57,8 +58,10 @@ namespace GameStore.Controllers
 
                 return RedirectToAction("GetAllGames");
             }
+			//todo else
             else
             {
+				//todo unreadable
                 var genres = _mapper.Map<IEnumerable<GenreViewModel>>(_genreService.GetAll());
                 game.GenreList = new SelectList(genres, "Id", "Name");
                 var platformTypes = _mapper.Map<IEnumerable<PlatformTypeViewModel>>(_platformTypeService.GetAll());

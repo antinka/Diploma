@@ -12,6 +12,7 @@ namespace GameStore.BLL.Service
     public class GenreService : IGenreService
     {
         private readonly IUnitOfWork _unitOfWork;
+		//todo u need logger instance?
         private readonly ILog _log;
         private readonly IMapper _mapper;
 
@@ -30,6 +31,7 @@ namespace GameStore.BLL.Service
             {
                 throw new EntityNotFound($"{nameof(GenreService)} - genre with such id {id} did not exist");
             }
+			//todo remove else
             else
             {
                 return _mapper.Map<GenreDTO>(genre);

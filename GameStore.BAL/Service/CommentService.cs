@@ -28,6 +28,7 @@ namespace GameStore.BLL.Service
         public void AddComment(CommentDTO commentDto)
         {
             commentDto.Id = Guid.NewGuid();
+			//todo
             _unitOfWork.Comments.Create(_mapper.Map<Comment>(commentDto));
             _unitOfWork.Save();
 
@@ -42,6 +43,7 @@ namespace GameStore.BLL.Service
             {
                 throw new EntityNotFound($"{nameof(CommentService)} - comment with such id {id} did not exist");
             }
+			//todo
             else
             {
                 return _mapper.Map<CommentDTO>(comment);
@@ -61,6 +63,7 @@ namespace GameStore.BLL.Service
             _log.Info($"{nameof(CommentService)} - delete comment{id}");
         }
 
+		//todo it'll crash
         public void Ban(BanPeriod period, Guid commentId)
         {
             throw new NotImplementedException();
@@ -70,12 +73,14 @@ namespace GameStore.BLL.Service
         {
             var games = _unitOfWork.Games.Get(g => g.Key == gameKey);
 
+			//todo are you sure that games could be null?
             if (games != null)
             {
                 var listCommentToGame = _unitOfWork.Comments.Get(g => g.GameId == games.First().Id);
 
                 return _mapper.Map<IEnumerable<CommentDTO>>(listCommentToGame);
             }
+			//todo
             else
             {
                 throw new EntityNotFound(

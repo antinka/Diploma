@@ -26,6 +26,7 @@ namespace GameStore.BLL.Service
 
         public void AddNew(PublisherDTO publisherDTO)
         {
+			//todo firstordefault?
             var publisher = _unitOfWork.Publishers.Get(x => x.Name == publisherDTO.Name);
 
             if (!publisher.Any())
@@ -38,6 +39,7 @@ namespace GameStore.BLL.Service
             }
             else
             {
+				//todo why entity not found??
                 throw new EntityNotFound($"{nameof(PublisherService)} - attempt to add new publisher with not unique name");
             }
         }
@@ -50,6 +52,7 @@ namespace GameStore.BLL.Service
             {
                 throw new EntityNotFound($"{nameof(PublisherService)} - publisher with such company name {companyName} did not exist");
             }
+			//todo else?
             else
             {
                 return _mapper.Map<PublisherDTO>(publisher);
@@ -58,6 +61,7 @@ namespace GameStore.BLL.Service
 
         public IEnumerable<PublisherDTO> GetAll()
         {
+			//todo
             return _mapper.Map<IEnumerable<PublisherDTO>>(_unitOfWork.Publishers.GetAll());
         }
     }

@@ -24,8 +24,10 @@ namespace GameStore.Controllers
         public ActionResult BasketInfo()
         {
             var userId = Guid.Empty;
+			//todo
             var orders = _mapper.Map<OrderViewModel>(_ordersService.GetOrderDetail(userId));
 
+			//todo why orders??
             if (orders != null)
             {
                 return View(orders);
@@ -69,6 +71,7 @@ namespace GameStore.Controllers
             var order = _ordersService.GetOrderDetail(userId);
             decimal costOrder = 0;
 
+			//todo move to service
             foreach (var i in order.OrderDetails)
             {
                 costOrder += i.Price;

@@ -12,6 +12,7 @@ namespace GameStore.BLL.Service
     public class PlatformTypeService : IPlatformTypeService
     {
         private readonly IUnitOfWork _unitOfWork;
+		//todo log?
         private readonly ILog _log;
         private readonly IMapper _mapper;
 
@@ -30,6 +31,7 @@ namespace GameStore.BLL.Service
             {
                 throw new EntityNotFound($"{nameof(PlatformTypeService)} - platgorm type with such id {id} did not exist");
             }
+			//todo else?
             else
             {
                 return _mapper.Map<PlatformTypeDTO>(platgormType);
