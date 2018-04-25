@@ -203,7 +203,6 @@
     <Content Include="Views\Comment\CommentToGameForParent.cshtml" />
     <Content Include="Views\Comment\GetAllCommentToGame.cshtml" />
     <Content Include="Views\Comment\Ban.cshtml" />
-    <Content Include="Views\Comment\1Delete.cshtml" />
     <Content Include="Views\Order\EmptyBasket.cshtml" />
     <Content Include="Views\Comment\Delete.cshtml" />
     <None Include="Web.Debug.config">
