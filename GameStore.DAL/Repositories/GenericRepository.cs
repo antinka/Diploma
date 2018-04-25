@@ -49,5 +49,10 @@ namespace GameStore.DAL.Repositories
         {
 			return _dbSet.Where(predicate).Where(x => x.IsDelete == false).AsEnumerable();
         }
+
+        public int Count()
+        {
+            return _dbSet.Count();
+        }
     }
 }

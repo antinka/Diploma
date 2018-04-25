@@ -9,5 +9,7 @@ namespace GameStore.BLL.Interfaces
         IEnumerable<GameDTO> GetGamesByGenre(Guid genreId);
 
         IEnumerable<GameDTO> GetGamesByPlatformType(Guid platformTypeId);
+
+        int GetCountGame();
     }
 }

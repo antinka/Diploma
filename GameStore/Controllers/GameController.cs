@@ -119,7 +119,7 @@ namespace GameStore.Controllers
 
         public ActionResult CountGames()
         {
-            var gameCount = _gameService.GetAll().Count();
+            var gameCount = _gameService.GetCountGame();
 
             return PartialView("CountGames", gameCount);
         }

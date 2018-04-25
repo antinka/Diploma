@@ -133,6 +133,11 @@ namespace GameStore.BLL.Service
 
             return _mapper.Map<IEnumerable<GameDTO>>(gamesListByPlatformType);
         }
+
+        public int GetCountGame()
+        {
+            return _unitOfWork.Games.Count();
+        }
     }
 }
 

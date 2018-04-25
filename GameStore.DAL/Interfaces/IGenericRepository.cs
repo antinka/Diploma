@@ -16,5 +16,7 @@ namespace GameStore.DAL.Interfaces
         void Delete(Guid id);
 
         IEnumerable<TEntity> Get(Func<TEntity, bool> predicate);
+
+        int Count();
     }
 }
