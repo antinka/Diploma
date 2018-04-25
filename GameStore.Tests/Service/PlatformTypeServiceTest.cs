@@ -28,7 +28,7 @@ namespace GameStore.Tests.Service
             _uow = new Mock<IUnitOfWork>();
             var log = new Mock<ILog>();
             _mapper = MapperConfigUi.GetMapper().CreateMapper();
-            _sut = new PlatformTypeService(_uow.Object, _mapper, log.Object);
+            _sut = new PlatformTypeService(_uow.Object, _mapper);
 
             _fakePlatformTypeId = Guid.NewGuid();
 

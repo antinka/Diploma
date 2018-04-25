@@ -24,13 +24,12 @@ namespace GameStore.Controllers
         public ActionResult BasketInfo()
         {
             var userId = Guid.Empty;
-			//todo
-            var orders = _mapper.Map<OrderViewModel>(_ordersService.GetOrderDetail(userId));
+            var order = _ordersService.GetOrder(userId);
+            var orderViewModel = _mapper.Map<OrderViewModel>(order);
 
-			//todo why orders??
-            if (orders != null)
+            if (orderViewModel != null)
             {
-                return View(orders);
+                return View(orderViewModel);
             }
 
             return View("EmptyBasket");
@@ -68,20 +67,13 @@ namespace GameStore.Controllers
         public ActionResult Pay(PaymentTypes paymentType)
         {
             var userId = Guid.Empty;
-            var order = _ordersService.GetOrderDetail(userId);
-            decimal costOrder = 0;
-
-			//todo move to service
-            foreach (var i in order.OrderDetails)
-            {
-                costOrder += i.Price;
-            }
+            var order = _ordersService.GetOrder(userId);
 
             var orderPay = new OrderPayment()
             {
                 Id = order.Id,
                 UserId = order.UserId,
-                Cost = costOrder
+                Cost = order.Cost
             };
             
             if (paymentType == PaymentTypes.Bank)

@@ -27,7 +27,6 @@ namespace GameStore.Infastracture
             builder.RegisterFilterProvider();
             builder.RegisterModule(new WebModule());
             builder.RegisterModule(new BllModule("DefaultConnection"));
-            builder.RegisterModule(new RegisterInstanceModule());
         }
     }
 }

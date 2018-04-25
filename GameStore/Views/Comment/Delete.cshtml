@@ -2,11 +2,12 @@
 {
     <input type="hidden" value="@ViewBag.commentId" name="commentId" class="btn btn-default" />
 
-    <div class="modal-content">
+    <div id ="testModal"class="modal-content">
         <div class="modal-body">
             <p>are you sure you want to delete this comment?</p>
             <input type="submit" value="Yes" name="sure" class="btn btn-default" />
-            <input type="submit" value="No" name="sure" class="btn btn-default" />
+            <input type="button" value="No" name="sure" class="btn btn-default" />
+            <button class="btn btn-primary" onclick="$('#testModal').hide()">close</button>
         </div>
     </div>
 }

@@ -27,11 +27,11 @@ namespace GameStore.Tests.Controllers
         public void BasketInfo_ReturnView()
         {
             var fakeUserId = Guid.Empty;
-            _ordersService.Setup(service => service.GetOrderDetail(fakeUserId)).Verifiable();
+            _ordersService.Setup(service => service.GetOrder(fakeUserId)).Verifiable();
 
             var res = _sut.BasketInfo();
 
-            _ordersService.Verify(s => s.GetOrderDetail(It.IsAny<Guid>()), Times.Once);
+            _ordersService.Verify(s => s.GetOrder(It.IsAny<Guid>()), Times.Once);
         }
 
         [Fact]

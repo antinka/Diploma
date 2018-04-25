@@ -120,9 +120,9 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Files\test.txt" />
-    <Content Include="fonts\Bank.png" />
-    <Content Include="fonts\Visa.png" />
-    <Content Include="fonts\IBox.png" />
+    <Content Include="Pictures\Bank.png" />
+    <Content Include="Pictures\Visa.png" />
+    <Content Include="Pictures\IBox.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -161,7 +161,6 @@
     </Compile>
     <Compile Include="Infastracture\Mapper\MapperConfig.cs" />
     <Compile Include="Infastracture\Mapper\ViewModelToDTO.cs" />
-    <Compile Include="Infastracture\RegisterInstanceModule.cs" />
     <Compile Include="Infastracture\WebModule.cs" />
     <Compile Include="Payments\Bank.cs" />
     <Compile Include="Payments\Enums\PaymentTypes.cs" />

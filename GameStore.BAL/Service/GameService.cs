@@ -8,8 +8,6 @@ using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-//todo using
-using System.Security.Cryptography.X509Certificates;
 
 namespace GameStore.BLL.Service
 {
@@ -18,6 +16,8 @@ namespace GameStore.BLL.Service
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILog _log;
         private readonly IMapper _mapper;
+
+        private static readonly string ExcInReturningGameBy = $"{nameof(GameService)} - exception in returning all games by";
 
         public GameService(IUnitOfWork uow, IMapper mapper, ILog log)
         {
@@ -34,9 +34,9 @@ namespace GameStore.BLL.Service
             {
                 gameDto.Id = Guid.NewGuid();
                 Game newGame = _mapper.Map<Game>(gameDto);
-                newGame.Genres = _unitOfWork.Genres.Find(genre => gameDto.GenresId.Contains(genre.Id)).ToList();
+                newGame.Genres = _unitOfWork.Genres.Get(genre => gameDto.GenresId.Contains(genre.Id)).ToList();
                 newGame.PlatformTypes = _unitOfWork.PlatformTypes
-                    .Find(platformType => gameDto.PlatformTypesId.Contains(platformType.Id)).ToList();
+                    .Get(platformType => gameDto.PlatformTypesId.Contains(platformType.Id)).ToList();
 
                 _unitOfWork.Games.Create(newGame);
                 _unitOfWork.Save();
@@ -45,18 +45,23 @@ namespace GameStore.BLL.Service
             }
             else
             {
-				//todo WAT? :) Are you sure that entity not found?
-                throw new EntityNotFound($"{nameof(GameService)} - attempt to add new game with not unique key");
+                throw new NotUniqueParameter($"{nameof(GameService)} - attempt to add new game with not unique key");
             }
+        }
+
+        private Game TakeGameById(Guid id)
+        {
+            var game = _unitOfWork.Games.GetById(id);
+
+            if (game == null)
+                throw new EntityNotFound($"{nameof(GameService)} - game with such id {id} did not exist");
+
+            return game;
         }
 
         public void Delete(Guid id)
         {
-			//todo code duplication
-            var game = _unitOfWork.Games.GetById(id);
-
-            if (game == null)
-                throw new EntityNotFound($"{nameof(GameService)} - attempt to delete not existed game, id {id}");
+            TakeGameById(id);
 
             _unitOfWork.Games.Delete(id);
             _unitOfWork.Save();
@@ -85,26 +90,14 @@ namespace GameStore.BLL.Service
             {
                 throw new EntityNotFound($"{nameof(GameService)} - game with such gamekey {gamekey} did not exist");
             }
-            else
-            {
-                return _mapper.Map<GameDTO>(game.First());
-            }
+            return _mapper.Map<GameDTO>(game.First());
         }
 
         public GameDTO GetById(Guid id)
         {
-			//todo code duplication
-			var game = _unitOfWork.Games.GetById(id);
-
-            if (game == null)
-            {
-                throw new EntityNotFound($"{nameof(GameService)} - game with such id {id} did not exist");
-            }
-			//todo redunant else.
-            else
-            {
-                return _mapper.Map<GameDTO>(game);
-            }
+            var game = TakeGameById(id);
+			
+            return _mapper.Map<GameDTO>(game);
         }
 
         public IEnumerable<GameDTO> GetGamesByGenre(Guid genreId)
@@ -118,8 +111,7 @@ namespace GameStore.BLL.Service
             }
             else
             {
-				//todo to long, hard to read. Move string to const variable.
-				throw new EntityNotFound($"{nameof(GameService)} - exception in returning all games by GenreId, such genre id {genreId} did not exist");
+				throw new EntityNotFound($"{ExcInReturningGameBy} GenreId, such genre id {genreId} did not exist");
             }
 
             return _mapper.Map<IEnumerable<GameDTO>>(gamesListByGenre);
@@ -136,8 +128,7 @@ namespace GameStore.BLL.Service
             }
             else
             {
-				//todo to long, hard to read. Move string to const variable.
-                throw new EntityNotFound($"{nameof(GameService)}- exception in returning all games by platformTypeId, such platform type id {platformTypeId} did not exist");
+                throw new EntityNotFound($"{ExcInReturningGameBy} platformTypeId, such platform type id {platformTypeId} did not exist");
             }
 
             return _mapper.Map<IEnumerable<GameDTO>>(gamesListByPlatformType);

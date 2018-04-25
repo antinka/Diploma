@@ -38,19 +38,22 @@ namespace GameStore.Controllers
 
         public ActionResult CommentToGameForParent(Guid gameId, Guid parentsCommentId)
         {
-			//todo obj initializer
-            CommentViewModel comment = new CommentViewModel();
-            comment.GameId = gameId;
-            comment.ParentCommentId = parentsCommentId;
+            var comment = new CommentViewModel
+            {
+                GameId = gameId,
+                ParentCommentId = parentsCommentId
+            };
 
             return PartialView(comment);
         }
 
         public ActionResult CommentToGameWithQuote(Guid gameId, string quote)
         {
-            CommentViewModel comment = new CommentViewModel();
-            comment.GameId = gameId;
-            comment.Quote = quote;
+            var comment = new CommentViewModel
+            {
+                GameId = gameId,
+                Quote = quote
+            };
 
             return PartialView(comment);
         }
@@ -59,8 +62,7 @@ namespace GameStore.Controllers
         [HttpGet]
         public ActionResult CommentToGame(Guid gameId)
         {
-            CommentViewModel comment = new CommentViewModel();
-            comment.GameId = gameId;
+            var comment = new CommentViewModel {GameId = gameId};
 
             return PartialView(comment);
         }
@@ -76,11 +78,8 @@ namespace GameStore.Controllers
 
                 return RedirectToAction("GetAllCommentToGame", "Comment", new { gamekey = gamekey });
             }
-			//todo remove else
-            else
-            {
-                return PartialView(comment);
-            }
+			
+            return PartialView(comment);
         }
 
 		//todo why you need this?
@@ -107,10 +106,8 @@ namespace GameStore.Controllers
 
                 return RedirectToAction("GetAllCommentToGame", "Comment", new { gamekey = gamekey });
             }
-            else
-            {
-                return RedirectToAction("GetAllCommentToGame", "Comment", new { gamekey = gamekey });
-            }
+
+            return RedirectToAction("GetAllCommentToGame", "Comment", new { gamekey = gamekey });
         }
 
 		//todo how you can ban comment? or why you need this action?

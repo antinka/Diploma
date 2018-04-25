@@ -3784,3 +3784,162 @@ System.Data.Entity.Infrastructure.DbQuery`1[[GameStore.DAL.Entities.Game, GameSt
 2018-04-16 11:30:48,905  INFO  Path: /game/test/comments IP: ::1 Completed
 2018-04-16 11:30:48,908  INFO  Path: /game/test/comments IP: ::1 Attempted
 2018-04-16 11:30:48,910  INFO  Path: /game/test/comments IP: ::1 Completed
+2018-04-25 11:15:09,367  INFO  Path: / IP: ::1 Attempted
+2018-04-25 11:15:15,809  INFO  Path: / IP: ::1 Completed
+2018-04-25 11:15:18,228  INFO  Path: / IP: ::1 Attempted
+2018-04-25 11:15:18,233  INFO  Path: / IP: ::1 Completed
+2018-04-25 11:15:22,516  INFO  Path: /Order/BasketInfo IP: ::1 Attempted
+2018-04-25 11:15:22,659  INFO  Path: /Order/BasketInfo IP: ::1 Completed
+2018-04-25 11:15:22,993  INFO  Path: /Order/BasketInfo IP: ::1 Attempted
+2018-04-25 11:15:22,995  INFO  Path: /Order/BasketInfo IP: ::1 Completed
+2018-04-25 12:21:21,079  INFO  Path: / IP: ::1 Attempted
+2018-04-25 12:21:27,567  INFO  Path: / IP: ::1 Completed
+2018-04-25 12:21:30,029  INFO  Path: / IP: ::1 Attempted
+2018-04-25 12:21:30,049  INFO  Path: / IP: ::1 Completed
+2018-04-25 12:43:48,279  INFO  Path: / IP: ::1 Attempted
+2018-04-25 12:43:54,361  INFO  Path: / IP: ::1 Completed
+2018-04-25 12:43:56,603  INFO  Path: / IP: ::1 Attempted
+2018-04-25 12:43:56,608  INFO  Path: / IP: ::1 Completed
+2018-04-25 12:43:59,882  INFO  Path: /Order/BasketInfo IP: ::1 Attempted
+2018-04-25 12:44:00,011  INFO  Path: /Order/BasketInfo IP: ::1 Completed
+2018-04-25 12:44:00,398  INFO  Path: /Order/BasketInfo IP: ::1 Attempted
+2018-04-25 12:44:00,400  INFO  Path: /Order/BasketInfo IP: ::1 Completed
+2018-04-25 12:44:05,460  INFO  Path: /Order/Pay?paymentType=Box IP: ::1 Attempted
+2018-04-25 12:44:05,499  INFO  Path: /Order/Pay?paymentType=Box IP: ::1 Completed
+2018-04-25 12:44:05,807  INFO  Path: /Order/Pay?paymentType=Box IP: ::1 Attempted
+2018-04-25 12:44:05,810  INFO  Path: /Order/Pay?paymentType=Box IP: ::1 Completed
+2018-04-25 12:50:36,741  INFO  Path: / IP: ::1 Attempted
+2018-04-25 12:50:39,639  INFO  Path: / IP: ::1 Completed
+2018-04-25 12:50:40,758  INFO  Path: / IP: ::1 Attempted
+2018-04-25 12:50:40,763  INFO  Path: / IP: ::1 Completed
+2018-04-25 12:50:42,312  INFO  Path: /Order/BasketInfo IP: ::1 Attempted
+2018-04-25 12:50:42,411  INFO  Path: /Order/BasketInfo IP: ::1 Completed
+2018-04-25 12:50:42,739  INFO  Path: /Order/BasketInfo IP: ::1 Attempted
+2018-04-25 12:50:42,742  INFO  Path: /Order/BasketInfo IP: ::1 Completed
+2018-04-25 12:50:44,096  INFO  Path: /Publisher/New IP: ::1 Attempted
+2018-04-25 12:50:44,098  INFO  Path: /Publisher/New IP: ::1 Completed
+2018-04-25 12:50:44,447  INFO  Path: /Publisher/New IP: ::1 Attempted
+2018-04-25 12:50:44,461  INFO  Path: /Publisher/New IP: ::1 Completed
+2018-04-25 12:50:45,198  INFO  Path: /Order/BasketInfo IP: ::1 Attempted
+2018-04-25 12:50:45,232  INFO  Path: /Order/BasketInfo IP: ::1 Completed
+2018-04-25 12:50:45,236  INFO  Path: /Order/BasketInfo IP: ::1 Attempted
+2018-04-25 12:50:45,239  INFO  Path: /Order/BasketInfo IP: ::1 Completed
+2018-04-25 12:50:45,829  INFO  Path: /games IP: ::1 Attempted
+2018-04-25 12:50:45,844  INFO  Path: /games IP: ::1 Completed
+2018-04-25 12:50:45,847  INFO  Path: /games IP: ::1 Attempted
+2018-04-25 12:50:45,849  INFO  Path: /games IP: ::1 Completed
+2018-04-25 12:50:46,574  INFO  Path: /Order/BasketInfo IP: ::1 Attempted
+2018-04-25 12:50:46,603  INFO  Path: /Order/BasketInfo IP: ::1 Completed
+2018-04-25 12:50:46,607  INFO  Path: /Order/BasketInfo IP: ::1 Attempted
+2018-04-25 12:50:46,610  INFO  Path: /Order/BasketInfo IP: ::1 Completed
+2018-04-25 12:50:48,118  INFO  Path: /games IP: ::1 Attempted
+2018-04-25 12:50:48,131  INFO  Path: /games IP: ::1 Completed
+2018-04-25 12:50:48,137  INFO  Path: /games IP: ::1 Attempted
+2018-04-25 12:50:48,139  INFO  Path: /games IP: ::1 Completed
+2018-04-25 12:51:02,109  INFO  Path: /game?gamekey=nfs IP: ::1 Attempted
+2018-04-25 12:51:02,160  INFO  Path: /game?gamekey=nfs IP: ::1 Completed
+2018-04-25 12:51:02,184  INFO  Path: /game?gamekey=nfs IP: ::1 Attempted
+2018-04-25 12:51:02,187  INFO  Path: /game?gamekey=nfs IP: ::1 Completed
+2018-04-25 12:51:03,756  INFO  Path: /game/nfs/comments IP: ::1 Attempted
+2018-04-25 12:51:03,816  INFO  Path: /game/nfs/comments IP: ::1 Completed
+2018-04-25 12:51:04,359  INFO  Path: /game/nfs/comments IP: ::1 Attempted
+2018-04-25 12:51:04,361  INFO  Path: /game/nfs/comments IP: ::1 Completed
+2018-04-25 12:51:04,384  INFO  Path: /game/nfs/comments IP: ::1 Attempted
+2018-04-25 12:51:04,386  INFO  Path: /game/nfs/comments IP: ::1 Completed
+2018-04-25 12:55:48,840  INFO  Path: /Comment/Delete?commentId=cc2ece47-8b37-4cd0-8db9-dd14272f92cf&X-Requested-With=XMLHttpRequest&_=1524649864433 IP: ::1 Attempted
+2018-04-25 12:55:48,845  INFO  Path: /Comment/Delete?commentId=cc2ece47-8b37-4cd0-8db9-dd14272f92cf&X-Requested-With=XMLHttpRequest&_=1524649864433 IP: ::1 Completed
+2018-04-25 12:55:48,875  INFO  Path: /Comment/Delete?commentId=cc2ece47-8b37-4cd0-8db9-dd14272f92cf&X-Requested-With=XMLHttpRequest&_=1524649864433 IP: ::1 Attempted
+2018-04-25 12:55:48,891  INFO  Path: /Comment/Delete?commentId=cc2ece47-8b37-4cd0-8db9-dd14272f92cf&X-Requested-With=XMLHttpRequest&_=1524649864433 IP: ::1 Completed
+2018-04-25 12:55:52,515  INFO  Path: /Comment/Delete IP: ::1 Attempted
+2018-04-25 12:55:52,521  INFO  Path: /Comment/Delete IP: ::1 Completed
+2018-04-25 12:55:52,543  INFO  Path: /game/nfs/comments IP: ::1 Attempted
+2018-04-25 12:55:52,571  INFO  Path: /game/nfs/comments IP: ::1 Completed
+2018-04-25 12:55:52,615  INFO  Path: /game/nfs/comments IP: ::1 Attempted
+2018-04-25 12:55:52,616  INFO  Path: /game/nfs/comments IP: ::1 Completed
+2018-04-25 12:55:52,621  INFO  Path: /game/nfs/comments IP: ::1 Attempted
+2018-04-25 12:55:52,623  INFO  Path: /game/nfs/comments IP: ::1 Completed
+2018-04-25 12:56:30,597  INFO  Path: /Comment/Delete IP: ::1 Attempted
+2018-04-25 12:56:30,621  INFO  Path: /Comment/Delete IP: ::1 Completed
+2018-04-25 12:56:30,628  INFO  Exception: The parameters dictionary contains a null entry for parameter 'commentId' of non-nullable type 'System.Guid' for method 'System.Web.Mvc.ActionResult Delete(System.Guid)' in 'GameStore.Controllers.CommentController'. An optional parameter must be a reference type, a nullable type, or be declared as an optional parameter.
+Parameter name: parameters source System.Web.Mvc StackTrace:    at System.Web.Mvc.ActionDescriptor.ExtractParameterFromDictionary(ParameterInfo parameterInfo, IDictionary`2 parameters, MethodInfo methodInfo)
+   at System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<BeginInvokeSynchronousActionMethod>b__39(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3d()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__32(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
+2018-04-25 12:56:31,427  INFO  Path: /game/nfs/comments IP: ::1 Attempted
+2018-04-25 12:56:34,552  INFO  Path: /game/nfs/comments IP: ::1 Completed
+2018-04-25 12:56:35,583  INFO  Path: /game/nfs/comments IP: ::1 Attempted
+2018-04-25 12:56:35,585  INFO  Path: /game/nfs/comments IP: ::1 Completed
+2018-04-25 12:56:35,933  INFO  Path: /game/nfs/comments IP: ::1 Attempted
+2018-04-25 12:56:35,946  INFO  Path: /game/nfs/comments IP: ::1 Completed
+2018-04-25 12:56:37,802  INFO  Path: /Comment/Delete?commentId=138a680d-e459-4241-b1d0-5a46b63f1b50&X-Requested-With=XMLHttpRequest&_=1524650196296 IP: ::1 Attempted
+2018-04-25 12:56:37,807  INFO  Path: /Comment/Delete?commentId=138a680d-e459-4241-b1d0-5a46b63f1b50&X-Requested-With=XMLHttpRequest&_=1524650196296 IP: ::1 Completed
+2018-04-25 12:56:37,825  INFO  Path: /Comment/Delete?commentId=138a680d-e459-4241-b1d0-5a46b63f1b50&X-Requested-With=XMLHttpRequest&_=1524650196296 IP: ::1 Attempted
+2018-04-25 12:56:37,837  INFO  Path: /Comment/Delete?commentId=138a680d-e459-4241-b1d0-5a46b63f1b50&X-Requested-With=XMLHttpRequest&_=1524650196296 IP: ::1 Completed
+2018-04-25 12:59:01,813  INFO  Path: /Comment/Delete IP: ::1 Attempted
+2018-04-25 12:59:01,818  INFO  Path: /Comment/Delete IP: ::1 Completed
+2018-04-25 12:59:01,820  INFO  Exception: The parameters dictionary contains a null entry for parameter 'commentId' of non-nullable type 'System.Guid' for method 'System.Web.Mvc.ActionResult Delete(System.Guid)' in 'GameStore.Controllers.CommentController'. An optional parameter must be a reference type, a nullable type, or be declared as an optional parameter.
+Parameter name: parameters source System.Web.Mvc StackTrace:    at System.Web.Mvc.ActionDescriptor.ExtractParameterFromDictionary(ParameterInfo parameterInfo, IDictionary`2 parameters, MethodInfo methodInfo)
+   at System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<BeginInvokeSynchronousActionMethod>b__39(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3d()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__32(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
+2018-04-25 12:59:09,763  INFO  Path: /Comment/CommentToGame IP: ::1 Attempted
+2018-04-25 12:59:09,764  INFO  Path: /Comment/CommentToGame IP: ::1 Completed
+2018-04-25 12:59:09,765  INFO  Exception: The parameters dictionary contains a null entry for parameter 'gameId' of non-nullable type 'System.Guid' for method 'System.Web.Mvc.ActionResult CommentToGame(System.Guid)' in 'GameStore.Controllers.CommentController'. An optional parameter must be a reference type, a nullable type, or be declared as an optional parameter.
+Parameter name: parameters source System.Web.Mvc StackTrace:    at System.Web.Mvc.ActionDescriptor.ExtractParameterFromDictionary(ParameterInfo parameterInfo, IDictionary`2 parameters, MethodInfo methodInfo)
+   at System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<BeginInvokeSynchronousActionMethod>b__39(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3d()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__32(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
+2018-04-25 12:59:15,384  INFO  Path: /games IP: ::1 Attempted
+2018-04-25 12:59:15,444  INFO  Path: /games IP: ::1 Completed
+2018-04-25 12:59:15,506  INFO  Path: /games IP: ::1 Attempted
+2018-04-25 12:59:15,509  INFO  Path: /games IP: ::1 Completed
+2018-04-25 12:59:16,783  INFO  Path: /game?gamekey=838d6677-a1af-42c6-951e-13eeb71a6957 IP: ::1 Attempted
+2018-04-25 12:59:16,815  INFO  Path: /game?gamekey=838d6677-a1af-42c6-951e-13eeb71a6957 IP: ::1 Completed
+2018-04-25 12:59:16,845  INFO  Path: /game?gamekey=838d6677-a1af-42c6-951e-13eeb71a6957 IP: ::1 Attempted
+2018-04-25 12:59:16,848  INFO  Path: /game?gamekey=838d6677-a1af-42c6-951e-13eeb71a6957 IP: ::1 Completed
+2018-04-25 12:59:17,889  INFO  Path: /game/838d6677-a1af-42c6-951e-13eeb71a6957/comments IP: ::1 Attempted
+2018-04-25 12:59:17,916  INFO  Path: /game/838d6677-a1af-42c6-951e-13eeb71a6957/comments IP: ::1 Completed
+2018-04-25 12:59:18,375  INFO  Path: /game/838d6677-a1af-42c6-951e-13eeb71a6957/comments IP: ::1 Attempted
+2018-04-25 12:59:18,376  INFO  Path: /game/838d6677-a1af-42c6-951e-13eeb71a6957/comments IP: ::1 Completed
+2018-04-25 12:59:18,386  INFO  Path: /game/838d6677-a1af-42c6-951e-13eeb71a6957/comments IP: ::1 Attempted
+2018-04-25 12:59:18,388  INFO  Path: /game/838d6677-a1af-42c6-951e-13eeb71a6957/comments IP: ::1 Completed
+2018-04-25 12:59:20,082  INFO  Path: /Comment/Delete?commentId=729b3451-1d47-492b-a32d-d41efa564ad4&X-Requested-With=XMLHttpRequest&_=1524650358434 IP: ::1 Attempted
+2018-04-25 12:59:20,082  INFO  Path: /Comment/Delete?commentId=729b3451-1d47-492b-a32d-d41efa564ad4&X-Requested-With=XMLHttpRequest&_=1524650358434 IP: ::1 Completed
+2018-04-25 12:59:20,097  INFO  Path: /Comment/Delete?commentId=729b3451-1d47-492b-a32d-d41efa564ad4&X-Requested-With=XMLHttpRequest&_=1524650358434 IP: ::1 Attempted
+2018-04-25 12:59:20,110  INFO  Path: /Comment/Delete?commentId=729b3451-1d47-492b-a32d-d41efa564ad4&X-Requested-With=XMLHttpRequest&_=1524650358434 IP: ::1 Completed

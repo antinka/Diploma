@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-//todo using
-using System.Data.Entity.Migrations;
 using System.Linq;
 
 namespace GameStore.DAL.Repositories
@@ -39,8 +37,7 @@ namespace GameStore.DAL.Repositories
 
         public virtual IEnumerable<TEntiy> GetAll()
         {
-			//todo please return IEnumerable, not IQuarable.
-            return _dbSet.Where(x => x.IsDelete == false);
+            return _dbSet.Where(x => x.IsDelete == false).AsEnumerable();
         }
 
         public virtual void Update(TEntiy item)
@@ -48,17 +45,9 @@ namespace GameStore.DAL.Repositories
            _db.Entry(item).State = EntityState.Modified;
         }
 
-		//todo why you need same methods with different names?
         public virtual IEnumerable<TEntiy> Get(Func<TEntiy, bool> predicate)
         {
-			//todo please return IEnumerable, not IQuarable.
-			return _dbSet.Where(predicate).Where(x => x.IsDelete == false);
-        }
-
-		//todo why you need same methods with different names?
-		public virtual IEnumerable<TEntiy> Find(Func<TEntiy, bool> predicate)
-        {
-            return _dbSet.Where(predicate).ToList();
+			return _dbSet.Where(predicate).Where(x => x.IsDelete == false).AsEnumerable();
         }
     }
 }

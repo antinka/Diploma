@@ -87,7 +87,7 @@ namespace GameStore.Tests.Service
         [Fact]
         public void GetCommentsByGameKey_NotExistGameId_ExeptionEntityNotFound()
         {
-            _uow.Setup(uow => uow.Games.Get(It.IsAny<Func<Game, bool>>())).Returns(null as IEnumerable<Game>);
+            _uow.Setup(uow => uow.Games.Get(It.IsAny<Func<Game, bool>>())).Returns(new List<Game>());
 
             Assert.Throws<EntityNotFound>(() => _sut.GetCommentsByGameKey(_gameKey));
         }

@@ -1,26 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using AutoMapper;
+﻿using AutoMapper;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Exeption;
 using GameStore.BLL.Interfaces;
 using GameStore.DAL.Interfaces;
-using log4net;
+using System;
+using System.Collections.Generic;
 
 namespace GameStore.BLL.Service
 {
     public class PlatformTypeService : IPlatformTypeService
     {
         private readonly IUnitOfWork _unitOfWork;
-		//todo log?
-        private readonly ILog _log;
         private readonly IMapper _mapper;
 
-        public PlatformTypeService(IUnitOfWork uow, IMapper mapper, ILog log)
+        public PlatformTypeService(IUnitOfWork uow, IMapper mapper)
         {
             _unitOfWork = uow;
             _mapper = mapper;
-            _log = log;
         }
 
         public PlatformTypeDTO GetById(Guid id)
@@ -31,16 +27,15 @@ namespace GameStore.BLL.Service
             {
                 throw new EntityNotFound($"{nameof(PlatformTypeService)} - platgorm type with such id {id} did not exist");
             }
-			//todo else?
-            else
-            {
-                return _mapper.Map<PlatformTypeDTO>(platgormType);
-            }
+			
+            return _mapper.Map<PlatformTypeDTO>(platgormType);
         }
 
         public IEnumerable<PlatformTypeDTO> GetAll()
         {
-            return _mapper.Map<IEnumerable<PlatformTypeDTO>>(_unitOfWork.PlatformTypes.GetAll());
+            var platgormTypes = _unitOfWork.PlatformTypes.GetAll();
+
+            return _mapper.Map<IEnumerable<PlatformTypeDTO>>(platgormTypes);
         }
     }
 }

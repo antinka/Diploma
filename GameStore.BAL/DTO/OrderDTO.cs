@@ -11,6 +11,8 @@ namespace GameStore.BLL.DTO
 
         public DateTime Date { get; set; }
 
+        public Decimal Cost { get; set; }
+
         public ICollection<OrderDetailDTO> OrderDetails { get; set; }
     }
 }

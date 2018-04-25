@@ -84,8 +84,8 @@ namespace GameStore.Tests.Service
             var fakeGame = _mapper.Map<Game>(fakeGameDTO);
 
             _uow.Setup(uow => uow.Games.Get(It.IsAny<Func<Game, bool>>())).Returns(null as IEnumerable<Game>);
-            _uow.Setup(uow => uow.Genres.Find(It.IsAny<Func<Genre, bool>>())).Returns(new List<Genre>());
-            _uow.Setup(uow => uow.PlatformTypes.Find(It.IsAny<Func<PlatformType, bool>>())).Returns(new List<PlatformType>());
+            _uow.Setup(uow => uow.Genres.Get(It.IsAny<Func<Genre, bool>>())).Returns(new List<Genre>());
+            _uow.Setup(uow => uow.PlatformTypes.Get(It.IsAny<Func<PlatformType, bool>>())).Returns(new List<PlatformType>());
 
             _uow.Setup(uow => uow.Games.Create(fakeGame)).Verifiable();
 
@@ -101,7 +101,7 @@ namespace GameStore.Tests.Service
 
             _uow.Setup(uow => uow.Games.Get(It.IsAny<Func<Game, bool>>())).Returns(_fakeGames);
 
-            Assert.Throws<EntityNotFound>(() => _sut.AddNew(fakeGameDTO));
+            Assert.Throws<NotUniqueParameter>(() => _sut.AddNew(fakeGameDTO));
         }
 
         [Fact]

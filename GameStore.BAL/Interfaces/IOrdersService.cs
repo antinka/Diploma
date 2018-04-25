@@ -5,7 +5,7 @@ namespace GameStore.BLL.Interfaces
 {
     public interface IOrdersService
     {
-        OrderDTO GetOrderDetail(Guid userId);
+        OrderDTO GetOrder(Guid userId);
 
         void AddNewOrderDetails(Guid userId, Guid gameId, short quantity);
     }
