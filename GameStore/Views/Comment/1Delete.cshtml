@@ -1,0 +1,13 @@
+﻿@using (Html.BeginForm("Delete", "Comment"))
+{
+    <input type="hidden" value="@ViewBag.commentId" name="commentId" class="btn btn-default" />
+
+    <div id ="ModalViewDelete"class="modal-content">
+        <div class="modal-body">
+            <p>are you sure you want to delete this comment?</p>
+            <input type="submit" value="Yes" class="btn btn-default" />
+            <input type="button" value="No"  onclick="$('#ModalViewDelete').hide()" class="btn btn-default" />
+        </div>
+    </div>
+}
+
