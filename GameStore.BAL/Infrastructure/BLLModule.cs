@@ -2,7 +2,7 @@
 using GameStore.DAL.EF;
 using GameStore.DAL.Interfaces;
 
-namespace GameStore.BLL.Infastracture
+namespace GameStore.BLL.Infrastructure
 {
     public class BllModule : Module
     {

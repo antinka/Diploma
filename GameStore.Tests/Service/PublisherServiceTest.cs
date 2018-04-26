@@ -4,12 +4,12 @@ using GameStore.BLL.Exeption;
 using GameStore.BLL.Service;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
-using GameStore.Infastracture;
 using log4net;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GameStore.Infrastructure.Mapper;
 using Xunit;
 
 namespace GameStore.Tests.Service

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using GameStore.BLL.Infastracture;
+using GameStore.BLL.Infrastructure.Mapper;
 
-namespace GameStore.Infastracture
+namespace GameStore.Infrastructure.Mapper
 {
     public class MapperConfigUi
     {

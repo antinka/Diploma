@@ -30,7 +30,7 @@ namespace GameStore.BLL.Service
         {
             var game = _unitOfWork.Games.Get(x => x.Key == gameDto.Key);
 
-            if (game == null)
+            if (!game.Any())
             {
                 gameDto.Id = Guid.NewGuid();
                 Game newGame = _mapper.Map<Game>(gameDto);
@@ -70,8 +70,21 @@ namespace GameStore.BLL.Service
         }
 
         public void Update(GameDTO gameDto)
-        {
-            _unitOfWork.Games.Update(_mapper.Map<Game>(gameDto));
+        { 
+           var game= _mapper.Map<Game>(gameDto);
+
+            _unitOfWork.Games.Update(game);
+
+            game = TakeGameById(gameDto.Id);
+
+            game.Genres.Clear();
+            game.PlatformTypes.Clear();
+
+            game.Genres = _unitOfWork.Genres.Get(genre => gameDto.SelectedGenresName.Contains(genre.Name)).ToList();
+            game.PlatformTypes = _unitOfWork.PlatformTypes.Get(platformType => gameDto.SelectedPlatformTypesName.Contains(platformType.Name)).ToList();
+
+            _unitOfWork.Games.Update(game);
+
             _unitOfWork.Save();
 
             _log.Info($"{nameof(GameService)} - update game{gameDto.Id}");
@@ -86,11 +99,11 @@ namespace GameStore.BLL.Service
         {
             var game = _unitOfWork.Games.Get(g => g.Key == gamekey);
 
-            if (game == null)
+            if (!game.Any())
             {
                 throw new EntityNotFound($"{nameof(GameService)} - game with such gamekey {gamekey} did not exist");
             }
-            return _mapper.Map<GameDTO>(game.First());
+            return _mapper.Map<GameDTO>(game.FirstOrDefault());
         }
 
         public GameDTO GetById(Guid id)

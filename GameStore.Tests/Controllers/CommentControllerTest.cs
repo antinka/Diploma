@@ -3,11 +3,11 @@ using GameStore.BLL.DTO;
 using GameStore.BLL.Enums;
 using GameStore.BLL.Interfaces;
 using GameStore.Controllers;
-using GameStore.Infastracture;
 using GameStore.ViewModels;
 using Moq;
 using System;
 using System.Web.Mvc;
+using GameStore.Infrastructure.Mapper;
 using Xunit;
 
 namespace GameStore.Tests.Controllers

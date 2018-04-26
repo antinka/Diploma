@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 
 namespace GameStore.ViewModels
 {
@@ -48,6 +49,17 @@ namespace GameStore.ViewModels
 
         public SelectList PlatformTypeList { get; set; }
 
-        public IEnumerable<Guid> PlatformTypesIs { get; set; }
+        public IEnumerable<CheckBox> ListGenres { get; set; }
+
+        public IEnumerable<CheckBox> SelectedGenres { get; set; }
+
+        public ICollection<string> SelectedGenresName { get; set; }
+
+        public IEnumerable<CheckBox> ListPlatformTypes { get; set; }
+
+        public IEnumerable<CheckBox> SelectedPlatformTypes { get; set; }
+
+        public ICollection<string> SelectedPlatformTypesName { get; set; }
+
     }
 }

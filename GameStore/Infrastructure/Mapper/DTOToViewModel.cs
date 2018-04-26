@@ -2,7 +2,7 @@
 using GameStore.BLL.DTO;
 using GameStore.ViewModels;
 
-namespace GameStore.Infastracture
+namespace GameStore.Infrastructure.Mapper
 {
     public class DtoToViewModel : Profile
     {

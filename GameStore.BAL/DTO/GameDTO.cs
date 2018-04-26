@@ -32,5 +32,9 @@ namespace GameStore.BLL.DTO
         public ICollection<PlatformTypeDTO> PlatformTypes { get; set; }
 
         public IEnumerable<Guid> PlatformTypesId { get; set; }
+
+        public ICollection<string> SelectedGenresName { get; set; }
+
+        public ICollection<string> SelectedPlatformTypesName { get; set; }
     }
 }

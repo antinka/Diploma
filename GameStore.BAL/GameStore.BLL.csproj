@@ -98,9 +98,9 @@
     <Compile Include="Exeption\EntityNotFound.cs" />
     <Compile Include="Exeption\NotUniqueParameter.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Infastracture\BLLModule.cs" />
-    <Compile Include="Infastracture\Mapper\DTOToEntity.cs" />
-    <Compile Include="Infastracture\Mapper\EntityToDTO.cs" />
+    <Compile Include="Infrastructure\BLLModule.cs" />
+    <Compile Include="Infrastructure\Mapper\DTOToEntity.cs" />
+    <Compile Include="Infrastructure\Mapper\EntityToDTO.cs" />
     <Compile Include="DTO\CommentDTO.cs" />
     <Compile Include="DTO\GameDTO.cs" />
     <Compile Include="DTO\GenreDTO.cs" />

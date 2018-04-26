@@ -1,9 +1,10 @@
 ﻿using Autofac;
 using GameStore.BLL.Interfaces;
 using GameStore.BLL.Service;
+using GameStore.Infrastructure.Mapper;
 using log4net;
 
-namespace GameStore.Infastracture
+namespace GameStore.Infrastructure
 {
     public class WebModule : Module
     {

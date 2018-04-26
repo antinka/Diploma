@@ -2,11 +2,11 @@
 using GameStore.BLL.DTO;
 using GameStore.BLL.Interfaces;
 using GameStore.Controllers;
-using GameStore.Infastracture;
 using GameStore.ViewModels;
 using Moq;
 using Xunit;
 using System.Web.Mvc;
+using GameStore.Infrastructure.Mapper;
 
 namespace GameStore.Tests.Controllers
 {

@@ -6,8 +6,8 @@ using GameStore.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 
 namespace GameStore.Controllers
 {
@@ -72,37 +72,83 @@ namespace GameStore.Controllers
             return View(game);
         }
 
+        [HttpGet]
+        public ActionResult Update(string gamekey)
+        {
+            var gameDTO = _gameService.GetByKey(gamekey);
+            var gameForView = _mapper.Map<GameViewModel>(gameDTO);
+
+            var publishers = _mapper.Map<IEnumerable<PublisherViewModel>>(_publisherService.GetAll());
+
+
+            gameForView = GetGameViewModel(gameForView);
+            gameForView.PublisherList = new SelectList(publishers, "Id", "Name");
+
+            return View(gameForView);
+        }
+
+        private GameViewModel GetGameViewModel(GameViewModel gameViewModel)
+        {
+            var genrelist = _mapper.Map<IEnumerable<GenreViewModel>>(_genreService.GetAll());
+            var platformlist = _mapper.Map<IEnumerable<PlatformTypeViewModel>>(_platformTypeService.GetAll());
+
+            var listGenreBoxs = new List<CheckBox>();
+            genrelist.ToList().ForEach(genre => listGenreBoxs.Add(new CheckBox() { Text = genre.Name }));
+            gameViewModel.ListGenres = listGenreBoxs;
+
+            var listPlatformBoxs = new List<CheckBox>();
+            platformlist.ToList().ForEach(platform => listPlatformBoxs.Add(new CheckBox() { Text = platform.Name }));
+            gameViewModel.ListPlatformTypes = listPlatformBoxs;
+
+            if (gameViewModel.Genres != null)
+            {
+                gameViewModel.SelectedGenres = gameViewModel.ListGenres.Where(x => gameViewModel.Genres.Any(g => g.Name.Contains(x.Text)));
+            }
+            if (gameViewModel.PlatformTypes != null)
+            {
+                gameViewModel.SelectedPlatformTypes = gameViewModel.ListPlatformTypes.Where(x => gameViewModel.PlatformTypes.Any(g => g.Name.Contains(x.Text)));
+            }
+
+            return gameViewModel;
+        }
+
         [HttpPost]
         public ActionResult Update(GameViewModel game)
         {
-            _gameService.Update(_mapper.Map<GameDTO>(game));
+            if (ModelState.IsValid)
+            {
+                _gameService.Update(_mapper.Map<GameDTO>(game));
 
-            return new HttpStatusCodeResult(HttpStatusCode.OK);
+                return RedirectToAction("GetAllGames");
+            }
+
+            return View(game);
         }
 
         [HttpGet]
         public ActionResult GetGame(string gamekey)
         {
-            var game = _gameService.GetByKey(gamekey);
+            var gameDTO = _gameService.GetByKey(gamekey);
+            var gameForView = _mapper.Map<GameViewModel>(gameDTO);
 
-            return View(_mapper.Map<GameViewModel>(game));
+            return View(gameForView);
         }
 
         [HttpGet]
         public ActionResult GetAllGames()
         {
-            var games = _gameService.GetAll();
+            var gamesDTO = _gameService.GetAll();
+            var gamesForView = _mapper.Map<IEnumerable<GameViewModel>>(gamesDTO);
 
-            return View((_mapper.Map<IEnumerable<GameViewModel>>(games)));
+            return View(gamesForView);
         }
 
         [OutputCache(Duration = 60)]
-        [HttpPost]
         public ActionResult Remove(Guid gameId)
         {
             _gameService.Delete(gameId);
 
-            return new HttpStatusCodeResult(HttpStatusCode.OK);
+            return RedirectToAction("GetAllGames");
         }
 
         [OutputCache(Duration = 60)]

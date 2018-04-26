@@ -2,7 +2,7 @@
 using GameStore.BLL.DTO;
 using GameStore.DAL.Entities;
 
-namespace GameStore.BLL.Infastracture
+namespace GameStore.BLL.Infrastructure.Mapper
 {
     public class DtoToEntity : Profile
     {

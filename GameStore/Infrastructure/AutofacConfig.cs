@@ -1,10 +1,10 @@
-﻿using Autofac;
-using Autofac.Integration.Mvc;
-using GameStore.BLL.Infastracture;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Web.Mvc;
+using Autofac;
+using Autofac.Integration.Mvc;
+using GameStore.BLL.Infrastructure;
 
-namespace GameStore.Infastracture
+namespace GameStore.Infrastructure
 {
     public class AutofacConfig
     {

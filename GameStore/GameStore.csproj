@@ -146,10 +146,12 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\GenreController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\PlatformTypeController.cs" />
     <Compile Include="Controllers\PublisherController.cs" />
-    <Compile Include="Infastracture\AutofacConfig.cs" />
-    <Compile Include="Infastracture\Mapper\DTOToViewModel.cs" />
+    <Compile Include="Infrastructure\AutofacConfig.cs" />
+    <Compile Include="Infrastructure\Mapper\DTOToViewModel.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CommentController.cs" />
@@ -159,9 +161,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Infastracture\Mapper\MapperConfig.cs" />
-    <Compile Include="Infastracture\Mapper\ViewModelToDTO.cs" />
-    <Compile Include="Infastracture\WebModule.cs" />
+    <Compile Include="Infrastructure\Mapper\MapperConfig.cs" />
+    <Compile Include="Infrastructure\Mapper\ViewModelToDTO.cs" />
+    <Compile Include="Infrastructure\WebModule.cs" />
     <Compile Include="Payments\Bank.cs" />
     <Compile Include="Payments\Enums\PaymentTypes.cs" />
     <Compile Include="Payments\Box.cs" />
@@ -205,6 +207,9 @@
     <Content Include="Views\Comment\Ban.cshtml" />
     <Content Include="Views\Order\EmptyBasket.cshtml" />
     <Content Include="Views\Comment\Delete.cshtml" />
+    <Content Include="Views\Game\Update.cshtml" />
+    <Content Include="Views\Publisher\GetAll.cshtml" />
+    <Content Include="Views\Publisher\Update.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

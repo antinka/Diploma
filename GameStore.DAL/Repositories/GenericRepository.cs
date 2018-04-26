@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 
 namespace GameStore.DAL.Repositories
@@ -42,7 +43,7 @@ namespace GameStore.DAL.Repositories
 
         public virtual void Update(TEntiy item)
         {
-           _db.Entry(item).State = EntityState.Modified;
+            _db.Set<TEntiy>().AddOrUpdate(item);
         }
 
         public virtual IEnumerable<TEntiy> Get(Func<TEntiy, bool> predicate)
@@ -52,7 +53,7 @@ namespace GameStore.DAL.Repositories
 
         public int Count()
         {
-            return _dbSet.Count();
+            return _dbSet.Count(x => x.IsDelete == false);
         }
     }
 }
