@@ -123,11 +123,11 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void CountGames_ReturnPartialViewResult()
         {
-            _gameService.Setup(service => service.GetAll()).Returns(_fakeGames).Verifiable();
+            _gameService.Setup(service => service.GetCountGame()).Returns(5).Verifiable();
 
             var game = _sut.CountGames();
 
-            _gameService.Verify(s => s.GetAll(), Times.Once);
+            _gameService.Verify(s => s.GetCountGame(), Times.Once);
         }
     }
 }

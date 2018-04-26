@@ -33,7 +33,7 @@ namespace GameStore.BLL.Service
             if (!game.Any())
             {
                 gameDto.Id = Guid.NewGuid();
-                Game newGame = _mapper.Map<Game>(gameDto);
+                var newGame = _mapper.Map<Game>(gameDto);
                 newGame.Genres = _unitOfWork.Genres.Get(genre => gameDto.GenresId.Contains(genre.Id)).ToList();
                 newGame.PlatformTypes = _unitOfWork.PlatformTypes
                     .Get(platformType => gameDto.PlatformTypesId.Contains(platformType.Id)).ToList();
