@@ -27,7 +27,6 @@ namespace GameStore.Tests.Service
         public OrdersServiceTest()
         {
             _uow = new Mock<IUnitOfWork>();
-            var log = new Mock<ILog>();
             _mapper = MapperConfigUi.GetMapper().CreateMapper();
             _sut = new OrdersService(_uow.Object, _mapper);
 

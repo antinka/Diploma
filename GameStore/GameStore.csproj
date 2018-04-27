@@ -230,7 +230,7 @@
     <Folder Include="Views\Shared\DisplayTemplates\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GameStore.BAL\GameStore.BLL.csproj">
+    <ProjectReference Include="..\GameStore.BLL\GameStore.BLL.csproj">
       <Project>{D0782D1D-3927-4A45-8D57-32B107A8CF69}</Project>
       <Name>GameStore.BLL</Name>
     </ProjectReference>

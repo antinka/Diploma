@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web.Mvc;
-using AutoMapper;
-using GameStore.BLL.DTO;
-using GameStore.BLL.Interfaces;
+﻿using AutoMapper;
 using GameStore.Filters;
 using GameStore.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Web.Mvc;
+using GameStore.BLL.DTO;
+using GameStore.BLL.Interfaces;
 
 namespace GameStore.Controllers
 {
