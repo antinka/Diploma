@@ -17,7 +17,8 @@ namespace GameStore.BLL.Service
         private readonly ILog _log;
         private readonly IMapper _mapper;
 
-        private static readonly string ExcInReturningGameBy = $"{nameof(GameService)} - exception in returning all games by";
+        private static readonly string ExcInReturningGameBy =
+            $"{nameof(GameService)} - exception in returning all games by";
 
         public GameService(IUnitOfWork uow, IMapper mapper, ILog log)
         {
@@ -28,9 +29,9 @@ namespace GameStore.BLL.Service
 
         public void AddNew(GameDTO gameDto)
         {
-            var game = _unitOfWork.Games.Get(x => x.Key == gameDto.Key);
+            var game = _unitOfWork.Games.Get(x => x.Key == gameDto.Key).FirstOrDefault();
 
-            if (!game.Any())
+            if (game == null)
             {
                 gameDto.Id = Guid.NewGuid();
                 var newGame = _mapper.Map<Game>(gameDto);
@@ -41,7 +42,7 @@ namespace GameStore.BLL.Service
                 _unitOfWork.Games.Create(newGame);
                 _unitOfWork.Save();
 
-                _log.Info($"{nameof(GameService)} - add new game{ gameDto.Id}");
+                _log.Info($"{nameof(GameService)} - add new game{gameDto.Id}");
             }
             else
             {
@@ -70,8 +71,8 @@ namespace GameStore.BLL.Service
         }
 
         public void Update(GameDTO gameDto)
-        { 
-           var game= _mapper.Map<Game>(gameDto);
+        {
+            var game = _mapper.Map<Game>(gameDto);
 
             _unitOfWork.Games.Update(game);
 
@@ -81,7 +82,8 @@ namespace GameStore.BLL.Service
             game.PlatformTypes.Clear();
 
             game.Genres = _unitOfWork.Genres.Get(genre => gameDto.SelectedGenresName.Contains(genre.Name)).ToList();
-            game.PlatformTypes = _unitOfWork.PlatformTypes.Get(platformType => gameDto.SelectedPlatformTypesName.Contains(platformType.Name)).ToList();
+            game.PlatformTypes = _unitOfWork.PlatformTypes
+                .Get(platformType => gameDto.SelectedPlatformTypesName.Contains(platformType.Name)).ToList();
 
             _unitOfWork.Games.Update(game);
 
@@ -97,19 +99,19 @@ namespace GameStore.BLL.Service
 
         public GameDTO GetByKey(string gamekey)
         {
-            var game = _unitOfWork.Games.Get(g => g.Key == gamekey);
+            var game = _unitOfWork.Games.Get(g => g.Key == gamekey).FirstOrDefault();
 
-            if (!game.Any())
+            if (game == null)
             {
                 throw new EntityNotFound($"{nameof(GameService)} - game with such gamekey {gamekey} did not exist");
             }
-            return _mapper.Map<GameDTO>(game.FirstOrDefault());
+            return _mapper.Map<GameDTO>(game);
         }
 
         public GameDTO GetById(Guid id)
         {
             var game = TakeGameById(id);
-			
+
             return _mapper.Map<GameDTO>(game);
         }
 
@@ -124,7 +126,7 @@ namespace GameStore.BLL.Service
             }
             else
             {
-				throw new EntityNotFound($"{ExcInReturningGameBy} GenreId, such genre id {genreId} did not exist");
+                throw new EntityNotFound($"{ExcInReturningGameBy} GenreId, such genre id {genreId} did not exist");
             }
 
             return _mapper.Map<IEnumerable<GameDTO>>(gamesListByGenre);
@@ -137,11 +139,13 @@ namespace GameStore.BLL.Service
 
             if (platformType != null)
             {
-                gamesListByPlatformType = _unitOfWork.Games.Get(game => game.PlatformTypes.Any(x => x.Id == platformTypeId));
+                gamesListByPlatformType =
+                    _unitOfWork.Games.Get(game => game.PlatformTypes.Any(x => x.Id == platformTypeId));
             }
             else
             {
-                throw new EntityNotFound($"{ExcInReturningGameBy} platformTypeId, such platform type id {platformTypeId} did not exist");
+                throw new EntityNotFound(
+                    $"{ExcInReturningGameBy} platformTypeId, such platform type id {platformTypeId} did not exist");
             }
 
             return _mapper.Map<IEnumerable<GameDTO>>(gamesListByPlatformType);

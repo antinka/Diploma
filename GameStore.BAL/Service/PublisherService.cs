@@ -26,10 +26,9 @@ namespace GameStore.BLL.Service
 
         public void AddNew(PublisherDTO publisherDTO)
         {
+            var publisher = _unitOfWork.Publishers.Get(x => x.Name == publisherDTO.Name).FirstOrDefault();
 
-            var publisher = _unitOfWork.Publishers.Get(x => x.Name == publisherDTO.Name);
-
-            if (!publisher.Any())
+            if (publisher == null)
             {
                 publisherDTO.Id = Guid.NewGuid();
                 _unitOfWork.Publishers.Create(_mapper.Map<Publisher>(publisherDTO));

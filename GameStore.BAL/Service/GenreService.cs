@@ -39,15 +39,27 @@ namespace GameStore.BLL.Service
         public IEnumerable<GenreDTO> GetAll()
         {
             var genres = _unitOfWork.Genres.GetAll();
+            var genresDto = _mapper.Map<IEnumerable<GenreDTO>>(genres);
 
-            return _mapper.Map<IEnumerable<GenreDTO>>(genres);
+            foreach (var genre in genresDto)
+            {
+                foreach (var parentGenre in genresDto)
+                {
+                    if (genre.ParentGenreId == parentGenre.Id)
+                    {
+                        genre.ParentGenreName = parentGenre.Name;
+                    }
+                }
+            }
+
+            return genresDto;
         }
 
         public void AddNew(GenreDTO genreDto)
         {
-            var genre = _unitOfWork.Genres.Get(x => x.Name == genreDto.Name);
+            var genre = _unitOfWork.Genres.Get(x => x.Name == genreDto.Name).FirstOrDefault();
 
-            if (!genre.Any())
+            if (genre == null)
             {
                 genreDto.Id = Guid.NewGuid();
                 _unitOfWork.Genres.Create(_mapper.Map<Genre>(genreDto));
@@ -95,13 +107,18 @@ namespace GameStore.BLL.Service
         public GenreDTO GetByName(string name)
         {
             var genre = _unitOfWork.Genres.Get(x => x.Name == name).FirstOrDefault();
-
+           
             if (genre == null)
             {
                 throw new EntityNotFound($"{nameof(GenreService)} - genre with such name {name} did not exist");
             }
 
-            return _mapper.Map<GenreDTO>(genre);
+            var genresDto = _mapper.Map<GenreDTO>(genre);
+
+            if (genre.ParentGenreId != null)
+                genresDto.ParentGenreName = _unitOfWork.Genres.GetById(genre.ParentGenreId.Value).Name;
+
+            return genresDto;
         }
     }
 }

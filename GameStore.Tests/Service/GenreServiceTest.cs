@@ -8,6 +8,7 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GameStore.BLL.DTO;
 using GameStore.Infrastructure.Mapper;
 using Xunit;
 
@@ -76,6 +77,76 @@ namespace GameStore.Tests.Service
             _uow.Setup(uow => uow.Genres.GetById(_fakeGenreId)).Returns(null as Genre);
 
             Assert.Throws<EntityNotFound>(() => _sut.GetById(_fakeGenreId));
+        }
+
+        [Fact]
+        public void AddNewGenre_GenreWithUniqueName_NewGenreAdded()
+        {
+            var fakeGenreDTO = new GenreDTO() { Id = Guid.NewGuid(), Name = "uniqueName" };
+            var fakeGenre = _mapper.Map<Genre>(fakeGenreDTO);
+
+            _uow.Setup(uow => uow.Genres.Get(It.IsAny<Func<Genre, bool>>())).Returns(new List<Genre>());
+            _uow.Setup(uow => uow.Genres.Create(fakeGenre)).Verifiable();
+
+            _sut.AddNew(fakeGenreDTO);
+
+            _uow.Verify(uow => uow.Genres.Create(It.IsAny<Genre>()), Times.Once);
+        }
+
+        [Fact]
+        public void AddNewGenre_GenreWithoutUniqueName_ExeptionNotUniqueParameter()
+        {
+            var fakeGenreDTO = _mapper.Map<GenreDTO>(_fakeGenre);
+
+            _uow.Setup(uow => uow.Genres.Get(It.IsAny<Func<Genre, bool>>())).Returns(_fakeGenres);
+
+            Assert.Throws<NotUniqueParameter>(() => _sut.AddNew(fakeGenreDTO));
+        }
+
+        [Fact]
+        public void UpdateGenre_Genre_GenreUpdated()
+        {
+            var fakeGenreDTO = _mapper.Map<GenreDTO>(_fakeGenre);
+
+            _uow.Setup(uow => uow.Genres.GetById(_fakeGenreId)).Returns(_fakeGenre);
+
+            _uow.Setup(uow => uow.Genres.Update(_fakeGenre)).Verifiable();
+
+            _sut.Update(fakeGenreDTO);
+
+            _uow.Verify(uow => uow.Genres.Update(It.IsAny<Genre>()), Times.Once);
+        }
+
+        [Fact]
+        public void UpdateGenre_NotExistGenreName_EntityNotFound()
+        {
+            var fakeGenreId = Guid.NewGuid();
+
+            _uow.Setup(uow => uow.Genres.GetById(fakeGenreId)).Returns(null as Genre);
+
+            Assert.Throws<EntityNotFound>(() => _sut.Update(new GenreDTO()));
+        }
+
+        [Fact]
+        public void DeleteGenre_NotExistedGenreName__ExeptionEntityNotFound()
+        {
+            var notExistGenreId = Guid.NewGuid();
+
+            _uow.Setup(uow => uow.Genres.GetById(notExistGenreId)).Returns(null as Genre);
+            _uow.Setup(uow => uow.Genres.Delete(notExistGenreId));
+
+            Assert.Throws<EntityNotFound>(() => _sut.Delete(notExistGenreId));
+        }
+
+        [Fact]
+        public void DeleteGenre_ExistedGenreName__Verifiable()
+        {
+            _uow.Setup(uow => uow.Genres.GetById(_fakeGenreId)).Returns(_fakeGenre);
+            _uow.Setup(uow => uow.Genres.Delete(_fakeGenreId)).Verifiable();
+
+            _sut.Delete(_fakeGenreId);
+
+            _uow.Verify(uow => uow.Genres.Delete(It.IsAny<Guid>()), Times.Once);
         }
     }
 }

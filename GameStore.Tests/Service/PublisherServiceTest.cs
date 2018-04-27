@@ -14,7 +14,7 @@ using Xunit;
 
 namespace GameStore.Tests.Service
 {
-    class PublisherServiceTest
+    public class PublisherServiceTest
     {
         private readonly Mock<IUnitOfWork> _uow;
         private readonly PublisherService _sut;
@@ -23,6 +23,7 @@ namespace GameStore.Tests.Service
         private readonly Publisher _fakePublisher;
         private readonly List<Publisher> _fakePublishers;
         private readonly string _fakePublisherName;
+        private readonly Guid _fakePublisherId;
 
         public PublisherServiceTest()
         {
@@ -32,10 +33,11 @@ namespace GameStore.Tests.Service
             _sut = new PublisherService(_uow.Object, _mapper, log.Object);
 
             _fakePublisherName = "publisher1";
+            _fakePublisherId = Guid.NewGuid();
 
             _fakePublisher = new Publisher
             {
-                Id = new Guid(),
+                Id = _fakePublisherId,
                 Name = _fakePublisherName
             };
 
@@ -68,7 +70,7 @@ namespace GameStore.Tests.Service
         [Fact]
         public void GetPublisherByName_NotExistedPublisherName_ExeptionEntityNotFound()
         {
-            _uow.Setup(uow => uow.Publishers.Get(It.IsAny<Func<Publisher, bool>>())).Returns(null as List<Publisher>);
+            _uow.Setup(uow => uow.Publishers.Get(It.IsAny<Func<Publisher, bool>>())).Returns(new List<Publisher>());
 
             Assert.Throws<EntityNotFound>(() => _sut.GetByName(_fakePublisherName));
         }
@@ -76,10 +78,10 @@ namespace GameStore.Tests.Service
         [Fact]
         public void AddNewPublisher_PublisherWithUniqueName_NewGameAdded()
         {
-            var fakePublisherDTO = new PublisherDTO() { Id = Guid.NewGuid(), Name = "publisherUniqueName" };
+            var fakePublisherDTO = new PublisherDTO() {Id = Guid.NewGuid(), Name = "publisherUniqueName"};
             var fakePublisher = _mapper.Map<Publisher>(fakePublisherDTO);
 
-            _uow.Setup(uow => uow.Publishers.Get(It.IsAny<Func<Publisher, bool>>())).Returns(null as IEnumerable<Publisher>);
+            _uow.Setup(uow => uow.Publishers.Get(It.IsAny<Func<Publisher, bool>>())).Returns(new List<Publisher>());
             _uow.Setup(uow => uow.Publishers.Create(fakePublisher)).Verifiable();
 
             _sut.AddNew(fakePublisherDTO);
@@ -88,13 +90,59 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void AddNewPublisher_PublisherWithoutUniqueName_ExeptionEntityNotFound()
+        public void AddNewPublisher_PublisherWithoutUniqueName_ExeptionNotUniqueParameter()
         {
-            var fakePublisherDTO = new PublisherDTO() { Id = Guid.NewGuid(), Name = _fakePublisherName };
+            var fakePublisherDTO = new PublisherDTO() {Id = Guid.NewGuid(), Name = _fakePublisherName};
 
             _uow.Setup(uow => uow.Publishers.Get(It.IsAny<Func<Publisher, bool>>())).Returns(_fakePublishers);
 
-            Assert.Throws<EntityNotFound>(() => _sut.AddNew(fakePublisherDTO));
+            Assert.Throws<NotUniqueParameter>(() => _sut.AddNew(fakePublisherDTO));
+        }
+
+        [Fact]
+        public void UpdatePublisher_Publisher_Publisherpdated()
+        {
+            var fakePublisherDTO = new PublisherDTO() {Id = _fakePublisherId, Name = "test"};
+            var fakePublisher = _mapper.Map<Publisher>(fakePublisherDTO);
+
+
+            _uow.Setup(uow => uow.Publishers.GetById(_fakePublisherId)).Returns(fakePublisher);
+
+            _uow.Setup(uow => uow.Publishers.Update(fakePublisher)).Verifiable();
+
+            _sut.Update(fakePublisherDTO);
+
+            _uow.Verify(uow => uow.Publishers.Update(It.IsAny<Publisher>()), Times.Once);
+        }
+
+        [Fact]
+        public void UpdatePublisher_NotExistPublisherName_EntityNotFound()
+        {
+            _uow.Setup(uow => uow.Publishers.GetById(_fakePublisherId)).Returns(null as Publisher);
+
+            Assert.Throws<EntityNotFound>(() => _sut.Update(new PublisherDTO()));
+        }
+
+        [Fact]
+        public void DeletePublisher_NotExistedPublisherName__ExeptionEntityNotFound()
+        {
+            var notExistPublisherId = Guid.NewGuid();
+
+            _uow.Setup(uow => uow.Publishers.GetById(notExistPublisherId)).Returns(null as Publisher);
+            _uow.Setup(uow => uow.Publishers.Delete(notExistPublisherId));
+
+            Assert.Throws<EntityNotFound>(() => _sut.Delete(notExistPublisherId));
+        }
+
+        [Fact]
+        public void DeletePublisher_ExistedPublisherName__Verifiable()
+        {
+            _uow.Setup(uow => uow.Publishers.GetById(_fakePublisherId)).Returns(_fakePublisher);
+            _uow.Setup(uow => uow.Publishers.Delete(_fakePublisherId)).Verifiable();
+
+            _sut.Delete(_fakePublisherId);
+
+            _uow.Verify(uow => uow.Publishers.Delete(It.IsAny<Guid>()), Times.Once);
         }
     }
 }

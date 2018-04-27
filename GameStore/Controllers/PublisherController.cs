@@ -84,7 +84,6 @@ namespace GameStore.Controllers
                 return RedirectToAction("GetAll");
             }
 
-
             return View(publisherViewModel);
         }
     }

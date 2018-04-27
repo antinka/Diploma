@@ -173,7 +173,6 @@
     <Compile Include="Payments\Visa.cs" />
     <Compile Include="ViewModels\BasketViewModel.cs" />
     <Compile Include="ViewModels\CommentViewModel.cs" />
-    <Compile Include="ViewModels\CommentViewModelForDelete.cs" />
     <Compile Include="ViewModels\GameViewModel.cs" />
     <Compile Include="ViewModels\GenreViewModel.cs" />
     <Compile Include="ViewModels\OrderDetailViewModel.cs" />
@@ -210,6 +209,14 @@
     <Content Include="Views\Game\Update.cshtml" />
     <Content Include="Views\Publisher\GetAll.cshtml" />
     <Content Include="Views\Publisher\Update.cshtml" />
+    <Content Include="Views\PlatformType\New.cshtml" />
+    <Content Include="Views\PlatformType\Get.cshtml" />
+    <Content Include="Views\PlatformType\GetAll.cshtml" />
+    <Content Include="Views\PlatformType\Update.cshtml" />
+    <Content Include="Views\Genre\New.cshtml" />
+    <Content Include="Views\Genre\Get.cshtml" />
+    <Content Include="Views\Genre\GetAll.cshtml" />
+    <Content Include="Views\Genre\Update.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

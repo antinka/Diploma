@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
+using GameStore.BLL.DTO;
+using GameStore.BLL.Enums;
+using GameStore.BLL.Exeption;
+using GameStore.BLL.Interfaces;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
 using log4net;
 using System;
 using System.Collections.Generic;
-using GameStore.BLL.DTO;
-using GameStore.BLL.Exeption;
-using GameStore.BLL.Interfaces;
 using System.Linq;
-using GameStore.BLL.Enums;
 
 namespace GameStore.BLL.Service
 {
@@ -17,6 +17,8 @@ namespace GameStore.BLL.Service
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILog _log;
         private readonly IMapper _mapper;
+
+        private const string BodyDeletedComment = "This comment was deleted";
 
         public CommentService(IUnitOfWork uow, IMapper mapper, ILog log)
         {
@@ -43,7 +45,7 @@ namespace GameStore.BLL.Service
             {
                 throw new EntityNotFound($"{nameof(CommentService)} - comment with such id {id} did not exist");
             }
-			
+
             return _mapper.Map<CommentDTO>(comment);
         }
 
@@ -54,13 +56,26 @@ namespace GameStore.BLL.Service
             if (comment == null)
                 throw new EntityNotFound($"{nameof(CommentService)} - attempt to delete not existed comment, id {id}");
 
-            _unitOfWork.Comments.Delete(id);
+            comment.Body = BodyDeletedComment;
+            var comments = _unitOfWork.Comments.GetAll();
+
+            foreach (var commentChild in comments)
+            {
+                if (commentChild.ParentCommentId == comment.Id)
+                {
+                    commentChild.Quote = BodyDeletedComment;
+                    _unitOfWork.Comments.Update(commentChild);
+                }
+            }
+
+            _unitOfWork.Comments.Update(comment);
+
             _unitOfWork.Save();
 
             _log.Info($"{nameof(CommentService)} - delete comment{id}");
         }
 
-		//todo it'll crash
+        //todo it'll crash
         public void Ban(BanPeriod period, Guid userId)
         {
             throw new NotImplementedException();
@@ -68,17 +83,17 @@ namespace GameStore.BLL.Service
 
         public IEnumerable<CommentDTO> GetCommentsByGameKey(string gameKey)
         {
-            var games = _unitOfWork.Games.Get(g => g.Key == gameKey);
+            var game = _unitOfWork.Games.Get(g => g.Key == gameKey).FirstOrDefault();
 
-            if (games.Any())
+            if (game == null)
             {
-                var listCommentToGame = _unitOfWork.Comments.Get(g => g.GameId == games.First().Id);
-
-                return _mapper.Map<IEnumerable<CommentDTO>>(listCommentToGame);
+                throw new EntityNotFound(
+                    $"{nameof(CommentService)}- exception in returning all comment to gameKey {gameKey} such game key did not exist");
             }
 
-            throw new EntityNotFound(
-                $"{nameof(CommentService)}- exception in returning all comment to gameKey {gameKey} such game key did not exist");
+            var listCommentToGame = _unitOfWork.Comments.Get(g => g.GameId == game.Id);
+
+            return _mapper.Map<IEnumerable<CommentDTO>>(listCommentToGame);
         }
     }
 }

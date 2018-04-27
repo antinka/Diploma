@@ -18,7 +18,7 @@ namespace GameStore
 
             routes.MapRoute(
                 name: "createGame",
-                url: "game/new",
+                url: "games/new",
                 defaults: new { controller = "Game", action = "New" }
             );
 

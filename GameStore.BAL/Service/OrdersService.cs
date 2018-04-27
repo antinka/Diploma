@@ -22,14 +22,14 @@ namespace GameStore.BLL.Service
 
         public OrderDTO GetOrder(Guid userId)
         {
-            var order = _unitOfWork.Orders.Get(x => x.UserId == userId);
+            var order = _unitOfWork.Orders.Get(x => x.UserId == userId).FirstOrDefault();
 
             if (order == null)
             {
                 throw new EntityNotFound($"{nameof(OrdersService)} - Orders with such id user {userId} did not exist");
             }
 
-            var orderDTO = _mapper.Map<OrderDTO>(order.FirstOrDefault());
+            var orderDTO = _mapper.Map<OrderDTO>(order);
 
             foreach (var i in orderDTO.OrderDetails)
             {
@@ -45,15 +45,15 @@ namespace GameStore.BLL.Service
 
             if (game != null)
             {
-                var order = _unitOfWork.Orders.Get(x => x.UserId == userId);
+                var order = _unitOfWork.Orders.Get(x => x.UserId == userId).FirstOrDefault();
 
-                if (!order.Any())
+                if (order == null)
                 {
                     CreateNewOrderWithOrderDetails(game, userId, gameId, quantity);
                 }
                 else
                 {
-                    CreateNewOrderDetailToExistOrder(order.First(), game, userId, gameId, quantity);
+                    CreateNewOrderDetailToExistOrder(order, game, userId, gameId, quantity);
                 }
             }
             else
@@ -77,6 +77,7 @@ namespace GameStore.BLL.Service
                     Date = DateTime.UtcNow
                 }
             };
+
             _unitOfWork.OrderDetails.Create(_mapper.Map<OrderDetail>(orderDetail));
             _unitOfWork.Save();
         }

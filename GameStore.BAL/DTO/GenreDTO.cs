@@ -9,6 +9,8 @@ namespace GameStore.BLL.DTO
 
         public Guid? ParentGenreId { get; set; }
 
+        public string ParentGenreName { get; set; }
+
         public string Name { get; set; }
 
         public ICollection<GameDTO> Games { get; set; }

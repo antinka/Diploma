@@ -45,9 +45,9 @@ namespace GameStore.BLL.Service
 
         public void AddNew(PlatformTypeDTO platformTypeDto)
         {
-            var platformType = _unitOfWork.PlatformTypes.Get(x => x.Name == platformTypeDto.Name);
+            var platformType = _unitOfWork.PlatformTypes.Get(x => x.Name == platformTypeDto.Name).FirstOrDefault();
 
-            if (!platformType.Any())
+            if (platformType == null)
             {
                 platformTypeDto.Id = Guid.NewGuid();
                 _unitOfWork.PlatformTypes.Create(_mapper.Map<PlatformType>(platformTypeDto));

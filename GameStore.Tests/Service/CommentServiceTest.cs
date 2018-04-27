@@ -125,10 +125,11 @@ namespace GameStore.Tests.Service
         public void DeleteComment_ExistedCommentId_CommentDeleted()
         {
             _uow.Setup(uow => uow.Comments.GetById(_fakeCommentId)).Returns(_fakeComment).Verifiable();
+            _uow.Setup(uow => uow.Comments.GetAll()).Returns(_fakeComments);
 
             _sut.Delete(_fakeCommentId);
 
-            _uow.Verify(uow => uow.Comments.Delete(_fakeCommentId), Times.Once);
+            _uow.Verify(uow => uow.Comments.Update(_fakeComment), Times.Once);
         }
 
         [Fact]

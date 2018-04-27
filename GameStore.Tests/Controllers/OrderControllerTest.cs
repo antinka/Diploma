@@ -29,7 +29,7 @@ namespace GameStore.Tests.Controllers
             var fakeUserId = Guid.Empty;
             _ordersService.Setup(service => service.GetOrder(fakeUserId)).Verifiable();
 
-            var res = _sut.BasketInfo();
+            _sut.BasketInfo();
 
             _ordersService.Verify(s => s.GetOrder(It.IsAny<Guid>()), Times.Once);
         }
@@ -47,7 +47,7 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
-        public void AddGameToOrder_InalidBasketViewModel_ReturnView()
+        public void AddGameToOrder_InvalidBasketViewModel_ReturnView()
         {
             var fakeBasketViewModel = new BasketViewModel();
             _sut.ModelState.Add("testError", new ModelState());

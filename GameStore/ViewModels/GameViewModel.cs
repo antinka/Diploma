@@ -11,6 +11,7 @@ namespace GameStore.ViewModels
         public Guid Id { get; set; }
 
         [Required]
+        [MaxLength(450)]
         public string Key { get; set; }
 
         [Required]
@@ -20,10 +21,12 @@ namespace GameStore.ViewModels
         public string Description { get; set; }
 
         [Required]
+        [Range(0, Int32.MaxValue)]
         public decimal Price { get; set; }
 
         [Required]
         [Display(Name = "Units in stock")]
+        [Range(0, Int32.MaxValue)]
         public short UnitsInStock { get; set; }
 
         public bool Discountinues { get; set; }

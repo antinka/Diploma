@@ -132,7 +132,9 @@
   <ItemGroup>
     <Compile Include="Controllers\CommentControllerTest.cs" />
     <Compile Include="Controllers\GameControllerTest.cs" />
+    <Compile Include="Controllers\GenreControllerTest.cs" />
     <Compile Include="Controllers\OrderControllerTest.cs" />
+    <Compile Include="Controllers\PlatformTypeControllerTest.cs" />
     <Compile Include="Controllers\PublisherControllerTest.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

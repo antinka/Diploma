@@ -64,7 +64,7 @@ namespace GameStore.Tests.Service
         [Fact]
         public void GetOrderDetail_NotExistedUserId_ExeptionEntityNotFound()
         {
-            _uow.Setup(uow => uow.Orders.Get(It.IsAny<Func<Order, bool>>())).Returns(null as IEnumerable<Order>);
+            _uow.Setup(uow => uow.Orders.Get(It.IsAny<Func<Order, bool>>())).Returns(new List<Order>());
 
             Assert.Throws<EntityNotFound>(() => _sut.GetOrder(_fakeUserId));
         }

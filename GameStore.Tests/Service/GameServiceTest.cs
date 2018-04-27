@@ -153,14 +153,25 @@ namespace GameStore.Tests.Service
         [Fact]
         public void UpdateGame_Game_GameUpdated()
         {
-            var fakeGameDTO = new GameDTO() { Id = Guid.NewGuid(), Key = "123" };
+            var fakeGameDTO = new GameDTO() { Id = _fakeGameId, Key = "123" };
             var fakeGame = _mapper.Map<Game>(fakeGameDTO);
 
+            _uow.Setup(uow => uow.Games.GetById(_fakeGameId)).Returns(fakeGame);
+            _uow.Setup(uow => uow.Genres.Get(It.IsAny<Func<Genre, bool>>())).Returns(new List<Genre>());
+            _uow.Setup(uow => uow.PlatformTypes.Get(It.IsAny<Func<PlatformType, bool>>())).Returns(new List<PlatformType>());
             _uow.Setup(uow => uow.Games.Update(fakeGame)).Verifiable();
 
             _sut.Update(fakeGameDTO);
 
-            _uow.Verify(uow => uow.Games.Update(It.IsAny<Game>()), Times.Once);
+            _uow.Verify(uow => uow.Games.Update(It.IsAny<Game>()), Times.Exactly(2));
+        }
+
+        [Fact]
+        public void UpdateGame_NotExistGame_EntityNotFound()
+        {
+            _uow.Setup(uow => uow.Games.GetById(_fakeGameId)).Returns(null as Game);
+
+            Assert.Throws<EntityNotFound>(() => _sut.Update(new GameDTO()));
         }
 
         [Fact]
@@ -172,6 +183,17 @@ namespace GameStore.Tests.Service
             _uow.Setup(uow => uow.Games.Delete(notExistGameId));
 
             Assert.Throws<EntityNotFound>(() => _sut.Delete(_fakeGameId));
+        }
+
+        [Fact]
+        public void DeleteGame_ExistedGameId__Verifiable()
+        {
+            _uow.Setup(uow => uow.Games.GetById(_fakeGameId)).Returns(_fakeGame);
+            _uow.Setup(uow => uow.Games.Delete(_fakeGameId)).Verifiable();
+
+            _sut.Delete(_fakeGameId);
+
+            _uow.Verify(uow => uow.Games.Delete(It.IsAny<Guid>()), Times.Once);
         }
 
         [Fact]

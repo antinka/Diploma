@@ -6,6 +6,7 @@ using GameStore.Controllers;
 using GameStore.ViewModels;
 using Moq;
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using GameStore.Infrastructure.Mapper;
 using Xunit;
@@ -22,6 +23,7 @@ namespace GameStore.Tests.Controllers
 
         private readonly Guid _fakeCommentId;
         private readonly string _fakeGameKey;
+        private readonly List<CommentDTO> _fakeComment;
 
         public CommentControllerTest()
         {
@@ -33,12 +35,16 @@ namespace GameStore.Tests.Controllers
 
             _fakeCommentId = Guid.NewGuid();
             _fakeGameKey = _fakeCommentId.ToString();
+            _fakeComment = new List<CommentDTO>()
+            {
+                new CommentDTO()
+            };
         }
 
         [Fact]
         public void GetAllCommentToGame_GameKey_Verifiable()
         {
-            _commentService.Setup(service => service.GetCommentsByGameKey(_fakeGameKey)).Verifiable();
+            _commentService.Setup(service => service.GetCommentsByGameKey(_fakeGameKey)).Returns(_fakeComment).Verifiable();
 
             _sut.GetAllCommentToGame(_fakeGameKey);
 

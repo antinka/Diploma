@@ -24,10 +24,11 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    <li style="color: aliceblue">@Html.Action("CountGames", "Game") </li>
                     <li> @Html.ActionLink("BasketInfo", "BasketInfo", "Order")</li>
                     <li> @Html.ActionLink("Publishers", "GetAll", "Publisher")</li>
-                    <li style="color:aliceblue">@Html.Action("CountGames", "Game") </li>
-
+                    <li> @Html.ActionLink("Platform Types", "GetAll", "PlatformType")</li>
+                    <li> @Html.ActionLink("Genres", "GetAll", "Genre")</li>
                 </ul>
             </div>
         </div>

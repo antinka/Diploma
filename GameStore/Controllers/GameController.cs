@@ -36,7 +36,7 @@ namespace GameStore.Controllers
 
         [HttpGet]
         public ActionResult New()
-        { 
+        {
             var genres = _mapper.Map<IEnumerable<GenreViewModel>>(_genreService.GetAll());
             var platformTypes = _mapper.Map<IEnumerable<PlatformTypeViewModel>>(_platformTypeService.GetAll());
             var publishers = _mapper.Map<IEnumerable<PublisherViewModel>>(_publisherService.GetAll());
@@ -56,9 +56,16 @@ namespace GameStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                _gameService.AddNew(_mapper.Map<GameDTO>(game));
+                try
+                {
+                    _gameService.AddNew(_mapper.Map<GameDTO>(game));
 
-                return RedirectToAction("GetAllGames");
+                    return RedirectToAction("GetAllGames");
+                }
+                catch (Exception)
+                {
+                    return RedirectToAction("GetAllGames");
+                }
             }
 
             var genres = _mapper.Map<IEnumerable<GenreViewModel>>(_genreService.GetAll());
@@ -79,7 +86,6 @@ namespace GameStore.Controllers
             var gameForView = _mapper.Map<GameViewModel>(gameDTO);
 
             var publishers = _mapper.Map<IEnumerable<PublisherViewModel>>(_publisherService.GetAll());
-
 
             gameForView = GetGameViewModel(gameForView);
             gameForView.PublisherList = new SelectList(publishers, "Id", "Name");
@@ -117,10 +123,21 @@ namespace GameStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                _gameService.Update(_mapper.Map<GameDTO>(game));
+                try
+                {
+                    _gameService.Update(_mapper.Map<GameDTO>(game));
 
-                return RedirectToAction("GetAllGames");
+                    return RedirectToAction("GetAllGames");
+                }
+                catch (Exception)
+                {
+                    return RedirectToAction("GetAllGames");
+                }
             }
+
+            var publishers = _mapper.Map<IEnumerable<PublisherViewModel>>(_publisherService.GetAll());
+            game = GetGameViewModel(game);
+            game.PublisherList = new SelectList(publishers, "Id", "Name");
 
             return View(game);
         }
