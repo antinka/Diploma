@@ -6,6 +6,7 @@ using AutoMapper;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Interfaces;
 using GameStore.ViewModels;
+using GameStore.BLL.Exeption;
 
 namespace GameStore.Controllers
 {
@@ -33,10 +34,17 @@ namespace GameStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                var platformTypeDTO = _mapper.Map<PlatformTypeDTO>(platformTypeViewModel);
-                _platformTypeService.AddNew(platformTypeDTO);
+                try
+                {
+                    var platformTypeDTO = _mapper.Map<PlatformTypeDTO>(platformTypeViewModel);
+                    _platformTypeService.AddNew(platformTypeDTO);
 
-                return RedirectToAction("Get", new { platformTypeName = platformTypeViewModel.Name });
+                    return RedirectToAction("Get", new { platformTypeName = platformTypeViewModel.Name });
+                }
+                catch (NotUniqueParameter)
+                {
+                    ModelState.AddModelError("Name", "Not Unique Parameter");
+                }
             }
 
             return View(platformTypeViewModel);

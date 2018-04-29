@@ -47,9 +47,9 @@
             {
                 <tr>
                     <td>
-                        @Ajax.ActionLink("Quote", "CommentToGameWithQuote", "Comment", new { gameId = comment.GameId, quote = comment.Body }, new AjaxOptions { UpdateTargetId = "commentForm" })
-                        @Ajax.ActionLink("Answer", "CommentToGameForParent", "Comment", new { gameId = comment.GameId, parentsCommentId = comment.Id }, new AjaxOptions { UpdateTargetId = "commentForm" })
-                        @Ajax.ActionLink("Delete", "Delete", "Comment", new { commentId = comment.Id }, new AjaxOptions { UpdateTargetId = comment.Id.ToString() })
+                        @Ajax.ActionLink("Quote", "CommentToGame", "Comment", new { gameId = comment.GameId, gamekey = comment.GameKey, quote = comment.Body }, new AjaxOptions { UpdateTargetId = "commentForm" })
+                        @Ajax.ActionLink("Answer", "CommentToGame", "Comment", new { gameId = comment.GameId, gamekey = comment.GameKey, parentsCommentId = comment.Id }, new AjaxOptions { UpdateTargetId = "commentForm" })
+                        @Ajax.ActionLink("Delete", "Delete", "Comment", new { commentId = comment.Id , comment = comment }, new AjaxOptions { UpdateTargetId = comment.Id.ToString() })
                         @Ajax.ActionLink("Ban", "Ban", "Comment", new { userId = comment.UserId }, new AjaxOptions { UpdateTargetId = comment.Id.ToString() })
                     </td>
                 </tr>
@@ -62,6 +62,6 @@
 
 <div id="commentForm">
 
-    @Html.Action("CommentToGame", new { gameId = Model.First().GameId })
+    @Html.Action("CommentToGame", new { gameId = Model.First().GameId, gamekey = Model.First().GameKey })
 
 </div>

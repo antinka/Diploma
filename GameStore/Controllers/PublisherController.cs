@@ -5,6 +5,7 @@ using GameStore.BLL.DTO;
 using GameStore.BLL.Interfaces;
 using GameStore.ViewModels;
 using System.Web.Mvc;
+using GameStore.BLL.Exeption;
 
 namespace GameStore.Controllers
 {
@@ -30,10 +31,17 @@ namespace GameStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                var publisherDTO = _mapper.Map<PublisherDTO>(publisher);
-                _publisherService.AddNew(publisherDTO);
+                try
+                {
+                    var publisherDTO = _mapper.Map<PublisherDTO>(publisher);
+                    _publisherService.AddNew(publisherDTO);
 
-                return RedirectToAction("Get", new { companyName = publisher.Name });
+                    return RedirectToAction("Get", new { companyName = publisher.Name });
+                }
+                catch (NotUniqueParameter)
+                {
+                    ModelState.AddModelError("Name", "Not Unique Parameter");
+                }
             }
 
             return View(publisher);
@@ -44,7 +52,7 @@ namespace GameStore.Controllers
         {
             var publisherDTO = _publisherService.GetByName(companyName);
             var publisherViewModel = _mapper.Map<PublisherViewModel>(publisherDTO);
-			
+
             return View(publisherViewModel);
         }
 
@@ -67,10 +75,10 @@ namespace GameStore.Controllers
         [HttpGet]
         public ActionResult Update(string companyName)
         {
-           var publisherDTO = _publisherService.GetByName(companyName);
-           var publisherViewModel = _mapper.Map<PublisherViewModel>(publisherDTO);
+            var publisherDTO = _publisherService.GetByName(companyName);
+            var publisherViewModel = _mapper.Map<PublisherViewModel>(publisherDTO);
 
-           return View(publisherViewModel);
+            return View(publisherViewModel);
         }
 
         [HttpPost]

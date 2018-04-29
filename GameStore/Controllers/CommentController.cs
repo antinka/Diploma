@@ -52,33 +52,20 @@ namespace GameStore.Controllers
             return View(comments);
         }
 
-        public ActionResult CommentToGameForParent(Guid gameId, Guid parentsCommentId)
-        {
-            var comment = new CommentViewModel
-            {
-                GameId = gameId,
-                ParentCommentId = parentsCommentId
-            };
-
-            return PartialView(comment);
-        }
-
-        public ActionResult CommentToGameWithQuote(Guid gameId, string quote)
-        {
-            var comment = new CommentViewModel
-            {
-                GameId = gameId,
-                Quote = quote
-            };
-
-            return PartialView(comment);
-        }
-
-        //todo Why you need this?
         [HttpGet]
-        public ActionResult CommentToGame(Guid gameId)
+        public ActionResult CommentToGame(string gamekey, Guid gameId, Guid? parentsCommentId, string quote)
         {
-            var comment = new CommentViewModel { GameId = gameId };
+            var comment = new CommentViewModel { GameId = gameId, GameKey = gamekey };
+
+            if (parentsCommentId != null)
+            {
+                comment.ParentCommentId = parentsCommentId.Value;
+            }
+
+            if (quote != null && quote != string.Empty)
+            {
+                comment.Quote = quote;
+            }
 
             return PartialView(comment);
         }
@@ -86,32 +73,31 @@ namespace GameStore.Controllers
         [HttpPost]
         public ActionResult CommentToGame(CommentViewModel comment)
         {
+
             if (ModelState.IsValid)
             {
                 _commentService.AddComment(_mapper.Map<CommentDTO>(comment));
-
                 return RedirectToAction("GetAllCommentToGame", "Comment", new { gamekey = comment.GameKey });
             }
 
             return PartialView(comment);
         }
 
-        //todo why you need this?
-        [HttpGet]
-        public ActionResult Delete(Guid commentId)
+        public ActionResult Delete(Guid? commentId, CommentViewModel comment)
         {
-            var commentDTO = _commentService.GetById(commentId);
-            var commentViewModel = _mapper.Map<CommentViewModel>(commentDTO);
+            if (commentId != null)
+            {
+                var commentDTO = _commentService.GetById(commentId.Value);
+                var commentViewModel = _mapper.Map<CommentViewModel>(commentDTO);
 
-            return View(commentViewModel);
-        }
+                return View(commentViewModel);
+            }
+            else
+            {
+                _commentService.Delete(comment.Id);
 
-        [HttpPost]
-        public ActionResult Delete(CommentViewModel comment)
-        {
-            _commentService.Delete(comment.Id);
-
-            return RedirectToAction("GetAllCommentToGame", "Comment", new { gamekey = comment.GameKey });
+                return RedirectToAction("GetAllCommentToGame", "Comment", new { gamekey = comment.GameKey });
+            }
         }
 
         public ActionResult Ban(Guid userId, BanPeriod? period)

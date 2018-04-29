@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Interfaces;
+using GameStore.BLL.Exeption;
 
 namespace GameStore.Controllers
 {
@@ -16,7 +17,7 @@ namespace GameStore.Controllers
         private readonly IGenreService _genreService;
         private readonly IMapper _mapper;
 
-        public GenreController( IGenreService genreService, IMapper mapper)
+        public GenreController(IGenreService genreService, IMapper mapper)
         {
             _mapper = mapper;
             _genreService = genreService;
@@ -40,10 +41,17 @@ namespace GameStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                var genreDto = _mapper.Map<GenreDTO>(genreViewModel);
-                _genreService.AddNew(genreDto);
+                try
+                {
+                    var genreDto = _mapper.Map<GenreDTO>(genreViewModel);
+                    _genreService.AddNew(genreDto);
 
-                return RedirectToAction("Get", new {genreName = genreViewModel.Name });
+                    return RedirectToAction("Get", new { genreName = genreViewModel.Name });
+                }
+                catch (NotUniqueParameter)
+                {
+                    ModelState.AddModelError("Name", "Not Unique Parameter");
+                }
             }
 
             var genres = _mapper.Map<IEnumerable<GenreViewModel>>(_genreService.GetAll());
@@ -82,6 +90,7 @@ namespace GameStore.Controllers
         {
             var genreDto = _genreService.GetByName(genreName);
             var genreViewModel = _mapper.Map<GenreViewModel>(genreDto);
+
             var genres = _mapper.Map<IEnumerable<GenreViewModel>>(_genreService.GetAll());
             genreViewModel.GenreList = new SelectList(genres, "Id", "Name");
 

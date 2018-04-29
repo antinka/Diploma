@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using GameStore.BLL.DTO;
+using GameStore.BLL.Exeption;
 using GameStore.BLL.Interfaces;
 using GameStore.Filters;
 using GameStore.ViewModels;
@@ -62,9 +63,9 @@ namespace GameStore.Controllers
 
                     return RedirectToAction("GetAllGames");
                 }
-                catch (Exception)
+                catch (NotUniqueParameter)
                 {
-                    return RedirectToAction("GetAllGames");
+                    ModelState.AddModelError("Key", "Not Unique Parameter");
                 }
             }
 

@@ -55,19 +55,19 @@ namespace GameStore.BLL.Service
 
             if (comment == null)
                 throw new EntityNotFound($"{nameof(CommentService)} - attempt to delete not existed comment, id {id}");
-
-            comment.Body = BodyDeletedComment;
+         
             var comments = _unitOfWork.Comments.GetAll();
 
             foreach (var commentChild in comments)
             {
-                if (commentChild.ParentCommentId == comment.Id)
+                if (commentChild.Quote == comment.Body)
                 {
                     commentChild.Quote = BodyDeletedComment;
                     _unitOfWork.Comments.Update(commentChild);
                 }
             }
 
+            comment.Body = BodyDeletedComment;
             _unitOfWork.Comments.Update(comment);
 
             _unitOfWork.Save();

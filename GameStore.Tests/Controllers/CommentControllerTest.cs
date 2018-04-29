@@ -57,7 +57,7 @@ namespace GameStore.Tests.Controllers
             _commentService.Setup(service => service.Delete(It.IsAny<Guid>()));
             _sut.TempData = _tempDataMock.Object;
 
-            var res = _sut.Delete(new CommentViewModel()) as RedirectToRouteResult;
+            var res = _sut.Delete(null, new CommentViewModel()) as RedirectToRouteResult;
 
             Assert.Equal("Comment", res.RouteValues["controller"]);
             Assert.Equal("GetAllCommentToGame", res.RouteValues["action"]);
