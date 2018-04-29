@@ -38,18 +38,7 @@ namespace GameStore.Controllers
         [HttpGet]
         public ActionResult New()
         {
-            var genres = _mapper.Map<IEnumerable<GenreViewModel>>(_genreService.GetAll());
-            var platformTypes = _mapper.Map<IEnumerable<PlatformTypeViewModel>>(_platformTypeService.GetAll());
-            var publishers = _mapper.Map<IEnumerable<PublisherViewModel>>(_publisherService.GetAll());
-
-            var game = new GameViewModel
-            {
-                GenreList = new SelectList(genres, "Id", "Name"),
-                PlatformTypeList = new SelectList(platformTypes, "Id", "Name"),
-                PublisherList = new SelectList(publishers, "Id", "Name")
-            };
-
-            return View(game);
+            return View(GameInit(new GameViewModel()));
         }
 
         [HttpPost]
@@ -69,6 +58,11 @@ namespace GameStore.Controllers
                 }
             }
 
+            return View(GameInit(game));
+        }
+
+        private GameViewModel GameInit(GameViewModel game)
+        {
             var genres = _mapper.Map<IEnumerable<GenreViewModel>>(_genreService.GetAll());
             var platformTypes = _mapper.Map<IEnumerable<PlatformTypeViewModel>>(_platformTypeService.GetAll());
             var publishers = _mapper.Map<IEnumerable<PublisherViewModel>>(_publisherService.GetAll());
@@ -77,7 +71,7 @@ namespace GameStore.Controllers
             game.PlatformTypeList = new SelectList(platformTypes, "Id", "Name");
             game.PublisherList = new SelectList(publishers, "Id", "Name");
 
-            return View(game);
+            return game;
         }
 
         [HttpGet]
