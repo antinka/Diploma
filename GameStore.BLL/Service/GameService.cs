@@ -109,7 +109,7 @@ namespace GameStore.BLL.Service
             }
             else
             {
-                return _mapper.Map<GameDTO>(game.First());
+                return _mapper.Map<GameDTO>(game);
             }
         }
 
@@ -154,6 +154,11 @@ namespace GameStore.BLL.Service
             }
 
             return _mapper.Map<IEnumerable<GameDTO>>(gamesListByPlatformType);
+        }
+
+        public int GetCountGame()
+        {
+            return _unitOfWork.Games.Count();
         }
 
         public IEnumerable<GameDTO> GetGamesByFilter(FilterDTO filter, int page = 1, PageSize pageSize = PageSize.Twenty)

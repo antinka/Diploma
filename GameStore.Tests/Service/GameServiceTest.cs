@@ -1,18 +1,17 @@
 ﻿using AutoMapper;
 using GameStore.BLL.DTO;
+using GameStore.BLL.Enums;
 using GameStore.BLL.Exeption;
 using GameStore.BLL.Filtration.Implementation;
 using GameStore.BLL.Service;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
-using GameStore.Infastracture;
+using GameStore.Infrastructure.Mapper;
 using log4net;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using GameStore.BLL.Exeption;
-using GameStore.Infastracture;
 using Xunit;
 
 namespace GameStore.Tests.Service

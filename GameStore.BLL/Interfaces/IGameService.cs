@@ -11,6 +11,8 @@ namespace GameStore.BLL.Interfaces
 
         IEnumerable<GameDTO> GetGamesByPlatformType(Guid platformTypeId);
 
+        int GetCountGame();
+
         IEnumerable<GameDTO> GetGamesByFilter(FilterDTO filter, int page = 1, PageSize pageSize = PageSize.All);
     }
 }

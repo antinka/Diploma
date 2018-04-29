@@ -192,9 +192,11 @@ namespace GameStore.Controllers
             var listGenreBoxs = new List<CheckBox>();
             genrelist.ToList().ForEach(genre => listGenreBoxs.Add(new CheckBox() { Text = genre.Name }));
             model.ListGenres = listGenreBoxs;
+
             var listPlatformBoxs = new List<CheckBox>();
             platformlist.ToList().ForEach(platform => listPlatformBoxs.Add(new CheckBox() { Text = platform.Name }));
             model.ListPlatformTypes = listPlatformBoxs;
+
             var listPublisherBoxs = new List<CheckBox>();
             publisherlist.ToList().ForEach(publisher => listPublisherBoxs.Add(new CheckBox() { Text = publisher.Name}));
             model.ListPublishers = listPublisherBoxs;
