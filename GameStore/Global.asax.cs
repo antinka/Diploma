@@ -1,6 +1,6 @@
-﻿using GameStore.Infastracture;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
+using GameStore.Infrastructure;
 
 namespace GameStore
 {

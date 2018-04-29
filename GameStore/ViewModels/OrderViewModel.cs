@@ -11,6 +11,8 @@ namespace GameStore.ViewModels
 
         public DateTime Date { get; set; }
 
+        public Decimal Cost { get; set; }
+
         public ICollection<OrderDetailViewModel> OrderDetails { get; set; }
     }
 }

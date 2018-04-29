@@ -123,9 +123,9 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Files\test.txt" />
-    <Content Include="fonts\Bank.png" />
-    <Content Include="fonts\Visa.png" />
-    <Content Include="fonts\IBox.png" />
+    <Content Include="Pictures\Bank.png" />
+    <Content Include="Pictures\Visa.png" />
+    <Content Include="Pictures\IBox.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -149,10 +149,12 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\GenreController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\PlatformTypeController.cs" />
     <Compile Include="Controllers\PublisherController.cs" />
-    <Compile Include="Infastracture\AutofacConfig.cs" />
-    <Compile Include="Infastracture\Mapper\DTOToViewModel.cs" />
+    <Compile Include="Infrastructure\AutofacConfig.cs" />
+    <Compile Include="Infrastructure\Mapper\DTOToViewModel.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CommentController.cs" />
@@ -162,10 +164,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Infastracture\Mapper\MapperConfig.cs" />
-    <Compile Include="Infastracture\Mapper\ViewModelToDTO.cs" />
-    <Compile Include="Infastracture\RegisterInstanceModule.cs" />
-    <Compile Include="Infastracture\WebModule.cs" />
+    <Compile Include="Infrastructure\Mapper\MapperConfig.cs" />
+    <Compile Include="Infrastructure\Mapper\ViewModelToDTO.cs" />
+    <Compile Include="Infrastructure\WebModule.cs" />
     <Compile Include="Payments\Bank.cs" />
     <Compile Include="Payments\Enums\PaymentTypes.cs" />
     <Compile Include="Payments\Box.cs" />
@@ -209,11 +210,25 @@
     <Content Include="Views\Comment\CommentToGameForParent.cshtml" />
     <Content Include="Views\Comment\GetAllCommentToGame.cshtml" />
     <Content Include="Views\Comment\Ban.cshtml" />
-    <Content Include="Views\Comment\Delete.cshtml" />
     <Content Include="Views\Order\EmptyBasket.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Game\GamesFilters.cshtml" />
     <Content Include="Views\Game\FilteredGames.cshtml" />
     <Content Include="Views\Game\NothingWasFound.cshtml" />
+=======
+    <Content Include="Views\Comment\Delete.cshtml" />
+    <Content Include="Views\Game\Update.cshtml" />
+    <Content Include="Views\Publisher\GetAll.cshtml" />
+    <Content Include="Views\Publisher\Update.cshtml" />
+    <Content Include="Views\PlatformType\New.cshtml" />
+    <Content Include="Views\PlatformType\Get.cshtml" />
+    <Content Include="Views\PlatformType\GetAll.cshtml" />
+    <Content Include="Views\PlatformType\Update.cshtml" />
+    <Content Include="Views\Genre\New.cshtml" />
+    <Content Include="Views\Genre\Get.cshtml" />
+    <Content Include="Views\Genre\GetAll.cshtml" />
+    <Content Include="Views\Genre\Update.cshtml" />
+>>>>>>> KA_2
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -227,7 +242,7 @@
     <Folder Include="Views\Shared\DisplayTemplates\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GameStore.BAL\GameStore.BLL.csproj">
+    <ProjectReference Include="..\GameStore.BLL\GameStore.BLL.csproj">
       <Project>{D0782D1D-3927-4A45-8D57-32B107A8CF69}</Project>
       <Name>GameStore.BLL</Name>
     </ProjectReference>
@@ -251,7 +266,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>53364</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:50333/</IISUrl>
+          <IISUrl>http://localhost:50331/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

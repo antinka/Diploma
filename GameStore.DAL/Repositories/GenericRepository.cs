@@ -37,22 +37,22 @@ namespace GameStore.DAL.Repositories
 
         public virtual IEnumerable<TEntiy> GetAll()
         {
-            return _dbSet.Where(x => x.IsDelete == false);
+            return _dbSet.Where(x => x.IsDelete == false).AsEnumerable();
         }
 
         public virtual void Update(TEntiy item)
         {
-           _db.Entry(item).State = EntityState.Modified;
+            _db.Set<TEntiy>().AddOrUpdate(item);
         }
 
         public virtual IEnumerable<TEntiy> Get(Func<TEntiy, bool> predicate)
         {
-            return _dbSet.Where(predicate).Where(x => x.IsDelete == false);
+			return _dbSet.Where(predicate).Where(x => x.IsDelete == false).AsEnumerable();
         }
 
-        public virtual IEnumerable<TEntiy> Find(Func<TEntiy, bool> predicate)
+        public int Count()
         {
-            return _dbSet.Where(predicate).ToList();
+            return _dbSet.Count(x => x.IsDelete == false);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using GameStore.BLL.Exeption;
 using GameStore.BLL.Interfaces;
 using GameStore.Payments;
 using GameStore.Payments.Enums;
@@ -24,16 +25,20 @@ namespace GameStore.Controllers
         public ActionResult BasketInfo()
         {
             var userId = Guid.Empty;
-            var orders = _mapper.Map<OrderViewModel>(_ordersService.GetOrderDetail(userId));
 
-            if (orders != null)
+            try
             {
-                return View(orders);
-            }
+                var order = _ordersService.GetOrder(userId);
+                var orderViewModel = _mapper.Map<OrderViewModel>(order);
 
-            return View("EmptyBasket");
+                return View(orderViewModel);
+            }
+            catch (EntityNotFound)
+            {
+                return View("EmptyBasket");
+            }
         }
-        
+
         [HttpGet]
         public ActionResult AddGameToOrder(Guid gameId, short unitsInStock)
         {
@@ -66,21 +71,15 @@ namespace GameStore.Controllers
         public ActionResult Pay(PaymentTypes paymentType)
         {
             var userId = Guid.Empty;
-            var order = _ordersService.GetOrderDetail(userId);
-            decimal costOrder = 0;
-
-            foreach (var i in order.OrderDetails)
-            {
-                costOrder += i.Price;
-            }
+            var order = _ordersService.GetOrder(userId);
 
             var orderPay = new OrderPayment()
             {
                 Id = order.Id,
                 UserId = order.UserId,
-                Cost = costOrder
+                Cost = order.Cost
             };
-            
+
             if (paymentType == PaymentTypes.Bank)
             {
                 payment = new Bank();
@@ -94,7 +93,7 @@ namespace GameStore.Controllers
                 payment = new Visa();
             }
 
-             return payment.Pay(orderPay);
+            return payment.Pay(orderPay);
         }
-    }   
+    }
 }

@@ -21,7 +21,6 @@ bld/
 [Bb]in/
 [Oo]bj/
 [Ll]og/
-[Ll]ogs/*
 [Ll]ogs/
 
 # Visual Studio 2015 cache/options directory
@@ -139,8 +138,6 @@ DocProject/Help/html
 
 # Click-Once directory
 publish/
-/GameStore/Logs
-
 
 # Publish Web Output
 *.[Pp]ublish.xml

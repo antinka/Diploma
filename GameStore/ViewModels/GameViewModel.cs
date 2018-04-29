@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 
 namespace GameStore.ViewModels
 {
@@ -10,6 +11,7 @@ namespace GameStore.ViewModels
         public Guid Id { get; set; }
 
         [Required]
+        [MaxLength(450)]
         public string Key { get; set; }
 
         [Required]
@@ -19,10 +21,15 @@ namespace GameStore.ViewModels
         public string Description { get; set; }
 
         [Required]
+        [Range(0, Int32.MaxValue)]
         public decimal Price { get; set; }
 
         [Required]
         [Display(Name = "Units in stock")]
+<<<<<<< HEAD
+=======
+        [Range(0, Int32.MaxValue)]
+>>>>>>> KA_2
         public short UnitsInStock { get; set; }
 
         public bool Discountinues { get; set; }
@@ -48,6 +55,21 @@ namespace GameStore.ViewModels
 
         public SelectList PlatformTypeList { get; set; }
 
+<<<<<<< HEAD
         public ICollection<Guid> PlatformTypesIs { get; set; }
+=======
+        public IEnumerable<CheckBox> ListGenres { get; set; }
+
+        public IEnumerable<CheckBox> SelectedGenres { get; set; }
+
+        public ICollection<string> SelectedGenresName { get; set; }
+
+        public IEnumerable<CheckBox> ListPlatformTypes { get; set; }
+
+        public IEnumerable<CheckBox> SelectedPlatformTypes { get; set; }
+
+        public ICollection<string> SelectedPlatformTypesName { get; set; }
+
+>>>>>>> KA_2
     }
 }

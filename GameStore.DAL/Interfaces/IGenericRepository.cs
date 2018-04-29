@@ -17,6 +17,6 @@ namespace GameStore.DAL.Interfaces
 
         IEnumerable<TEntity> Get(Func<TEntity, bool> predicate);
 
-        IEnumerable<TEntity> Find(Func<TEntity, bool> predicate);
+        int Count();
     }
 }
