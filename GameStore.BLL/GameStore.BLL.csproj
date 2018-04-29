@@ -100,21 +100,6 @@
     <Compile Include="Enums\SortDate.cs" />
     <Compile Include="Enums\SortType.cs" />
     <Compile Include="Exeption\EntityNotFound.cs" />
-<<<<<<< HEAD:GameStore.BAL/GameStore.BLL.csproj
-    <Compile Include="Filtration\Implementation\FilterByDate.cs" />
-    <Compile Include="Filtration\Implementation\FilterByGenre.cs" />
-    <Compile Include="Filtration\Implementation\FilterByName.cs" />
-    <Compile Include="Filtration\Implementation\FilterByPage.cs" />
-    <Compile Include="Filtration\Implementation\FilterByPlatform.cs" />
-    <Compile Include="Filtration\Implementation\FilterByPrice.cs" />
-    <Compile Include="Filtration\Implementation\FilterByPublisher.cs" />
-    <Compile Include="Filtration\Implementation\GamePipeline.cs" />
-    <Compile Include="Filtration\Implementation\Filter.cs" />
-    <Compile Include="Filtration\Implementation\SortFilter.cs" />
-    <Compile Include="Filtration\Interfaces\IPipeLine.cs" />
-=======
-    <Compile Include="Exeption\NotUniqueParameter.cs" />
->>>>>>> KA_2:GameStore.BLL/GameStore.BLL.csproj
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Infrastructure\BLLModule.cs" />
     <Compile Include="Infrastructure\Mapper\DTOToEntity.cs" />

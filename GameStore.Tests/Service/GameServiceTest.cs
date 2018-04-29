@@ -11,12 +11,8 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-<<<<<<< HEAD
-using GameStore.BLL.Enums;
-=======
 using GameStore.BLL.Exeption;
-using GameStore.Infrastructure.Mapper;
->>>>>>> KA_2
+using GameStore.Infastracture;
 using Xunit;
 
 namespace GameStore.Tests.Service

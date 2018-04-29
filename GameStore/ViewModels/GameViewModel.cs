@@ -26,10 +26,7 @@ namespace GameStore.ViewModels
 
         [Required]
         [Display(Name = "Units in stock")]
-<<<<<<< HEAD
-=======
         [Range(0, Int32.MaxValue)]
->>>>>>> KA_2
         public short UnitsInStock { get; set; }
 
         public bool Discountinues { get; set; }
@@ -55,9 +52,6 @@ namespace GameStore.ViewModels
 
         public SelectList PlatformTypeList { get; set; }
 
-<<<<<<< HEAD
-        public ICollection<Guid> PlatformTypesIs { get; set; }
-=======
         public IEnumerable<CheckBox> ListGenres { get; set; }
 
         public IEnumerable<CheckBox> SelectedGenres { get; set; }
@@ -70,6 +64,5 @@ namespace GameStore.ViewModels
 
         public ICollection<string> SelectedPlatformTypesName { get; set; }
 
->>>>>>> KA_2
     }
 }

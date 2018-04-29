@@ -211,24 +211,8 @@
     <Content Include="Views\Comment\GetAllCommentToGame.cshtml" />
     <Content Include="Views\Comment\Ban.cshtml" />
     <Content Include="Views\Order\EmptyBasket.cshtml" />
-<<<<<<< HEAD
-    <Content Include="Views\Game\GamesFilters.cshtml" />
-    <Content Include="Views\Game\FilteredGames.cshtml" />
-    <Content Include="Views\Game\NothingWasFound.cshtml" />
-=======
     <Content Include="Views\Comment\Delete.cshtml" />
-    <Content Include="Views\Game\Update.cshtml" />
-    <Content Include="Views\Publisher\GetAll.cshtml" />
-    <Content Include="Views\Publisher\Update.cshtml" />
-    <Content Include="Views\PlatformType\New.cshtml" />
-    <Content Include="Views\PlatformType\Get.cshtml" />
-    <Content Include="Views\PlatformType\GetAll.cshtml" />
-    <Content Include="Views\PlatformType\Update.cshtml" />
-    <Content Include="Views\Genre\New.cshtml" />
-    <Content Include="Views\Genre\Get.cshtml" />
-    <Content Include="Views\Genre\GetAll.cshtml" />
-    <Content Include="Views\Genre\Update.cshtml" />
->>>>>>> KA_2
+    <Content Include="Views\Order\EmptyBasket.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
