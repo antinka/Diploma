@@ -66,24 +66,6 @@
     <Reference Include="Moq, Version=4.8.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\packages\Moq.4.8.2\lib\net45\Moq.dll</HintPath>
     </Reference>
-    <Reference Include="NCase.Core, Version=0.2.0.276, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NCase.XunitAdapter.0.2.0.276\lib\net45\NCase.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="NCase.XunitAdapter, Version=0.2.0.276, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NCase.XunitAdapter.0.2.0.276\lib\net45\NCase.XunitAdapter.dll</HintPath>
-    </Reference>
-    <Reference Include="NDsl.Core, Version=0.2.0.276, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NCase.XunitAdapter.0.2.0.276\lib\net45\NDsl.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="NGitVersion, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NVisitor.1.1.0.73\lib\net45\NGitVersion.exe</HintPath>
-    </Reference>
-    <Reference Include="NUtil, Version=0.2.0.276, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUtil.0.2.0.276\lib\net45\NUtil.dll</HintPath>
-    </Reference>
-    <Reference Include="NVisitor, Version=1.1.0.73, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NVisitor.1.1.0.73\lib\net45\NVisitor.dll</HintPath>
-    </Reference>
     <Reference Include="StyleCop, Version=5.0.0.0, Culture=neutral, PublicKeyToken=f904653c63bc2738, processorArchitecture=MSIL">
       <HintPath>..\packages\StyleCop.5.0.0\lib\net40\StyleCop.dll</HintPath>
     </Reference>
