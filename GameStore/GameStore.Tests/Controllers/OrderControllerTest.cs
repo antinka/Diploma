@@ -5,7 +5,10 @@ using GameStore.ViewModels;
 using Moq;
 using System;
 using System.Web.Mvc;
+using GameStore.BLL.DTO;
+using GameStore.BLL.Exeption;
 using GameStore.Infrastructure.Mapper;
+using GameStore.Payments.Enums;
 using Xunit;
 
 namespace GameStore.Tests.Controllers
@@ -54,6 +57,39 @@ namespace GameStore.Tests.Controllers
             _sut.ModelState.AddModelError("testError", "test");
 
             var res = _sut.AddGameToOrder(fakeBasketViewModel);
+
+            Assert.Equal(typeof(ViewResult), res.GetType());
+        }
+
+        [Fact]
+        public void Pay_PaymentTypesBank_FileStreamResult()
+        {
+            var fakeUserId = Guid.Empty;
+            _ordersService.Setup(service => service.GetOrder(fakeUserId)).Returns(new OrderDTO());
+
+            var res = _sut.Pay(PaymentTypes.Bank);
+
+            Assert.Equal(typeof(FileStreamResult), res.GetType());
+        }
+
+        [Fact]
+        public void Pay_PaymentTypesBox_ViewResult()
+        {
+            var fakeUserId = Guid.Empty;
+            _ordersService.Setup(service => service.GetOrder(fakeUserId)).Returns(new OrderDTO());
+
+            var res = _sut.Pay(PaymentTypes.Box);
+
+            Assert.Equal(typeof(ViewResult), res.GetType());
+        }
+
+        [Fact]
+        public void Pay_PaymentTypesVisa_ViewResult()
+        {
+            var fakeUserId = Guid.Empty;
+            _ordersService.Setup(service => service.GetOrder(fakeUserId)).Returns(new OrderDTO());
+
+            var res = _sut.Pay(PaymentTypes.Visa);
 
             Assert.Equal(typeof(ViewResult), res.GetType());
         }

@@ -108,6 +108,7 @@ namespace GameStore.Controllers
 
                 return RedirectToAction("GetAllGames", "Game");
             }
+
             return PartialView();
         }
     }

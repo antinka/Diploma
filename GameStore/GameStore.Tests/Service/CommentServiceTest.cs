@@ -133,7 +133,7 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void DeleteComment_ExistedCommentId_ExeptionEntityNotFound()
+        public void DeleteComment_NotExistedCommentId_ExeptionEntityNotFound()
         {
             _uow.Setup(uow => uow.Comments.GetById(_fakeCommentId)).Returns(null as Comment);
 
