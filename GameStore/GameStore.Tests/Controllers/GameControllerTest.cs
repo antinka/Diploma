@@ -105,6 +105,19 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
+        public void UpdateGame_Gamekey_ReturnView()
+        {
+            var fakeGame = new GameDTO() {Id = Guid.NewGuid(), Key = _fakeGameKey, Name = "test"};
+
+            _gameService.Setup(service => service.GetByKey(_fakeGameKey)).Returns(fakeGame);
+            _publisherService.Setup(service => service.GetAll()).Returns(new List<PublisherDTO>());
+
+            var res = _sut.Update(_fakeGameKey);
+
+            Assert.Equal(typeof(ViewResult), res.GetType());
+        }
+
+        [Fact]
         public void GetGame_Gamekey_Verifiable()
         {
             _gameService.Setup(service => service.GetByKey(_fakeGameKey)).Verifiable();

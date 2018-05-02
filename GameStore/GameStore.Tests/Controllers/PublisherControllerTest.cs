@@ -65,7 +65,7 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
-        public void Update_ValidUpdatePublisher_HttpStatusCodeOK()
+        public void Update_ValidUpdatePublisher_ReturnView()
         {
             var fakePublisherViewModel = new PublisherViewModel() { Name = "test"};
             var fakePublisherDTO = _mapper.Map<PublisherDTO>(fakePublisherViewModel);
@@ -78,7 +78,7 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
-        public void Update_InvalidUpdatePublisher_HttpStatusCodeOK()
+        public void Update_InvalidUpdatePublisher_ReturnView()
         {
             var fakePublisherViewModel = new PublisherViewModel();
             _sut.ModelState.Add("testError", new ModelState());
@@ -90,7 +90,15 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
-        public void Remove_PublisherId_HttpStatusCodeOK()
+        public void Update_companyName_ReturnView()
+        {
+            var res = _sut.Update(_fakePublisherName);
+
+            Assert.Equal(typeof(ViewResult), res.GetType());
+        }
+
+        [Fact]
+        public void Remove_PublisherId_Verifiable()
         {
             var fakePublisherId = Guid.NewGuid();
             _publisherService.Setup(service => service.Delete(fakePublisherId));

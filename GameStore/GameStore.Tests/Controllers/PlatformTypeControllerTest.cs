@@ -78,13 +78,21 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
-        public void Update_InvalidUpdatePlatformType_HttpStatusCodeOK()
+        public void Update_InvalidUpdatePlatformType_ReturnedView()
         {
             var fakePlatformTypeViewModel = new PlatformTypeViewModel();
             _sut.ModelState.Add("testError", new ModelState());
             _sut.ModelState.AddModelError("testError", "test");
 
             var res = _sut.Update(fakePlatformTypeViewModel);
+
+            Assert.Equal(typeof(ViewResult), res.GetType());
+        }
+
+        [Fact]
+        public void Update_PlatformTypeName_ReturnedView()
+        {
+            var res = _sut.Update(_fakePlatformTypeName);
 
             Assert.Equal(typeof(ViewResult), res.GetType());
         }

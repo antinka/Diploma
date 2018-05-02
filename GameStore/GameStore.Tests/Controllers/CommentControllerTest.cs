@@ -21,7 +21,7 @@ namespace GameStore.Tests.Controllers
         private readonly IMapper _mapper;
         private readonly CommentController _sut;
 
-        private readonly Guid _fakeCommentId;
+        private readonly Guid _fakeCommentId, _fakeGameId;
         private readonly string _fakeGameKey;
         private readonly List<CommentDTO> _fakeComment;
 
@@ -34,7 +34,9 @@ namespace GameStore.Tests.Controllers
             _sut = new CommentController(_commentService.Object, _gameService.Object, _mapper);
 
             _fakeCommentId = Guid.NewGuid();
+            _fakeGameId = Guid.NewGuid();
             _fakeGameKey = _fakeCommentId.ToString();
+
             _fakeComment = new List<CommentDTO>()
             {
                 new CommentDTO()
@@ -107,6 +109,14 @@ namespace GameStore.Tests.Controllers
 
             Assert.Equal("Comment", res.RouteValues["controller"]);
             Assert.Equal("GetAllCommentToGame", res.RouteValues["action"]);
+        }
+
+        [Fact]
+        public void CommentToGame_GamekeyGameId_ReturnedPartialView()
+        {
+            var res = _sut.CommentToGame(_fakeGameKey, _fakeGameId, null, null);
+
+            Assert.Equal(typeof(PartialViewResult), res.GetType());
         }
     }
 }
