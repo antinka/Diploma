@@ -233,5 +233,16 @@ namespace GameStore.Tests.Service
 
             Assert.Equal(_fakeGames.Count, getGamesByPlatformTypeId.Count(g => g.PlatformTypes.Any(x => x.Id == _fakePlatformTypeId)));
         }
+
+        [Fact]
+        public void GetCountGame()
+        {
+            var countGames = 5;
+            _uow.Setup(uow => uow.Games.Count()).Returns(countGames);
+
+            var res = _sut.GetCountGame();
+
+            Assert.Equal(countGames, res);
+        }
     }
 }

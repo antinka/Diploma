@@ -22,6 +22,7 @@ namespace GameStore.Tests.Service
 
         private readonly PlatformType _fakePlatformType;
         private readonly Guid _fakePlatformTypeId;
+        private readonly string _fakePlatformTypeName;
         private readonly List<PlatformType> _fakePlatformTypes;
 
         public PlatformTypeServiceTest()
@@ -32,11 +33,12 @@ namespace GameStore.Tests.Service
             _sut = new PlatformTypeService(_uow.Object, _mapper, log.Object);
 
             _fakePlatformTypeId = Guid.NewGuid();
+            _fakePlatformTypeName = "PlatformType1";
 
             _fakePlatformType = new PlatformType
             {
                 Id = _fakePlatformTypeId,
-                Name = "PlatformType1"
+                Name = _fakePlatformTypeName
             };
 
             _fakePlatformTypes = new List<PlatformType>()
@@ -143,6 +145,28 @@ namespace GameStore.Tests.Service
             _sut.Delete(_fakePlatformTypeId);
 
             _uow.Verify(uow => uow.PlatformTypes.Delete(It.IsAny<Guid>()), Times.Once);
+        }
+
+        [Fact]
+        public void GetPlatformTypeByName_ExistedPlatformTypeName_PlatformTypeReturned()
+        {
+            var fakePlatformTypes = new List<PlatformType>()
+            {
+                _fakePlatformType
+            };
+            _uow.Setup(uow => uow.PlatformTypes.Get(It.IsAny<Func<PlatformType, bool>>())).Returns(fakePlatformTypes);
+
+            var result = _sut.GetByName(_fakePlatformTypeName);
+
+            Assert.True(result.Name == _fakePlatformTypeName);
+        }
+
+        [Fact]
+        public void GetPlatformTypeByName_NotExistedPlatformTypeName_ExeptionEntityNotFound()
+        {
+            _uow.Setup(uow => uow.PlatformTypes.Get(It.IsAny<Func<PlatformType, bool>>())).Returns(new List<PlatformType>());
+
+            Assert.Throws<EntityNotFound>(() => _sut.GetByName(_fakePlatformTypeName));
         }
     }
 }
