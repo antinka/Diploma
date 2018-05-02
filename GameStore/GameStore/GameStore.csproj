@@ -213,6 +213,16 @@
     <Content Include="Views\Order\EmptyBasket.cshtml" />
     <Content Include="Views\Comment\Delete.cshtml" />
     <Content Include="Views\Order\EmptyBasket.cshtml" />
+    <Content Include="Views\Genre\Get.cshtml" />
+    <Content Include="Views\Genre\GetAll.cshtml" />
+    <Content Include="Views\Genre\New.cshtml" />
+    <Content Include="Views\Genre\Update.cshtml" />
+    <Content Include="Views\PlatformType\Get.cshtml" />
+    <Content Include="Views\PlatformType\GetAll.cshtml" />
+    <Content Include="Views\PlatformType\New.cshtml" />
+    <Content Include="Views\PlatformType\Update.cshtml" />
+    <Content Include="Views\Publisher\GetAll.cshtml" />
+    <Content Include="Views\Publisher\Update.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -223,8 +233,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Logs\" />
-    <Folder Include="Views\Genre\" />
-    <Folder Include="Views\PlatformType\" />
     <Folder Include="Views\Shared\DisplayTemplates\" />
   </ItemGroup>
   <ItemGroup>

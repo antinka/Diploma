@@ -84,8 +84,10 @@
     <Compile Include="Migrations\201804131011373_update comment return parentComment.Designer.cs">
       <DependentUpon>201804131011373_update comment return parentComment.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201804171037334_updateGames.cs" />
-    <Compile Include="Migrations\201804171037334_updateGames.Designer.cs" />
+    <Compile Include="Migrations\201805020843290_updateGames.cs" />
+    <Compile Include="Migrations\201805020843290_updateGames.Designer.cs">
+      <DependentUpon>201805020843290_updateGames.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />
@@ -101,7 +103,9 @@
     <EmbeddedResource Include="Migrations\201804131011373_update comment return parentComment.resx">
       <DependentUpon>201804131011373_update comment return parentComment.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804171037334_updateGames.resx" />
+    <EmbeddedResource Include="Migrations\201805020843290_updateGames.resx">
+      <DependentUpon>201805020843290_updateGames.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

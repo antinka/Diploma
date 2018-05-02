@@ -6,14 +6,14 @@ namespace GameStore.DAL.Migrations
     {
         public override void Up()
         {
-            AddColumn("dbo.Games", "PublishDate", c => c.DateTime(nullable: false));
             AddColumn("dbo.Games", "Views", c => c.Int(nullable: false));
+            AddColumn("dbo.Games", "PublishDate", c => c.DateTime(nullable: false));
         }
-        
+
         public override void Down()
         {
-            DropColumn("dbo.Games", "Views");
             DropColumn("dbo.Games", "PublishDate");
+            DropColumn("dbo.Games", "Views");
         }
     }
 }
