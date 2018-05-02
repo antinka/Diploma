@@ -53,7 +53,7 @@ namespace GameStore.BLL.Service
                 }
                 else
                 {
-                    CreateNewOrderDetailToExistOrder(order, game, userId, gameId, quantity);
+                    CreateNewOrderDetailToExistOrder(order, game, gameId, quantity);
                 }
             }
             else
@@ -82,7 +82,7 @@ namespace GameStore.BLL.Service
             _unitOfWork.Save();
         }
 
-        private void CreateNewOrderDetailToExistOrder(Order order, Game game, Guid userId, Guid gameId, short quantity)
+        private void CreateNewOrderDetailToExistOrder(Order order, Game game, Guid gameId, short quantity)
         {
             var orderDetail = new OrderDetailDTO()
             {

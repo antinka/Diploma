@@ -146,5 +146,13 @@ namespace GameStore.Tests.Controllers
 
             _gameService.Verify(s => s.GetCountGame(), Times.Once);
         }
+
+        [Fact]
+        public void New_ReturnView()
+        {
+            var res = _sut.New();
+
+            Assert.Equal(typeof(ViewResult), res.GetType());
+        }
     }
 }
