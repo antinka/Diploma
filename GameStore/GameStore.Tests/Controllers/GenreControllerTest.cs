@@ -114,5 +114,13 @@ namespace GameStore.Tests.Controllers
 
             Assert.Equal(typeof(ViewResult), res.GetType());
         }
+
+        [Fact]
+        public void New_ReturnView()
+        {
+            var res = _sut.New();
+
+            Assert.Equal(typeof(ViewResult), res.GetType());
+        }
     }
 }

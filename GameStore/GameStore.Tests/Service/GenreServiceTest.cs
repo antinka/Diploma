@@ -20,6 +20,7 @@ namespace GameStore.Tests.Service
         private readonly GenreService _sut;
         private readonly IMapper _mapper;
 
+        private readonly string _fakeGenreName;
         private readonly Genre _fakeGenre;
         private readonly Guid _fakeGenreId;
         private readonly List<Genre> _fakeGenres;
@@ -31,12 +32,13 @@ namespace GameStore.Tests.Service
             _mapper = MapperConfigUi.GetMapper().CreateMapper();
             _sut = new GenreService(_uow.Object, _mapper, log.Object);
 
+            _fakeGenreName = "genre1";
             _fakeGenreId = Guid.NewGuid();
 
             _fakeGenre = new Genre
             {
                 Id = _fakeGenreId,
-                Name = "genre1"
+                Name = _fakeGenreName
             };
 
             _fakeGenres = new List<Genre>()
@@ -77,6 +79,28 @@ namespace GameStore.Tests.Service
             _uow.Setup(uow => uow.Genres.GetById(_fakeGenreId)).Returns(null as Genre);
 
             Assert.Throws<EntityNotFound>(() => _sut.GetById(_fakeGenreId));
+        }
+
+        [Fact]
+        public void GetGenreByName_ExistedGenreName_GenreReturned()
+        {
+            var fakeGenres = new List<Genre>()
+            {
+                _fakeGenre
+            };
+            _uow.Setup(uow => uow.Genres.Get(It.IsAny<Func<Genre, bool>>())).Returns(fakeGenres);
+
+            var result = _sut.GetByName(_fakeGenreName);
+
+            Assert.True(result.Name == _fakeGenreName);
+        }
+
+        [Fact]
+        public void GetGenreByName_NotExistedGenreNam_ExeptionEntityNotFound()
+        {
+            _uow.Setup(uow => uow.Genres.Get(It.IsAny<Func<Genre, bool>>())).Returns(new List<Genre>());
+
+            Assert.Throws<EntityNotFound>(() => _sut.GetByName(_fakeGenreName));
         }
 
         [Fact]

@@ -62,7 +62,7 @@ namespace GameStore.Controllers
                 comment.ParentCommentId = parentsCommentId.Value;
             }
 
-            if (quote != null && quote != string.Empty)
+            if (!string.IsNullOrEmpty(quote))
             {
                 comment.Quote = quote;
             }
@@ -108,6 +108,7 @@ namespace GameStore.Controllers
 
                 return RedirectToAction("GetAllGames", "Game");
             }
+
             return PartialView();
         }
     }

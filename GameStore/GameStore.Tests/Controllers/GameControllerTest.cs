@@ -6,7 +6,10 @@ using GameStore.ViewModels;
 using Moq;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using GameStore.Infrastructure.Mapper;
 using Xunit;
 
@@ -142,6 +145,14 @@ namespace GameStore.Tests.Controllers
             _sut.CountGames();
 
             _gameService.Verify(s => s.GetCountGame(), Times.Once);
+        }
+
+        [Fact]
+        public void New_ReturnView()
+        {
+            var res = _sut.New();
+
+            Assert.Equal(typeof(ViewResult), res.GetType());
         }
     }
 }
