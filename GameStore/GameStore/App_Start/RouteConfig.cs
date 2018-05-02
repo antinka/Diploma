@@ -28,12 +28,6 @@ namespace GameStore
             );
 
             routes.MapRoute(
-                name: "filterGame",
-                url: "Game/GamesFilters",
-                defaults: new { controller = "Game", action = "GamesFilters" }
-            );
-
-            routes.MapRoute(
                 name: "GameFilteredGames",
                 url: "Game/FilteredGames",
                 defaults: new { controller = "Game", action = "FilteredGames" }

@@ -1,14 +1,13 @@
 ﻿using AutoMapper;
+using GameStore.BLL.DTO;
 using GameStore.BLL.Interfaces;
 using GameStore.Controllers;
+using GameStore.Infrastructure.Mapper;
+using GameStore.Payments.Enums;
 using GameStore.ViewModels;
 using Moq;
 using System;
 using System.Web.Mvc;
-using GameStore.BLL.DTO;
-using GameStore.BLL.Exeption;
-using GameStore.Infrastructure.Mapper;
-using GameStore.Payments.Enums;
 using Xunit;
 
 namespace GameStore.Tests.Controllers

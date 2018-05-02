@@ -105,6 +105,7 @@ namespace GameStore.Controllers
             {
                 gameViewModel.SelectedGenres = gameViewModel.ListGenres.Where(x => gameViewModel.Genres.Any(g => g.Name.Contains(x.Text)));
             }
+
             if (gameViewModel.PlatformTypes != null)
             {
                 gameViewModel.SelectedPlatformTypes = gameViewModel.ListPlatformTypes.Where(x => gameViewModel.PlatformTypes.Any(g => g.Name.Contains(x.Text)));
@@ -160,6 +161,7 @@ namespace GameStore.Controllers
             {
                 totalItem = (int) filterViewModel.PageSize;
             }
+
             var gameViewModel = _mapper.Map<IEnumerable<GameViewModel>>(gamesByFilter);
             filterViewModel.Games = gameViewModel;
 
@@ -171,14 +173,13 @@ namespace GameStore.Controllers
             };
 
             filterViewModel.PagingInfo = pagingInfo;
+
             if (filterViewModel.PagingInfo.TotalItems != 0)
             {
                 return View(filterViewModel);
             }
-            else
-            {
-                return View("NothingWasFound");
-            }
+
+            return View("NothingWasFound");
         }
 
         private FilterViewModel GetInitFilterViewModel()
@@ -213,6 +214,7 @@ namespace GameStore.Controllers
                 model.SelectedGenres = model.ListGenres.Where(x => filterViewMode.SelectedGenresName.Contains(x.Text));
                 model.SelectedGenresName = filterViewMode.SelectedGenresName;
             }
+
             if (filterViewMode.SelectedPlatformTypesName != null)
             {
                 model.SelectedPlatformTypes = model.ListPlatformTypes.Where(x => filterViewMode.SelectedPlatformTypesName.Contains(x.Text));
@@ -224,6 +226,7 @@ namespace GameStore.Controllers
                 model.SelectedPublishers = model.ListPublishers.Where(x => filterViewMode.SelectedPublishersName.Contains(x.Text));
                 model.SelectedPublishersName = filterViewMode.SelectedPublishersName;
             }
+
             if (filterViewMode.MaxPrice != null)
             {
                 model.MaxPrice = filterViewMode.MaxPrice;

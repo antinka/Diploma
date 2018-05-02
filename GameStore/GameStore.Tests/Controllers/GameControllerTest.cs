@@ -2,15 +2,12 @@
 using GameStore.BLL.DTO;
 using GameStore.BLL.Interfaces;
 using GameStore.Controllers;
+using GameStore.Infrastructure.Mapper;
 using GameStore.ViewModels;
 using Moq;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
-using GameStore.Infrastructure.Mapper;
 using Xunit;
 
 namespace GameStore.Tests.Controllers
@@ -153,6 +150,22 @@ namespace GameStore.Tests.Controllers
             var res = _sut.New();
 
             Assert.Equal(typeof(ViewResult), res.GetType());
+        }
+
+        [Fact]
+        public void FilteredGames_EmptyFilterViewModel_ReturnedViewResult()
+        {
+            var res = _sut.FilteredGames(new FilterViewModel()) as ViewResult;
+
+            Assert.Equal("NothingWasFound", res.ViewName);
+        }
+
+        [Fact]
+        public void GamesFilters_EmptyFilterViewModel_ReturnedPartialViewResult()
+        {
+            var res = _sut.GamesFilters(new FilterViewModel());
+
+            Assert.Equal(typeof(PartialViewResult), res.GetType());
         }
     }
 }
