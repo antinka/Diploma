@@ -223,6 +223,10 @@
     <Content Include="Views\PlatformType\Update.cshtml" />
     <Content Include="Views\Publisher\GetAll.cshtml" />
     <Content Include="Views\Publisher\Update.cshtml" />
+    <Content Include="Views\Game\FilteredGames.cshtml" />
+    <Content Include="Views\Game\GamesFilters.cshtml" />
+    <Content Include="Views\Game\NothingWasFound.cshtml" />
+    <Content Include="Views\Game\Update.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
