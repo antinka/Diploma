@@ -132,7 +132,9 @@
   <ItemGroup>
     <Compile Include="Controllers\CommentControllerTest.cs" />
     <Compile Include="Controllers\GameControllerTest.cs" />
+    <Compile Include="Controllers\GenreControllerTest.cs" />
     <Compile Include="Controllers\OrderControllerTest.cs" />
+    <Compile Include="Controllers\PlatformTypeControllerTest.cs" />
     <Compile Include="Controllers\PublisherControllerTest.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -151,10 +153,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GameStore.BAL\GameStore.BLL.csproj">
-      <Project>{D0782D1D-3927-4A45-8D57-32B107A8CF69}</Project>
-      <Name>GameStore.BLL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\GameStore.DAL\GameStore.DAL.csproj">
       <Project>{36F7A06D-95A3-4D75-8FE1-284806F45845}</Project>
       <Name>GameStore.DAL</Name>

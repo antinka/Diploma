@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using GameStore.BLL.Interfaces;
 using GameStore.Controllers;
-using GameStore.Infastracture;
 using GameStore.ViewModels;
 using Moq;
 using System;
 using System.Web.Mvc;
+using GameStore.Infrastructure.Mapper;
 using Xunit;
 
 namespace GameStore.Tests.Controllers
@@ -27,11 +27,11 @@ namespace GameStore.Tests.Controllers
         public void BasketInfo_ReturnView()
         {
             var fakeUserId = Guid.Empty;
-            _ordersService.Setup(service => service.GetOrderDetail(fakeUserId)).Verifiable();
+            _ordersService.Setup(service => service.GetOrder(fakeUserId)).Verifiable();
 
-            var res = _sut.BasketInfo();
+            _sut.BasketInfo();
 
-            _ordersService.Verify(s => s.GetOrderDetail(It.IsAny<Guid>()), Times.Once);
+            _ordersService.Verify(s => s.GetOrder(It.IsAny<Guid>()), Times.Once);
         }
 
         [Fact]
@@ -47,7 +47,7 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
-        public void AddGameToOrder_InalidBasketViewModel_ReturnView()
+        public void AddGameToOrder_InvalidBasketViewModel_ReturnView()
         {
             var fakeBasketViewModel = new BasketViewModel();
             _sut.ModelState.Add("testError", new ModelState());

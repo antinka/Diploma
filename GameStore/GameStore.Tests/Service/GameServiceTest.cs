@@ -1,17 +1,17 @@
 ﻿using AutoMapper;
 using GameStore.BLL.DTO;
+using GameStore.BLL.Enums;
 using GameStore.BLL.Exeption;
 using GameStore.BLL.Filtration.Implementation;
 using GameStore.BLL.Service;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
-using GameStore.Infastracture;
+using GameStore.Infrastructure.Mapper;
 using log4net;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using GameStore.BLL.Enums;
 using Xunit;
 
 namespace GameStore.Tests.Service
@@ -119,9 +119,9 @@ namespace GameStore.Tests.Service
             var fakeGameDTO = new GameDTO() { Id = Guid.NewGuid(), Key = "qweqwe", Name = "1", Description = "2" };
             var fakeGame = _mapper.Map<Game>(fakeGameDTO);
 
-            _uow.Setup(uow => uow.Games.Get(It.IsAny<Func<Game, bool>>())).Returns(null as IEnumerable<Game>);
-            _uow.Setup(uow => uow.Genres.Find(It.IsAny<Func<Genre, bool>>())).Returns(new List<Genre>());
-            _uow.Setup(uow => uow.PlatformTypes.Find(It.IsAny<Func<PlatformType, bool>>())).Returns(new List<PlatformType>());
+            _uow.Setup(uow => uow.Games.Get(It.IsAny<Func<Game, bool>>())).Returns(new List<Game>());
+            _uow.Setup(uow => uow.Genres.Get(It.IsAny<Func<Genre, bool>>())).Returns(new List<Genre>());
+            _uow.Setup(uow => uow.PlatformTypes.Get(It.IsAny<Func<PlatformType, bool>>())).Returns(new List<PlatformType>());
 
             _uow.Setup(uow => uow.Games.Create(fakeGame)).Verifiable();
 
@@ -137,7 +137,7 @@ namespace GameStore.Tests.Service
 
             _uow.Setup(uow => uow.Games.Get(It.IsAny<Func<Game, bool>>())).Returns(_fakeGames);
 
-            Assert.Throws<EntityNotFound>(() => _sut.AddNew(fakeGameDTO));
+            Assert.Throws<NotUniqueParameter>(() => _sut.AddNew(fakeGameDTO));
         }
 
         [Fact]
@@ -181,7 +181,7 @@ namespace GameStore.Tests.Service
         [Fact]
         public void GetGameByKey_NotExistedGameKey_ExeptionEntityNotFound()
         {
-            _uow.Setup(uow => uow.Games.Get(It.IsAny<Func<Game, bool>>())).Returns(null as List<Game>);
+            _uow.Setup(uow => uow.Games.Get(It.IsAny<Func<Game, bool>>())).Returns(new List<Game>());
 
             Assert.Throws<EntityNotFound>(() => _sut.GetByKey(_fakeGameKey));
         }
@@ -189,14 +189,25 @@ namespace GameStore.Tests.Service
         [Fact]
         public void UpdateGame_Game_GameUpdated()
         {
-            var fakeGameDTO = new GameDTO() { Id = Guid.NewGuid(), Key = "123" };
+            var fakeGameDTO = new GameDTO() { Id = _fakeGameId, Key = "123" };
             var fakeGame = _mapper.Map<Game>(fakeGameDTO);
 
+            _uow.Setup(uow => uow.Games.GetById(_fakeGameId)).Returns(fakeGame);
+            _uow.Setup(uow => uow.Genres.Get(It.IsAny<Func<Genre, bool>>())).Returns(new List<Genre>());
+            _uow.Setup(uow => uow.PlatformTypes.Get(It.IsAny<Func<PlatformType, bool>>())).Returns(new List<PlatformType>());
             _uow.Setup(uow => uow.Games.Update(fakeGame)).Verifiable();
 
             _sut.Update(fakeGameDTO);
 
-            _uow.Verify(uow => uow.Games.Update(It.IsAny<Game>()), Times.Once);
+            _uow.Verify(uow => uow.Games.Update(It.IsAny<Game>()), Times.Exactly(2));
+        }
+
+        [Fact]
+        public void UpdateGame_NotExistGame_EntityNotFound()
+        {
+            _uow.Setup(uow => uow.Games.GetById(_fakeGameId)).Returns(null as Game);
+
+            Assert.Throws<EntityNotFound>(() => _sut.Update(new GameDTO()));
         }
 
         [Fact]
@@ -208,6 +219,17 @@ namespace GameStore.Tests.Service
             _uow.Setup(uow => uow.Games.Delete(notExistGameId));
 
             Assert.Throws<EntityNotFound>(() => _sut.Delete(_fakeGameId));
+        }
+
+        [Fact]
+        public void DeleteGame_ExistedGameId__Verifiable()
+        {
+            _uow.Setup(uow => uow.Games.GetById(_fakeGameId)).Returns(_fakeGame);
+            _uow.Setup(uow => uow.Games.Delete(_fakeGameId)).Verifiable();
+
+            _sut.Delete(_fakeGameId);
+
+            _uow.Verify(uow => uow.Games.Delete(It.IsAny<Guid>()), Times.Once);
         }
 
         [Fact]

@@ -6,6 +6,7 @@ using GameStore.Filters;
 using GameStore.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace GameStore.Controllers
@@ -27,36 +28,44 @@ namespace GameStore.Controllers
 
         public ActionResult GetAllCommentToGame(string gamekey)
         {
-            TempData["gamekey"] = gamekey;
             var comments = _mapper.Map<List<CommentViewModel>>(_commentService.GetCommentsByGameKey(gamekey));
-            ViewBag.gameId = _gameService.GetByKey(gamekey).Id;
+
+            if (!comments.Any())
+            {
+                comments = new List<CommentViewModel>()
+               {
+                   new CommentViewModel()
+                   {
+                       GameId = _gameService.GetByKey(gamekey).Id,
+                       GameKey = gamekey
+                   }
+               };
+            }
+            else
+            {
+                foreach (var comment in comments)
+                {
+                    comment.GameKey = gamekey;
+                }
+            }
 
             return View(comments);
         }
 
-        public ActionResult CommentToGameForParent(Guid gameId, Guid parentsCommentId)
-        {
-            CommentViewModel comment = new CommentViewModel();
-            comment.GameId = gameId;
-            comment.ParentCommentId = parentsCommentId;
-
-            return PartialView(comment); 
-        }
-
-        public ActionResult CommentToGameWithQuote(Guid gameId, string quote)
-        {
-            CommentViewModel comment = new CommentViewModel();
-            comment.GameId = gameId;
-            comment.Quote = quote;
-
-            return PartialView(comment);
-        }
-
         [HttpGet]
-        public ActionResult CommentToGame(Guid gameId)
+        public ActionResult CommentToGame(string gamekey, Guid gameId, Guid? parentsCommentId, string quote)
         {
-            CommentViewModel comment = new CommentViewModel();
-            comment.GameId = gameId;
+            var comment = new CommentViewModel { GameId = gameId, GameKey = gamekey };
+
+            if (parentsCommentId != null)
+            {
+                comment.ParentCommentId = parentsCommentId.Value;
+            }
+
+            if (quote != null && quote != string.Empty)
+            {
+                comment.Quote = quote;
+            }
 
             return PartialView(comment);
         }
@@ -64,59 +73,42 @@ namespace GameStore.Controllers
         [HttpPost]
         public ActionResult CommentToGame(CommentViewModel comment)
         {
+
             if (ModelState.IsValid)
             {
                 _commentService.AddComment(_mapper.Map<CommentDTO>(comment));
-                var gamekey = TempData["gamekey"];
+                return RedirectToAction("GetAllCommentToGame", "Comment", new { gamekey = comment.GameKey });
+            }
 
-                return RedirectToAction("GetAllCommentToGame", "Comment", new { gamekey = gamekey });
+            return PartialView(comment);
+        }
+
+        public ActionResult Delete(Guid? commentId, CommentViewModel comment)
+        {
+            if (commentId != null)
+            {
+                var commentDTO = _commentService.GetById(commentId.Value);
+                var commentViewModel = _mapper.Map<CommentViewModel>(commentDTO);
+
+                return View(commentViewModel);
             }
             else
             {
-                return PartialView(comment);
+                _commentService.Delete(comment.Id);
+
+                return RedirectToAction("GetAllCommentToGame", "Comment", new { gamekey = comment.GameKey });
             }
         }
 
-        [HttpGet]
-        public ActionResult Delete(Guid commentId)
+        public ActionResult Ban(Guid userId, BanPeriod? period)
         {
-            ViewBag.commentId = commentId;
-
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Delete(Guid commentId, string sure)
-        {
-            ViewBag.commentId = commentId;
-            var gamekey = TempData["gamekey"];
-
-            if (sure == "Yes")
+            if (period != null)
             {
-                _commentService.Delete(commentId);
+                _commentService.Ban(period.Value, userId);
 
-                return RedirectToAction("GetAllCommentToGame", "Comment", new { gamekey = gamekey });
+                return RedirectToAction("GetAllGames", "Game");
             }
-            else
-            {
-                return RedirectToAction("GetAllCommentToGame", "Comment", new { gamekey = gamekey });
-            }
-        }
-
-        [HttpGet]
-        public ActionResult Ban(Guid commentId)
-        {
-            ViewBag.commentId = commentId;
-
             return PartialView();
-        }
-
-        [HttpPost]
-        public ActionResult Ban(Guid commentId, BanPeriod period)
-        {
-            _commentService.Ban(period, commentId);
-
-            return RedirectToAction("GetAllGames", "Game");
         }
     }
 }

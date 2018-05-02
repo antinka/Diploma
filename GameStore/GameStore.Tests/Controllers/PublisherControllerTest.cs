@@ -1,12 +1,14 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using AutoMapper;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Interfaces;
 using GameStore.Controllers;
-using GameStore.Infastracture;
 using GameStore.ViewModels;
 using Moq;
 using Xunit;
 using System.Web.Mvc;
+using GameStore.Infrastructure.Mapper;
 
 namespace GameStore.Tests.Controllers
 {
@@ -41,7 +43,7 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
-        public void New_InalidPublisherViewModel_ReturnView()
+        public void New_InvalidPublisherViewModel_ReturnView()
         {
             var fakePublisherViewModel = new PublisherViewModel() { Name = "test" };
             _sut.ModelState.Add("testError", new ModelState());
@@ -60,6 +62,58 @@ namespace GameStore.Tests.Controllers
             _sut.Get(_fakePublisherName);
 
             _publisherService.Verify(s => s.GetByName(It.IsAny<string>()), Times.Once);
+        }
+
+        [Fact]
+        public void Update_ValidUpdatePublisher_HttpStatusCodeOK()
+        {
+            var fakePublisherViewModel = new PublisherViewModel() { Name = "test"};
+            var fakePublisherDTO = _mapper.Map<PublisherDTO>(fakePublisherViewModel);
+
+            _publisherService.Setup(service => service.Update(fakePublisherDTO)).Verifiable();
+
+            _sut.Update(fakePublisherViewModel);
+
+            _publisherService.Verify(s => s.Update(It.IsAny<PublisherDTO>()), Times.Once);
+        }
+
+        [Fact]
+        public void Update_InvalidUpdatePublisher_HttpStatusCodeOK()
+        {
+            var fakePublisherViewModel = new PublisherViewModel();
+            _sut.ModelState.Add("testError", new ModelState());
+            _sut.ModelState.AddModelError("testError", "test");
+
+            var res = _sut.Update(fakePublisherViewModel);
+
+            Assert.Equal(typeof(ViewResult), res.GetType());
+        }
+
+        [Fact]
+        public void Remove_PublisherId_HttpStatusCodeOK()
+        {
+            var fakePublisherId = Guid.NewGuid();
+            _publisherService.Setup(service => service.Delete(fakePublisherId));
+
+            _sut.Remove(fakePublisherId);
+
+            _publisherService.Verify(s => s.Delete(It.IsAny<Guid>()), Times.Once);
+        }
+
+        [Fact]
+        public void GetAll_ReturnedView()
+        {
+            var fakePublishersDto = new List<PublisherDTO>()
+            {
+                new PublisherDTO() { Name = "test1", Description = "test", HomePage = "test" },
+                new PublisherDTO() { Name = "test2", Description = "test", HomePage = "test" },
+            };
+
+            _publisherService.Setup(service => service.GetAll()).Returns(fakePublishersDto);
+
+            var res = _sut.GetAll();
+
+            Assert.Equal(typeof(ViewResult), res.GetType());
         }
     }
 }

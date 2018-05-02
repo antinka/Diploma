@@ -3,12 +3,13 @@ using GameStore.BLL.Exeption;
 using GameStore.BLL.Service;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
-using GameStore.Infastracture;
 using log4net;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GameStore.BLL.DTO;
+using GameStore.Infrastructure.Mapper;
 using Xunit;
 
 namespace GameStore.Tests.Service
@@ -72,6 +73,76 @@ namespace GameStore.Tests.Service
             _uow.Setup(uow => uow.PlatformTypes.GetById(_fakePlatformTypeId)).Returns(null as PlatformType);
 
             Assert.Throws<EntityNotFound>(() => _sut.GetById(_fakePlatformTypeId));
+        }
+
+        [Fact]
+        public void AddNewPlatformType_PlatformTypeWithUniqueName_NewGenreAdded()
+        {
+            var fakePlatformTypeDTO = new PlatformTypeDTO() { Id = Guid.NewGuid(), Name = "uniqueName" };
+            var fakePlatformType = _mapper.Map<PlatformType>(fakePlatformTypeDTO);
+
+            _uow.Setup(uow => uow.PlatformTypes.Get(It.IsAny<Func<PlatformType, bool>>())).Returns(new List<PlatformType>());
+            _uow.Setup(uow => uow.PlatformTypes.Create(fakePlatformType)).Verifiable();
+
+            _sut.AddNew(fakePlatformTypeDTO);
+
+            _uow.Verify(uow => uow.PlatformTypes.Create(It.IsAny<PlatformType>()), Times.Once);
+        }
+
+        [Fact]
+        public void AddNewPlatformType_PlatformTypeWithoutUniqueName_ExeptionNotUniqueParameter()
+        {
+            var fakePlatformTypeDTO = _mapper.Map<PlatformTypeDTO>(_fakePlatformType);
+
+            _uow.Setup(uow => uow.PlatformTypes.Get(It.IsAny<Func<PlatformType, bool>>())).Returns(_fakePlatformTypes);
+
+            Assert.Throws<NotUniqueParameter>(() => _sut.AddNew(fakePlatformTypeDTO));
+        }
+
+        [Fact]
+        public void UpdatePlatformType_PlatformType_PlatformTypeUpdated()
+        {
+            var fakePlatformTypeDTO = _mapper.Map<PlatformTypeDTO>(_fakePlatformType);
+
+            _uow.Setup(uow => uow.PlatformTypes.GetById(_fakePlatformTypeId)).Returns(_fakePlatformType);
+
+            _uow.Setup(uow => uow.PlatformTypes.Update(_fakePlatformType)).Verifiable();
+
+            _sut.Update(fakePlatformTypeDTO);
+
+            _uow.Verify(uow => uow.PlatformTypes.Update(It.IsAny<PlatformType>()), Times.Once);
+        }
+
+        [Fact]
+        public void UpdatePlatformType_NotExistPlatformTypeName_EntityNotFound()
+        {
+            var fakePlatformTypeId = Guid.NewGuid();
+
+            _uow.Setup(uow => uow.PlatformTypes.GetById(fakePlatformTypeId)).Returns(null as PlatformType);
+
+            Assert.Throws<EntityNotFound>(() => _sut.Update(new PlatformTypeDTO()));
+        }
+
+        [Fact]
+        public void DeletePlatformType_NotExistedPlatformTypeName__ExeptionEntityNotFound()
+        {
+            var notExistPlatformTypeId = Guid.NewGuid();
+
+            _uow.Setup(uow => uow.PlatformTypes.GetById(notExistPlatformTypeId)).Returns(null as PlatformType);
+            _uow.Setup(uow => uow.PlatformTypes.Delete(notExistPlatformTypeId));
+
+            Assert.Throws<EntityNotFound>(() => _sut.Delete(notExistPlatformTypeId));
+        }
+
+        [Fact]
+        public void DeletePlatformType_ExistedPlatformTypeName__Verifiable()
+        {
+            _uow.Setup(uow => uow.PlatformTypes.GetById(_fakePlatformTypeId)).Returns(_fakePlatformType);
+            _uow.Setup(uow => uow.PlatformTypes.Delete(_fakePlatformTypeId)).Verifiable();
+
+            _sut.Delete(_fakePlatformTypeId);
+
+            _uow.Verify(uow => uow.PlatformTypes.Delete(It.IsAny<Guid>()), Times.Once);
         }
     }
 }

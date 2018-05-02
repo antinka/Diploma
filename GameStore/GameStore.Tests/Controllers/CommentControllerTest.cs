@@ -3,11 +3,12 @@ using GameStore.BLL.DTO;
 using GameStore.BLL.Enums;
 using GameStore.BLL.Interfaces;
 using GameStore.Controllers;
-using GameStore.Infastracture;
 using GameStore.ViewModels;
 using Moq;
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
+using GameStore.Infrastructure.Mapper;
 using Xunit;
 
 namespace GameStore.Tests.Controllers
@@ -22,6 +23,7 @@ namespace GameStore.Tests.Controllers
 
         private readonly Guid _fakeCommentId;
         private readonly string _fakeGameKey;
+        private readonly List<CommentDTO> _fakeComment;
 
         public CommentControllerTest()
         {
@@ -33,14 +35,18 @@ namespace GameStore.Tests.Controllers
 
             _fakeCommentId = Guid.NewGuid();
             _fakeGameKey = _fakeCommentId.ToString();
+            _fakeComment = new List<CommentDTO>()
+            {
+                new CommentDTO()
+            };
         }
 
         [Fact]
         public void GetAllCommentToGame_GameKey_Verifiable()
         {
-            _commentService.Setup(service => service.GetCommentsByGameKey(_fakeGameKey)).Verifiable();
+            _commentService.Setup(service => service.GetCommentsByGameKey(_fakeGameKey)).Returns(_fakeComment).Verifiable();
 
-            var res = _sut.GetAllCommentToGame(_fakeGameKey);
+            _sut.GetAllCommentToGame(_fakeGameKey);
 
             _commentService.Verify(s => s.GetCommentsByGameKey(It.IsAny<string>()), Times.Once);
         }
@@ -51,7 +57,7 @@ namespace GameStore.Tests.Controllers
             _commentService.Setup(service => service.Delete(It.IsAny<Guid>()));
             _sut.TempData = _tempDataMock.Object;
 
-            var res = _sut.Delete(Guid.NewGuid(), "Sure") as RedirectToRouteResult;
+            var res = _sut.Delete(null, new CommentViewModel()) as RedirectToRouteResult;
 
             Assert.Equal("Comment", res.RouteValues["controller"]);
             Assert.Equal("GetAllCommentToGame", res.RouteValues["action"]);

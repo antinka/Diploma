@@ -9,6 +9,7 @@ namespace GameStore.Tests.Routes
     {
         public RoutesTests()
         {
+            RouteTable.Routes.Clear();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
         }
 
@@ -17,7 +18,7 @@ namespace GameStore.Tests.Routes
         {
             var httpContextMock = new Mock<HttpContextBase>();
             httpContextMock.Setup(c => c.Request.AppRelativeCurrentExecutionFilePath)
-                .Returns("~/games/new/id");
+                .Returns("~/games/new");
             var routeData = RouteTable.Routes.GetRouteData(httpContextMock.Object);
 
             Assert.Equal("Game", routeData.Values["controller"]);
@@ -45,7 +46,7 @@ namespace GameStore.Tests.Routes
             var routeData = RouteTable.Routes.GetRouteData(httpContextMock.Object);
 
             Assert.Equal("Game", routeData.Values["Controller"]);
-            Assert.Equal("GetGameById", routeData.Values["action"]);
+            Assert.Equal("GetGame", routeData.Values["action"]);
         }
 
         [Fact]

@@ -7,6 +7,8 @@ namespace GameStore.ViewModels
     {
         public Guid Id { get; set; }
 
+        public Guid UserId { get; set; }
+
         [Required]
         public string Name { get; set; }
 
@@ -18,6 +20,8 @@ namespace GameStore.ViewModels
         public Guid? ParentCommentId { get; set; }
 
         public Guid GameId { get; set; }
+
+        public string GameKey { get; set; }
 
         public GameViewModel Game { get; set; }
     }

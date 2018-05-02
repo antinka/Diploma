@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using GameStore.BLL.Enums;
-using GameStore.Infastracture;
+using GameStore.Infrastructure.Mapper;
 using Xunit;
 
 namespace GameStore.Tests.Service
@@ -87,7 +87,7 @@ namespace GameStore.Tests.Service
         [Fact]
         public void GetCommentsByGameKey_NotExistGameId_ExeptionEntityNotFound()
         {
-            _uow.Setup(uow => uow.Games.Get(It.IsAny<Func<Game, bool>>())).Returns(null as IEnumerable<Game>);
+            _uow.Setup(uow => uow.Games.Get(It.IsAny<Func<Game, bool>>())).Returns(new List<Game>());
 
             Assert.Throws<EntityNotFound>(() => _sut.GetCommentsByGameKey(_gameKey));
         }
@@ -125,10 +125,11 @@ namespace GameStore.Tests.Service
         public void DeleteComment_ExistedCommentId_CommentDeleted()
         {
             _uow.Setup(uow => uow.Comments.GetById(_fakeCommentId)).Returns(_fakeComment).Verifiable();
+            _uow.Setup(uow => uow.Comments.GetAll()).Returns(_fakeComments);
 
             _sut.Delete(_fakeCommentId);
 
-            _uow.Verify(uow => uow.Comments.Delete(_fakeCommentId), Times.Once);
+            _uow.Verify(uow => uow.Comments.Update(_fakeComment), Times.Once);
         }
 
         [Fact]
