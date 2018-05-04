@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace GameStore.DAL.Entities
 {
@@ -10,6 +11,7 @@ namespace GameStore.DAL.Entities
 
         public string HomePage { get; set; }
 
+        [BsonIgnore]
         public virtual ICollection<Game> Games { get; set; }
     }
 }

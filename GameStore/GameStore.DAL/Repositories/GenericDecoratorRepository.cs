@@ -11,7 +11,7 @@ namespace GameStore.DAL.Repositories
     {
         private readonly IGenericRepository<TEntity> _mongoDataRepository;
 
-        public GenericDecoratorRepository(IDbContext sql, MongoContext mongo):base(sql, mongo, null)
+        public GenericDecoratorRepository(IDbContext sql, MongoContext mongo):base(sql, mongo)
         {
             _mongoDataRepository = new ReadOnlyGenericRepository<TEntity>(mongo);
         }

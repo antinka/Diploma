@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace GameStore.DAL.Entities
 {
@@ -13,6 +14,7 @@ namespace GameStore.DAL.Entities
         [MaxLength(450)]
         public string Name { get; set; }
 
+        [BsonIgnore]
         public virtual ICollection<Game> Games { get; set; }
     }
 }

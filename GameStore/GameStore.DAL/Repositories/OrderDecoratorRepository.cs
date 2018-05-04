@@ -15,7 +15,7 @@ namespace GameStore.DAL.Repositories
         private readonly ReadOnlyGenericRepository<MongoOrder> _mongoDataRepository;
         private readonly IMapper _mapper;
 
-        public OrderDecoratorRepository(IDbContext db, MongoContext mongo, IMapper mapper) : base(db, mongo, null)
+        public OrderDecoratorRepository(IDbContext db, MongoContext mongo, IMapper mapper) : base(db, mongo)
         {
            _mongoDataRepository = new ReadOnlyGenericRepository<MongoOrder>(mongo);
             _mapper = mapper;

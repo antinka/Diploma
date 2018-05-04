@@ -22,18 +22,18 @@ namespace GameStore.DAL.EF
         private readonly Lazy<GenericRepository<Publisher>> _lazyPublisherRepository;
         private readonly Lazy<ReadOnlyGenericRepository<Shipper>> _lazyShipperRepository;
 
-        public UnitOfWork(IDbContext context, IMapper mapper, ILog log)
+        public UnitOfWork(IDbContext context, IMapper mapper)
         {
             _context = context;
             var mongoDb = new MongoContext();
 
-            _lazyGameRepository = new Lazy<GenericRepository<Game>>(() => new GenericRepository<Game>(_context, mongoDb, log));
-            _lazyGenreRepository = new Lazy<GenericRepository<Genre>>(() => new GenericRepository<Genre>(_context, mongoDb, log));
-            _lazyCommentRepository = new Lazy<GenericRepository<Comment>>(() => new GenericRepository<Comment>(_context, mongoDb, log));
-            _lazyPlatformTypeRepository = new Lazy<GenericRepository<PlatformType>>(() => new GenericRepository<PlatformType>(_context, mongoDb, log));
-            _lazyOrderDetailRepository = new Lazy<GenericRepository<OrderDetail>>(() => new GenericRepository<OrderDetail>(_context, mongoDb, log));
+            _lazyGameRepository = new Lazy<GenericRepository<Game>>(() => new GenericRepository<Game>(_context, mongoDb));
+            _lazyGenreRepository = new Lazy<GenericRepository<Genre>>(() => new GenericRepository<Genre>(_context, mongoDb));
+            _lazyCommentRepository = new Lazy<GenericRepository<Comment>>(() => new GenericRepository<Comment>(_context, mongoDb));
+            _lazyPlatformTypeRepository = new Lazy<GenericRepository<PlatformType>>(() => new GenericRepository<PlatformType>(_context, mongoDb));
+            _lazyOrderDetailRepository = new Lazy<GenericRepository<OrderDetail>>(() => new GenericRepository<OrderDetail>(_context, mongoDb));
             _lazyOrderRepository = new Lazy<OrderDecoratorRepository>(() => new OrderDecoratorRepository(_context, mongoDb, mapper));
-            _lazyPublisherRepository = new Lazy<GenericRepository<Publisher>>(() => new GenericRepository<Publisher>(_context, mongoDb, log));
+            _lazyPublisherRepository = new Lazy<GenericRepository<Publisher>>(() => new GenericRepository<Publisher>(_context, mongoDb));
             _lazyShipperRepository = new Lazy<ReadOnlyGenericRepository<Shipper>>(() => new ReadOnlyGenericRepository<Shipper>(mongoDb));
         }
 

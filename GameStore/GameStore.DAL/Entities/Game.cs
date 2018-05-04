@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace GameStore.DAL.Entities
 {
@@ -31,10 +32,13 @@ namespace GameStore.DAL.Entities
 
         public virtual Publisher Publisher { get; set; }
 
+        [BsonIgnore]
         public virtual ICollection<Comment> Comments { get; set; }
 
+        [BsonIgnore]
         public virtual ICollection<Genre> Genres { get; set; }
 
+        [BsonIgnore]
         public virtual ICollection<PlatformType> PlatformTypes { get; set; }
     }
 }

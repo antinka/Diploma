@@ -17,14 +17,12 @@ namespace GameStore.DAL.Repositories
         private readonly IDbContext _db;
         private readonly IDbSet<TEntiy> _dbSet;
         private readonly MongoContext _mongoDb;
-        private readonly ILog _log;
 
-        public GenericRepository(IDbContext db, MongoContext mongoDb, ILog log)
+        public GenericRepository(IDbContext db, MongoContext mongoDb)
         {
             _db = db;
             _dbSet = db.Set<TEntiy>();
             _mongoDb = mongoDb;
-            _log = log;
         }
 
         public virtual void Create(TEntiy item)
@@ -32,7 +30,7 @@ namespace GameStore.DAL.Repositories
             if (item != null)
                 _dbSet.Add(item);
 
-            Log(ActionInRepository.Update, item.GetType().ToString(), item.ToString(), null);
+            Log(ActionInRepository.Update, item.GetType().ToString(), item.ToJson(), null);
         }
 
         public virtual void Delete(Guid id)
@@ -41,7 +39,7 @@ namespace GameStore.DAL.Repositories
             if (item != null)
                 item.IsDelete = true;
 
-            Log(ActionInRepository.Update, item.GetType().ToString(), item.ToString(), null);
+            Log(ActionInRepository.Update, item.GetType().ToString(), item.ToJson(), null);
         }
 
         public virtual TEntiy GetById(Guid id)
@@ -60,7 +58,7 @@ namespace GameStore.DAL.Repositories
 
             _db.Set<TEntiy>().AddOrUpdate(item);
 
-            Log(ActionInRepository.Update, item.GetType().ToString(), item.ToString(), oldObject.ToString());
+            Log(ActionInRepository.Update, item.GetType().ToString(), item.ToJson(), oldObject.ToJson());
         }
 
         public virtual IEnumerable<TEntiy> Get(Func<TEntiy, bool> predicate)
