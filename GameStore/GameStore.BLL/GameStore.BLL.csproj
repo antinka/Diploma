@@ -57,6 +57,9 @@
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
+    <Reference Include="MongoDB.Bson, Version=2.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Bson.2.7.0-beta0001\lib\net45\MongoDB.Bson.dll</HintPath>
+    </Reference>
     <Reference Include="StyleCop, Version=5.0.0.0, Culture=neutral, PublicKeyToken=f904653c63bc2738, processorArchitecture=MSIL">
       <HintPath>..\packages\StyleCop.5.0.0\lib\net40\StyleCop.dll</HintPath>
     </Reference>
@@ -95,6 +98,7 @@
     <Compile Include="DTO\OrderDetailDTO.cs" />
     <Compile Include="DTO\OrderDTO.cs" />
     <Compile Include="DTO\PublisherDTO.cs" />
+    <Compile Include="DTO\ShipperDTO.cs" />
     <Compile Include="Enums\BanPeriod.cs" />
     <Compile Include="Enums\PageSize.cs" />
     <Compile Include="Enums\SortDate.cs" />
@@ -120,6 +124,7 @@
     <Compile Include="DTO\GameDTO.cs" />
     <Compile Include="DTO\GenreDTO.cs" />
     <Compile Include="DTO\PlatformTypeDTO.cs" />
+    <Compile Include="Infrastructure\Mapper\MongoEntityToSqlEntity.cs" />
     <Compile Include="Interfaces\ICommentService.cs" />
     <Compile Include="Interfaces\IGameCRUDService.cs" />
     <Compile Include="Interfaces\IGameService.cs" />

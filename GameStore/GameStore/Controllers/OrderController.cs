@@ -5,7 +5,9 @@ using GameStore.Payments;
 using GameStore.Payments.Enums;
 using GameStore.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
+using GameStore.BLL.DTO;
 
 namespace GameStore.Controllers
 {
@@ -31,6 +33,9 @@ namespace GameStore.Controllers
                 var order = _ordersService.GetOrder(userId);
                 var orderViewModel = _mapper.Map<OrderViewModel>(order);
 
+                var shippers = _mapper.Map<IEnumerable<ShipperViewModel>>(_ordersService.GetAllShippers());
+                orderViewModel.ShipperList = new SelectList(shippers, "Id", "CompanyName");
+
                 return View(orderViewModel);
             }
             catch (EntityNotFound)
@@ -39,7 +44,15 @@ namespace GameStore.Controllers
             }
         }
 
-        [HttpGet]
+        public ActionResult UpdateShipper(OrderViewModel orderViewModel)
+        {
+            var orderDTO = _mapper.Map<OrderDTO>(orderViewModel);
+            _ordersService.UpdateShipper(orderDTO);
+
+            return RedirectToAction("BasketInfo");
+        }
+
+       [HttpGet]
         public ActionResult AddGameToOrder(Guid gameId, short unitsInStock)
         {
             var userId = Guid.Empty;
@@ -94,6 +107,14 @@ namespace GameStore.Controllers
             }
 
             return payment.Pay(orderPay);
+        }
+
+        public ActionResult FilterOrders(FilterOrder filterOrder)
+        {
+            var ordersDTO = _ordersService.GetOrdersBetweenDates(filterOrder.DateTimeFrom, filterOrder.DateTimeTo);
+            filterOrder.OrdersViewModel = _mapper.Map<IEnumerable<OrderViewModel>>(ordersDTO);
+
+            return View(filterOrder);
         }
     }
 }

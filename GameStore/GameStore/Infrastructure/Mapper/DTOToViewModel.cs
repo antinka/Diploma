@@ -23,6 +23,8 @@ namespace GameStore.Infrastructure.Mapper
             CreateMap<PlatformTypeDTO, PlatformTypeViewModel>();
 
             CreateMap<FilterDTO, FilterViewModel>();
+
+            CreateMap<ShipperDTO, ShipperViewModel>();
         }
     }
 }

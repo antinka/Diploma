@@ -1,5 +1,6 @@
 ﻿using GameStore.BLL.DTO;
 using System;
+using System.Collections.Generic;
 
 namespace GameStore.BLL.Interfaces
 {
@@ -8,5 +9,13 @@ namespace GameStore.BLL.Interfaces
         OrderDTO GetOrder(Guid userId);
 
         void AddNewOrderDetails(Guid userId, Guid gameId, short quantity);
+
+        IEnumerable<OrderDTO> GetAllOrders();
+
+        IEnumerable<OrderDTO> GetOrdersBetweenDates(DateTime? from, DateTime? to);
+
+        IEnumerable<ShipperDTO> GetAllShippers();
+
+        void UpdateShipper(OrderDTO orderDto);
     }
 }

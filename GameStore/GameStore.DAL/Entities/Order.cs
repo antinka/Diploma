@@ -11,6 +11,8 @@ namespace GameStore.DAL.Entities
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }
 
+        public string ShipperId { get; set; }
+
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

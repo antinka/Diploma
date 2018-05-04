@@ -5,6 +5,7 @@ using GameStore.BLL.Interfaces;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace GameStore.BLL.Service
@@ -93,6 +94,59 @@ namespace GameStore.BLL.Service
             };
 
             order.OrderDetails.Add(_mapper.Map<OrderDetail>(orderDetail));
+            _unitOfWork.Save();
+        }
+
+        public IEnumerable<OrderDTO> GetAllOrders()
+        {
+            return _mapper.Map<IEnumerable<OrderDTO>>(_unitOfWork.Orders.GetAll());
+        }
+
+        public IEnumerable<OrderDTO> GetOrdersBetweenDates(DateTime? from, DateTime? to)
+        {
+            IEnumerable<Order> orders;
+
+            if (from != null && to != null)
+            {
+                orders = _unitOfWork.Orders.GetAll().Where(x => x.Date > from && x.Date < to);
+            }
+            else if (from != null)
+            {
+                orders = _unitOfWork.Orders.GetAll().Where(x => x.Date > from);
+            }
+            else if(to != null)
+            {
+                orders = _unitOfWork.Orders.GetAll().Where(x => x.Date < to);
+            }
+            else
+            {
+                orders = _unitOfWork.Orders.GetAll();
+            }
+
+            var ordersDTO = _mapper.Map<IEnumerable<Order>, IEnumerable<OrderDTO>>(orders);
+
+            return ordersDTO;
+        }
+
+        public IEnumerable<ShipperDTO> GetAllShippers()
+        {
+            var shippers = _unitOfWork.Shippers.GetAll();
+
+            return _mapper.Map<IEnumerable<ShipperDTO>>(shippers);
+        }
+
+        public void UpdateShipper(OrderDTO orderDto)
+        {
+            var order = _unitOfWork.Orders.Get(x => x.Id == orderDto.Id).FirstOrDefault();
+
+            if (order == null)
+            {
+                throw new EntityNotFound($"{nameof(OrdersService)} - Orders with such id {orderDto.Id} did not exist");
+            }
+
+            order.ShipperId = orderDto.ShipperId;
+
+            _unitOfWork.Orders.Update(order);
             _unitOfWork.Save();
         }
     }

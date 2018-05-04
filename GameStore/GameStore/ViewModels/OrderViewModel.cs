@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace GameStore.ViewModels
 {
@@ -12,6 +14,11 @@ namespace GameStore.ViewModels
         public DateTime Date { get; set; }
 
         public Decimal Cost { get; set; }
+
+        [Display(Name = "Shipper")]
+        public string ShipperId { get; set; }
+
+        public SelectList ShipperList { get; set; }
 
         public ICollection<OrderDetailViewModel> OrderDetails { get; set; }
     }

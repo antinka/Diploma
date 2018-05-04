@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using GameStore.BLL.DTO;
 using GameStore.DAL.Entities;
+using GameStore.DAL.Mongo.MongoEntities;
 
 namespace GameStore.BLL.Infrastructure.Mapper
 {
@@ -21,6 +22,8 @@ namespace GameStore.BLL.Infrastructure.Mapper
             CreateMap<GenreDTO, Genre>();
 
             CreateMap<PlatformTypeDTO, PlatformType>();
+
+            CreateMap<ShipperDTO, Shipper>();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using GameStore.DAL.Entities;
+using GameStore.DAL.Mongo.MongoEntities;
 
 namespace GameStore.DAL.Interfaces
 {
@@ -17,6 +18,8 @@ namespace GameStore.DAL.Interfaces
         IGenericRepository<Order> Orders { get; }
 
         IGenericRepository<Publisher> Publishers { get; }
+
+        IGenericRepository<Shipper> Shippers { get; }
 
         void Save();
     }

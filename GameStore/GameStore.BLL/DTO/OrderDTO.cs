@@ -13,6 +13,8 @@ namespace GameStore.BLL.DTO
 
         public Decimal Cost { get; set; }
 
+        public string ShipperId { get; set; }
+
         public ICollection<OrderDetailDTO> OrderDetails { get; set; }
     }
 }

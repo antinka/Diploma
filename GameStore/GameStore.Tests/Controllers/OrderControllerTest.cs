@@ -7,6 +7,7 @@ using GameStore.Payments.Enums;
 using GameStore.ViewModels;
 using Moq;
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using Xunit;
 
@@ -29,11 +30,14 @@ namespace GameStore.Tests.Controllers
         public void BasketInfo_ReturnView()
         {
             var fakeUserId = Guid.Empty;
-            _ordersService.Setup(service => service.GetOrder(fakeUserId)).Verifiable();
+            var fakeOrder = new OrderDTO(){ Id = Guid.NewGuid(), UserId = fakeUserId };
 
-            _sut.BasketInfo();
+            _ordersService.Setup(service => service.GetOrder(fakeUserId)).Returns(fakeOrder);
+            _ordersService.Setup(service => service.GetAllShippers()).Returns(new List<ShipperDTO>());
 
-            _ordersService.Verify(s => s.GetOrder(It.IsAny<Guid>()), Times.Once);
+            var res = _sut.BasketInfo();
+
+            Assert.Equal(typeof(ViewResult), res.GetType());
         }
 
         [Fact]

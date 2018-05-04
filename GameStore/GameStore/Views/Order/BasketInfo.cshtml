@@ -6,27 +6,37 @@
 }
 
 <h2>BasketInfo</h2>
+@using (Html.BeginForm("UpdateShipper", "Order", FormMethod.Get, null))
+{
+    @Html.HiddenFor(model => model.Id)
+    <div class="form-group">
+        @Html.LabelFor(model => model.ShipperId, htmlAttributes: new {@class = "control-label col-md-2"})
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.ShipperId, Model.ShipperList as SelectList, "", new {@class = "form-control"})
+        </div>
+    </div>
+    <input type="submit" value="Save" class="btn btn-default"/>
+}
+    <div>
+        <h4>OrderViewModel</h4>
+        <hr/>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.UserId)
+            </dt>
 
-<div>
-    <h4>OrderViewModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.UserId)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.UserId)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.UserId)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Date)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Date)
-        </dd>
-    </dl>
+            <dd>
+                @Html.DisplayFor(model => model.Date)
+            </dd>
+        </dl>
         <table class="table">
             <tr>
                 <th>
@@ -66,20 +76,20 @@
                     </td>
                 </tr>
             }
-                <tr>
-                    <td>
-                        <div>
-                            <a href='@Url.Action("Pay","Order", new { paymentType = PaymentTypes.Bank },null)' %>
-                                <img src="~/Pictures/Bank.png" alt="QQQQQ" height="80px" />
-                            </a>
-                            <a href='@Url.Action("Pay","Order", new { paymentType = PaymentTypes.Box })' %>
-                                <img src="~/Pictures/IBox.png" alt="QQQQQ" height="80px" />
-                            </a>
-                            <a href='@Url.Action("Pay","Order", new { paymentType = PaymentTypes.Visa })' %>
-                                <img src="~/Pictures/Visa.png" alt="QQQQQ" height="80px" />
-                            </a>
-                        </div>
-                    </td>
-                </tr>
+            <tr>
+                <td>
+                    <div>
+                        <a href='@Url.Action("Pay", "Order", new {paymentType = PaymentTypes.Bank}, null)' %>
+                            <img src="~/Pictures/Bank.png" alt="QQQQQ" height="80px"/>
+                        </a>
+                        <a href='@Url.Action("Pay", "Order", new {paymentType = PaymentTypes.Box})' %>
+                            <img src="~/Pictures/IBox.png" alt="QQQQQ" height="80px"/>
+                        </a>
+                        <a href='@Url.Action("Pay", "Order", new {paymentType = PaymentTypes.Visa})' %>
+                            <img src="~/Pictures/Visa.png" alt="QQQQQ" height="80px"/>
+                        </a>
+                    </div>
+                </td>
+            </tr>
         </table>
-</div>
+    </div>
