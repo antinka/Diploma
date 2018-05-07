@@ -37,7 +37,6 @@ namespace GameStore.Controllers
                 orderViewModel.ShipperList = new SelectList(shippers, "Id", "CompanyName");
 
                 return View(orderViewModel);
-            }
         }
 
         public ActionResult UpdateShipper(OrderViewModel orderViewModel)

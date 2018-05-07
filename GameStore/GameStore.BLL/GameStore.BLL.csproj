@@ -104,7 +104,6 @@
     <Compile Include="Enums\SortDate.cs" />
     <Compile Include="Enums\SortType.cs" />
     <Compile Include="Exeption\EntityNotFound.cs" />
-    <Compile Include="Exeption\NotUniqueParameter.cs" />
     <Compile Include="Filtrations\Implementation\Filter.cs" />
     <Compile Include="Filtrations\Implementation\FilterByDate.cs" />
     <Compile Include="Filtrations\Implementation\FilterByGenre.cs" />

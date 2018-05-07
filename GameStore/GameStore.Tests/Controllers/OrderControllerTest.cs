@@ -96,5 +96,25 @@ namespace GameStore.Tests.Controllers
 
             Assert.Equal(typeof(ViewResult), res.GetType());
         }
+
+        [Fact]
+        public void UpdateShipper_OrderViewModel_ReturnedRedirectToRouteResult()
+        {
+            var fakeOrderViewModel = new OrderViewModel() {Id = Guid.NewGuid()};
+
+            var res = _sut.UpdateShipper(fakeOrderViewModel);
+
+            Assert.Equal(typeof(RedirectToRouteResult), res.GetType());
+        }
+
+        [Fact]
+        public void FilterOrders_FilterOrder_Returned()
+        {
+            var fakeFilterOrder = new FilterOrder();
+
+            var res = _sut.FilterOrders(fakeFilterOrder);
+
+            Assert.Equal(typeof(ViewResult), res.GetType());
+        }
     }
 }

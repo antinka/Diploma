@@ -102,26 +102,21 @@ namespace GameStore.BLL.Service
             _unitOfWork.Save();
         }
 
-        public IEnumerable<OrderDTO> GetAllOrders()
-        {
-            return _mapper.Map<IEnumerable<OrderDTO>>(_unitOfWork.Orders.GetAll());
-        }
-
         public IEnumerable<OrderDTO> GetOrdersBetweenDates(DateTime? from, DateTime? to)
         {
             IEnumerable<Order> orders;
 
             if (from != null && to != null)
             {
-                orders = _unitOfWork.Orders.GetAll().Where(x => x.Date > from && x.Date < to);
+                orders = _unitOfWork.Orders.GetAll().Where(x => x.Date >= from && x.Date <= to);
             }
             else if (from != null)
             {
-                orders = _unitOfWork.Orders.GetAll().Where(x => x.Date > from);
+                orders = _unitOfWork.Orders.GetAll().Where(x => x.Date >= from);
             }
-            else if(to != null)
+            else if (to != null)
             {
-                orders = _unitOfWork.Orders.GetAll().Where(x => x.Date < to);
+                orders = _unitOfWork.Orders.GetAll().Where(x => x.Date <= to);
             }
             else
             {
