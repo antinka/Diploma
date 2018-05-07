@@ -57,40 +57,40 @@
             </th>
         </tr>
 
-        @foreach (var item in Model.OrderDetails)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.GameId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Quantity)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Discount)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-            </tr>
-        }
-        <tr>
-            <td>
-                <div>
-                    <a href='@Url.Action("Pay", "Order", new {paymentType = PaymentTypes.Bank}, null)' %>
-                        <img src="~/Pictures/Bank.png" alt="QQQQQ" height="80px" />
-                    </a>
-                    <a href='@Url.Action("Pay", "Order", new {paymentType = PaymentTypes.Box})' %>
-                        <img src="~/Pictures/IBox.png" alt="QQQQQ" height="80px" />
-                    </a>
-                    <a href='@Url.Action("Pay", "Order", new {paymentType = PaymentTypes.Visa})' %>
-                        <img src="~/Pictures/Visa.png" alt="QQQQQ" height="80px" />
-                    </a>
-                </div>
-            </td>
-        </tr>
-    </table>
+            @foreach (var item in Model.OrderDetails)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GameId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Discount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                </tr>
+            }
+                <tr>
+                    <td>
+                        <div>
+                            <a href='@Url.Action("Pay","Order", new { paymentType = PaymentTypes.Bank },null)' %>
+                                <img src="~/Content/Images/Bank.png" alt="QQQQQ" height="80px" />
+                            </a>
+                            <a href='@Url.Action("Pay","Order", new { paymentType = PaymentTypes.Box })' %>
+                                <img src="~/Content/Images/IBox.png" alt="QQQQQ" height="80px" />
+                            </a>
+                            <a href='@Url.Action("Pay","Order", new { paymentType = PaymentTypes.Visa })' %>
+                                <img src="~/Content/Images/Visa.png" alt="QQQQQ" height="80px" />
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+        </table>
 </div>

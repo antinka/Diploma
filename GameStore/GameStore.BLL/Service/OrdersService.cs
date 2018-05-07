@@ -7,6 +7,7 @@ using GameStore.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using log4net;
 
 namespace GameStore.BLL.Service
 {
@@ -14,11 +15,13 @@ namespace GameStore.BLL.Service
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly ILog _log;
 
-        public OrdersService(IUnitOfWork uow, IMapper mapper)
+        public OrdersService(IUnitOfWork uow, IMapper mapper, ILog log)
         {
             _unitOfWork = uow;
             _mapper = mapper;
+            _log = log;
         }
 
         public OrderDTO GetOrder(Guid userId)
@@ -27,7 +30,9 @@ namespace GameStore.BLL.Service
 
             if (order == null)
             {
-                throw new EntityNotFound($"{nameof(OrdersService)} - Orders with such id user {userId} did not exist");
+                _log.Info($"{nameof(OrdersService)} - Orders with such id user {userId} did not exist");
+
+                return null;
             }
 
             var orderDTO = _mapper.Map<OrderDTO>(order);
@@ -97,26 +102,21 @@ namespace GameStore.BLL.Service
             _unitOfWork.Save();
         }
 
-        public IEnumerable<OrderDTO> GetAllOrders()
-        {
-            return _mapper.Map<IEnumerable<OrderDTO>>(_unitOfWork.Orders.GetAll());
-        }
-
         public IEnumerable<OrderDTO> GetOrdersBetweenDates(DateTime? from, DateTime? to)
         {
             IEnumerable<Order> orders;
 
             if (from != null && to != null)
             {
-                orders = _unitOfWork.Orders.GetAll().Where(x => x.Date > from && x.Date < to);
+                orders = _unitOfWork.Orders.GetAll().Where(x => x.Date >= from && x.Date <= to);
             }
             else if (from != null)
             {
-                orders = _unitOfWork.Orders.GetAll().Where(x => x.Date > from);
+                orders = _unitOfWork.Orders.GetAll().Where(x => x.Date >= from);
             }
-            else if(to != null)
+            else if (to != null)
             {
-                orders = _unitOfWork.Orders.GetAll().Where(x => x.Date < to);
+                orders = _unitOfWork.Orders.GetAll().Where(x => x.Date <= to);
             }
             else
             {
@@ -124,6 +124,14 @@ namespace GameStore.BLL.Service
             }
 
             var ordersDTO = _mapper.Map<IEnumerable<Order>, IEnumerable<OrderDTO>>(orders);
+
+            foreach (var orderDTO in ordersDTO)
+            {
+                foreach (var i in orderDTO.OrderDetails)
+                {
+                    orderDTO.Cost += i.Price;
+                }
+            }
 
             return ordersDTO;
         }

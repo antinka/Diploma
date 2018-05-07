@@ -1,12 +1,11 @@
 ﻿using AutoMapper;
+using GameStore.BLL.DTO;
+using GameStore.BLL.Interfaces;
 using GameStore.Filters;
 using GameStore.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using GameStore.BLL.DTO;
-using GameStore.BLL.Interfaces;
-using GameStore.BLL.Exeption;
 
 namespace GameStore.Controllers
 {
@@ -41,17 +40,13 @@ namespace GameStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                try
-                {
-                    var genreDto = _mapper.Map<GenreDTO>(genreViewModel);
-                    _genreService.AddNew(genreDto);
+                var genreDto = _mapper.Map<GenreDTO>(genreViewModel);
+                var isAddNewGenre = _genreService.AddNew(genreDto);
 
+                if (isAddNewGenre)
                     return RedirectToAction("Get", new { genreName = genreViewModel.Name });
-                }
-                catch (NotUniqueParameter)
-                {
-                    ModelState.AddModelError("Name", "Not Unique Parameter");
-                }
+
+                ModelState.AddModelError("Name", "Not Unique Parameter");
             }
 
             var genres = _mapper.Map<IEnumerable<GenreViewModel>>(_genreService.GetAll());

@@ -123,9 +123,9 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Files\test.txt" />
-    <Content Include="Pictures\Bank.png" />
-    <Content Include="Pictures\Visa.png" />
-    <Content Include="Pictures\IBox.png" />
+    <Content Include="Content\Images\Bank.png" />
+    <Content Include="Content\Images\Visa.png" />
+    <Content Include="Content\Images\IBox.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -198,7 +198,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Game\GetAllGames.cshtml" />
@@ -253,10 +255,6 @@
     <ProjectReference Include="..\GameStore.BLL\GameStore.BLL.csproj">
       <Project>{D0782D1D-3927-4A45-8D57-32B107A8CF69}</Project>
       <Name>GameStore.BLL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\GameStore.DAL\GameStore.DAL.csproj">
-      <Project>{36F7A06D-95A3-4D75-8FE1-284806F45845}</Project>
-      <Name>GameStore.DAL</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

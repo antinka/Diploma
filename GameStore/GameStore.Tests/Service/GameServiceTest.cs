@@ -4,14 +4,14 @@ using GameStore.BLL.Enums;
 using GameStore.BLL.Exeption;
 using GameStore.BLL.Filtration.Implementation;
 using GameStore.BLL.Service;
-using GameStore.DAL.Entities;
-using GameStore.DAL.Interfaces;
 using GameStore.Infrastructure.Mapper;
 using log4net;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GameStore.DAL.Entities;
+using GameStore.DAL.Interfaces;
 using Xunit;
 
 namespace GameStore.Tests.Service
@@ -114,7 +114,7 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void AddNewGame_GameWithUniqueKey_NewGameAdded()
+        public void AddNewGame_GameWithUniqueKey_Verifiable()
         {
             var fakeGameDTO = new GameDTO() { Id = Guid.NewGuid(), Key = "qweqwe", Name = "1", Description = "2" };
             var fakeGame = _mapper.Map<Game>(fakeGameDTO);
@@ -131,13 +131,13 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void AddNewGame_GameWithoutUniqueKey_ExeptionEntityNotFound()
+        public void AddNewGame_GameWithoutUniqueKey_ReturnedFalseAddNewGame()
         {
             var fakeGameDTO = new GameDTO() { Id = Guid.NewGuid(), Key = _fakeGameKey };
 
             _uow.Setup(uow => uow.Games.Get(It.IsAny<Func<Game, bool>>())).Returns(_fakeGames);
 
-            Assert.Throws<NotUniqueParameter>(() => _sut.AddNew(fakeGameDTO));
+            Assert.False(_sut.AddNew(fakeGameDTO));
         }
 
         [Fact]
@@ -187,7 +187,7 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void UpdateGame_Game_GameUpdated()
+        public void UpdateGame_Game_Verifiable()
         {
             var fakeGameDTO = new GameDTO() { Id = _fakeGameId, Key = "123" };
             var fakeGame = _mapper.Map<Game>(fakeGameDTO);
