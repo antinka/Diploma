@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using GameStore.BLL.DTO;
-using GameStore.BLL.Exeption;
 using GameStore.BLL.Interfaces;
 using GameStore.Filters;
 using GameStore.ViewModels;
@@ -46,16 +45,12 @@ namespace GameStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _gameService.AddNew(_mapper.Map<GameDTO>(game));
+                var isAddNewGame = _gameService.AddNew(_mapper.Map<GameDTO>(game));
 
+                if (isAddNewGame)
                     return RedirectToAction("GetAllGames");
-                }
-                catch (NotUniqueParameter)
-                {
-                    ModelState.AddModelError("Key", "Not Unique Parameter");
-                }
+
+                ModelState.AddModelError("Key", "Not Unique Parameter");
             }
 
             return View(GameInit(game));
@@ -119,16 +114,9 @@ namespace GameStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _gameService.Update(_mapper.Map<GameDTO>(game));
+                _gameService.Update(_mapper.Map<GameDTO>(game));
 
-                    return RedirectToAction("GetAllGames");
-                }
-                catch (Exception)
-                {
-                    return RedirectToAction("GetAllGames");
-                }
+                return RedirectToAction("GetAllGames");
             }
 
             var publishers = _mapper.Map<IEnumerable<PublisherViewModel>>(_publisherService.GetAll());

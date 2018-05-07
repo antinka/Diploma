@@ -104,7 +104,7 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void AddNewGenre_GenreWithUniqueName_NewGenreAdded()
+        public void AddNewGenre_GenreWithUniqueName_Verifiable()
         {
             var fakeGenreDTO = new GenreDTO() { Id = Guid.NewGuid(), Name = "uniqueName" };
             var fakeGenre = _mapper.Map<Genre>(fakeGenreDTO);
@@ -118,13 +118,13 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void AddNewGenre_GenreWithoutUniqueName_ExeptionNotUniqueParameter()
+        public void AddNewGenre_GenreWithoutUniqueName_ReturnedFalseAddNewGenre()
         {
             var fakeGenreDTO = _mapper.Map<GenreDTO>(_fakeGenre);
 
             _uow.Setup(uow => uow.Genres.Get(It.IsAny<Func<Genre, bool>>())).Returns(_fakeGenres);
 
-            Assert.Throws<NotUniqueParameter>(() => _sut.AddNew(fakeGenreDTO));
+            Assert.False(_sut.AddNew(fakeGenreDTO));
         }
 
         [Fact]

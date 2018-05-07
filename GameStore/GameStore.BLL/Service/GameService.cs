@@ -29,7 +29,7 @@ namespace GameStore.BLL.Service
             _log = log;
         }
 
-        public void AddNew(GameDTO gameDto)
+        public bool AddNew(GameDTO gameDto)
         {
             var game = _unitOfWork.Games.Get(x => x.Key == gameDto.Key).FirstOrDefault();
 
@@ -45,10 +45,14 @@ namespace GameStore.BLL.Service
                 _unitOfWork.Save();
 
                 _log.Info($"{nameof(GameService)} - add new game{gameDto.Id}");
+
+                return true;
             }
             else
             {
-                throw new NotUniqueParameter($"{nameof(GameService)} - attempt to add new game with not unique key");
+                _log.Info($"{nameof(GameService)} - attempt to add new game with not unique key");
+
+                return false;
             }
         }
 

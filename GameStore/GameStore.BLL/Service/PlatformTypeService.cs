@@ -43,7 +43,7 @@ namespace GameStore.BLL.Service
             return _mapper.Map<IEnumerable<PlatformTypeDTO>>(platgormTypes);
         }
 
-        public void AddNew(PlatformTypeDTO platformTypeDto)
+        public bool AddNew(PlatformTypeDTO platformTypeDto)
         {
             var platformType = _unitOfWork.PlatformTypes.Get(x => x.Name == platformTypeDto.Name).FirstOrDefault();
 
@@ -54,10 +54,14 @@ namespace GameStore.BLL.Service
                 _unitOfWork.Save();
 
                 _log.Info($"{nameof(PublisherService)} - add new platformType {platformTypeDto.Id}");
+
+                return true;
             }
             else
             {
-                throw new NotUniqueParameter($"{nameof(PlatformTypeService)} - attempt to add new platformType with not unique name");
+                _log.Info($"{nameof(PlatformTypeService)} - attempt to add new platformType with not unique name");
+
+                return false;
             }
         }
         private PlatformType TakPlatformTypeById(Guid id)
