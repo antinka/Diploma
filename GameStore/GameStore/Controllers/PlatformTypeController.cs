@@ -40,7 +40,6 @@ namespace GameStore.Controllers
                     return RedirectToAction("Get", new { platformTypeName = platformTypeViewModel.Name });
 
                 ModelState.AddModelError("Name", "Not Unique Parameter");
-
             }
 
             return View(platformTypeViewModel);
