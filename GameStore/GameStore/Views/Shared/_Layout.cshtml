@@ -19,19 +19,17 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Games", "GetAllGames", "Game", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Games", "FilteredGames", "Game", new { area = "" }, new { @class = "navbar-brand" })
               
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li style="color: aliceblue">@Html.Action("CountGames", "Game") </li>
 
-                    FilteredGames
                     <li> @Html.ActionLink("BasketInfo", "BasketInfo", "Order")</li>
                     <li> @Html.ActionLink("Publishers", "GetAll", "Publisher")</li>
                     <li> @Html.ActionLink("Platform Types", "GetAll", "PlatformType")</li>
                     <li> @Html.ActionLink("Genres", "GetAll", "Genre")</li>
-                    <li> @Html.ActionLink("Filter Games", "FilteredGames", "Game")</li>
                 </ul>
             </div>
         </div>

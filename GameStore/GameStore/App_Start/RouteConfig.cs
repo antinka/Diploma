@@ -12,7 +12,7 @@ namespace GameStore
             routes.MapRoute(
                 name: "games",
                 url: "games",
-                defaults: new { controller = "Game", action = "GetAllGames" }
+                defaults: new { controller = "Game", action = "FilteredGames" }
             );
 
             routes.MapRoute(
@@ -25,12 +25,6 @@ namespace GameStore
                 name: "GameGames",
                 url: "Game/Games",
                 defaults: new { controller = "Game", action = "Games" }
-            );
-
-            routes.MapRoute(
-                name: "GameFilteredGames",
-                url: "Game/FilteredGames",
-                defaults: new { controller = "Game", action = "FilteredGames" }
             );
 
             routes.MapRoute(

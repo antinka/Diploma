@@ -87,7 +87,9 @@
                             @Html.DisplayFor(modelItem => item.Publisher.Name)
                         </td>
                         <td>
-                            @Html.ActionLink("Details", "GetGame", new {gamekey = item.Key})
+                            @Html.ActionLink("Details", "GetGame", new { gamekey = item.Key })
+                            @Html.ActionLink("Update", "Update", new { gamekey = item.Key })
+                            @Html.ActionLink("Remove", "Remove", new { gameId = item.Id })
                         </td>
                     </tr>
 

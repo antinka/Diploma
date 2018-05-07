@@ -246,10 +246,6 @@
       <Project>{D0782D1D-3927-4A45-8D57-32B107A8CF69}</Project>
       <Name>GameStore.BLL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\GameStore.DAL\GameStore.DAL.csproj">
-      <Project>{36F7A06D-95A3-4D75-8FE1-284806F45845}</Project>
-      <Name>GameStore.DAL</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

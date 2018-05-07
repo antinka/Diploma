@@ -136,14 +136,14 @@
     <Compile Include="Service\PublisherService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GameStore.DAL\GameStore.DAL.csproj">
-      <Project>{36f7a06d-95a3-4d75-8fe1-284806f45845}</Project>
-      <Name>GameStore.DAL</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GameStore.DAL\GameStore.DAL.csproj">
+      <Project>{36F7A06D-95A3-4D75-8FE1-284806F45845}</Project>
+      <Name>GameStore.DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
