@@ -49,7 +49,7 @@ namespace GameStore.DAL.Repositories
 
         public virtual IEnumerable<TEntiy> GetAll()
         {
-            return _dbSet.Where(x => x.IsDelete == false).AsEnumerable();
+            return _dbSet.Where(x => x.IsDelete == false).ToList();
         }
 
         public virtual void Update(TEntiy item)
@@ -63,7 +63,7 @@ namespace GameStore.DAL.Repositories
 
         public virtual IEnumerable<TEntiy> Get(Func<TEntiy, bool> predicate)
         {
-			return _dbSet.Where(predicate).Where(x => x.IsDelete == false).AsEnumerable();
+			return _dbSet.Where(predicate).Where(x => x.IsDelete == false).ToList();
         }
 
         public int Count()

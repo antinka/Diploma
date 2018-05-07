@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using GameStore.BLL.Exeption;
 using GameStore.BLL.Interfaces;
 using GameStore.Payments;
 using GameStore.Payments.Enums;
@@ -27,20 +26,17 @@ namespace GameStore.Controllers
         public ActionResult BasketInfo()
         {
             var userId = Guid.Empty;
+            var order = _ordersService.GetOrder(userId);
 
-            try
-            {
-                var order = _ordersService.GetOrder(userId);
-                var orderViewModel = _mapper.Map<OrderViewModel>(order);
+            if (order == null)
+                return View("EmptyBasket");
+
+            var orderViewModel = _mapper.Map<OrderViewModel>(order);
 
                 var shippers = _mapper.Map<IEnumerable<ShipperViewModel>>(_ordersService.GetAllShippers());
                 orderViewModel.ShipperList = new SelectList(shippers, "Id", "CompanyName");
 
                 return View(orderViewModel);
-            }
-            catch (EntityNotFound)
-            {
-                return View("EmptyBasket");
             }
         }
 

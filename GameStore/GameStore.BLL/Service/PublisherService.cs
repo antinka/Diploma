@@ -24,7 +24,7 @@ namespace GameStore.BLL.Service
             _log = log;
         }
 
-        public void AddNew(PublisherDTO publisherDTO)
+        public bool AddNew(PublisherDTO publisherDTO)
         {
             var publisher = _unitOfWork.Publishers.Get(x => x.Name == publisherDTO.Name).FirstOrDefault();
 
@@ -35,10 +35,14 @@ namespace GameStore.BLL.Service
                 _unitOfWork.Save();
 
                 _log.Info($"{nameof(PublisherService)} - add new publisher{ publisherDTO.Id}");
+
+                return true;
             }
             else
             {
-                throw new NotUniqueParameter($"{nameof(PublisherService)} - attempt to add new publisher with not unique name");
+                _log.Info($"{nameof(PublisherService)} - attempt to add new publisher with not unique name");
+
+                return false;
             }
         }
 

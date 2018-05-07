@@ -68,7 +68,7 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
-        public void New_InvalidGame_ReturnView()
+        public void New_InvalidGame_ReturnViewResult()
         {
             var fakeGameViewModel = new GameViewModel() { Name = "test" };
             _sut.ModelState.Add("testError", new ModelState());
@@ -80,7 +80,7 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
-        public void UpdateGame_ValidUpdateGame_Verifiable()
+        public void UpdateGame_ValidGame_Verifiable()
         {
             var fakeGameViewModel = new GameViewModel() { Name = "test", Key = "test" };
             var fakeGameDTO = _mapper.Map<GameDTO>(fakeGameViewModel);
@@ -93,7 +93,7 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
-        public void UpdateGame_InvalidUpdateGame_ReturnView()
+        public void UpdateGame_InvalidGame_ReturnViewResult()
         {
             var fakeGameViewModel = new GameViewModel();
             _sut.ModelState.Add("testError", new ModelState());
@@ -128,9 +128,9 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
-        public void RemoveGame_GameKey_Verifiable()
+        public void RemoveGame_GameId_Verifiable()
         {
-            _gameService.Setup(service => service.Delete(_fakeGameId));
+            _gameService.Setup(service => service.Delete(_fakeGameId)).Verifiable();
 
             _sut.Remove(_fakeGameId);
 
@@ -138,7 +138,7 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
-        public void GetAllGames_ReturnedView()
+        public void GetAllGames_ReturnViewResult()
         {
             _gameService.Setup(service => service.GetAll()).Returns(_fakeGames);
 
@@ -158,7 +158,7 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
-        public void New_ReturnView()
+        public void New_ReturnViewResult()
         {
             var res = _sut.New();
 
