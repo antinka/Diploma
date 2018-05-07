@@ -47,7 +47,6 @@ namespace GameStore.Controllers
                     return RedirectToAction("Get", new { genreName = genreViewModel.Name });
 
                 ModelState.AddModelError("Name", "Not Unique Parameter");
-
             }
 
             var genres = _mapper.Map<IEnumerable<GenreViewModel>>(_genreService.GetAll());
