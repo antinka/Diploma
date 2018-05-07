@@ -20,27 +20,27 @@ namespace GameStore.Tests.Service
         private readonly IMapper _mapper;
 
         private readonly Guid _fakeUserId, _fakeGameId;
-        private readonly Order _fakeOrder;
         private readonly Game _fakeGame;
         private readonly List<Order> _fakeOrders;
 
         public OrdersServiceTest()
         {
             _uow = new Mock<IUnitOfWork>();
+            var log = new Mock<ILog>();
             _mapper = MapperConfigUi.GetMapper().CreateMapper();
-            _sut = new OrdersService(_uow.Object, _mapper);
+            _sut = new OrdersService(_uow.Object, _mapper, log.Object);
 
             _fakeUserId = Guid.NewGuid();
             _fakeGameId = Guid.NewGuid();
 
-            _fakeOrder = new Order()
+            var fakeOrder = new Order()
             {
                 UserId = _fakeUserId
             };
 
             _fakeOrders = new List<Order>()
             {
-                _fakeOrder
+                fakeOrder
             };
 
             _fakeGame = new Game()
@@ -61,11 +61,11 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void GetOrderDetail_NotExistedUserId_ExeptionEntityNotFound()
+        public void GetOrderDetail_NotExistedUserId_ReturnedEmptyOrder()
         {
             _uow.Setup(uow => uow.Orders.Get(It.IsAny<Func<Order, bool>>())).Returns(new List<Order>());
 
-            Assert.Throws<EntityNotFound>(() => _sut.GetOrder(_fakeUserId));
+            Assert.Null(_sut.GetOrder(_fakeUserId));
         }
 
         [Fact]
@@ -77,7 +77,7 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void AddNewOrderDetails_NotExistedOrder_AddNewOrderAndOrderDetails()
+        public void AddNewOrderDetails_NotExistedOrder_Verifiable()
         {
             var fakeOrderDetailsDto = new OrderDetailDTO() { Id = Guid.NewGuid(), Game = _mapper.Map<GameDTO>(_fakeGame), GameId = _fakeGameId};
             var fakeOrderDetail = _mapper.Map<OrderDetail>(fakeOrderDetailsDto);

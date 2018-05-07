@@ -43,7 +43,7 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
-        public void New_InvalidGenreViewModel_ReturnView()
+        public void New_InvalidGenreViewModel_ReturnViewResult()
         {
             var fakeGenreViewModel = new GenreViewModel() { Name = "test" };
             _sut.ModelState.Add("testError", new ModelState());
@@ -65,7 +65,7 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
-        public void Update_ValidUpdateGenre_Verifiable()
+        public void Update_ValidGenre_Verifiable()
         {
             var fakeGenreViewModel = new GenreViewModel() { Name = "test" };
             var fakeGenreDTO = _mapper.Map<GenreDTO>(fakeGenreViewModel);
@@ -78,7 +78,7 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
-        public void Update_InvalidUpdateGenre_HttpStatusCodeOK()
+        public void Update_InvalidGenre_ReturnViewResult()
         {
             var fakeGenreViewModel = new GenreViewModel();
             _sut.ModelState.Add("testError", new ModelState());
@@ -93,7 +93,7 @@ namespace GameStore.Tests.Controllers
         public void Remove_GenreId_Verifiable()
         {
             var fakeGenreId = Guid.NewGuid();
-            _genreService.Setup(service => service.Delete(fakeGenreId));
+            _genreService.Setup(service => service.Delete(fakeGenreId)).Verifiable();
 
             _sut.Remove(fakeGenreId);
 
@@ -101,7 +101,7 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
-        public void GetAll_ReturnedView()
+        public void GetAll_ReturnedViewResult()
         {
             var fakeGenreDTO = new List<GenreDTO>()
             {
@@ -116,7 +116,7 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
-        public void New_ReturnView()
+        public void New_ReturnViewResult()
         {
             var res = _sut.New();
 

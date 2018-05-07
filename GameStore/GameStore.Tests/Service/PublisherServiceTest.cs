@@ -76,7 +76,7 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void AddNewPublisher_PublisherWithUniqueName_NewGameAdded()
+        public void AddNewPublisher_PublisherWithUniqueName_Verifiable()
         {
             var fakePublisherDTO = new PublisherDTO() {Id = Guid.NewGuid(), Name = "publisherUniqueName"};
             var fakePublisher = _mapper.Map<Publisher>(fakePublisherDTO);
@@ -90,17 +90,17 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void AddNewPublisher_PublisherWithoutUniqueName_ExeptionNotUniqueParameter()
+        public void AddNewPublisher_PublisherWithoutUniqueName_ReturnedFalseAddNewPublishe()
         {
             var fakePublisherDTO = new PublisherDTO() {Id = Guid.NewGuid(), Name = _fakePublisherName};
 
             _uow.Setup(uow => uow.Publishers.Get(It.IsAny<Func<Publisher, bool>>())).Returns(_fakePublishers);
 
-            Assert.Throws<NotUniqueParameter>(() => _sut.AddNew(fakePublisherDTO));
+            Assert.False(_sut.AddNew(fakePublisherDTO));
         }
 
         [Fact]
-        public void UpdatePublisher_Publisher_Publisherpdated()
+        public void UpdatePublisher_Publisher_Verifiable()
         {
             var fakePublisherDTO = new PublisherDTO() {Id = _fakePublisherId, Name = "test"};
             var fakePublisher = _mapper.Map<Publisher>(fakePublisherDTO);

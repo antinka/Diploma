@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using GameStore.Filters;
-using System.Web.Mvc;
-using AutoMapper;
+﻿using AutoMapper;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Interfaces;
+using GameStore.Filters;
 using GameStore.ViewModels;
-using GameStore.BLL.Exeption;
+using System;
+using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace GameStore.Controllers
 {
@@ -34,17 +33,14 @@ namespace GameStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                try
-                {
-                    var platformTypeDTO = _mapper.Map<PlatformTypeDTO>(platformTypeViewModel);
-                    _platformTypeService.AddNew(platformTypeDTO);
+                var platformTypeDTO = _mapper.Map<PlatformTypeDTO>(platformTypeViewModel);
+                var isAddNewPlatformType = _platformTypeService.AddNew(platformTypeDTO);
 
+                if (isAddNewPlatformType)
                     return RedirectToAction("Get", new { platformTypeName = platformTypeViewModel.Name });
-                }
-                catch (NotUniqueParameter)
-                {
-                    ModelState.AddModelError("Name", "Not Unique Parameter");
-                }
+
+                ModelState.AddModelError("Name", "Not Unique Parameter");
+
             }
 
             return View(platformTypeViewModel);

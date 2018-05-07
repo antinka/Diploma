@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using AutoMapper;
+﻿using AutoMapper;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Interfaces;
 using GameStore.ViewModels;
+using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
-using GameStore.BLL.Exeption;
 
 namespace GameStore.Controllers
 {
@@ -31,17 +30,13 @@ namespace GameStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                try
-                {
-                    var publisherDTO = _mapper.Map<PublisherDTO>(publisher);
-                    _publisherService.AddNew(publisherDTO);
+                var publisherDTO = _mapper.Map<PublisherDTO>(publisher);
+                var isAddNewPublisher = _publisherService.AddNew(publisherDTO);
 
+                if (isAddNewPublisher)
                     return RedirectToAction("Get", new { companyName = publisher.Name });
-                }
-                catch (NotUniqueParameter)
-                {
-                    ModelState.AddModelError("Name", "Not Unique Parameter");
-                }
+
+                ModelState.AddModelError("Name", "Not Unique Parameter");
             }
 
             return View(publisher);

@@ -27,7 +27,7 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
-        public void BasketInfo_ReturnView()
+        public void BasketInfo_ReturnViewResult()
         {
             var fakeUserId = Guid.Empty;
             _ordersService.Setup(service => service.GetOrder(fakeUserId)).Verifiable();
@@ -50,7 +50,7 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
-        public void AddGameToOrder_InvalidBasketViewModel_ReturnView()
+        public void AddGameToOrder_InvalidBasketViewModel_ReturnViewResult()
         {
             var fakeBasketViewModel = new BasketViewModel();
             _sut.ModelState.Add("testError", new ModelState());
@@ -73,7 +73,7 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
-        public void Pay_PaymentTypesBox_ViewResult()
+        public void Pay_PaymentTypesBox_ReturnViewResult()
         {
             var fakeUserId = Guid.Empty;
             _ordersService.Setup(service => service.GetOrder(fakeUserId)).Returns(new OrderDTO());
@@ -84,7 +84,7 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
-        public void Pay_PaymentTypesVisa_ViewResult()
+        public void Pay_PaymentTypesVisa_ReturnViewResult()
         {
             var fakeUserId = Guid.Empty;
             _ordersService.Setup(service => service.GetOrder(fakeUserId)).Returns(new OrderDTO());

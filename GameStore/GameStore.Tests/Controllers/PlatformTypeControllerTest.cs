@@ -43,7 +43,7 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
-        public void New_InvalidPlatformTypeViewModel_ReturnView()
+        public void New_InvalidPlatformTypeViewModel_ReturnViewResult()
         {
             var fakePlatformTypeViewModel = new PlatformTypeViewModel() { Name = "test" };
             _sut.ModelState.Add("testError", new ModelState());
@@ -78,7 +78,7 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
-        public void Update_InvalidUpdatePlatformType_HttpStatusCodeOK()
+        public void Update_InvalidUpdatePlatformType_ReturnViewResult()
         {
             var fakePlatformTypeViewModel = new PlatformTypeViewModel();
             _sut.ModelState.Add("testError", new ModelState());
@@ -101,7 +101,7 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
-        public void GetAll_ReturnedView()
+        public void GetAll_ReturnedViewResult()
         {
             var fakePlatformTypesDTO = new List<PlatformTypeDTO>()
             {
@@ -116,7 +116,7 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
-        public void New_ReturnView()
+        public void New_ReturnViewResult()
         {
             var res = _sut.New();
 

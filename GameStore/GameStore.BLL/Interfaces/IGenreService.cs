@@ -10,7 +10,7 @@ namespace GameStore.BLL.Interfaces
 
         IEnumerable<GenreDTO> GetAll();
 
-        void AddNew(GenreDTO genreDto);
+        bool AddNew(GenreDTO genreDto);
 
         void Update(GenreDTO genreDto);
 

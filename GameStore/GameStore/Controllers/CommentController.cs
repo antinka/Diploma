@@ -77,6 +77,7 @@ namespace GameStore.Controllers
             if (ModelState.IsValid)
             {
                 _commentService.AddComment(_mapper.Map<CommentDTO>(comment));
+
                 return RedirectToAction("GetAllCommentToGame", "Comment", new { gamekey = comment.GameKey });
             }
 
@@ -92,12 +93,9 @@ namespace GameStore.Controllers
 
                 return View(commentViewModel);
             }
-            else
-            {
-                _commentService.Delete(comment.Id);
+            _commentService.Delete(comment.Id);
 
-                return RedirectToAction("GetAllCommentToGame", "Comment", new { gamekey = comment.GameKey });
-            }
+            return RedirectToAction("GetAllCommentToGame", "Comment", new { gamekey = comment.GameKey });
         }
 
         public ActionResult Ban(Guid userId, BanPeriod? period)

@@ -6,6 +6,7 @@ using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
 using System;
 using System.Linq;
+using log4net;
 
 namespace GameStore.BLL.Service
 {
@@ -13,11 +14,13 @@ namespace GameStore.BLL.Service
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly ILog _log;
 
-        public OrdersService(IUnitOfWork uow, IMapper mapper)
+        public OrdersService(IUnitOfWork uow, IMapper mapper, ILog log)
         {
             _unitOfWork = uow;
             _mapper = mapper;
+            _log = log;
         }
 
         public OrderDTO GetOrder(Guid userId)
@@ -26,7 +29,9 @@ namespace GameStore.BLL.Service
 
             if (order == null)
             {
-                throw new EntityNotFound($"{nameof(OrdersService)} - Orders with such id user {userId} did not exist");
+                _log.Info($"{nameof(OrdersService)} - Orders with such id user {userId} did not exist");
+
+                return null;
             }
 
             var orderDTO = _mapper.Map<OrderDTO>(order);

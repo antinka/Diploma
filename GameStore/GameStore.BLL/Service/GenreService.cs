@@ -55,7 +55,7 @@ namespace GameStore.BLL.Service
             return genresDto;
         }
 
-        public void AddNew(GenreDTO genreDto)
+        public bool AddNew(GenreDTO genreDto)
         {
             var genre = _unitOfWork.Genres.Get(x => x.Name == genreDto.Name).FirstOrDefault();
 
@@ -66,10 +66,14 @@ namespace GameStore.BLL.Service
                 _unitOfWork.Save();
 
                 _log.Info($"{nameof(GenreService)} - add new genre { genreDto.Id}");
+
+                return true;
             }
             else
             {
-                throw new NotUniqueParameter($"{nameof(GenreService)} - attempt to add new genre with not unique name");
+                _log.Info($"{nameof(GenreService)} - attempt to add new genre with not unique name");
+
+                return false;
             }
         }
         private Genre TakeGenreById(Guid id)

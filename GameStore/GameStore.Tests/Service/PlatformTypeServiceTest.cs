@@ -78,7 +78,7 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void AddNewPlatformType_PlatformTypeWithUniqueName_NewGenreAdded()
+        public void AddNewPlatformType_PlatformTypeWithUniqueName_Verifiable()
         {
             var fakePlatformTypeDTO = new PlatformTypeDTO() { Id = Guid.NewGuid(), Name = "uniqueName" };
             var fakePlatformType = _mapper.Map<PlatformType>(fakePlatformTypeDTO);
@@ -92,13 +92,13 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void AddNewPlatformType_PlatformTypeWithoutUniqueName_ExeptionNotUniqueParameter()
+        public void AddNewPlatformType_PlatformTypeWithoutUniqueName_ReturnedFalseAddNewPlatformType()
         {
             var fakePlatformTypeDTO = _mapper.Map<PlatformTypeDTO>(_fakePlatformType);
 
             _uow.Setup(uow => uow.PlatformTypes.Get(It.IsAny<Func<PlatformType, bool>>())).Returns(_fakePlatformTypes);
 
-            Assert.Throws<NotUniqueParameter>(() => _sut.AddNew(fakePlatformTypeDTO));
+            Assert.False(_sut.AddNew(fakePlatformTypeDTO));
         }
 
         [Fact]

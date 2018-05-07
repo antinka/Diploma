@@ -120,9 +120,9 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Files\test.txt" />
-    <Content Include="Pictures\Bank.png" />
-    <Content Include="Pictures\Visa.png" />
-    <Content Include="Pictures\IBox.png" />
+    <Content Include="Content\Images\Bank.png" />
+    <Content Include="Content\Images\Visa.png" />
+    <Content Include="Content\Images\IBox.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -184,7 +184,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Game\GetAllGames.cshtml" />
