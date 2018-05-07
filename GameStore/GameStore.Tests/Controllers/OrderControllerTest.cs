@@ -102,13 +102,13 @@ namespace GameStore.Tests.Controllers
         {
             var fakeOrderViewModel = new OrderViewModel() {Id = Guid.NewGuid()};
 
-            var res = _sut.UpdateShipper(fakeOrderViewModel);
+            var res = _sut.UpdateShipper(fakeOrderViewModel) as RedirectToRouteResult;
 
-            Assert.Equal(typeof(RedirectToRouteResult), res.GetType());
+            Assert.Equal("BasketInfo", res.RouteValues["action"]);
         }
 
         [Fact]
-        public void FilterOrders_FilterOrder_Returned()
+        public void FilterOrders_FilterOrder_ReturnedViewResult()
         {
             var fakeFilterOrder = new FilterOrder();
 

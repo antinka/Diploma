@@ -19,7 +19,7 @@ namespace GameStore.DAL.Repositories
 
         public IEnumerable<TEntiy> GetAll()
         {
-            return _db.GetCollection<TEntiy>().AsQueryable();
+            return _db.GetCollection<TEntiy>().AsQueryable().ToList();
         }
 
         public TEntiy GetById(Guid id)
@@ -44,7 +44,7 @@ namespace GameStore.DAL.Repositories
 
         public IEnumerable<TEntiy> Get(Func<TEntiy, bool> predicate)
         {
-            return _db.GetCollection<TEntiy>().AsQueryable().AsEnumerable().Where(predicate);
+            return _db.GetCollection<TEntiy>().AsQueryable().ToList().Where(predicate);
         }
 
         public int Count()
@@ -54,7 +54,7 @@ namespace GameStore.DAL.Repositories
 
         public IEnumerable<TEntiy> Find(Func<TEntiy, bool> predicate)
         {
-            return _db.GetCollection<TEntiy>().AsQueryable().AsEnumerable().Where(predicate);
+            return _db.GetCollection<TEntiy>().AsQueryable().ToList().Where(predicate).ToList();
         }
     }
 }

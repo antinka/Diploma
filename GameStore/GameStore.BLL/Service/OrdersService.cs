@@ -125,6 +125,14 @@ namespace GameStore.BLL.Service
 
             var ordersDTO = _mapper.Map<IEnumerable<Order>, IEnumerable<OrderDTO>>(orders);
 
+            foreach (var orderDTO in ordersDTO)
+            {
+                foreach (var i in orderDTO.OrderDetails)
+                {
+                    orderDTO.Cost += i.Price;
+                }
+            }
+
             return ordersDTO;
         }
 
