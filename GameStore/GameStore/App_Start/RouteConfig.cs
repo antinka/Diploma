@@ -101,11 +101,11 @@ namespace GameStore
             );
 
             routes.MapRoute(
-                           name: "publishersNew",
-                           url: "{lang}/publishers/new",
-                           defaults: new { controller = "Publisher", action = "New", lang = "en" },
-                           constraints: new { lang = @"ru|en" }
-                       );
+                name: "publishersNew",
+                url: "{lang}/publishers/new",
+                defaults: new { controller = "Publisher", action = "New", lang = "en" },
+                constraints: new { lang = @"ru|en" }
+                );
 
             routes.MapRoute(
                 name: "editPublisher",
@@ -145,14 +145,7 @@ namespace GameStore
             routes.MapRoute(
                 name: "genres",
                 url: "{lang}/genres",
-                defaults: new { controller = "Genre", action = "GetAll", lang = "en" },
-                constraints: new { lang = @"ru|en" }
-            );
-
-            routes.MapRoute(
-                name: "getGenre",
-                url: "{lang}/genre/{Name}",
-                defaults: new { controller = "Genre", action = "Get", Name = UrlParameter.Optional, lang = "en" },
+                defaults: new { controller = "Genre", action = "GetAll", lang = "ru" },
                 constraints: new { lang = @"ru|en" }
             );
 
@@ -160,6 +153,13 @@ namespace GameStore
                 name: "newGenre",
                 url: "{lang}/genre/new",
                 defaults: new { controller = "Genre", action = "New", lang = "en" },
+                constraints: new { lang = @"ru|en" }
+            );
+
+            routes.MapRoute(
+                name: "getGenre",
+                url: "{lang}/genre/{Name}",
+                defaults: new { controller = "Genre", action = "Get", Name = UrlParameter.Optional, lang = "en" },
                 constraints: new { lang = @"ru|en" }
             );
 
@@ -173,8 +173,7 @@ namespace GameStore
             routes.MapRoute(
                 name: "Default",
                 url: "{lang}/{controller}/{action}/{id}",
-                defaults: new { controller = "Game", action = "FilteredGames", id = UrlParameter.Optional, lang = "en" },
-                constraints: new { lang = @"ru|en" }
+                defaults: new { controller = "Game", action = "FilteredGames", id = UrlParameter.Optional, lang = "ru" }
             );
         }
     }

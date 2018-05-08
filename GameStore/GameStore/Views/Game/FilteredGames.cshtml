@@ -1,4 +1,5 @@
-﻿@model GameStore.ViewModels.FilterViewModel
+﻿@using GameStore.App_LocalResources
+@model GameStore.ViewModels.FilterViewModel
 
 @using (Html.BeginForm("FilteredGames", "Game", FormMethod.Get, null))
 {
@@ -9,7 +10,7 @@
         <div class="col-xs-6 col-md-4">
             
             <p>
-                @Html.ActionLink("Create New", "New", "Game")
+                @Html.ActionLink(GlobalRes.Create, "New", "Game")
             </p>
 
             <div class="form-group">

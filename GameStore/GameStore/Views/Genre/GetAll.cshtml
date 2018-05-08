@@ -1,4 +1,6 @@
-﻿@model IEnumerable<GameStore.ViewModels.GenreViewModel>
+﻿
+@using GameStore.App_LocalResources
+@model IEnumerable<GameStore.ViewModels.GenreViewModel>
 
 @{
     ViewBag.Title = "GetAll";
@@ -7,7 +9,7 @@
 <h2>GetAll</h2>
 
 <p>
-    @Html.ActionLink("Create New", "New")
+    @Html.ActionLink(@GlobalRes.Create, "New", "Genre")
 </p>
 <table class="table">
     <tr>
