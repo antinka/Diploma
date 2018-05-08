@@ -54,7 +54,7 @@ namespace GameStore.DAL.Repositories
 
         public IEnumerable<TEntiy> Find(Func<TEntiy, bool> predicate)
         {
-            return _db.GetCollection<TEntiy>().AsQueryable().ToList().Where(predicate).ToList();
+            return _db.GetCollection<TEntiy>().AsQueryable().ToList().Where(predicate);
         }
     }
 }
