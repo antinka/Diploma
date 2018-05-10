@@ -1,13 +1,11 @@
-﻿@model IEnumerable<GameStore.ViewModels.GameViewModel>
+﻿@using GameStore.App_LocalResources
+@model IEnumerable<GameStore.ViewModels.GameViewModel>
 
 @{
     ViewBag.Title = "GetAllGames";
 }
-
-<h2>GetAllGames</h2>
-
 <p>
-    @Html.ActionLink(@GlobalRes.Create, "New","Game")
+    @Html.ActionLink(GlobalRes.Create, "New","Game")
 </p>
 <table class="table">
     <tr>
@@ -59,9 +57,9 @@
             @Html.DisplayFor(modelItem => item.Publisher.Name)
         </td>
         <td>
-            @Html.ActionLink("Details", "GetGame", new { gamekey = item.Key })
-            @Html.ActionLink("Update", "Update", new { gamekey = item.Key })
-            @Html.ActionLink("Remove", "Remove", new { gameId = item.Id })
+            @Html.ActionLink(GlobalRes.Details, "GetGame", new { gamekey = item.Key })
+            @Html.ActionLink(GlobalRes.Update, "Update", new { gamekey = item.Key })
+            @Html.ActionLink(GlobalRes.Remove, "Remove", new { gameId = item.Id })
         </td>
     </tr>
 }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using GameStore.App_LocalResources;
 
 namespace GameStore.ViewModels
 {
@@ -6,12 +8,17 @@ namespace GameStore.ViewModels
     {
         public Guid Id { get; set; }
 
+        [Display(Name = "Price", ResourceType = typeof(GlobalRes))]
         public decimal Price { get; set; }
 
         public Guid GameId { get; set; }
 
+        public GameViewModel Game { get; set; }
+
+        [Display(Name = "Quantity", ResourceType = typeof(GlobalRes))]
         public short Quantity { get; set; }
 
+        [Display(Name = "Discount", ResourceType = typeof(GlobalRes))]
         public float Discount { get; set; }
 
         public Guid OrderId { get; set; }

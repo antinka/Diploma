@@ -1,14 +1,13 @@
-﻿using GameStore.DAL.Interfaces;
+﻿using GameStore.DAL.Entities;
+using GameStore.DAL.Enums;
+using GameStore.DAL.Interfaces;
+using GameStore.DAL.Mongo;
+using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
-using GameStore.DAL.Entities;
-using GameStore.DAL.Enums;
-using GameStore.DAL.Mongo;
-using log4net;
-using MongoDB.Bson;
 
 namespace GameStore.DAL.Repositories
 {

@@ -11,7 +11,7 @@ namespace GameStore.Controllers
 {
     [TrackRequestIp]
     [ExceptionFilter]
-    public class GenreController : Controller
+    public class GenreController : BaseController
     {
         private readonly IGenreService _genreService;
         private readonly IMapper _mapper;

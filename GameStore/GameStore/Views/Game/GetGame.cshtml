@@ -1,13 +1,10 @@
-﻿@model GameStore.ViewModels.GameViewModel
+﻿@using GameStore.App_LocalResources
+@model GameStore.ViewModels.GameViewModel
 
 @{
     ViewBag.Title = "GetGame";
 }
-
-<h2>GetGame</h2>
-
 <div>
-    <h4>GameViewModel</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -95,9 +92,9 @@
 <p>
     @if (Model.PublisherId != null)
     {
-        @Html.ActionLink("Publisher", "Get", "Publisher", new { companyName = Model.Publisher.Name }, null) @:|
+        @Html.ActionLink(GlobalRes.Publisher, "Get", "Publisher", new { companyName = Model.Publisher.Name }, null) @:|
     }
-    @Html.ActionLink("Download", "Download", new {gamekey = Model.Id})|
-    @Html.ActionLink("Buy", "AddGameToOrder", "Order", new {gameId = Model.Id, unitsInStock = Model.UnitsInStock}, null)|
-    @Html.ActionLink("Comment", "GetAllCommentToGame", "Comment", new {gamekey = Model.Key}, null)
+    @Html.ActionLink(GlobalRes.Download, "Download", new {gamekey = Model.Id})|
+    @Html.ActionLink(GlobalRes.Buy, "AddGameToOrder", "Order", new {gameId = Model.Id, unitsInStock = Model.UnitsInStock}, null)|
+    @Html.ActionLink(GlobalRes.Comment, "GetAllCommentToGame", "Comment", new {gamekey = Model.Key}, null)
 </p>

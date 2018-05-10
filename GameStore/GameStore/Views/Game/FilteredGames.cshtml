@@ -8,7 +8,6 @@
             @Html.Action("GamesFilters", "Game", Model)
         </div>
         <div class="col-xs-6 col-md-4">
-            
             <p>
                 @Html.ActionLink(GlobalRes.Create, "New", "Game")
             </p>
@@ -88,9 +87,9 @@
                             @Html.DisplayFor(modelItem => item.Publisher.Name)
                         </td>
                         <td>
-                            @Html.ActionLink("Details", "GetGame", new { gamekey = item.Key })
-                            @Html.ActionLink("Update", "Update", new { gamekey = item.Key })
-                            @Html.ActionLink("Remove", "Remove", new { gameId = item.Id })
+                            @Html.ActionLink(GlobalRes.Details, "GetGame", new { gamekey = item.Key })
+                            @Html.ActionLink(GlobalRes.Update, "Update", new { gamekey = item.Key })
+                            @Html.ActionLink(GlobalRes.Remove, "Remove", new { gameId = item.Id })
                         </td>
                     </tr>
 

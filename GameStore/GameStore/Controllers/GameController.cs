@@ -13,7 +13,7 @@ namespace GameStore.Controllers
 {
     [TrackRequestIp]
     [ExceptionFilter]
-    public class GameController : Controller
+    public class GameController : BaseController
     {
         private readonly IGameService _gameService;
         private readonly IGenreService _genreService;

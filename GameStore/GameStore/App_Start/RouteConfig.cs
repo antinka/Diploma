@@ -92,14 +92,7 @@ namespace GameStore
                 defaults: new { controller = "Publisher", action = "GetAll", lang = "en" },
                 constraints: new { lang = @"ru|en" }
             );
-
-            routes.MapRoute(
-                name: "getPublisher",
-                url: "{lang}/publisher/{Name}",
-                defaults: new { controller = "Publisher", action = "Get", Name = UrlParameter.Optional, lang = "en" },
-                constraints: new { lang = @"ru|en" }
-            );
-
+   
             routes.MapRoute(
                 name: "publishersNew",
                 url: "{lang}/publishers/new",
@@ -115,16 +108,16 @@ namespace GameStore
             );
 
             routes.MapRoute(
-                name: "platformTypes",
-                url: "{lang}/platformTypes",
-                defaults: new { controller = "PlatformType", action = "GetAll", lang = "en" },
+                name: "getPublisher",
+                url: "{lang}/publisher/{Name}",
+                defaults: new { controller = "Publisher", action = "Get", Name = UrlParameter.Optional, lang = "en" },
                 constraints: new { lang = @"ru|en" }
             );
 
             routes.MapRoute(
-                name: "getPlatformType",
-                url: "{lang}/platformType/{Name}",
-                defaults: new { controller = "PlatformType", action = "Get", Name = UrlParameter.Optional, lang = "en" },
+                name: "platformTypes",
+                url: "{lang}/platformTypes",
+                defaults: new { controller = "PlatformType", action = "GetAll", lang = "en" },
                 constraints: new { lang = @"ru|en" }
             );
 
@@ -143,6 +136,13 @@ namespace GameStore
             );
 
             routes.MapRoute(
+                name: "getPlatformType",
+                url: "{lang}/platformType/{Name}",
+                defaults: new { controller = "PlatformType", action = "Get", Name = UrlParameter.Optional, lang = "en" },
+                constraints: new { lang = @"ru|en" }
+            );
+
+            routes.MapRoute(
                 name: "genres",
                 url: "{lang}/genres",
                 defaults: new { controller = "Genre", action = "GetAll", lang = "ru" },
@@ -157,16 +157,16 @@ namespace GameStore
             );
 
             routes.MapRoute(
-                name: "getGenre",
-                url: "{lang}/genre/{Name}",
-                defaults: new { controller = "Genre", action = "Get", Name = UrlParameter.Optional, lang = "en" },
+                name: "editGenre",
+                url: "{lang}/genre/update/{Name}",
+                defaults: new { controller = "Genre", action = "Update", Name = UrlParameter.Optional, lang = "en" },
                 constraints: new { lang = @"ru|en" }
             );
 
             routes.MapRoute(
-                name: "editGenre",
-                url: "{lang}/genre/update/{Name}",
-                defaults: new { controller = "Genre", action = "Update", Name = UrlParameter.Optional, lang = "en" },
+                name: "getGenre",
+                url: "{lang}/genre/{Name}",
+                defaults: new { controller = "Genre", action = "Get", Name = UrlParameter.Optional, lang = "en" },
                 constraints: new { lang = @"ru|en" }
             );
 

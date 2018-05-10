@@ -132,6 +132,16 @@
     <Compile Include="Interfaces\IPlatformTypeService.cs" />
     <Compile Include="Interfaces\IPublisherService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\EnumRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EnumRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\EnumRes.en.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EnumRes.en.resx</DependentUpon>
+    </Compile>
     <Compile Include="Service\CommentService.cs" />
     <Compile Include="Service\GameService.cs" />
     <Compile Include="Service\GenreService.cs" />
@@ -148,6 +158,16 @@
       <Project>{36F7A06D-95A3-4D75-8FE1-284806F45845}</Project>
       <Name>GameStore.DAL</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\EnumRes.en.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EnumRes.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\EnumRes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EnumRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,4 +1,5 @@
 ﻿@using System.Web.Mvc.Html
+@using GameStore.App_LocalResources
 @using MvcCheckBoxList.Model
 @model GameStore.ViewModels.GameViewModel
 
@@ -6,14 +7,14 @@
     ViewBag.Title = "Update";
 }
 
-<h2>Update</h2>
+<h2>@GlobalRes.Update</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>GameViewModel</h4>
+
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
@@ -91,12 +92,12 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value= GlobalRes.Save class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to games", "GetAllGames")
+    @Html.ActionLink(GlobalRes.BackToGames, "GetAllGames")
 </div>

@@ -11,7 +11,7 @@ namespace GameStore.Controllers
 {
     [TrackRequestIp]
     [ExceptionFilter]
-    public class PlatformTypeController : Controller
+    public class PlatformTypeController : BaseController
     {
         private readonly IPlatformTypeService _platformTypeService;
         private readonly IMapper _mapper;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.UI.WebControls;
+using GameStore.App_LocalResources;
 
 namespace GameStore.ViewModels
 {
@@ -11,23 +12,23 @@ namespace GameStore.ViewModels
 
         public PagingInfo PagingInfo { get; set; }
 
-        [Display(Name = "Sort Date")]
+        [Display(Name = "SortDate", ResourceType = typeof(GlobalRes))]
         public SortDate SortDate { get; set; }
 
-        [Display(Name = "Sort Type")]
+        [Display(Name = "SortType", ResourceType = typeof(GlobalRes))]
         public SortType SortType { get; set; }
 
-        [Display(Name = "Page Size")]
+        [Display(Name = "PageSize", ResourceType = typeof(GlobalRes))]
         public PageSize PageSize { get; set; }
 
-        [Display(Name = "Search Game Name")]
+        [Display(Name = "SearchGameName", ResourceType = typeof(GlobalRes))]
         [MinLength(3)]
         public string SearchGameName { get; set; }
 
-        [Display(Name = "Min Price")]
+        [Display(Name = "MinPrice", ResourceType = typeof(GlobalRes))]
         public decimal? MinPrice { get; set; }
 
-        [Display(Name = "Max Price")]
+        [Display(Name = "MaxPrice", ResourceType = typeof(GlobalRes))]
         public decimal? MaxPrice { get; set; }
 
         public IEnumerable<CheckBox> ListGenres { get; set; }

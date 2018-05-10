@@ -13,7 +13,7 @@ namespace GameStore.Controllers
 {
     [TrackRequestIp]
     [ExceptionFilter]
-    public class CommentController : Controller
+    public class CommentController : BaseController
     {
         private readonly ICommentService _commentService;
         private readonly IGameService _gameService;

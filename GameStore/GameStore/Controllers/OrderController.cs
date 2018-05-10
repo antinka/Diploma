@@ -10,7 +10,7 @@ using GameStore.BLL.DTO;
 
 namespace GameStore.Controllers
 {
-    public class OrderController : Controller
+    public class OrderController : BaseController
     {
         private readonly IOrdersService _ordersService;
         private readonly IMapper _mapper;

@@ -1,17 +1,17 @@
-﻿@model GameStore.ViewModels.GenreViewModel
+﻿@using GameStore.App_LocalResources
+@model GameStore.ViewModels.GenreViewModel
 
 @{
     ViewBag.Title = "Update";
 }
 
-<h2>Update</h2>
+<h2>@GlobalRes.Update</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>GenreViewModel</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
@@ -33,7 +33,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value=@GlobalRes.Save class="btn btn-default" />
             </div>
         </div>
     </div>

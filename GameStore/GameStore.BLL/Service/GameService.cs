@@ -48,12 +48,10 @@ namespace GameStore.BLL.Service
 
                 return true;
             }
-            else
-            {
-                _log.Info($"{nameof(GameService)} - attempt to add new game with not unique key");
 
-                return false;
-            }
+            _log.Info($"{nameof(GameService)} - attempt to add new game with not unique key");
+
+            return false;
         }
 
         private Game TakeGameById(Guid id)
@@ -111,10 +109,8 @@ namespace GameStore.BLL.Service
             {
                 throw new EntityNotFound($"{nameof(GameService)} - game with such gamekey {gamekey} did not exist");
             }
-            else
-            {
-                return _mapper.Map<GameDTO>(game);
-            }
+
+            return _mapper.Map<GameDTO>(game);
         }
 
         public GameDTO GetById(Guid id)
@@ -167,7 +163,7 @@ namespace GameStore.BLL.Service
 
         public IEnumerable<GameDTO> GetGamesByFilter(FilterDTO filter, int page = 1, PageSize pageSize = PageSize.Twenty)
         {
-            GamePipeline gamePipeline = new GamePipeline();
+            var gamePipeline = new GamePipeline();
             RegisterFilter(gamePipeline, filter, page, pageSize);
             var filterGames = gamePipeline.Process(_unitOfWork.Games.GetAll());
 
