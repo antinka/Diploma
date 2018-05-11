@@ -66,6 +66,9 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MvcCheckBoxList, Version=1.4.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvcCheckBoxList.1.4.5\lib\net45\MvcCheckBoxList.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -119,7 +122,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
-    <Content Include="Files\test.txt" />
+    <None Include="Files\test.pdf" />
     <Content Include="Content\Images\Bank.png" />
     <Content Include="Content\Images\Visa.png" />
     <Content Include="Content\Images\IBox.png" />
@@ -219,6 +222,8 @@
     <Content Include="Views\Genre\Get.cshtml" />
     <Content Include="Views\Genre\GetAll.cshtml" />
     <Content Include="Views\Genre\Update.cshtml" />
+    <Content Include="Views\Order\CountGamesInOrder.cshtml" />
+    <Content Include="Views\Order\Added.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -14,7 +14,7 @@ namespace GameStore.ViewModels
         [Display(Name = "Parent genre name")]
         public string ParentGenreName { get; set; }
 
-        [MaxLength(450)]
+        [StringLength(200, MinimumLength = 3, ErrorMessage = "Name cannot be longer than 200 characters and less than 3 characters")]
         [Required]
         public string Name { get; set; }
 

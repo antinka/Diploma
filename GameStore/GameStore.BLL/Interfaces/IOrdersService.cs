@@ -8,5 +8,7 @@ namespace GameStore.BLL.Interfaces
         OrderDTO GetOrder(Guid userId);
 
         void AddNewOrderDetails(Guid userId, Guid gameId, short quantity);
+
+        int CountGamesInOrder(Guid userId);
     }
 }

@@ -12,10 +12,12 @@ namespace GameStore.BLL.Interfaces
 
         bool AddNew(GenreDTO genreDto);
 
-        void Update(GenreDTO genreDto);
+        bool Update(GenreDTO genreDto);
 
         void Delete(Guid id);
 
         GenreDTO GetByName(string name);
+
+        bool IsPossibleRelation(GenreDTO genreDto);
     }
 }

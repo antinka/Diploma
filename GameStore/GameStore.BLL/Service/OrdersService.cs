@@ -50,7 +50,7 @@ namespace GameStore.BLL.Service
 
             if (game != null)
             {
-                var order = _unitOfWork.Orders.Get(x => x.UserId == userId).FirstOrDefault();
+                var order = _unitOfWork.Orders.Get(o => o.UserId == userId).FirstOrDefault();
 
                 if (order == null)
                 {
@@ -65,6 +65,13 @@ namespace GameStore.BLL.Service
             {
                 throw new EntityNotFound($"{nameof(OrdersService)} - game with such id  {gameId} did not exist");
             }
+        }
+
+        public int CountGamesInOrder(Guid userId)
+        {
+            var order = _unitOfWork.Orders.Get(o => o.UserId == userId).FirstOrDefault();
+
+            return order.OrderDetails.Aggregate(0, (current, game) => current + game.Quantity);
         }
 
         private void CreateNewOrderWithOrderDetails(Game game, Guid userId, Guid gameId, short quantity)

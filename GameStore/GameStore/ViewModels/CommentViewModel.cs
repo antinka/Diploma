@@ -19,6 +19,8 @@ namespace GameStore.ViewModels
 
         public Guid? ParentCommentId { get; set; }
 
+        public string ParentCommentBody { get; set; }
+
         public Guid GameId { get; set; }
 
         public string GameKey { get; set; }

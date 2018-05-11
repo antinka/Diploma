@@ -45,7 +45,7 @@ namespace GameStore.BLL.Service
 
         public bool AddNew(PlatformTypeDTO platformTypeDto)
         {
-            var platformType = _unitOfWork.PlatformTypes.Get(x => x.Name == platformTypeDto.Name).FirstOrDefault();
+            var platformType = _unitOfWork.PlatformTypes.Get(p => p.Name == platformTypeDto.Name).FirstOrDefault();
 
             if (platformType == null)
             {
@@ -63,15 +63,6 @@ namespace GameStore.BLL.Service
 
                 return false;
             }
-        }
-        private PlatformType TakPlatformTypeById(Guid id)
-        {
-            var platformType = _unitOfWork.PlatformTypes.GetById(id);
-
-            if (platformType == null)
-                throw new EntityNotFound($"{nameof(PlatformTypeService)} - platformType with such id {id} did not exist");
-
-            return platformType;
         }
 
         public void Update(PlatformTypeDTO platformTypeDto)
@@ -98,7 +89,7 @@ namespace GameStore.BLL.Service
 
         public PlatformTypeDTO GetByName(string name)
         {
-            var platformType = _unitOfWork.PlatformTypes.Get(x => x.Name == name).FirstOrDefault();
+            var platformType = _unitOfWork.PlatformTypes.Get(p => p.Name == name).FirstOrDefault();
 
             if (platformType == null)
             {
@@ -106,6 +97,16 @@ namespace GameStore.BLL.Service
             }
 
             return _mapper.Map<PlatformTypeDTO>(platformType);
+        }
+
+        private PlatformType TakPlatformTypeById(Guid id)
+        {
+            var platformType = _unitOfWork.PlatformTypes.GetById(id);
+
+            if (platformType == null)
+                throw new EntityNotFound($"{nameof(PlatformTypeService)} - platformType with such id {id} did not exist");
+
+            return platformType;
         }
     }
 }

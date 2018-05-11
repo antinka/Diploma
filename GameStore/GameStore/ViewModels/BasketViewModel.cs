@@ -8,6 +8,8 @@ namespace GameStore.ViewModels
         [Required]
         public Guid GameId { get; set; }
 
+        public string GameName { get; set; }
+
         [Required]
         public Guid UserId { get; set; }
 

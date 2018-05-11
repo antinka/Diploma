@@ -46,7 +46,7 @@ namespace GameStore.Controllers
                 if (isAddNewGenre)
                     return RedirectToAction("Get", new { genreName = genreViewModel.Name });
 
-                ModelState.AddModelError("Name", "Not Unique Parameter");
+                ModelState.AddModelError("Name", "Genre with such name already exist, please enter another name");
             }
 
             var genres = _mapper.Map<IEnumerable<GenreViewModel>>(_genreService.GetAll());
@@ -98,9 +98,25 @@ namespace GameStore.Controllers
             if (ModelState.IsValid)
             {
                 var genreDto = _mapper.Map<GenreDTO>(genreViewModel);
-                _genreService.Update(genreDto);
+                var isPossibleRelation = true;
 
-                return RedirectToAction("GetAll");
+                if (genreViewModel.ParentGenreId != null)
+                {
+                    isPossibleRelation = _genreService.IsPossibleRelation(genreDto);
+
+                    if (!isPossibleRelation)
+                        ModelState.AddModelError("", "such relation could not exist");
+                }
+
+                if (isPossibleRelation)
+                {
+                    var isUpdateGenre = _genreService.Update(genreDto);
+
+                    if (isUpdateGenre)
+                        return RedirectToAction("GetAll");
+
+                    ModelState.AddModelError("Name", "Genre with such name already exist, please enter another name");
+                }
             }
 
             var genres = _mapper.Map<IEnumerable<GenreViewModel>>(_genreService.GetAll());

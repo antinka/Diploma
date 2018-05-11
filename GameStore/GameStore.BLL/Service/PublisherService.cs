@@ -65,16 +65,6 @@ namespace GameStore.BLL.Service
             return _mapper.Map<IEnumerable<PublisherDTO>>(publishers);
         }
 
-        private Publisher TakePublisherById(Guid id)
-        {
-            var publisher = _unitOfWork.Publishers.GetById(id);
-
-            if (publisher == null)
-                throw new EntityNotFound($"{nameof(PublisherService)} - publisher with such id {id} did not exist");
-
-            return publisher;
-        }
-
         public void Update(PublisherDTO publisherDTO)
         {
             TakePublisherById(publisherDTO.Id);
@@ -95,6 +85,16 @@ namespace GameStore.BLL.Service
             _unitOfWork.Save();
 
             _log.Info($"{nameof(PublisherService)} - delete publisher {id}");
+        }
+
+        private Publisher TakePublisherById(Guid id)
+        {
+            var publisher = _unitOfWork.Publishers.GetById(id);
+
+            if (publisher == null)
+                throw new EntityNotFound($"{nameof(PublisherService)} - publisher with such id {id} did not exist");
+
+            return publisher;
         }
     }
 }

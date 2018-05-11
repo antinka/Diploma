@@ -36,7 +36,7 @@ namespace GameStore.Controllers
                 if (isAddNewPublisher)
                     return RedirectToAction("Get", new { companyName = publisher.Name });
 
-                ModelState.AddModelError("Name", "Not Unique Parameter");
+                ModelState.AddModelError("Name", "Publisher with such name already exist, please enter another name");
             }
 
             return View(publisher);

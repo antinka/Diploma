@@ -60,6 +60,7 @@ namespace GameStore.Controllers
             if (parentsCommentId != null)
             {
                 comment.ParentCommentId = parentsCommentId.Value;
+                comment.ParentCommentBody = _commentService.GetById(parentsCommentId.Value).Body;
             }
 
             if (!string.IsNullOrEmpty(quote))

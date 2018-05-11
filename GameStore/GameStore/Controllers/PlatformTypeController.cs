@@ -39,7 +39,7 @@ namespace GameStore.Controllers
                 if (isAddNewPlatformType)
                     return RedirectToAction("Get", new { platformTypeName = platformTypeViewModel.Name });
 
-                ModelState.AddModelError("Name", "Not Unique Parameter");
+                ModelState.AddModelError("Name", "Platform type with such name already exist, please enter another name");
             }
 
             return View(platformTypeViewModel);

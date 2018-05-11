@@ -50,23 +50,10 @@ namespace GameStore.Controllers
                 if (isAddNewGame)
                     return RedirectToAction("GetAllGames");
 
-                ModelState.AddModelError("Key", "Not Unique Parameter");
+                ModelState.AddModelError("Key", "Game with such key already exist, please enter another name");
             }
 
             return View(GameInit(game));
-        }
-
-        private GameViewModel GameInit(GameViewModel game)
-        {
-            var genres = _mapper.Map<IEnumerable<GenreViewModel>>(_genreService.GetAll());
-            var platformTypes = _mapper.Map<IEnumerable<PlatformTypeViewModel>>(_platformTypeService.GetAll());
-            var publishers = _mapper.Map<IEnumerable<PublisherViewModel>>(_publisherService.GetAll());
-
-            game.GenreList = new SelectList(genres, "Id", "Name");
-            game.PlatformTypeList = new SelectList(platformTypes, "Id", "Name");
-            game.PublisherList = new SelectList(publishers, "Id", "Name");
-
-            return game;
         }
 
         [HttpGet]
@@ -81,31 +68,6 @@ namespace GameStore.Controllers
             gameForView.PublisherList = new SelectList(publishers, "Id", "Name");
 
             return View(gameForView);
-        }
-
-        private GameViewModel GetGameViewModel(GameViewModel gameViewModel)
-        {
-            var genrelist = _mapper.Map<IEnumerable<GenreViewModel>>(_genreService.GetAll());
-            var platformlist = _mapper.Map<IEnumerable<PlatformTypeViewModel>>(_platformTypeService.GetAll());
-
-            var listGenreBoxs = new List<CheckBox>();
-            genrelist.ToList().ForEach(genre => listGenreBoxs.Add(new CheckBox() { Text = genre.Name }));
-            gameViewModel.ListGenres = listGenreBoxs;
-
-            var listPlatformBoxs = new List<CheckBox>();
-            platformlist.ToList().ForEach(platform => listPlatformBoxs.Add(new CheckBox() { Text = platform.Name }));
-            gameViewModel.ListPlatformTypes = listPlatformBoxs;
-
-            if (gameViewModel.Genres != null)
-            {
-                gameViewModel.SelectedGenres = gameViewModel.ListGenres.Where(x => gameViewModel.Genres.Any(g => g.Name.Contains(x.Text)));
-            }
-            if (gameViewModel.PlatformTypes != null)
-            {
-                gameViewModel.SelectedPlatformTypes = gameViewModel.ListPlatformTypes.Where(x => gameViewModel.PlatformTypes.Any(g => g.Name.Contains(x.Text)));
-            }
-
-            return gameViewModel;
         }
 
         [HttpPost]
@@ -143,7 +105,7 @@ namespace GameStore.Controllers
             return View(gamesForView);
         }
 
-        [OutputCache(Duration = 60)]
+        [HttpPost]
         public ActionResult Remove(Guid gameId)
         {
             _gameService.Delete(gameId);
@@ -153,21 +115,58 @@ namespace GameStore.Controllers
 
         [OutputCache(Duration = 60)]
         [HttpGet]
-        public FileResult Download(Guid gamekey)
+        public ActionResult Download(Guid gamekey)
         {
-            var path = Server.MapPath("~/Files/test.txt");
+            var path = Server.MapPath("~/Files/test.pdf");
             var mas = System.IO.File.ReadAllBytes(path);
-            var fileType = "application/txt";
-            var fileName = "test.txt";
 
-            return File(mas, fileType, fileName);
+            return File(mas, "application/pdf");
         }
 
+        [OutputCache(Duration = 60)]
         public ActionResult CountGames()
         {
             var gameCount = _gameService.GetCountGame();
 
             return PartialView("CountGames", gameCount);
+        }
+
+        private GameViewModel GameInit(GameViewModel game)
+        {
+            var genres = _mapper.Map<IEnumerable<GenreViewModel>>(_genreService.GetAll());
+            var platformTypes = _mapper.Map<IEnumerable<PlatformTypeViewModel>>(_platformTypeService.GetAll());
+            var publishers = _mapper.Map<IEnumerable<PublisherViewModel>>(_publisherService.GetAll());
+
+            game.GenreList = new SelectList(genres, "Id", "Name");
+            game.PlatformTypeList = new SelectList(platformTypes, "Id", "Name");
+            game.PublisherList = new SelectList(publishers, "Id", "Name");
+
+            return game;
+        }
+
+        private GameViewModel GetGameViewModel(GameViewModel gameViewModel)
+        {
+            var genrelist = _mapper.Map<IEnumerable<GenreViewModel>>(_genreService.GetAll());
+            var platformlist = _mapper.Map<IEnumerable<PlatformTypeViewModel>>(_platformTypeService.GetAll());
+
+            var listGenreBoxs = new List<CheckBox>();
+            genrelist.ToList().ForEach(genre => listGenreBoxs.Add(new CheckBox() { Text = genre.Name }));
+            gameViewModel.ListGenres = listGenreBoxs;
+
+            var listPlatformBoxs = new List<CheckBox>();
+            platformlist.ToList().ForEach(platform => listPlatformBoxs.Add(new CheckBox() { Text = platform.Name }));
+            gameViewModel.ListPlatformTypes = listPlatformBoxs;
+
+            if (gameViewModel.Genres != null)
+            {
+                gameViewModel.SelectedGenres = gameViewModel.ListGenres.Where(x => gameViewModel.Genres.Any(g => g.Name.Contains(x.Text)));
+            }
+            if (gameViewModel.PlatformTypes != null)
+            {
+                gameViewModel.SelectedPlatformTypes = gameViewModel.ListPlatformTypes.Where(x => gameViewModel.PlatformTypes.Any(g => g.Name.Contains(x.Text)));
+            }
+
+            return gameViewModel;
         }
     }
 }

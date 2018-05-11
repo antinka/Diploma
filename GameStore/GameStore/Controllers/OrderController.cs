@@ -11,13 +11,15 @@ namespace GameStore.Controllers
     public class OrderController : Controller
     {
         private readonly IOrdersService _ordersService;
+        private readonly IGameService _gameService;
         private readonly IMapper _mapper;
 
         private IPayment payment { get; set; }
 
-        public OrderController(IOrdersService ordersService, IMapper mapper)
+        public OrderController(IOrdersService ordersService, IGameService gameService, IMapper mapper)
         {
             _ordersService = ordersService;
+            _gameService = gameService;
             _mapper = mapper;
         }
 
@@ -35,15 +37,18 @@ namespace GameStore.Controllers
         }
 
         [HttpGet]
-        public ActionResult AddGameToOrder(Guid gameId, short unitsInStock)
+        public ActionResult AddGameToOrder(string gameKey)
         {
             var userId = Guid.Empty;
+
+            var game = _gameService.GetByKey(gameKey);
 
             var basket = new BasketViewModel()
             {
                 UserId = userId,
-                GameId = gameId,
-                UnitsInStock = unitsInStock
+                GameId = game.Id,
+                UnitsInStock = game.UnitsInStock,
+                GameName = game.Name
             };
 
             return View(basket);
@@ -56,10 +61,19 @@ namespace GameStore.Controllers
             {
                 _ordersService.AddNewOrderDetails(basket.UserId, basket.GameId, basket.Quantity);
 
-                return RedirectToAction("BasketInfo");
+                return View("Added");
             }
 
             return View(basket);
+        }
+
+        public ActionResult CountGamesInOrder()
+        {
+            var userId = Guid.Empty;
+
+            var gameCount = _ordersService.CountGamesInOrder(userId);
+
+            return PartialView("CountGamesInOrder", gameCount);
         }
 
         [HttpGet]

@@ -29,7 +29,7 @@ namespace GameStore.BLL.Service
 
         public bool AddNew(GameDTO gameDto)
         {
-            var game = _unitOfWork.Games.Get(x => x.Key == gameDto.Key).FirstOrDefault();
+            var game = _unitOfWork.Games.Get(g => g.Key == gameDto.Key).FirstOrDefault();
 
             if (game == null)
             {
@@ -52,16 +52,6 @@ namespace GameStore.BLL.Service
 
                 return false;
             }
-        }
-
-        private Game TakeGameById(Guid id)
-        {
-            var game = _unitOfWork.Games.GetById(id);
-
-            if (game == null)
-                throw new EntityNotFound($"{nameof(GameService)} - game with such id {id} did not exist");
-
-            return game;
         }
 
         public void Delete(Guid id)
@@ -158,6 +148,16 @@ namespace GameStore.BLL.Service
         public int GetCountGame()
         {
             return _unitOfWork.Games.Count();
+        }
+
+        private Game TakeGameById(Guid id)
+        {
+            var game = _unitOfWork.Games.GetById(id);
+
+            if (game == null)
+                throw new EntityNotFound($"{nameof(GameService)} - game with such id {id} did not exist");
+
+            return game;
         }
     }
 }

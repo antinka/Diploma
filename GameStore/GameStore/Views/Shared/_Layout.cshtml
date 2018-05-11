@@ -25,7 +25,8 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li style="color: aliceblue">@Html.Action("CountGames", "Game") </li>
-                    <li> @Html.ActionLink("BasketInfo", "BasketInfo", "Order")</li>
+                    <li> @Html.ActionLink("Basket Info", "BasketInfo", "Order")</li>
+                    <li style="color: aliceblue">@Html.Action("CountGamesInOrder", "Order") </li>
                     <li> @Html.ActionLink("Publishers", "GetAll", "Publisher")</li>
                     <li> @Html.ActionLink("Platform Types", "GetAll", "PlatformType")</li>
                     <li> @Html.ActionLink("Genres", "GetAll", "Genre")</li>
@@ -38,7 +39,6 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
 

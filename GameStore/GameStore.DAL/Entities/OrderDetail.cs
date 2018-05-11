@@ -15,6 +15,7 @@ namespace GameStore.DAL.Entities
         [Column(TypeName = "SMALLINT")]
         public short Quantity { get; set; }
 
+        [Column(TypeName = "REAl")]
         public float Discount { get; set; }
 
         [ForeignKey("Order")]
