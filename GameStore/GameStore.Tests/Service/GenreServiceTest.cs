@@ -88,6 +88,7 @@ namespace GameStore.Tests.Service
             {
                 _fakeGenre
             };
+
             _uow.Setup(uow => uow.Genres.Get(It.IsAny<Func<Genre, bool>>())).Returns(fakeGenres);
 
             var result = _sut.GetByName(_fakeGenreName);
@@ -120,9 +121,14 @@ namespace GameStore.Tests.Service
         [Fact]
         public void AddNewGenre_GenreWithoutUniqueName_ReturnedFalseAddNewGenre()
         {
+            var fakeGenres = new List<Genre>()
+            {
+                new Genre(){ Name = _fakeGenreName }
+            };
+
             var fakeGenreDTO = _mapper.Map<GenreDTO>(_fakeGenre);
 
-            _uow.Setup(uow => uow.Genres.Get(It.IsAny<Func<Genre, bool>>())).Returns(_fakeGenres);
+            _uow.Setup(uow => uow.Genres.Get(It.IsAny<Func<Genre, bool>>())).Returns(fakeGenres);
 
             Assert.False(_sut.AddNew(fakeGenreDTO));
         }

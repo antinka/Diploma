@@ -12,7 +12,7 @@ namespace GameStore.BLL.Interfaces
 
         bool AddNew(PlatformTypeDTO platformTypeDto);
 
-        void Update(PlatformTypeDTO platformTypeDto);
+        bool Update(PlatformTypeDTO platformTypeDto);
 
         void Delete(Guid id);
 

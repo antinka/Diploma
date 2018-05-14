@@ -105,8 +105,12 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Download", "Download", new { gamekey = Model.Key }, new { target = "_blank" })|
-    @Html.ActionLink("Buy", "AddGameToOrder", "Order", new { gamekey = Model.Key }, null)
+    @Html.ActionLink("Download", "Download", new { gamekey = Model.Key }, new { target = "_blank" })
+    @if (Model.UnitsInStock > 0)
+    {
+        @:|
+        @Html.ActionLink("Buy", "AddGameToOrder", "Order", new { gamekey = Model.Key }, null)
+    }
     <br />
     <br />
     @Html.Action("GetAllCommentToGame", "Comment", new { gamekey = Model.Key })

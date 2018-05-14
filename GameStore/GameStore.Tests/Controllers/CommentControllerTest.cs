@@ -53,8 +53,8 @@ namespace GameStore.Tests.Controllers
 
             var res = _sut.Delete(null, new CommentViewModel()) as RedirectToRouteResult;
 
-            Assert.Equal("Comment", res.RouteValues["controller"]);
-            Assert.Equal("GetAllCommentToGame", res.RouteValues["action"]);
+            Assert.Equal("Game", res.RouteValues["controller"]);
+            Assert.Equal("GetGame", res.RouteValues["action"]);
         }
 
         [Fact]
@@ -100,8 +100,8 @@ namespace GameStore.Tests.Controllers
 
             var res = _sut.CommentToGame(fakeCommentViewModel) as RedirectToRouteResult;
 
-            Assert.Equal("Comment", res.RouteValues["controller"]);
-            Assert.Equal("GetAllCommentToGame", res.RouteValues["action"]);
+            Assert.Equal("Game", res.RouteValues["controller"]);
+            Assert.Equal("GetGame", res.RouteValues["action"]);
         }
     }
 }

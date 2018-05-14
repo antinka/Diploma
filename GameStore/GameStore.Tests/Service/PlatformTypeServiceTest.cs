@@ -94,9 +94,13 @@ namespace GameStore.Tests.Service
         [Fact]
         public void AddNewPlatformType_PlatformTypeWithoutUniqueName_ReturnedFalseAddNewPlatformType()
         {
+            var fakePlatformTypes = new List<PlatformType>()
+            {
+                new PlatformType(){Name = _fakePlatformTypeName}
+            };
             var fakePlatformTypeDTO = _mapper.Map<PlatformTypeDTO>(_fakePlatformType);
 
-            _uow.Setup(uow => uow.PlatformTypes.Get(It.IsAny<Func<PlatformType, bool>>())).Returns(_fakePlatformTypes);
+            _uow.Setup(uow => uow.PlatformTypes.Get(It.IsAny<Func<PlatformType, bool>>())).Returns(fakePlatformTypes);
 
             Assert.False(_sut.AddNew(fakePlatformTypeDTO));
         }

@@ -61,28 +61,27 @@ namespace GameStore.Controllers
             {
                 comment.ParentCommentId = parentsCommentId.Value;
                 comment.ParentCommentBody = _commentService.GetById(parentsCommentId.Value).Body;
-            }
+             }
 
             if (!string.IsNullOrEmpty(quote))
             {
                 comment.Quote = quote;
             }
 
-            return PartialView(comment);
+            return View(comment);
         }
 
         [HttpPost]
         public ActionResult CommentToGame(CommentViewModel comment)
         {
-
             if (ModelState.IsValid)
             {
-                _commentService.AddComment(_mapper.Map<CommentDTO>(comment));
+                 _commentService.AddComment(_mapper.Map<CommentDTO>(comment));
 
-                return RedirectToAction("GetAllCommentToGame", "Comment", new { gamekey = comment.GameKey });
+                return RedirectToAction("GetGame", "Game", new { gamekey = comment.GameKey });
             }
 
-            return PartialView(comment);
+            return View(comment);
         }
 
         public ActionResult Delete(Guid? commentId, CommentViewModel comment)
@@ -96,7 +95,7 @@ namespace GameStore.Controllers
             }
             _commentService.Delete(comment.Id);
 
-            return RedirectToAction("GetAllCommentToGame", "Comment", new { gamekey = comment.GameKey });
+            return RedirectToAction("GetGame", "Game", new { gamekey = comment.GameKey });
         }
 
         public ActionResult Ban(Guid userId, BanPeriod? period)

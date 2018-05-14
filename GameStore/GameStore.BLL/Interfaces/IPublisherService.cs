@@ -12,7 +12,7 @@ namespace GameStore.BLL.Interfaces
 
         IEnumerable<PublisherDTO> GetAll();
 
-        void Update(PublisherDTO publisherDTO);
+        bool Update(PublisherDTO publisherDTO);
 
         void Delete(Guid id);
     }

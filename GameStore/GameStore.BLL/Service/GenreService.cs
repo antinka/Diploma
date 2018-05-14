@@ -26,12 +26,7 @@ namespace GameStore.BLL.Service
 
         public GenreDTO GetById(Guid id)
         {
-            var genre = _unitOfWork.Genres.GetById(id);
-
-            if (genre == null)
-            {
-                throw new EntityNotFound($"{nameof(GenreService)} - genre with such id {id} did not exist");
-            }
+            var genre = TakeGenreById(id);
 
             return _mapper.Map<GenreDTO>(genre);
         }
@@ -57,9 +52,7 @@ namespace GameStore.BLL.Service
 
         public bool AddNew(GenreDTO genreDto)
         {
-            var genre = _unitOfWork.Genres.Get(g => g.Name == genreDto.Name).FirstOrDefault();
-
-            if (genre == null)
+            if (IsUniqueName(genreDto))
             {
                 genreDto.Id = Guid.NewGuid();
                 _unitOfWork.Genres.Create(_mapper.Map<Genre>(genreDto));
@@ -68,10 +61,10 @@ namespace GameStore.BLL.Service
                 _log.Info($"{nameof(GenreService)} - add new genre { genreDto.Id}");
 
                 return true;
-            }
+            }  
             else
             {
-                _log.Info($"{nameof(GenreService)} - attempt to add new genre with not unique name");
+                _log.Info($"{nameof(GenreService)} - attempt to add new genre with not unique name, {genreDto.Name}");
 
                 return false;
             }
@@ -81,9 +74,7 @@ namespace GameStore.BLL.Service
         {
             if (TakeGenreById(genreDto.Id) != null)
             {
-                var genreFromDb = _unitOfWork.Genres.Get(x => x.Name == genreDto.Name).FirstOrDefault();
-
-                if (genreFromDb == null)
+                if (IsUniqueName(genreDto))
                 {
                     var genre = _mapper.Map<Genre>(genreDto);
 
@@ -94,26 +85,26 @@ namespace GameStore.BLL.Service
 
                     return true;
                 }
+                else
+                {
+                    _log.Info($"{nameof(GenreService)} - attempt to update genre with not unique name, {genreDto.Name}");
 
-                return false;
-            }
-            else
-            {
-                _log.Info($"{nameof(GenreService)} - attempt to update genre with exist genre name");
-
-                return false;
+                    return false;
+                }
             }
 
+            return false;
         }
 
         public void Delete(Guid id)
         {
-            TakeGenreById(id);
+            if (TakeGenreById(id) != null)
+            {
+                _unitOfWork.Genres.Delete(id);
+                _unitOfWork.Save();
 
-            _unitOfWork.Genres.Delete(id);
-            _unitOfWork.Save();
-
-            _log.Info($"{nameof(GenreService)} - delete publisher {id}");
+                _log.Info($"{nameof(GenreService)} - delete publisher {id}");
+            }
         }
 
         public GenreDTO GetByName(string name)
@@ -140,9 +131,14 @@ namespace GameStore.BLL.Service
             if (reverseGenreDto == null)
                 return true;
 
-            var genre = _unitOfWork.Genres.Get(g => g.Name == genreDto.Name).FirstOrDefault();
+            return false;
+        }
 
-            if (genre == null)
+        private bool IsUniqueName(GenreDTO genreDto)
+        {
+            var genre = _unitOfWork.Genres.Get(x => x.Name == genreDto.Name).FirstOrDefault();
+
+            if (genre == null || genreDto.Id == genre.Id)
                 return true;
 
             return false;

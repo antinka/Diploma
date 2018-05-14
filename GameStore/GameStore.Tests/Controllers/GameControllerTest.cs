@@ -2,15 +2,12 @@
 using GameStore.BLL.DTO;
 using GameStore.BLL.Interfaces;
 using GameStore.Controllers;
+using GameStore.Infrastructure.Mapper;
 using GameStore.ViewModels;
 using Moq;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
-using GameStore.Infrastructure.Mapper;
 using Xunit;
 
 namespace GameStore.Tests.Controllers
@@ -60,7 +57,7 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void New_ValidGame_Verifiable()
         {
-            var fakeGameViewModel = new GameViewModel() { Name = "test", Key = "test" };
+            var fakeGameViewModel = new GameViewModel() { Name = "test", Key = "test" , SelectedGenresName = new List<string>(), SelectedPlatformTypesName  = new List<string>()};
             var fakeGameDTO = _mapper.Map<GameDTO>(fakeGameViewModel);
 
             _gameService.Setup(service => service.AddNew(fakeGameDTO)).Verifiable();
@@ -85,7 +82,7 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void UpdateGame_ValidGame_Verifiable()
         {
-            var fakeGameViewModel = new GameViewModel() { Name = "test", Key = "test" };
+            var fakeGameViewModel = new GameViewModel() { Name = "test", Key = "test", SelectedGenresName = new List<string>(), SelectedPlatformTypesName = new List<string>() };
             var fakeGameDTO = _mapper.Map<GameDTO>(fakeGameViewModel);
 
             _gameService.Setup(service => service.Update(fakeGameDTO)).Verifiable();
@@ -103,6 +100,19 @@ namespace GameStore.Tests.Controllers
             _sut.ModelState.AddModelError("testError", "test");
 
             var res = _sut.Update(fakeGameViewModel);
+
+            Assert.Equal(typeof(ViewResult), res.GetType());
+        }
+
+        [Fact]
+        public void UpdateGame_Gamekey_ReturnView()
+        {
+            var fakeGame = new GameDTO() { Id = Guid.NewGuid(), Key = _fakeGameKey, Name = "test" };
+
+            _gameService.Setup(service => service.GetByKey(_fakeGameKey)).Returns(fakeGame);
+            _publisherService.Setup(service => service.GetAll()).Returns(new List<PublisherDTO>());
+
+            var res = _sut.Update(_fakeGameKey);
 
             Assert.Equal(typeof(ViewResult), res.GetType());
         }
@@ -154,5 +164,6 @@ namespace GameStore.Tests.Controllers
 
             Assert.Equal(typeof(ViewResult), res.GetType());
         }
+
     }
 }

@@ -1,14 +1,13 @@
 ﻿using AutoMapper;
+using GameStore.BLL.DTO;
 using GameStore.BLL.Interfaces;
 using GameStore.Controllers;
+using GameStore.Infrastructure.Mapper;
+using GameStore.Payments.Enums;
 using GameStore.ViewModels;
 using Moq;
 using System;
 using System.Web.Mvc;
-using GameStore.BLL.DTO;
-using GameStore.BLL.Exeption;
-using GameStore.Infrastructure.Mapper;
-using GameStore.Payments.Enums;
 using Xunit;
 
 namespace GameStore.Tests.Controllers
@@ -16,6 +15,7 @@ namespace GameStore.Tests.Controllers
     public class OrderControllerTest
     {
         private readonly Mock<IOrdersService> _ordersService;
+        private readonly Mock<IGameService> _gameService;
         private readonly IMapper _mapper;
         private readonly OrderController _sut;
 
@@ -23,7 +23,8 @@ namespace GameStore.Tests.Controllers
         {
             _mapper = MapperConfigUi.GetMapper().CreateMapper();
             _ordersService = new Mock<IOrdersService>();
-            _sut = new OrderController(_ordersService.Object, _mapper);
+            _gameService = new Mock<IGameService>();
+            _sut = new OrderController(_ordersService.Object, _gameService.Object, _mapper);
         }
 
         [Fact]
@@ -38,25 +39,40 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
-        public void AddGameToOrder_ValidBasketViewModel_Verifiable()
+        public void AddGameToOrder_GameKeyWhereGameUnitsInStockMorethen1_Verifiable()
         {
-            var fakeBasketViewModel = new BasketViewModel() { UserId = Guid.NewGuid(), GameId = Guid.NewGuid(), Quantity = 5 };
+            var fakeGameKey = "fakeGameKey";
+            var fakeUserId = Guid.NewGuid();
+            var fakeGameId = Guid.NewGuid();
+            var fakeGame = new GameDTO()
+            {
+                Id = Guid.NewGuid(),
+                Key = fakeGameKey,
+                UnitsInStock = 5
+            };
 
-            _ordersService.Setup(service => service.AddNewOrderDetails(fakeBasketViewModel.UserId, fakeBasketViewModel.GameId, fakeBasketViewModel.Quantity)).Verifiable();
+            _gameService.Setup((service => service.GetByKey(fakeGameKey))).Returns(fakeGame);
+            _ordersService.Setup(service => service.AddNewOrderDetails(fakeUserId, fakeGameId)).Verifiable();
 
-            _sut.AddGameToOrder(fakeBasketViewModel);
+            _sut.AddGameToOrder(fakeGameKey);
 
-            _ordersService.Verify(s => s.AddNewOrderDetails(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<short>()), Times.Once);
+            _ordersService.Verify(s => s.AddNewOrderDetails(It.IsAny<Guid>(), It.IsAny<Guid>()), Times.Once);
         }
 
         [Fact]
-        public void AddGameToOrder_InvalidBasketViewModel_ReturnViewResult()
+        public void AddGameToOrder_GameKeyWhereGameUnitsInStockLessThen1_ReturnedViewResult()
         {
-            var fakeBasketViewModel = new BasketViewModel();
-            _sut.ModelState.Add("testError", new ModelState());
-            _sut.ModelState.AddModelError("testError", "test");
+            var fakeGameKey = "fakeGameKey";
+            var fakeGame = new GameDTO()
+            {
+                Id = Guid.NewGuid(),
+                Key = fakeGameKey,
+                UnitsInStock = 0
+            };
 
-            var res = _sut.AddGameToOrder(fakeBasketViewModel);
+            _gameService.Setup((service => service.GetByKey(fakeGameKey))).Returns(fakeGame);
+
+           var res = _sut.AddGameToOrder(fakeGameKey);
 
             Assert.Equal(typeof(ViewResult), res.GetType());
         }

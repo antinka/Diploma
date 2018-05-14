@@ -36,14 +36,14 @@ namespace GameStore.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult New(GenreViewModel genreViewModel)
         {
             if (ModelState.IsValid)
             {
                 var genreDto = _mapper.Map<GenreDTO>(genreViewModel);
-                var isAddNewGenre = _genreService.AddNew(genreDto);
 
-                if (isAddNewGenre)
+                if (_genreService.AddNew(genreDto))
                     return RedirectToAction("Get", new { genreName = genreViewModel.Name });
 
                 ModelState.AddModelError("Name", "Genre with such name already exist, please enter another name");
@@ -93,26 +93,23 @@ namespace GameStore.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Update(GenreViewModel genreViewModel)
         {
             if (ModelState.IsValid)
             {
                 var genreDto = _mapper.Map<GenreDTO>(genreViewModel);
-                var isPossibleRelation = true;
 
                 if (genreViewModel.ParentGenreId != null)
                 {
-                    isPossibleRelation = _genreService.IsPossibleRelation(genreDto);
 
-                    if (!isPossibleRelation)
+                    if (!_genreService.IsPossibleRelation(genreDto))
                         ModelState.AddModelError("", "such relation could not exist");
                 }
 
-                if (isPossibleRelation)
+                if (ModelState.IsValid)
                 {
-                    var isUpdateGenre = _genreService.Update(genreDto);
-
-                    if (isUpdateGenre)
+                    if (_genreService.Update(genreDto))
                         return RedirectToAction("GetAll");
 
                     ModelState.AddModelError("Name", "Genre with such name already exist, please enter another name");

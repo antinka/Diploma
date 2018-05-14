@@ -73,7 +73,7 @@ namespace GameStore.Tests.Service
         {
             _uow.Setup(uow => uow.Games.GetById(_fakeGameId)).Returns(null as Game);
 
-            Assert.Throws<EntityNotFound>(() => _sut.AddNewOrderDetails(_fakeUserId, _fakeGameId, 3));
+            Assert.Throws<EntityNotFound>(() => _sut.AddNewOrderDetails(_fakeUserId, _fakeGameId));
         }
 
         [Fact]
@@ -86,7 +86,7 @@ namespace GameStore.Tests.Service
             _uow.Setup(uow => uow.Orders.Get(It.IsAny<Func<Order, bool>>())).Returns(new List<Order>());
             _uow.Setup(uow => uow.OrderDetails.Create(fakeOrderDetail)).Verifiable();
 
-            _sut.AddNewOrderDetails(_fakeUserId, _fakeGameId, 3);
+            _sut.AddNewOrderDetails(_fakeUserId, _fakeGameId);
 
             _uow.Verify(uow => uow.OrderDetails.Create(It.IsAny<OrderDetail>()), Times.Once);
         }

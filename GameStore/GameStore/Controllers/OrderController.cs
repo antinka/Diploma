@@ -36,35 +36,25 @@ namespace GameStore.Controllers
             return View(orderViewModel);
         }
 
-        [HttpGet]
         public ActionResult AddGameToOrder(string gameKey)
         {
             var userId = Guid.Empty;
 
             var game = _gameService.GetByKey(gameKey);
-
-            var basket = new BasketViewModel()
+            if (game.UnitsInStock > 1)
             {
-                UserId = userId,
-                GameId = game.Id,
-                UnitsInStock = game.UnitsInStock,
-                GameName = game.Name
-            };
+                _ordersService.AddNewOrderDetails(userId, game.Id);
 
-            return View(basket);
-        }
+                var basket = new BasketViewModel()
+                {
+                    GameName = game.Name,
+                    Price = game.Price
+                };
 
-        [HttpPost]
-        public ActionResult AddGameToOrder(BasketViewModel basket)
-        {
-            if (ModelState.IsValid)
-            {
-                _ordersService.AddNewOrderDetails(basket.UserId, basket.GameId, basket.Quantity);
-
-                return View("Added");
+                return View(basket);
             }
-
-            return View(basket);
+            else
+                return View("NotEnoughGameInStock");
         }
 
         public ActionResult CountGamesInOrder()

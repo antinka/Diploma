@@ -201,7 +201,6 @@
     <Content Include="Views\Game\GetGame.cshtml" />
     <Content Include="Views\Order\AddGameToOrder.cshtml" />
     <Content Include="Views\Comment\CommentToGame.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\GameViewModel.cshtml" />
     <Content Include="Views\Game\New.cshtml" />
     <Content Include="Views\Payments\IBox.cshtml" />
     <Content Include="Views\Payments\Visa.cshtml" />
@@ -223,7 +222,8 @@
     <Content Include="Views\Genre\GetAll.cshtml" />
     <Content Include="Views\Genre\Update.cshtml" />
     <Content Include="Views\Order\CountGamesInOrder.cshtml" />
-    <Content Include="Views\Order\Added.cshtml" />
+    <Content Include="Views\Order\NotEnoughGameInStock.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\GameViewModel.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

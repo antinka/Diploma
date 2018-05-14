@@ -75,7 +75,6 @@ namespace GameStore.BLL.Service
             _log.Info($"{nameof(CommentService)} - delete comment{id}");
         }
 
-        //todo it'll crash
         public void Ban(BanPeriod period, Guid userId)
         {
             throw new NotImplementedException();
