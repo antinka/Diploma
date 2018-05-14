@@ -1,4 +1,5 @@
 ﻿@using System.Web.Mvc.Html
+@using GameStore.ViewModels
 @model GameStore.ViewModels.GameViewModel
 
 @{
@@ -111,7 +112,5 @@
         @:|
         @Html.ActionLink("Buy", "AddGameToOrder", "Order", new { gamekey = Model.Key }, null)
     }
-    <br />
-    <br />
-    @Html.Action("GetAllCommentToGame", "Comment", new { gamekey = Model.Key })
+    |@Html.ActionLink("Comment", "GetAllCommentToGame", "Comment", new {gamekey = Model.Key}, null)
 </p>

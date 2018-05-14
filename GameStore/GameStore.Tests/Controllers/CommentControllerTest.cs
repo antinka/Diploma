@@ -53,8 +53,8 @@ namespace GameStore.Tests.Controllers
 
             var res = _sut.Delete(null, new CommentViewModel()) as RedirectToRouteResult;
 
-            Assert.Equal("Game", res.RouteValues["controller"]);
-            Assert.Equal("GetGame", res.RouteValues["action"]);
+            Assert.Equal("Comment", res.RouteValues["controller"]);
+            Assert.Equal("GetAllCommentToGame", res.RouteValues["action"]);
         }
 
         [Fact]
@@ -70,11 +70,10 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void BanComment_UserIdAndPeriod_RedirectToActionResult()
         {
-            var fakeUserId = Guid.NewGuid();
             _commentService.Setup(service => service.Ban(It.IsAny<BanPeriod>(), It.IsAny<Guid>()));
 
-            var res = _sut.Ban(fakeUserId, BanPeriod.Day) as RedirectToRouteResult;
-
+            var res = _sut.Ban(BanPeriod.Day) as RedirectToRouteResult;
+        
             Assert.Equal("Game", res.RouteValues["controller"]);
             Assert.Equal("GetAllGames", res.RouteValues["action"]);
         }
@@ -85,7 +84,7 @@ namespace GameStore.Tests.Controllers
             var fakeUserId = Guid.NewGuid();
             _commentService.Setup(service => service.Ban(It.IsAny<BanPeriod>(), It.IsAny<Guid>()));
 
-            var res = _sut.Ban(fakeUserId, null);
+            var res = _sut.Ban(null);
 
             Assert.Equal(typeof(PartialViewResult), res.GetType());
         }
@@ -98,10 +97,9 @@ namespace GameStore.Tests.Controllers
 
             _commentService.Setup(service => service.AddComment(fakeCommentDTO));
 
-            var res = _sut.CommentToGame(fakeCommentViewModel) as RedirectToRouteResult;
+            var res = _sut.CommentToGame(fakeCommentViewModel);
 
-            Assert.Equal("Game", res.RouteValues["controller"]);
-            Assert.Equal("GetGame", res.RouteValues["action"]);
+            Assert.Equal(typeof(PartialViewResult), res.GetType());
         }
     }
 }

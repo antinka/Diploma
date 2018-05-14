@@ -149,6 +149,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\GenreController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\PlatformTypeController.cs" />
@@ -204,8 +205,6 @@
     <Content Include="Views\Game\New.cshtml" />
     <Content Include="Views\Payments\IBox.cshtml" />
     <Content Include="Views\Payments\Visa.cshtml" />
-    <Content Include="Views\Comment\CommentToGameWithQuote.cshtml" />
-    <Content Include="Views\Comment\CommentToGameForParent.cshtml" />
     <Content Include="Views\Comment\GetAllCommentToGame.cshtml" />
     <Content Include="Views\Comment\Ban.cshtml" />
     <Content Include="Views\Order\EmptyBasket.cshtml" />
@@ -224,6 +223,8 @@
     <Content Include="Views\Order\CountGamesInOrder.cshtml" />
     <Content Include="Views\Order\NotEnoughGameInStock.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\GameViewModel.cshtml" />
+    <Content Include="Views\Comment\CommentAdded.cshtml" />
+    <Content Include="Views\Error\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

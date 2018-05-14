@@ -75,9 +75,9 @@ namespace GameStore.BLL.Service
             _log.Info($"{nameof(CommentService)} - delete comment{id}");
         }
 
-        public void Ban(BanPeriod period, Guid userId)
+        public BanPeriod Ban(BanPeriod period, Guid userId)
         {
-            throw new NotImplementedException();
+            return period;
         }
 
         public IEnumerable<CommentDTO> GetCommentsByGameKey(string gameKey)

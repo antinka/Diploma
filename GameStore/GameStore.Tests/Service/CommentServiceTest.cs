@@ -143,7 +143,11 @@ namespace GameStore.Tests.Service
         [Fact]
         public void Ban_NotImplementedException()
         {
-            Assert.Throws<NotImplementedException>(() => _sut.Ban(BanPeriod.Week, _fakeCommentId));
+            var fakeUserId = Guid.NewGuid();
+
+            var res = _sut.Ban(BanPeriod.Week, fakeUserId);
+
+            Assert.True(res == BanPeriod.Week);
         }
     }
 }

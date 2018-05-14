@@ -57,6 +57,27 @@ namespace GameStore.Controllers
                 return View("NotEnoughGameInStock");
         }
 
+        public ActionResult DeleteGameFromOrder(string gameKey)
+        {
+            var userId = Guid.Empty;
+
+            var game = _gameService.GetByKey(gameKey);
+            if (game.UnitsInStock > 1)
+            {
+                _ordersService.AddNewOrderDetails(userId, game.Id);
+
+                var basket = new BasketViewModel()
+                {
+                    GameName = game.Name,
+                    Price = game.Price
+                };
+
+                return View(basket);
+            }
+            else
+                return View("NotEnoughGameInStock");
+        }
+
         public ActionResult CountGamesInOrder()
         {
             var userId = Guid.Empty;

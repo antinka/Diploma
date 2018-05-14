@@ -33,13 +33,13 @@ namespace GameStore.Controllers
             if (!comments.Any())
             {
                 comments = new List<CommentViewModel>()
-               {
-                   new CommentViewModel()
-                   {
-                       GameId = _gameService.GetByKey(gamekey).Id,
-                       GameKey = gamekey
-                   }
-               };
+                {
+                    new CommentViewModel()
+                    {
+                        GameId = _gameService.GetByKey(gamekey).Id,
+                        GameKey = gamekey
+                    }
+                };
             }
             else
             {
@@ -61,28 +61,30 @@ namespace GameStore.Controllers
             {
                 comment.ParentCommentId = parentsCommentId.Value;
                 comment.ParentCommentBody = _commentService.GetById(parentsCommentId.Value).Body;
-             }
+            }
 
             if (!string.IsNullOrEmpty(quote))
             {
                 comment.Quote = quote;
             }
 
-            return View(comment);
+            return PartialView(comment);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult CommentToGame(CommentViewModel comment)
         {
             if (ModelState.IsValid)
             {
-                 _commentService.AddComment(_mapper.Map<CommentDTO>(comment));
+                _commentService.AddComment(_mapper.Map<CommentDTO>(comment));
 
-                return RedirectToAction("GetGame", "Game", new { gamekey = comment.GameKey });
+                return PartialView("CommentAdded");
             }
 
-            return View(comment);
+            return PartialView(comment);
         }
+
 
         public ActionResult Delete(Guid? commentId, CommentViewModel comment)
         {
@@ -95,11 +97,13 @@ namespace GameStore.Controllers
             }
             _commentService.Delete(comment.Id);
 
-            return RedirectToAction("GetGame", "Game", new { gamekey = comment.GameKey });
+            return RedirectToAction("GetAllCommentToGame", "Comment", new {gamekey = comment.GameKey});
         }
 
-        public ActionResult Ban(Guid userId, BanPeriod? period)
+        public ActionResult Ban(BanPeriod? period)
         {
+            Guid userId = Guid.Empty;
+
             if (period != null)
             {
                 _commentService.Ban(period.Value, userId);
