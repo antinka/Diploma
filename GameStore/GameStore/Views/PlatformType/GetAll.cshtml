@@ -4,8 +4,6 @@
     ViewBag.Title = "GetAll";
 }
 
-<h2>GetAll</h2>
-
 <p>
     @Html.ActionLink("Create New", "New")
 </p>
@@ -25,7 +23,11 @@
         <td>
             @Html.ActionLink("Edit", "Update", new { platformTypeName = item.Name }) |
             @Html.ActionLink("Details", "Get", new { platformTypeName = item.Name }) |
-            @Html.ActionLink("Delete", "Remove", new { platformTypeId = item.Id })
+            @using (Html.BeginForm("Remove", "PlatformType", FormMethod.Post))
+            {
+                <input type="hidden" name="platformTypeId" value="@item.Id"/>
+                <button type="submit" class="btn btn-link">Remove</button>
+            }
         </td>
     </tr>
 }

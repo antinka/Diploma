@@ -34,6 +34,7 @@ namespace GameStore.BLL.Service
                 return null;
             }
 
+            order.OrderDetails = _unitOfWork.OrderDetails.Get(o => o.OrderId == order.Id).ToList();
             var orderDTO = _mapper.Map<OrderDTO>(order);
 
             foreach (var i in orderDTO.OrderDetails)
@@ -44,22 +45,39 @@ namespace GameStore.BLL.Service
             return orderDTO;
         }
 
-        public void AddNewOrderDetails(Guid userId, Guid gameId, short quantity)
+        public void AddNewOrderDetails(Guid userId, Guid gameId)
         {
             var game = _unitOfWork.Games.GetById(gameId);
 
             if (game != null)
             {
-                var order = _unitOfWork.Orders.Get(x => x.UserId == userId).FirstOrDefault();
+                var order = _unitOfWork.Orders.Get(o => o.UserId == userId).FirstOrDefault();
 
                 if (order == null)
                 {
-                    CreateNewOrderWithOrderDetails(game, userId, gameId, quantity);
+                    CreateNewOrderWithOrderDetails(game, userId, gameId);
                 }
                 else
                 {
-                    CreateNewOrderDetailToExistOrder(order, game, gameId, quantity);
+                    var orderDetails = order.OrderDetails.FirstOrDefault(o => o.GameId == game.Id);
+
+                    if (orderDetails != null)
+                    {
+                        if (orderDetails.IsDelete)
+                            orderDetails.IsDelete = false;
+
+                        orderDetails.Quantity += 1;
+                        orderDetails.Price += game.Price;
+                    }
+                    else
+                        CreateNewOrderDetailToExistOrder(order, game, gameId);
                 }
+
+                game.UnitsInStock -= 1;
+                _unitOfWork.Games.Update(game);
+                _unitOfWork.Save();
+
+                _log.Info($"{nameof(OrdersService)} - User {userId} add game {game.Key} to order");
             }
             else
             {
@@ -67,14 +85,63 @@ namespace GameStore.BLL.Service
             }
         }
 
-        private void CreateNewOrderWithOrderDetails(Game game, Guid userId, Guid gameId, short quantity)
+        public void DeleteGameFromOrder(Guid userId, Guid gameId)
+        {
+            var game = _unitOfWork.Games.GetById(gameId);
+
+            if (game != null)
+            {
+                var orderDetails = _unitOfWork.OrderDetails
+                    .Get(g => g.Game.Key == game.Key && g.Order.UserId == userId).FirstOrDefault();
+
+                if (orderDetails != null)
+                {
+                    orderDetails.Quantity -= 1;
+                    orderDetails.Price -= game.Price;
+                    game.UnitsInStock += 1;
+
+                    _unitOfWork.OrderDetails.Update(orderDetails);
+                    _unitOfWork.Games.Update(game);
+
+                    if (orderDetails.Quantity == 0)
+                    {
+                        orderDetails.IsDelete = true;
+
+                        var order = _unitOfWork.Orders.Get(o => o.UserId == userId).FirstOrDefault();
+                        if (order != null && order.OrderDetails.All(o => o.IsDelete))
+                            order.IsDelete = true;
+                    }
+
+                    _unitOfWork.Save();
+
+                    _log.Info($"{nameof(OrdersService)} - User {userId} delete game {game.Key} from order");
+                }
+
+            }
+            else
+            {
+                throw new EntityNotFound($"{nameof(OrdersService)} - game with such id {gameId} did not exist");
+            }
+        }
+
+        public int CountGamesInOrder(Guid userId)
+        {
+            var order = _unitOfWork.Orders.Get(o => o.UserId == userId).FirstOrDefault();
+
+            if (order != null)
+                return order.OrderDetails.Aggregate(0, (current, game) => current + game.Quantity);
+
+            return 0;
+        }
+
+        private void CreateNewOrderWithOrderDetails(Game game, Guid userId, Guid gameId)
         {
             var orderDetail = new OrderDetailDTO()
             {
                 Id = Guid.NewGuid(),
                 GameId = gameId,
-                Price = game.Price * quantity,
-                Quantity = quantity,
+                Price = game.Price,
+                Quantity = 1,
                 Order = new OrderDTO()
                 {
                     Id = Guid.NewGuid(),
@@ -84,21 +151,19 @@ namespace GameStore.BLL.Service
             };
 
             _unitOfWork.OrderDetails.Create(_mapper.Map<OrderDetail>(orderDetail));
-            _unitOfWork.Save();
         }
 
-        private void CreateNewOrderDetailToExistOrder(Order order, Game game, Guid gameId, short quantity)
+        private void CreateNewOrderDetailToExistOrder(Order order, Game game, Guid gameId)
         {
             var orderDetail = new OrderDetailDTO()
             {
                 Id = Guid.NewGuid(),
                 GameId = gameId,
-                Price = game.Price * quantity,
-                Quantity = quantity,
+                Price = game.Price,
+                Quantity = 1,
             };
 
             order.OrderDetails.Add(_mapper.Map<OrderDetail>(orderDetail));
-            _unitOfWork.Save();
         }
     }
 }

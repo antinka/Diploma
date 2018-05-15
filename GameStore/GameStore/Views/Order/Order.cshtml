@@ -1,0 +1,108 @@
+﻿@using GameStore.Payments.Enums
+@model IEnumerable<GameStore.ViewModels.OrderDetailViewModel>
+
+@{
+    ViewBag.Title = "Order";
+}
+<div>
+    <hr />
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Game.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Discount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Game.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Discount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+            </tr>
+        }
+        <tr>
+            <th>
+                <a href='@Url.Action("Pay","Order", new { paymentType = PaymentTypes.Bank },null)' %>
+                    <img src="~/Content/Images/Bank.png" alt="QQQQQ" height="80px" />
+                </a>
+            </th>
+            <th>
+                Bank
+            </th>
+            <th>
+                Description Bank
+            </th>
+            <th>
+                <a href='@Url.Action("Pay","Order", new { paymentType = PaymentTypes.Bank })' %>
+                    Pay
+                </a>
+            </th>
+        </tr>
+
+        <tr>
+            <th>
+                <a href='@Url.Action("Pay","Order", new { paymentType = PaymentTypes.Box })' %>
+                    <img src="~/Content/Images/IBox.png" alt="QQQQQ" height="80px" />
+                </a>
+            </th>
+            <th>
+                IBox
+            </th>
+            <th>
+                Description IBox
+            </th>
+            <th>
+                <a href='@Url.Action("Pay","Order", new { paymentType = PaymentTypes.Box })' %>
+                    Pay
+                </a>
+            </th>
+        </tr>
+
+        <tr>
+            <th>
+                <a href='@Url.Action("Pay","Order", new { paymentType = PaymentTypes.Visa })' %>
+                    <img src="~/Content/Images/Visa.png" alt="QQQQQ" height="80px" />
+                </a>
+            </th>
+            <th>
+                Visa
+            </th>
+            <th>
+                Description Visa
+            </th>
+            <th>
+                <a href='@Url.Action("Pay","Order", new { paymentType = PaymentTypes.Visa })' %>
+                    Pay
+                </a>
+            </th>
+        </tr>
+    </table>
+</div>

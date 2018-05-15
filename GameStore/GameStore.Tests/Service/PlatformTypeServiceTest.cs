@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
+using GameStore.BLL.DTO;
 using GameStore.BLL.Exeption;
 using GameStore.BLL.Service;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
+using GameStore.Infrastructure.Mapper;
 using log4net;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using GameStore.BLL.DTO;
-using GameStore.Infrastructure.Mapper;
 using Xunit;
 
 namespace GameStore.Tests.Service
@@ -94,9 +94,13 @@ namespace GameStore.Tests.Service
         [Fact]
         public void AddNewPlatformType_PlatformTypeWithoutUniqueName_ReturnedFalseAddNewPlatformType()
         {
+            var fakePlatformTypes = new List<PlatformType>()
+            {
+                new PlatformType(){Name = _fakePlatformTypeName}
+            };
             var fakePlatformTypeDTO = _mapper.Map<PlatformTypeDTO>(_fakePlatformType);
 
-            _uow.Setup(uow => uow.PlatformTypes.Get(It.IsAny<Func<PlatformType, bool>>())).Returns(_fakePlatformTypes);
+            _uow.Setup(uow => uow.PlatformTypes.Get(It.IsAny<Func<PlatformType, bool>>())).Returns(fakePlatformTypes);
 
             Assert.False(_sut.AddNew(fakePlatformTypeDTO));
         }
@@ -107,7 +111,6 @@ namespace GameStore.Tests.Service
             var fakePlatformTypeDTO = _mapper.Map<PlatformTypeDTO>(_fakePlatformType);
 
             _uow.Setup(uow => uow.PlatformTypes.GetById(_fakePlatformTypeId)).Returns(_fakePlatformType);
-
             _uow.Setup(uow => uow.PlatformTypes.Update(_fakePlatformType)).Verifiable();
 
             _sut.Update(fakePlatformTypeDTO);

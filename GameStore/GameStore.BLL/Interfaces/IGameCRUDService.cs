@@ -8,7 +8,7 @@ namespace GameStore.BLL.Interfaces
     {
         bool AddNew(GameDTO gameDto);
 
-        void Update(GameDTO gameDto);
+        bool Update(GameDTO gameDto);
 
         void Delete(Guid id);
 

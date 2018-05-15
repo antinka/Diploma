@@ -1,16 +1,16 @@
 ﻿using AutoMapper;
 using GameStore.BLL.DTO;
+using GameStore.BLL.Enums;
 using GameStore.BLL.Exeption;
 using GameStore.BLL.Service;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
+using GameStore.Infrastructure.Mapper;
 using log4net;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using GameStore.BLL.Enums;
-using GameStore.Infrastructure.Mapper;
 using Xunit;
 
 namespace GameStore.Tests.Service
@@ -143,7 +143,11 @@ namespace GameStore.Tests.Service
         [Fact]
         public void Ban_NotImplementedException()
         {
-            Assert.Throws<NotImplementedException>(() => _sut.Ban(BanPeriod.Week, _fakeCommentId));
+            var fakeUserId = Guid.NewGuid();
+
+            var res = _sut.Ban(BanPeriod.Week, fakeUserId);
+
+            Assert.True(res == BanPeriod.Week);
         }
     }
 }

@@ -1,13 +1,12 @@
 ﻿@using GameStore.BLL.Enums
-@using (Html.BeginForm("Ban", "Comment", FormMethod.Post))
+@using (Html.BeginForm("Ban", "Comment", FormMethod.Get))
 {
-    <input type="hidden" value="@ViewBag.commentId" name="commentId" class="btn btn-default" />
 
     <div class="form-group">
-            <input type="submit" value="@BanPeriod.Hour" class="btn btn-default" />
-            <input type="submit" value="@BanPeriod.Day" class="btn btn-default" />
-            <input type="submit" value="@BanPeriod.Week" class="btn btn-default" />
-            <input type="submit" value="@BanPeriod.Month" class="btn btn-default" />
-            <input type="submit" value="@BanPeriod.Permanent" class="btn btn-default" />
+            <input type="submit" name="period" value="@BanPeriod.Hour" class="btn btn-default" />
+            <input type="submit" name="period" value="@BanPeriod.Day" class="btn btn-default" />
+            <input type="submit" name="period" value="@BanPeriod.Week" class="btn btn-default" />
+            <input type="submit" name="period"  value="@BanPeriod.Month" class="btn btn-default" />
+            <input type="submit" name="period" value="@BanPeriod.Permanent" class="btn btn-default" />
     </div>
 }

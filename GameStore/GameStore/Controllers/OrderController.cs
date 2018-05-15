@@ -4,20 +4,26 @@ using GameStore.Payments;
 using GameStore.Payments.Enums;
 using GameStore.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
+using GameStore.Filters;
 
 namespace GameStore.Controllers
 {
+    [TrackRequestIp]
+    [ExceptionFilter]
     public class OrderController : Controller
     {
         private readonly IOrdersService _ordersService;
+        private readonly IGameService _gameService;
         private readonly IMapper _mapper;
 
         private IPayment payment { get; set; }
 
-        public OrderController(IOrdersService ordersService, IMapper mapper)
+        public OrderController(IOrdersService ordersService, IGameService gameService, IMapper mapper)
         {
             _ordersService = ordersService;
+            _gameService = gameService;
             _mapper = mapper;
         }
 
@@ -34,32 +40,43 @@ namespace GameStore.Controllers
             return View(orderViewModel);
         }
 
-        [HttpGet]
-        public ActionResult AddGameToOrder(Guid gameId, short unitsInStock)
+        public ActionResult AddGameToOrder(string gameKey)
         {
             var userId = Guid.Empty;
 
-            var basket = new BasketViewModel()
+            var game = _gameService.GetByKey(gameKey);
+            if (game.UnitsInStock > 1)
             {
-                UserId = userId,
-                GameId = gameId,
-                UnitsInStock = unitsInStock
-            };
+                _ordersService.AddNewOrderDetails(userId, game.Id);
 
-            return View(basket);
-        }
+                var basket = new BasketViewModel()
+                {
+                    GameName = game.Name,
+                    Price = game.Price
+                };
 
-        [HttpPost]
-        public ActionResult AddGameToOrder(BasketViewModel basket)
-        {
-            if (ModelState.IsValid)
-            {
-                _ordersService.AddNewOrderDetails(basket.UserId, basket.GameId, basket.Quantity);
-
-                return RedirectToAction("BasketInfo");
+                return View(basket);
             }
 
-            return View(basket);
+            return View("NotEnoughGameInStock");
+        }
+
+        public ActionResult DeleteGameFromOrder(Guid gameId)
+        {
+            var userId = Guid.Empty;
+
+            _ordersService.DeleteGameFromOrder(userId, gameId);
+
+             return RedirectToAction("BasketInfo");
+        }
+
+        public ActionResult CountGamesInOrder()
+        {
+            var userId = Guid.Empty;
+
+            var gameCount = _ordersService.CountGamesInOrder(userId);
+
+            return PartialView("CountGamesInOrder", gameCount);
         }
 
         [HttpGet]
@@ -89,6 +106,15 @@ namespace GameStore.Controllers
             }
 
             return payment.Pay(orderPay);
+        }
+
+        public ActionResult Order()
+        {
+            var userId = Guid.Empty;
+            var order = _ordersService.GetOrder(userId);
+            var orderDetailsViewModel = _mapper.Map<IEnumerable<OrderDetailViewModel>>(order.OrderDetails);
+
+            return View(orderDetailsViewModel);
         }
     }
 }

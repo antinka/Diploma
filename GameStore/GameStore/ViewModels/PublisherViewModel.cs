@@ -9,12 +9,12 @@ namespace GameStore.ViewModels
         public Guid Id { get; set; }
 
         [Required]
+        [StringLength(40, MinimumLength = 3, ErrorMessage = "Name cannot be longer than 40 characters and less than 3 characters")]
         public string Name { get; set; }
 
-        [Required]
         public string Description { get; set; }
 
-        [Required]
+        [DataType(DataType.Url)]
         [Display(Name = "Home page")]
         public string HomePage { get; set; }
 

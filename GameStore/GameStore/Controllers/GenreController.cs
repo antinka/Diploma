@@ -36,17 +36,17 @@ namespace GameStore.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult New(GenreViewModel genreViewModel)
         {
             if (ModelState.IsValid)
             {
                 var genreDto = _mapper.Map<GenreDTO>(genreViewModel);
-                var isAddNewGenre = _genreService.AddNew(genreDto);
 
-                if (isAddNewGenre)
+                if (_genreService.AddNew(genreDto))
                     return RedirectToAction("Get", new { genreName = genreViewModel.Name });
 
-                ModelState.AddModelError("Name", "Not Unique Parameter");
+                ModelState.AddModelError("Name", "Genre with such name already exist, please enter another name");
             }
 
             var genres = _mapper.Map<IEnumerable<GenreViewModel>>(_genreService.GetAll());
@@ -73,6 +73,7 @@ namespace GameStore.Controllers
             return View(genresViewModel);
         }
 
+        [HttpPost]
         public ActionResult Remove(Guid genreId)
         {
             _genreService.Delete(genreId);
@@ -93,14 +94,27 @@ namespace GameStore.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Update(GenreViewModel genreViewModel)
         {
             if (ModelState.IsValid)
             {
                 var genreDto = _mapper.Map<GenreDTO>(genreViewModel);
-                _genreService.Update(genreDto);
 
-                return RedirectToAction("GetAll");
+                if (genreViewModel.ParentGenreId != null)
+                {
+
+                    if (!_genreService.IsPossibleRelation(genreDto))
+                        ModelState.AddModelError("", "such relation could not exist");
+                }
+
+                if (ModelState.IsValid)
+                {
+                    if (_genreService.Update(genreDto))
+                        return RedirectToAction("GetAll");
+
+                    ModelState.AddModelError("Name", "Genre with such name already exist, please enter another name");
+                }
             }
 
             var genres = _mapper.Map<IEnumerable<GenreViewModel>>(_genreService.GetAll());

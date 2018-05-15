@@ -5,9 +5,12 @@ using GameStore.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using GameStore.Filters;
 
 namespace GameStore.Controllers
 {
+    [TrackRequestIp]
+    [ExceptionFilter]
     public class PublisherController : Controller
     {
         private readonly IPublisherService _publisherService;
@@ -26,17 +29,17 @@ namespace GameStore.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult New(PublisherViewModel publisher)
         {
             if (ModelState.IsValid)
             {
                 var publisherDTO = _mapper.Map<PublisherDTO>(publisher);
-                var isAddNewPublisher = _publisherService.AddNew(publisherDTO);
 
-                if (isAddNewPublisher)
+                if (_publisherService.AddNew(publisherDTO))
                     return RedirectToAction("Get", new { companyName = publisher.Name });
 
-                ModelState.AddModelError("Name", "Not Unique Parameter");
+                ModelState.AddModelError("Name", "Publisher with such name already exist, please enter another name");
             }
 
             return View(publisher);
@@ -60,6 +63,7 @@ namespace GameStore.Controllers
             return View(publisherViewModel);
         }
 
+        [HttpPost]
         public ActionResult Remove(Guid publisherId)
         {
             _publisherService.Delete(publisherId);
@@ -77,14 +81,17 @@ namespace GameStore.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Update(PublisherViewModel publisherViewModel)
         {
             if (ModelState.IsValid)
             {
                 var publisherDTO = _mapper.Map<PublisherDTO>(publisherViewModel);
-                _publisherService.Update(publisherDTO);
 
-                return RedirectToAction("GetAll");
+                if (_publisherService.Update(publisherDTO))
+                    return RedirectToAction("GetAll");
+
+                ModelState.AddModelError("Name", "Publisher with such name already exist, please enter another name");
             }
 
             return View(publisherViewModel);

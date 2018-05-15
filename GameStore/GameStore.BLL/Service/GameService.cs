@@ -20,7 +20,7 @@ namespace GameStore.BLL.Service
         private readonly IMapper _mapper;
 
         private static readonly string ExcInReturningGameBy =
-            $"{nameof(GameService)} - exception in returning all games by";
+            $"{nameof(GameService)} - exception in returning games by";
 
         public GameService(IUnitOfWork uow, IMapper mapper, ILog log)
         {
@@ -31,71 +31,67 @@ namespace GameStore.BLL.Service
 
         public bool AddNew(GameDTO gameDto)
         {
-            var game = _unitOfWork.Games.Get(x => x.Key == gameDto.Key).FirstOrDefault();
-
-            if (game == null)
+            if (IsUniqueKey(gameDto))
             {
                 gameDto.Id = Guid.NewGuid();
                 var newGame = _mapper.Map<Game>(gameDto);
-                newGame.Genres = _unitOfWork.Genres.Get(genre => gameDto.GenresId.Contains(genre.Id)).ToList();
+                newGame.Genres = _unitOfWork.Genres.Get(genre => gameDto.SelectedGenresName.Contains(genre.Name)).ToList();
                 newGame.PlatformTypes = _unitOfWork.PlatformTypes
-                    .Get(platformType => gameDto.PlatformTypesId.Contains(platformType.Id)).ToList();
+                    .Get(platformType => gameDto.SelectedPlatformTypesName.Contains(platformType.Name)).ToList();
 
                 _unitOfWork.Games.Create(newGame);
                 _unitOfWork.Save();
 
-                _log.Info($"{nameof(GameService)} - add new game{gameDto.Id}");
+                _log.Info($"{nameof(GameService)} - add new game {gameDto.Id}");
 
                 return true;
             }
-            else
-            {
-                _log.Info($"{nameof(GameService)} - attempt to add new game with not unique key");
 
-                return false;
-            }
-        }
+            _log.Info($"{nameof(GameService)} - attempt to add new game with not unique key, {gameDto.Key}");
 
-        private Game TakeGameById(Guid id)
-        {
-            var game = _unitOfWork.Games.GetById(id);
-
-            if (game == null)
-                throw new EntityNotFound($"{nameof(GameService)} - game with such id {id} did not exist");
-
-            return game;
+            return false;
         }
 
         public void Delete(Guid id)
         {
-            TakeGameById(id);
+            if (TakeGameById(id) != null)
+            {
+                _unitOfWork.Games.Delete(id);
+                _unitOfWork.Save();
 
-            _unitOfWork.Games.Delete(id);
-            _unitOfWork.Save();
-
-            _log.Info($"{nameof(GameService)} - delete game{id}");
+                _log.Info($"{nameof(GameService)} - delete game {id}");
+            }
         }
 
-        public void Update(GameDTO gameDto)
+        public bool Update(GameDTO gameDto)
         {
-            var game = _mapper.Map<Game>(gameDto);
+            if (IsUniqueKey(gameDto))
+            {
+                var game = TakeGameById(gameDto.Id);
 
-            _unitOfWork.Games.Update(game);
+                if (game != null)
+                {
+                    game.Genres.Clear();
+                    game.PlatformTypes.Clear();
 
-            game = TakeGameById(gameDto.Id);
+                    game.Genres = _unitOfWork.Genres.Get(genre => gameDto.SelectedGenresName.Contains(genre.Name)).ToList();
+                    game.PlatformTypes = _unitOfWork.PlatformTypes
+                        .Get(platformType => gameDto.SelectedPlatformTypesName.Contains(platformType.Name)).ToList();
 
-            game.Genres.Clear();
-            game.PlatformTypes.Clear();
+                    _unitOfWork.Games.Update(game);
+                    game = _mapper.Map<Game>(gameDto);
+                    _unitOfWork.Games.Update(game);
+                    _unitOfWork.Save();
 
-            game.Genres = _unitOfWork.Genres.Get(genre => gameDto.SelectedGenresName.Contains(genre.Name)).ToList();
-            game.PlatformTypes = _unitOfWork.PlatformTypes
-                .Get(platformType => gameDto.SelectedPlatformTypesName.Contains(platformType.Name)).ToList();
+                    _log.Info($"{nameof(GameService)} - update game {gameDto.Id}");
 
-            _unitOfWork.Games.Update(game);
+                    return true;
+                }
+            }
 
-            _unitOfWork.Save();
+            _log.Info($"{nameof(GenreService)} - attempt to update game with not unique key, {gameDto.Key}");
 
-            _log.Info($"{nameof(GameService)} - update game{gameDto.Id}");
+            return false;
         }
 
         public IEnumerable<GameDTO> GetAll()
@@ -135,7 +131,7 @@ namespace GameStore.BLL.Service
             }
             else
             {
-                throw new EntityNotFound($"{ExcInReturningGameBy} GenreId, such genre id {genreId} did not exist");
+                throw new EntityNotFound($"{ExcInReturningGameBy} genre id, such genre id {genreId} did not exist");
             }
 
             return _mapper.Map<IEnumerable<GameDTO>>(gamesListByGenre);
@@ -154,7 +150,7 @@ namespace GameStore.BLL.Service
             else
             {
                 throw new EntityNotFound(
-                    $"{ExcInReturningGameBy} platformTypeId, such platform type id {platformTypeId} did not exist");
+                    $"{ExcInReturningGameBy} platform type id, such platform type id {platformTypeId} did not exist");
             }
 
             return _mapper.Map<IEnumerable<GameDTO>>(gamesListByPlatformType);
@@ -210,6 +206,26 @@ namespace GameStore.BLL.Service
                 .Register(new SortFilter(filter.SortType))
                 .Register(new FilterByPage(page, pageSize));
 
+        }
+
+        private bool IsUniqueKey(GameDTO gameDTO)
+        {
+            var game = _unitOfWork.Games.Get(x => x.Key == gameDTO.Key).FirstOrDefault();
+
+            if (game == null || gameDTO.Id == game.Id)
+                return true;
+
+            return false;
+        }
+
+        private Game TakeGameById(Guid id)
+        {
+            var game = _unitOfWork.Games.GetById(id);
+
+            if (game == null)
+                throw new EntityNotFound($"{nameof(GameService)} - attempt to take not existed game, id {id}");
+
+            return game;
         }
     }
 }

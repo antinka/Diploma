@@ -9,7 +9,7 @@ namespace GameStore.ViewModels
         public Guid Id { get; set; }
 
         [Required]
-        [MaxLength(450)]
+        [StringLength(200, MinimumLength = 3, ErrorMessage = "Name cannot be longer than 200 characters and less than 3 characters")]
         public string Name { get; set; }
 
         public ICollection<GameViewModel> Games { get; set; }

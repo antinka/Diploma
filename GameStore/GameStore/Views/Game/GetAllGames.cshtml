@@ -3,9 +3,6 @@
 @{
     ViewBag.Title = "GetAllGames";
 }
-
-<h2>GetAllGames</h2>
-
 <p>
     @Html.ActionLink("Create New", "New","Game")
 </p>
@@ -61,7 +58,13 @@
         <td>
             @Html.ActionLink("Details", "GetGame", new { gamekey = item.Key })
             @Html.ActionLink("Update", "Update", new { gamekey = item.Key })
-            @Html.ActionLink("Remove", "Remove", new { gameId = item.Id })
+
+        @using (Html.BeginForm("Remove", "Game", FormMethod.Post))
+        {
+            <input type="hidden" name="gameId" value="@item.Id"/>
+            <button type="submit" class="btn btn-link">Remove</button>
+        }
+
         </td>
     </tr>
 }

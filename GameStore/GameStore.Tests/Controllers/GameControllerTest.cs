@@ -21,7 +21,7 @@ namespace GameStore.Tests.Controllers
         private readonly IMapper _mapper;
         private readonly GameController _sut;
 
-        private readonly Guid _fakeCommentId, _fakeGameId;
+        private readonly Guid _fakeGameId;
         private readonly string _fakeGameKey;
         private readonly List<GameDTO> _fakeGames;
 
@@ -35,9 +35,9 @@ namespace GameStore.Tests.Controllers
             _sut = new GameController(_gameService.Object, _genreService.Object,
                 _platformTypeService.Object, _mapper, _publisherService.Object);
 
-            _fakeCommentId = Guid.NewGuid();
+            var fakeCommentId = Guid.NewGuid();
             _fakeGameId = Guid.NewGuid(); ;
-            _fakeGameKey = _fakeCommentId.ToString();
+            _fakeGameKey = fakeCommentId.ToString();
 
             _fakeGames = new List<GameDTO>
             {
@@ -57,7 +57,7 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void New_ValidGame_Verifiable()
         {
-            var fakeGameViewModel = new GameViewModel() { Name = "test", Key = "test" };
+            var fakeGameViewModel = new GameViewModel() { Name = "test", Key = "test" , SelectedGenresName = new List<string>(), SelectedPlatformTypesName  = new List<string>()};
             var fakeGameDTO = _mapper.Map<GameDTO>(fakeGameViewModel);
 
             _gameService.Setup(service => service.AddNew(fakeGameDTO)).Verifiable();
@@ -82,7 +82,7 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void UpdateGame_ValidGame_Verifiable()
         {
-            var fakeGameViewModel = new GameViewModel() { Name = "test", Key = "test" };
+            var fakeGameViewModel = new GameViewModel() { Name = "test", Key = "test", SelectedGenresName = new List<string>(), SelectedPlatformTypesName = new List<string>() };
             var fakeGameDTO = _mapper.Map<GameDTO>(fakeGameViewModel);
 
             _gameService.Setup(service => service.Update(fakeGameDTO)).Verifiable();
@@ -107,7 +107,7 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void UpdateGame_Gamekey_ReturnView()
         {
-            var fakeGame = new GameDTO() {Id = Guid.NewGuid(), Key = _fakeGameKey, Name = "test"};
+            var fakeGame = new GameDTO() { Id = Guid.NewGuid(), Key = _fakeGameKey, Name = "test" };
 
             _gameService.Setup(service => service.GetByKey(_fakeGameKey)).Returns(fakeGame);
             _publisherService.Setup(service => service.GetAll()).Returns(new List<PublisherDTO>());

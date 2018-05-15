@@ -10,6 +10,8 @@ namespace GameStore.ViewModels
 
         public Guid GameId { get; set; }
 
+        public GameViewModel Game { get; set; }
+
         public short Quantity { get; set; }
 
         public float Discount { get; set; }
