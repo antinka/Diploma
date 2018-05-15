@@ -38,6 +38,7 @@ namespace GameStore.BLL.Service
                 newGame.Genres = _unitOfWork.Genres.Get(genre => gameDto.SelectedGenresName.Contains(genre.Name)).ToList();
                 newGame.PlatformTypes = _unitOfWork.PlatformTypes
                     .Get(platformType => gameDto.SelectedPlatformTypesName.Contains(platformType.Name)).ToList();
+                newGame.PublishDate = DateTime.UtcNow;
 
                 _unitOfWork.Games.Create(newGame);
                 _unitOfWork.Save();
