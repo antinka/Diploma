@@ -10,6 +10,12 @@ namespace GameStore
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "order",
+                url: "order",
+                defaults: new { controller = "Order", action = "Order" }
+            );
+
+            routes.MapRoute(
                 name: "games",
                 url: "games",
                 defaults: new { controller = "Game", action = "GetAllGames" }
@@ -34,8 +40,26 @@ namespace GameStore
 
             routes.MapRoute(
                 name: "gamesRemove",
-                url: "games/remove/{gamekey}",
-                defaults: new { controller = "Game", action = "Remove", gamekey = UrlParameter.Optional }
+                url: "games/remove",
+                defaults: new { controller = "Game", action = "Remove"}
+            );
+
+            routes.MapRoute(
+                name: "PublisherRemove",
+                url: "publishers/remove",
+                defaults: new { controller = "Publisher", action = "Remove" }
+            );
+
+            routes.MapRoute(
+                name: "GenreRemove",
+                url: "genres/remove",
+                defaults: new { controller = "Genre", action = "Remove" }
+            );
+
+            routes.MapRoute(
+                name: "PlatformTypeRemove",
+                url: "platformTypes/remove",
+                defaults: new { controller = "PlatformType", action = "Remove" }
             );
 
             routes.MapRoute(

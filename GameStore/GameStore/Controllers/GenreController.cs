@@ -73,6 +73,7 @@ namespace GameStore.Controllers
             return View(genresViewModel);
         }
 
+        [HttpPost]
         public ActionResult Remove(Guid genreId)
         {
             _genreService.Delete(genreId);

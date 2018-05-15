@@ -21,7 +21,7 @@ namespace GameStore.Tests.Controllers
         private readonly IMapper _mapper;
         private readonly GameController _sut;
 
-        private readonly Guid _fakeCommentId, _fakeGameId;
+        private readonly Guid _fakeGameId;
         private readonly string _fakeGameKey;
         private readonly List<GameDTO> _fakeGames;
 
@@ -35,9 +35,9 @@ namespace GameStore.Tests.Controllers
             _sut = new GameController(_gameService.Object, _genreService.Object,
                 _platformTypeService.Object, _mapper, _publisherService.Object);
 
-            _fakeCommentId = Guid.NewGuid();
+            var fakeCommentId = Guid.NewGuid();
             _fakeGameId = Guid.NewGuid(); ;
-            _fakeGameKey = _fakeCommentId.ToString();
+            _fakeGameKey = fakeCommentId.ToString();
 
             _fakeGames = new List<GameDTO>
             {
@@ -164,6 +164,5 @@ namespace GameStore.Tests.Controllers
 
             Assert.Equal(typeof(ViewResult), res.GetType());
         }
-
     }
 }

@@ -50,12 +50,10 @@ namespace GameStore.BLL.Service
 
                 return true;
             }
-            else
-            {
-                _log.Info($"{nameof(PlatformTypeService)} - attempt to add new platformType with not unique name");
 
-                return false;
-            }
+            _log.Info($"{nameof(PlatformTypeService)} - attempt to add new platformType with not unique name");
+
+            return false;
         }
 
         public bool Update(PlatformTypeDTO platformTypeDto)
@@ -73,12 +71,10 @@ namespace GameStore.BLL.Service
 
                     return true;
                 }
-                else
-                {
-                    _log.Info($"{nameof(PlatformTypeService)} - attempt to update platformType with not unique name");
 
-                    return false;
-                }
+                _log.Info($"{nameof(PlatformTypeService)} - attempt to update platformType with not unique name");
+
+                return false;
             }
 
             return false;

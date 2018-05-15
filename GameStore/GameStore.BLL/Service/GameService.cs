@@ -44,12 +44,10 @@ namespace GameStore.BLL.Service
 
                 return true;
             }
-            else
-            {
-                _log.Info($"{nameof(GameService)} - attempt to add new game with not unique key, {gameDto.Key}");
 
-                return false;
-            }
+            _log.Info($"{nameof(GameService)} - attempt to add new game with not unique key, {gameDto.Key}");
+
+            return false;
         }
 
         public void Delete(Guid id)

@@ -81,7 +81,6 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void BanComment_UserId_ReturnPartialViewResult()
         {
-            var fakeUserId = Guid.NewGuid();
             _commentService.Setup(service => service.Ban(It.IsAny<BanPeriod>(), It.IsAny<Guid>()));
 
             var res = _sut.Ban(null);

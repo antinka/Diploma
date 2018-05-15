@@ -1,13 +1,13 @@
-﻿@using GameStore.Payments.Enums
-@model GameStore.ViewModels.OrderViewModel
+﻿@model GameStore.ViewModels.OrderViewModel
 
 @{
     ViewBag.Title = "BasketInfo";
 }
+
 <div>
     <hr />
     <dl class="dl-horizontal">
-            @Html.HiddenFor(model => model.UserId)
+        @Html.HiddenFor(model => model.UserId)
 
         <dt>
             @Html.DisplayNameFor(model => model.Date)
@@ -34,83 +34,34 @@
             <th>
                 @Html.DisplayNameFor(model => model.OrderDetails.First().Price)
             </th>
+            <th>
+            </th>
         </tr>
 
         @foreach (var item in Model.OrderDetails)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Game.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Discount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-        </tr>
-}
-        <tr>
-            <th>
-                <a href='@Url.Action("Pay","Order", new { paymentType = PaymentTypes.Bank },null)' %>
-                    <img src="~/Content/Images/Bank.png" alt="QQQQQ" height="80px" />
-                </a>
-            </th>
-            <th>
-                Bank
-            </th>
-            <th>
-                Description Bank
-            </th>
-            <th>
-                <a href='@Url.Action("Pay","Order", new { paymentType = PaymentTypes.Visa })' %>
-                    Pay
-                </a>
-            </th>
-        </tr>
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Game.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Discount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.ActionLink("delete", "DeleteGameFromOrder", new { gameId = item.GameId })
+                </td>
+            </tr>
+        }
 
-        <tr>
-            <th>
-                <a href='@Url.Action("Pay","Order", new { paymentType = PaymentTypes.Box })' %>
-                    <img src="~/Content/Images/IBox.png" alt="QQQQQ" height="80px" />
-                </a>
-            </th>
-            <th>
-                IBox
-            </th>
-            <th>
-                Description IBox
-            </th>
-            <th>
-                <a href='@Url.Action("Pay","Order", new { paymentType = PaymentTypes.Visa })' %>
-                    Pay
-                </a>
-            </th>
-        </tr>
-
-        <tr>
-            <th>
-                <a href='@Url.Action("Pay","Order", new { paymentType = PaymentTypes.Visa })' %>
-                    <img src="~/Content/Images/Visa.png" alt="QQQQQ" height="80px" />
-                </a>
-            </th>
-            <th>
-                Visa
-            </th>
-            <th>
-                Description Visa
-            </th>
-            <th>
-                <a href='@Url.Action("Pay","Order", new { paymentType = PaymentTypes.Visa })' %>
-                    Pay
-                </a>
-            </th>
-        </tr>
     </table>
+    @Html.ActionLink("Make Order", "Order", "Order", null, new { @class = "btn btn-primary btn-large" })
 </div>

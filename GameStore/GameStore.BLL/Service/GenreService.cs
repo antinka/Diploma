@@ -61,13 +61,11 @@ namespace GameStore.BLL.Service
                 _log.Info($"{nameof(GenreService)} - add new genre { genreDto.Id}");
 
                 return true;
-            }  
-            else
-            {
-                _log.Info($"{nameof(GenreService)} - attempt to add new genre with not unique name, {genreDto.Name}");
-
-                return false;
             }
+
+            _log.Info($"{nameof(GenreService)} - attempt to add new genre with not unique name, {genreDto.Name}");
+
+            return false;
         }
 
         public bool Update(GenreDTO genreDto)
@@ -85,12 +83,10 @@ namespace GameStore.BLL.Service
 
                     return true;
                 }
-                else
-                {
-                    _log.Info($"{nameof(GenreService)} - attempt to update genre with not unique name, {genreDto.Name}");
 
-                    return false;
-                }
+                _log.Info($"{nameof(GenreService)} - attempt to update genre with not unique name, {genreDto.Name}");
+
+                return false;
             }
 
             return false;

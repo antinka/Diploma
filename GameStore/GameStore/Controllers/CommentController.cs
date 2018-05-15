@@ -102,7 +102,7 @@ namespace GameStore.Controllers
 
         public ActionResult Ban(BanPeriod? period)
         {
-            Guid userId = Guid.Empty;
+            var userId = Guid.Empty;
 
             if (period != null)
             {

@@ -34,8 +34,12 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Update", new { companyName = item.Name }) |
-            @Html.ActionLink("Details", "Get", new { companyName = item.Name }) |
-            @Html.ActionLink("Delete", "Remove", new { publisherId = item.Id })
+            @Html.ActionLink("Details", "Get", new { companyName = item.Name }) |  
+            @using (Html.BeginForm("Remove", "Publisher", FormMethod.Post))
+            {
+                <input type="hidden" name="publisherId" value="@item.Id"/>
+                <button type="submit" class="btn btn-link">Remove</button>
+            }
         </td>
     </tr>
 }

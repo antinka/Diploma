@@ -4,7 +4,6 @@ using GameStore.BLL.Interfaces;
 using GameStore.Controllers;
 using GameStore.Infrastructure.Mapper;
 using GameStore.Payments.Enums;
-using GameStore.ViewModels;
 using Moq;
 using System;
 using System.Web.Mvc;
@@ -28,7 +27,7 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
-        public void BasketInfo_ReturnViewResult()
+        public void BasketInfo_Verifiable()
         {
             var fakeUserId = Guid.Empty;
             _ordersService.Setup(service => service.GetOrder(fakeUserId)).Verifiable();
@@ -72,9 +71,22 @@ namespace GameStore.Tests.Controllers
 
             _gameService.Setup((service => service.GetByKey(fakeGameKey))).Returns(fakeGame);
 
-           var res = _sut.AddGameToOrder(fakeGameKey);
+            var res = _sut.AddGameToOrder(fakeGameKey);
 
             Assert.Equal(typeof(ViewResult), res.GetType());
+        }
+
+        [Fact]
+        public void DeleteGameFromOrder_gameId_Verifiable()
+        {
+            var fakeUserId = Guid.NewGuid();
+            var fakeGameId = Guid.NewGuid();
+
+            _ordersService.Setup(service => service.DeleteGameFromOrder(fakeUserId, fakeGameId)).Verifiable();
+
+            _sut.DeleteGameFromOrder(fakeGameId);
+
+            _ordersService.Verify(s => s.DeleteGameFromOrder(It.IsAny<Guid>(), It.IsAny<Guid>()), Times.Once);
         }
 
         [Fact]

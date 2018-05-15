@@ -5,9 +5,12 @@ using GameStore.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using GameStore.Filters;
 
 namespace GameStore.Controllers
 {
+    [TrackRequestIp]
+    [ExceptionFilter]
     public class PublisherController : Controller
     {
         private readonly IPublisherService _publisherService;
@@ -60,6 +63,7 @@ namespace GameStore.Controllers
             return View(publisherViewModel);
         }
 
+        [HttpPost]
         public ActionResult Remove(Guid publisherId)
         {
             _publisherService.Delete(publisherId);

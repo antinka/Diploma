@@ -4,10 +4,14 @@ using GameStore.Payments;
 using GameStore.Payments.Enums;
 using GameStore.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
+using GameStore.Filters;
 
 namespace GameStore.Controllers
 {
+    [TrackRequestIp]
+    [ExceptionFilter]
     public class OrderController : Controller
     {
         private readonly IOrdersService _ordersService;
@@ -53,29 +57,17 @@ namespace GameStore.Controllers
 
                 return View(basket);
             }
-            else
-                return View("NotEnoughGameInStock");
+
+            return View("NotEnoughGameInStock");
         }
 
-        public ActionResult DeleteGameFromOrder(string gameKey)
+        public ActionResult DeleteGameFromOrder(Guid gameId)
         {
             var userId = Guid.Empty;
 
-            var game = _gameService.GetByKey(gameKey);
-            if (game.UnitsInStock > 1)
-            {
-                _ordersService.AddNewOrderDetails(userId, game.Id);
+            _ordersService.DeleteGameFromOrder(userId, gameId);
 
-                var basket = new BasketViewModel()
-                {
-                    GameName = game.Name,
-                    Price = game.Price
-                };
-
-                return View(basket);
-            }
-            else
-                return View("NotEnoughGameInStock");
+             return RedirectToAction("BasketInfo");
         }
 
         public ActionResult CountGamesInOrder()
@@ -114,6 +106,15 @@ namespace GameStore.Controllers
             }
 
             return payment.Pay(orderPay);
+        }
+
+        public ActionResult Order()
+        {
+            var userId = Guid.Empty;
+            var order = _ordersService.GetOrder(userId);
+            var orderDetailsViewModel = _mapper.Map<IEnumerable<OrderDetailViewModel>>(order.OrderDetails);
+
+            return View(orderDetailsViewModel);
         }
     }
 }

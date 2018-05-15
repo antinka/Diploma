@@ -225,6 +225,7 @@
     <Content Include="Views\Shared\EditorTemplates\GameViewModel.cshtml" />
     <Content Include="Views\Comment\CommentAdded.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />
+    <Content Include="Views\Order\Order.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

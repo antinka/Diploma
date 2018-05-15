@@ -63,6 +63,7 @@ namespace GameStore.Controllers
             return View(platformTypesViewModel);
         }
 
+        [HttpPost]
         public ActionResult Remove(Guid platformTypeId)
         {
             _platformTypeService.Delete(platformTypeId);

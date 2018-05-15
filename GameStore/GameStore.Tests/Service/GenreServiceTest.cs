@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
+using GameStore.BLL.DTO;
 using GameStore.BLL.Exeption;
 using GameStore.BLL.Service;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
+using GameStore.Infrastructure.Mapper;
 using log4net;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using GameStore.BLL.DTO;
-using GameStore.Infrastructure.Mapper;
 using Xunit;
 
 namespace GameStore.Tests.Service
@@ -125,7 +125,6 @@ namespace GameStore.Tests.Service
             {
                 new Genre(){ Name = _fakeGenreName }
             };
-
             var fakeGenreDTO = _mapper.Map<GenreDTO>(_fakeGenre);
 
             _uow.Setup(uow => uow.Genres.Get(It.IsAny<Func<Genre, bool>>())).Returns(fakeGenres);
@@ -139,7 +138,6 @@ namespace GameStore.Tests.Service
             var fakeGenreDTO = _mapper.Map<GenreDTO>(_fakeGenre);
 
             _uow.Setup(uow => uow.Genres.GetById(_fakeGenreId)).Returns(_fakeGenre);
-
             _uow.Setup(uow => uow.Genres.Update(_fakeGenre)).Verifiable();
 
             _sut.Update(fakeGenreDTO);
