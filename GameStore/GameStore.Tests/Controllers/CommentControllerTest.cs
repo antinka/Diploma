@@ -21,6 +21,7 @@ namespace GameStore.Tests.Controllers
 
         private readonly Guid _fakeCommentId, _fakeGameId;
         private readonly string _fakeGameKey;
+        private readonly Guid _fakeGameId;
         private readonly List<CommentDTO> _fakeComment;
 
         public CommentControllerTest()
@@ -109,6 +110,14 @@ namespace GameStore.Tests.Controllers
         public void CommentToGame_GamekeyGameId_ReturnedPartialView()
         {
             var res = _sut.CommentToGame(_fakeGameKey, _fakeGameId, null, null);
+
+            Assert.Equal(typeof(PartialViewResult), res.GetType());
+        }
+
+        [Fact]
+        public void CommentToGame_GameKeyAndIdAndQuoteString_ReturnedView()
+        {
+            var res = _sut.CommentToGame(_fakeGameKey, _fakeGameId, null, "quote");
 
             Assert.Equal(typeof(PartialViewResult), res.GetType());
         }
