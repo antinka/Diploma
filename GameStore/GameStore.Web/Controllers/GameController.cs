@@ -147,7 +147,8 @@ namespace GameStore.Web.Controllers
                 return View(filterViewModel);
             }
 
-            return View("NothingWasFound");
+
+            return View(filterViewModel);
         }
 
         [HttpGet]
