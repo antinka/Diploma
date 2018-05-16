@@ -5,7 +5,7 @@ using GameStore.BLL.Exeption;
 using GameStore.BLL.Service;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
-using GameStore.Infrastructure.Mapper;
+using GameStore.Web.Infrastructure.Mapper;
 using log4net;
 using Moq;
 using System;

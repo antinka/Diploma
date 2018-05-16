@@ -134,9 +134,9 @@
       <Project>{36F7A06D-95A3-4D75-8FE1-284806F45845}</Project>
       <Name>GameStore.DAL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\GameStore\GameStore.csproj">
-      <Project>{32A109F8-0A2A-4440-A75D-FB0F8FB807BE}</Project>
-      <Name>GameStore</Name>
+    <ProjectReference Include="..\GameStore.Web\GameStore.Web.csproj">
+      <Project>{32a109f8-0a2a-4440-a75d-fb0f8fb807be}</Project>
+      <Name>GameStore.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

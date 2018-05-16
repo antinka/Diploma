@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using AutoMapper;
+﻿using AutoMapper;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Interfaces;
-using GameStore.Controllers;
-using GameStore.ViewModels;
+using GameStore.Web.Controllers;
+using GameStore.Web.Infrastructure.Mapper;
+using GameStore.Web.ViewModels;
 using Moq;
-using Xunit;
+using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
-using GameStore.Infrastructure.Mapper;
+using Xunit;
 
 namespace GameStore.Tests.Controllers
 {
