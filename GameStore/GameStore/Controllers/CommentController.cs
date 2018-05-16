@@ -108,7 +108,7 @@ namespace GameStore.Controllers
             {
                 _commentService.Ban(period.Value, userId);
 
-                return RedirectToAction("GetAllGames", "Game");
+                return RedirectToAction("FilteredGames", "Game");
             }
 
             return PartialView();

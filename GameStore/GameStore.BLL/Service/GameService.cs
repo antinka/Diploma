@@ -171,6 +171,15 @@ namespace GameStore.BLL.Service
             return _mapper.Map<IEnumerable<GameDTO>>(filterGames);
         }
 
+        public void IncreaseGameView(Guid gameId)
+        {
+            var game = TakeGameById(gameId);
+            game.Views += 1;
+
+            _unitOfWork.Games.Update(game);
+            _unitOfWork.Save();
+        }
+
         private void RegisterFilter(GamePipeline gamePipeline, FilterDTO filter, int page, PageSize pageSize)
         {
             if (filter.SelectedGenresName != null && filter.SelectedGenresName.Any())

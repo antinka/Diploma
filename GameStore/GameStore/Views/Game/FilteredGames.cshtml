@@ -1,4 +1,5 @@
-﻿@model GameStore.ViewModels.FilterViewModel
+﻿@using GameStore.BLL.Enums
+@model GameStore.ViewModels.FilterViewModel
 
 @using (Html.BeginForm("FilteredGames", "Game", FormMethod.Get, null))
 {
@@ -7,34 +8,37 @@
             @Html.Action("GamesFilters", "Game", Model)
         </div>
         <div class="col-xs-6 col-md-4">
-            
+
             <p>
                 @Html.ActionLink("Create New", "New", "Game")
             </p>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.SortDate, htmlAttributes: new {@class = "control-label col-md-10"})
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.SortDate, htmlAttributes: new { @class = "control-label col-md-10" })
                 <div class="col-md-10">
-                    @Html.EnumDropDownListFor(model => model.SortDate, new { onchange = "this.form.submit();" })
-                    @Html.ValidationMessageFor(model => model.SortDate, "", new {@class = "text-danger"})
+                    <label> @Html.RadioButtonFor(m => m.SortDate, SortDate.week, new { required = "required", onchange = "this.form.submit();" })week </label>
+                    <label> @Html.RadioButtonFor(m => m.SortDate, SortDate.month, new { required = "required", onchange = "this.form.submit();" })month </label>
+                    <label> @Html.RadioButtonFor(m => m.SortDate, SortDate.oneYear, new { required = "required", onchange = "this.form.submit();" })one year </label>
+                    <label> @Html.RadioButtonFor(m => m.SortDate, SortDate.twoYear, new { required = "required", onchange = "this.form.submit();" })two year </label>
+                    <label> @Html.RadioButtonFor(m => m.SortDate, SortDate.threeYear, new { required = "required", onchange = "this.form.submit();" })three year </label>
                 </div>
             </div>
-          
+
             <div class="form-group">
-                @Html.LabelFor(model => model.SortType, htmlAttributes: new {@class = "control-label col-md-10"})
+                @Html.LabelFor(model => model.SortType, htmlAttributes: new { @class = "control-label col-md-10" })
                 <div class="col-md-10">
                     @Html.EnumDropDownListFor(model => model.SortType, new { onchange = "this.form.submit();" })
-                    @Html.ValidationMessageFor(model => model.SortType, "", new {@class = "text-danger"})
+                    @Html.ValidationMessageFor(model => model.SortType, "", new { @class = "text-danger" })
                 </div>
             </div>
-          
+
             <div class="form-group">
-                @Html.LabelFor(model => model.PageSize, htmlAttributes: new {@class = "control-label col-md-10"})
+                @Html.LabelFor(model => model.PageSize, htmlAttributes: new { @class = "control-label col-md-10" })
                 <div class="col-md-10">
-                    @Html.EnumDropDownListFor(model => model.PageSize, new {onchange = "this.form.submit();"})
-                    @Html.ValidationMessageFor(model => model.PageSize, "", new {@class = "text-danger"})
+                    @Html.EnumDropDownListFor(model => model.PageSize, new { onchange = "this.form.submit();" })
+                    @Html.ValidationMessageFor(model => model.PageSize, "", new { @class = "text-danger" })
                 </div>
-            </div>
+            </div>*@
 
             <table class="table">
                 <tr>
@@ -59,6 +63,7 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Games.First().Publisher.Name)
                     </th>
+                    <th></th>
                     <th></th>
                 </tr>
 
@@ -89,7 +94,12 @@
                         <td>
                             @Html.ActionLink("Details", "GetGame", new { gamekey = item.Key })
                             @Html.ActionLink("Update", "Update", new { gamekey = item.Key })
-                            @Html.ActionLink("Remove", "Remove", new { gameId = item.Id })
+                            @using (Html.BeginForm("Remove", "Game", FormMethod.Post))
+                            {
+                                <input type="hidden" name="gameId" value="@item.Id" />
+                                <button type="submit" class="btn btn-link">Remove</button>
+                            }
+
                         </td>
                     </tr>
 
@@ -103,11 +113,11 @@
                         {
                             if (Model.PagingInfo.CurrentPage != i)
                             {
-                                <input type="submit" value=@i name="page" class="btn btn-default"/>
+                                <input type="submit" value=@i name="page" class="btn btn-default" />
                             }
                             else
                             {
-                                <input type="button" value=@i class="btn btn-default"/>
+                                <input type="button" value=@i class="btn btn-default" />
                             }
                         }
                     </div>

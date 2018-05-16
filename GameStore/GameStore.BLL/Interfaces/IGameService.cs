@@ -13,6 +13,8 @@ namespace GameStore.BLL.Interfaces
 
         int GetCountGame();
 
+        void IncreaseGameView(Guid gameId);
+
         IEnumerable<GameDTO> GetGamesByFilter(FilterDTO filter, int page = 1, PageSize pageSize = PageSize.All);
     }
 }

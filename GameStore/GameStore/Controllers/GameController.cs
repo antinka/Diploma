@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
+using GameStore.BLL.Enums;
 
 namespace GameStore.Controllers
 {
@@ -59,7 +60,7 @@ namespace GameStore.Controllers
                 if (ModelState.IsValid)
                 {
                     if (_gameService.AddNew(_mapper.Map<GameDTO>(game)))
-                        return RedirectToAction("GetAllGames");
+                        return RedirectToAction("FilteredGames");
 
                     ModelState.AddModelError("Key", "Game with such key already exist, please enter another name");
                 }
@@ -98,7 +99,7 @@ namespace GameStore.Controllers
                 if (ModelState.IsValid)
                 {
                     if (_gameService.Update(_mapper.Map<GameDTO>(game)))
-                        return RedirectToAction("GetAllGames");
+                        return RedirectToAction("FilteredGames");
 
                     ModelState.AddModelError("Key", "Game with such key already exist, please enter another name");
                 }
@@ -118,11 +119,10 @@ namespace GameStore.Controllers
         [HttpGet]
         public ActionResult FilteredGames(FilterViewModel filterViewModel, int page = 1)
         {
-
             var gamesByFilter = _gameService.GetGamesByFilter(_mapper.Map<FilterDTO>(filterViewModel), page, filterViewModel.PageSize);
             int totalItem;
 
-            if ((int) filterViewModel.PageSize == 0)
+            if (filterViewModel.PageSize == 0)
             {
                 totalItem = _gameService.GetAll().Count();
             }
@@ -151,74 +151,13 @@ namespace GameStore.Controllers
             return View("NothingWasFound");
         }
 
-        private FilterViewModel GetInitFilterViewModel()
-        {
-            var model = new FilterViewModel();
-
-            var genrelist = _mapper.Map<IEnumerable<GenreViewModel>>(_genreService.GetAll());
-            var platformlist = _mapper.Map<IEnumerable<PlatformTypeViewModel>>(_platformTypeService.GetAll());
-            var publisherlist = _mapper.Map<IEnumerable<PublisherViewModel>>(_publisherService.GetAll());
-
-            var listGenreBoxs = new List<CheckBox>();
-            genrelist.ToList().ForEach(genre => listGenreBoxs.Add(new CheckBox() { Text = genre.Name }));
-            model.ListGenres = listGenreBoxs;
-
-            var listPlatformBoxs = new List<CheckBox>();
-            platformlist.ToList().ForEach(platform => listPlatformBoxs.Add(new CheckBox() { Text = platform.Name }));
-            model.ListPlatformTypes = listPlatformBoxs;
-
-            var listPublisherBoxs = new List<CheckBox>();
-            publisherlist.ToList().ForEach(publisher => listPublisherBoxs.Add(new CheckBox() { Text = publisher.Name}));
-            model.ListPublishers = listPublisherBoxs;
-
-            return model;
-        }
-
-        private FilterViewModel GetFilterViewModel(FilterViewModel filterViewMode)
-        {
-            var model = GetInitFilterViewModel();
-
-            if (filterViewMode.SelectedGenresName != null)
-            {
-                model.SelectedGenres = model.ListGenres.Where(x => filterViewMode.SelectedGenresName.Contains(x.Text));
-                model.SelectedGenresName = filterViewMode.SelectedGenresName;
-            }
-
-            if (filterViewMode.SelectedPlatformTypesName != null)
-            {
-                model.SelectedPlatformTypes = model.ListPlatformTypes.Where(x => filterViewMode.SelectedPlatformTypesName.Contains(x.Text));
-                model.SelectedPlatformTypesName = filterViewMode.SelectedPlatformTypesName;
-            }
-
-            if (filterViewMode.SelectedPublishersName != null)
-            {
-                model.SelectedPublishers = model.ListPublishers.Where(x => filterViewMode.SelectedPublishersName.Contains(x.Text));
-                model.SelectedPublishersName = filterViewMode.SelectedPublishersName;
-            }
-
-            if (filterViewMode.MaxPrice != null)
-            {
-                model.MaxPrice = filterViewMode.MaxPrice;
-            }
-
-            if (filterViewMode.MinPrice != null)
-            {
-                model.MinPrice = filterViewMode.MinPrice;
-            }
-
-            if (filterViewMode.SearchGameName != null)
-            {
-                model.SearchGameName = filterViewMode.SearchGameName;
-            }
-
-            return model;
-        }
-
         [HttpGet]
         public ActionResult GetGame(string gamekey)
         {
             var gameDTO = _gameService.GetByKey(gamekey);
             var gameForView = _mapper.Map<GameViewModel>(gameDTO);
+
+            _gameService.IncreaseGameView(gameDTO.Id);
 
             return View(gameForView);
         }
@@ -237,7 +176,7 @@ namespace GameStore.Controllers
         {
             _gameService.Delete(gameId);
 
-            return RedirectToAction("GetAllGames");
+            return RedirectToAction("FilteredGames");
         }
 
         [OutputCache(Duration = 60)]
@@ -295,6 +234,69 @@ namespace GameStore.Controllers
             }
 
             return gameViewModel;
+        }
+
+        private FilterViewModel GetInitFilterViewModel()
+        {
+            var model = new FilterViewModel();
+
+            var genrelist = _mapper.Map<IEnumerable<GenreViewModel>>(_genreService.GetAll());
+            var platformlist = _mapper.Map<IEnumerable<PlatformTypeViewModel>>(_platformTypeService.GetAll());
+            var publisherlist = _mapper.Map<IEnumerable<PublisherViewModel>>(_publisherService.GetAll());
+
+            var listGenreBoxs = new List<CheckBox>();
+            genrelist.ToList().ForEach(genre => listGenreBoxs.Add(new CheckBox() { Text = genre.Name }));
+            model.ListGenres = listGenreBoxs;
+
+            var listPlatformBoxs = new List<CheckBox>();
+            platformlist.ToList().ForEach(platform => listPlatformBoxs.Add(new CheckBox() { Text = platform.Name }));
+            model.ListPlatformTypes = listPlatformBoxs;
+
+            var listPublisherBoxs = new List<CheckBox>();
+            publisherlist.ToList().ForEach(publisher => listPublisherBoxs.Add(new CheckBox() { Text = publisher.Name }));
+            model.ListPublishers = listPublisherBoxs;
+
+            return model;
+        }
+
+        private FilterViewModel GetFilterViewModel(FilterViewModel filterViewMode)
+        {
+            var model = GetInitFilterViewModel();
+
+            if (filterViewMode.SelectedGenresName != null)
+            {
+                model.SelectedGenres = model.ListGenres.Where(x => filterViewMode.SelectedGenresName.Contains(x.Text));
+                model.SelectedGenresName = filterViewMode.SelectedGenresName;
+            }
+
+            if (filterViewMode.SelectedPlatformTypesName != null)
+            {
+                model.SelectedPlatformTypes = model.ListPlatformTypes.Where(x => filterViewMode.SelectedPlatformTypesName.Contains(x.Text));
+                model.SelectedPlatformTypesName = filterViewMode.SelectedPlatformTypesName;
+            }
+
+            if (filterViewMode.SelectedPublishersName != null)
+            {
+                model.SelectedPublishers = model.ListPublishers.Where(x => filterViewMode.SelectedPublishersName.Contains(x.Text));
+                model.SelectedPublishersName = filterViewMode.SelectedPublishersName;
+            }
+
+            if (filterViewMode.MaxPrice != null)
+            {
+                model.MaxPrice = filterViewMode.MaxPrice;
+            }
+
+            if (filterViewMode.MinPrice != null)
+            {
+                model.MinPrice = filterViewMode.MinPrice;
+            }
+
+            if (filterViewMode.SearchGameName != null)
+            {
+                model.SearchGameName = filterViewMode.SearchGameName;
+            }
+            
+            return model;
         }
     }
 }
