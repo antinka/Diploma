@@ -1,6 +1,7 @@
 ﻿using Moq;
 using System.Web;
 using System.Web.Routing;
+using GameStore.Web;
 using Xunit;
 
 namespace GameStore.Tests.Routes

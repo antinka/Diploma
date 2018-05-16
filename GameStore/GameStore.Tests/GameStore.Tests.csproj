@@ -161,9 +161,9 @@
       <Project>{36f7a06d-95a3-4d75-8fe1-284806f45845}</Project>
       <Name>GameStore.DAL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\GameStore\GameStore.csproj">
+    <ProjectReference Include="..\GameStore.Web\GameStore.Web.csproj">
       <Project>{32a109f8-0a2a-4440-a75d-fb0f8fb807be}</Project>
-      <Name>GameStore</Name>
+      <Name>GameStore.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

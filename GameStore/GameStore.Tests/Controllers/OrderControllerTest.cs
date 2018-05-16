@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Interfaces;
-using GameStore.Controllers;
-using GameStore.Infrastructure.Mapper;
-using GameStore.Payments.Enums;
+using GameStore.Web.Controllers;
+using GameStore.Web.Infrastructure.Mapper;
+using GameStore.Web.Payments.Enums;
 using Moq;
 using System;
 using System.Web.Mvc;
