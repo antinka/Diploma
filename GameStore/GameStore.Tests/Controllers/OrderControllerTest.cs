@@ -121,5 +121,13 @@ namespace GameStore.Tests.Controllers
 
             Assert.Equal(typeof(ViewResult), res.GetType());
         }
+
+        [Fact]
+        public void CountGamesInOrder_ReturnPartialViewResult()
+        {
+            var res = _sut.CountGamesInOrder();
+
+            Assert.Equal(typeof(PartialViewResult), res.GetType());
+        }
     }
 }

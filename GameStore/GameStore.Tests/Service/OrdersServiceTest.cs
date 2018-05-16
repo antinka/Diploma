@@ -124,5 +124,25 @@ namespace GameStore.Tests.Service
             _uow.Verify(uow => uow.Games.Update(It.IsAny<Game>()), Times.Once);
             _uow.Verify(uow => uow.OrderDetails.Update(It.IsAny<OrderDetail>()), Times.Once);
         }
+
+        [Fact]
+        public void CountGamesInOrder_UserIdWhichNotMakeOrderYet_NumberOfGamesInUserOrder0()
+        {
+            _uow.Setup(uow => uow.Orders.Get(It.IsAny<Func<Order, bool>>())).Returns(new List<Order>());
+            
+            var res = _sut.CountGamesInOrder(_fakeUserId);
+
+            Assert.Equal(0, res);
+        }
+
+        [Fact]
+        public void CountGamesInOrder_UserId_NumberOfGamesInUserOrder()
+        {
+            _uow.Setup(uow => uow.Orders.Get(It.IsAny<Func<Order, bool>>())).Returns(_fakeOrders);
+            var expect = _fakeOrders.FirstOrDefault().OrderDetails.Aggregate(0, (current, game) => current + game.Quantity);
+            var res = _sut.CountGamesInOrder(_fakeUserId);
+
+            Assert.Equal(expect, res);
+        }
     }
 }
