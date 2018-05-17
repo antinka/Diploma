@@ -113,6 +113,7 @@ namespace GameStore.BLL.Service
             return false;
         }
 
+		//Use Get instead of Take. here and everywhere
         private PlatformType TakePlatformTypeById(Guid id)
         {
             var platformType = _unitOfWork.PlatformTypes.GetById(id);

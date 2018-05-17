@@ -18,6 +18,7 @@ namespace GameStore.Web.Controllers
         private readonly IGameService _gameService;
         private readonly IMapper _mapper;
 
+		//todo use underscore for private instances
         private IPayment payment { get; set; }
 
         public OrderController(IOrdersService ordersService, IGameService gameService, IMapper mapper)
@@ -45,6 +46,7 @@ namespace GameStore.Web.Controllers
             var userId = Guid.Empty;
 
             var game = _gameService.GetByKey(gameKey);
+			//todo if UnitsInStock would be 1?
             if (game.UnitsInStock > 1)
             {
                 _ordersService.AddNewOrderDetails(userId, game.Id);
@@ -92,6 +94,7 @@ namespace GameStore.Web.Controllers
                 Cost = order.Cost
             };
 
+			//todo move creationg this to PaymentStrategy. And inject it.
             if (paymentType == PaymentTypes.Bank)
             {
                 payment = new Bank();

@@ -34,11 +34,13 @@ namespace GameStore.BLL.Service
                 return null;
             }
 
+			//todo use navigation prop here and everywhere. 
             order.OrderDetails = _unitOfWork.OrderDetails.Get(o => o.OrderId == order.Id).ToList();
             var orderDTO = _mapper.Map<OrderDTO>(order);
 
             foreach (var i in orderDTO.OrderDetails)
             {
+				//todo use Sum
                 orderDTO.Cost += i.Price;
             }
 
@@ -59,6 +61,7 @@ namespace GameStore.BLL.Service
                 }
                 else
                 {
+					//todo I think if order detail is already payed or deleted, you should create new one
                     var orderDetails = order.OrderDetails.FirstOrDefault(o => o.GameId == game.Id);
 
                     if (orderDetails != null)
@@ -73,6 +76,7 @@ namespace GameStore.BLL.Service
                         CreateNewOrderDetailToExistOrder(order, game, gameId);
                 }
 
+				//todo if order is not payed, you can't change UnitInStock
                 game.UnitsInStock -= 1;
                 _unitOfWork.Games.Update(game);
                 _unitOfWork.Save();

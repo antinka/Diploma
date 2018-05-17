@@ -159,30 +159,34 @@ namespace GameStore.Web.Controllers
 
             gameViewModel.PublisherList = new SelectList(publishers, "Id", "Name");
 
+			//todo Boxs - rename pls
             var listGenreBoxs = new List<CheckBox>();
+			//todo .ForEach works slower than default foreach(). U could use .Select() extension in this case
             genrelist.ToList().ForEach(genre => listGenreBoxs.Add(new CheckBox() { Text = genre.Name }));
             gameViewModel.ListGenres = listGenreBoxs;
 
+			//todo same, Boxs and Select();
             var listPlatformBoxs = new List<CheckBox>();
             platformlist.ToList().ForEach(platform => listPlatformBoxs.Add(new CheckBox() { Text = platform.Name }));
             gameViewModel.ListPlatformTypes = listPlatformBoxs;
 
+			//todo why u need all this checks?
             if (gameViewModel.SelectedGenresName != null)
             {
                 gameViewModel.SelectedGenres = gameViewModel.ListGenres.Where(x => gameViewModel.SelectedGenresName.Contains(x.Text));
             }
-
-            if(gameViewModel.Genres != null)
+			//todo why u need all this checks?
+			if (gameViewModel.Genres != null)
             {
                 gameViewModel.SelectedGenres = gameViewModel.ListGenres.Where(x => gameViewModel.Genres.Any(g => g.Name.Contains(x.Text)));
             }
-
-            if (gameViewModel.SelectedPlatformTypesName != null)
+			//todo why u need all this checks?
+			if (gameViewModel.SelectedPlatformTypesName != null)
             {
                 gameViewModel.SelectedPlatformTypes = gameViewModel.ListPlatformTypes.Where(x => gameViewModel.SelectedPlatformTypesName.Contains(x.Text));
             }
-
-            if(gameViewModel.PlatformTypes != null)
+			//todo why u need all this checks?
+			if (gameViewModel.PlatformTypes != null)
             {
                 gameViewModel.SelectedPlatformTypes = gameViewModel.ListPlatformTypes.Where(x => gameViewModel.PlatformTypes.Any(g => g.Name.Contains(x.Text)));
             }

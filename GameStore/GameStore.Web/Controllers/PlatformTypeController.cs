@@ -88,6 +88,9 @@ namespace GameStore.Web.Controllers
             {
                 var platformTypeDTO = _mapper.Map<PlatformTypeDTO>(platformTypeViewModel);
 
+				//todo I think there could be cases when platformService returns false not only when "such name already exist"
+				//todo Maybe you coud add service which will check name.
+				//todo fix this here and everywhere where name or key is unique
                 if(_platformTypeService.Update(platformTypeDTO))
                     return RedirectToAction("GetAll");
 

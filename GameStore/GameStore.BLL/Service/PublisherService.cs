@@ -78,6 +78,7 @@ namespace GameStore.BLL.Service
 
                     return true;
                 }
+				//todo else
                 else
                 {
                     _log.Info($"{nameof(PublisherService)} - attempt to update publisher with not unique name, {publisherDTO.Name}");

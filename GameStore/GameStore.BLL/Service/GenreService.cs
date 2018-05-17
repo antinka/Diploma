@@ -36,6 +36,7 @@ namespace GameStore.BLL.Service
             var genres = _unitOfWork.Genres.GetAll();
             var genresDto = _mapper.Map<IEnumerable<GenreDTO>>(genres);
 
+			//todo u could do it using mapper
             foreach (var genre in genresDto)
             {
                 foreach (var parentGenre in genresDto)
@@ -70,9 +71,11 @@ namespace GameStore.BLL.Service
 
         public bool Update(GenreDTO genreDto)
         {
+			//todo u call twice to db, but I think u could do this using only one call.1 call
             if (TakeGenreById(genreDto.Id) != null)
             {
-                if (IsUniqueName(genreDto))
+				//2 call
+				if (IsUniqueName(genreDto))
                 {
                     var genre = _mapper.Map<Genre>(genreDto);
 
@@ -94,6 +97,7 @@ namespace GameStore.BLL.Service
 
         public void Delete(Guid id)
         {
+			//todo Dont like "Take..." Use Get pls, as everywhere you use Get
             if (TakeGenreById(id) != null)
             {
                 _unitOfWork.Genres.Delete(id);
@@ -114,6 +118,7 @@ namespace GameStore.BLL.Service
 
             var genresDto = _mapper.Map<GenreDTO>(genre);
 
+			//u don't need this call. Use navigation prop.
             if (genre.ParentGenreId != null)
                 genresDto.ParentGenreName = _unitOfWork.Genres.GetById(genre.ParentGenreId.Value).Name;
 
