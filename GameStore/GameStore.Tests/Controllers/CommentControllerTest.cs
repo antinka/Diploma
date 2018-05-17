@@ -79,7 +79,7 @@ namespace GameStore.Tests.Controllers
             var res = _sut.Ban(BanPeriod.Day) as RedirectToRouteResult;
         
             Assert.Equal("Game", res.RouteValues["controller"]);
-            Assert.Equal("GetAllGames", res.RouteValues["action"]);
+            Assert.Equal("FilteredGames", res.RouteValues["action"]);
         }
 
         [Fact]

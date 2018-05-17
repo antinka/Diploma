@@ -1,19 +1,37 @@
-﻿@using GameStore.BLL.Enums
-@model GameStore.Web.ViewModels.FilterViewModel
+﻿@model GameStore.Web.ViewModels.FilterViewModel
 
 @using (Html.BeginForm("FilteredGames", "Game", FormMethod.Get, null))
 {
     <div class="row">
         <div class="col-xs-6 col-md-4">
             @Html.Action("GamesFilters", "Game", Model)
+@*replace with partial*@
         </div>
         <div class="col-xs-6 col-md-4">
 
             <p>
                 @Html.ActionLink("Create New", "New", "Game")
             </p>
+            <div class="form-group">
+                @Html.LabelFor(model => model.SortType, htmlAttributes: new { @class = "control-label col-md-6" })
+                <div class="col-md-10">
+                    @Html.EnumDropDownListFor(model => model.SortType, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.SortType, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-
+            <div class="form-group">
+                @Html.LabelFor(model => model.PageSize, htmlAttributes: new { @class = "control-label col-md-6" })
+                <div class="col-md-10">
+                    @Html.EnumDropDownListFor(model => model.PageSize, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.PageSize, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Filter" class="btn btn-default" />
+                </div>
+            </div>
             <table class="table">
                 <tr>
                     <th>
@@ -40,7 +58,7 @@
                     <th></th>
                     <th></th>
                 </tr>
-                @if (Model.Games != null)
+                @if (Model.Games.First().Key != null)
                 { 
                 foreach (var item in Model.Games)
                  {

@@ -146,7 +146,8 @@ namespace GameStore.Web.Controllers
             {
                 return View(filterViewModel);
             }
-
+            
+            filterViewModel.Games = new List<GameViewModel>(){new GameViewModel()};
 
             return View(filterViewModel);
         }

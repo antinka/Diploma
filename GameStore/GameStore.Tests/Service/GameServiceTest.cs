@@ -439,7 +439,7 @@ namespace GameStore.Tests.Service
             gamePipeline.Register(new FilterByDate(filterDto.SortDate));
             var gamesAfteFilter = gamePipeline.Process(_fakeGamesForFilter);
 
-            Assert.True(gamesAfteFilter.ElementAt(0).PublishDate > gamesAfteFilter.ElementAt(1).PublishDate);
+            Assert.True(gamesAfteFilter.ElementAt(0).PublishDate >= DateTime.Today.AddMonths(-1));
         }
 
         [Fact]
@@ -454,7 +454,7 @@ namespace GameStore.Tests.Service
             gamePipeline.Register(new FilterByDate(filterDto.SortDate));
             var gamesAfteFilter = gamePipeline.Process(_fakeGamesForFilter);
 
-            Assert.True(gamesAfteFilter.ElementAt(0).PublishDate < gamesAfteFilter.ElementAt(1).PublishDate);
+            Assert.True(gamesAfteFilter.ElementAt(0).PublishDate >= DateTime.Today.AddDays(-7));
         }
 
         [Fact]
