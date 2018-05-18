@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GameStore.BLL.Exeption
+namespace GameStore.BLL.CustomExeption
 {
     public class EntityNotFound : Exception
     {

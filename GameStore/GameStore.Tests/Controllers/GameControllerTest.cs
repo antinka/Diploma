@@ -8,6 +8,7 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using GameStore.Web.ViewModels.Games;
 using Xunit;
 
 namespace GameStore.Tests.Controllers
@@ -60,6 +61,7 @@ namespace GameStore.Tests.Controllers
             var fakeGameViewModel = new GameViewModel() { Name = "test", Key = "test" , SelectedGenresName = new List<string>(), SelectedPlatformTypesName  = new List<string>()};
             var fakeGameDTO = _mapper.Map<GameDTO>(fakeGameViewModel);
 
+            _gameService.Setup(service => service.IsUniqueKey(It.IsAny<GameDTO>())).Returns(true);
             _gameService.Setup(service => service.AddNew(fakeGameDTO)).Verifiable();
 
             _sut.New(fakeGameViewModel);
@@ -85,6 +87,7 @@ namespace GameStore.Tests.Controllers
             var fakeGameViewModel = new GameViewModel() { Name = "test", Key = "test", SelectedGenresName = new List<string>(), SelectedPlatformTypesName = new List<string>() };
             var fakeGameDTO = _mapper.Map<GameDTO>(fakeGameViewModel);
 
+            _gameService.Setup(service => service.IsUniqueKey(It.IsAny<GameDTO>())).Returns(true);
             _gameService.Setup(service => service.Update(fakeGameDTO)).Verifiable();
 
             _sut.Update(fakeGameViewModel);

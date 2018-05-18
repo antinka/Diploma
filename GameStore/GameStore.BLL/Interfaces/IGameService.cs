@@ -11,5 +11,7 @@ namespace GameStore.BLL.Interfaces
         IEnumerable<GameDTO> GetGamesByPlatformType(Guid platformTypeId);
 
         int GetCountGame();
+
+        bool IsUniqueKey(GameDTO gameDTO);
     }
 }

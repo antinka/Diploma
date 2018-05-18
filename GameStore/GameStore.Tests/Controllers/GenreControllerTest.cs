@@ -35,6 +35,7 @@ namespace GameStore.Tests.Controllers
             var fakeGenreViewModel = new GenreViewModel() { Name = "test" };
             var fakeGenreDTO = _mapper.Map<GenreDTO>(fakeGenreViewModel);
 
+            _genreService.Setup(service => service.IsUniqueName(It.IsAny<GenreDTO>())).Returns(true);
             _genreService.Setup(service => service.AddNew(fakeGenreDTO)).Verifiable();
 
             _sut.New(fakeGenreViewModel);
@@ -70,6 +71,7 @@ namespace GameStore.Tests.Controllers
             var fakeGenreViewModel = new GenreViewModel() { Name = "test" };
             var fakeGenreDTO = _mapper.Map<GenreDTO>(fakeGenreViewModel);
 
+            _genreService.Setup(service => service.IsUniqueName(It.IsAny<GenreDTO>())).Returns(true);
             _genreService.Setup(service => service.Update(fakeGenreDTO)).Verifiable();
 
             _sut.Update(fakeGenreViewModel);

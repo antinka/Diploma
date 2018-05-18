@@ -36,10 +36,17 @@ namespace GameStore.Web.Controllers
             {
                 var publisherDTO = _mapper.Map<PublisherDTO>(publisher);
 
-                if (_publisherService.AddNew(publisherDTO))
-                    return RedirectToAction("Get", new { companyName = publisher.Name });
+                var isUniqueName = _publisherService.IsUniqueName(publisherDTO);
 
-                ModelState.AddModelError("Name", "Publisher with such name already exist, please enter another name");
+                if (isUniqueName)
+                { 
+                    _publisherService.AddNew(publisherDTO);
+
+                    return RedirectToAction("Get", new { companyName = publisher.Name });
+                }
+
+                ModelState.AddModelError("Name",
+                    "Publisher with such name already exist, please enter another name");
             }
 
             return View(publisher);
@@ -88,10 +95,17 @@ namespace GameStore.Web.Controllers
             {
                 var publisherDTO = _mapper.Map<PublisherDTO>(publisherViewModel);
 
-                if (_publisherService.Update(publisherDTO))
-                    return RedirectToAction("GetAll");
+                if (!_publisherService.IsUniqueName(publisherDTO))
+                {
+                    ModelState.AddModelError("Name", "Publisher with such name already exist, please enter another name");
+                }
 
-                ModelState.AddModelError("Name", "Publisher with such name already exist, please enter another name");
+                if (ModelState.IsValid)
+                {
+                    _publisherService.Update(publisherDTO);
+
+                    return RedirectToAction("GetAll");
+                }
             }
 
             return View(publisherViewModel);

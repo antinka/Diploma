@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using GameStore.BLL.DTO;
-using GameStore.BLL.Exeption;
 using GameStore.BLL.Service;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
@@ -9,6 +8,7 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GameStore.BLL.CustomExeption;
 using GameStore.Web.Infrastructure.Mapper;
 using Xunit;
 
@@ -89,20 +89,6 @@ namespace GameStore.Tests.Service
             _sut.AddNew(fakePlatformTypeDTO);
 
             _uow.Verify(uow => uow.PlatformTypes.Create(It.IsAny<PlatformType>()), Times.Once);
-        }
-
-        [Fact]
-        public void AddNewPlatformType_PlatformTypeWithoutUniqueName_ReturnedFalseAddNewPlatformType()
-        {
-            var fakePlatformTypes = new List<PlatformType>()
-            {
-                new PlatformType(){Name = _fakePlatformTypeName}
-            };
-            var fakePlatformTypeDTO = _mapper.Map<PlatformTypeDTO>(_fakePlatformType);
-
-            _uow.Setup(uow => uow.PlatformTypes.Get(It.IsAny<Func<PlatformType, bool>>())).Returns(fakePlatformTypes);
-
-            Assert.False(_sut.AddNew(fakePlatformTypeDTO));
         }
 
         [Fact]

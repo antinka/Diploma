@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using GameStore.BLL.DTO;
-using GameStore.BLL.Exeption;
 using GameStore.BLL.Service;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
@@ -10,6 +9,7 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GameStore.BLL.CustomExeption;
 using Xunit;
 
 namespace GameStore.Tests.Service
@@ -92,16 +92,6 @@ namespace GameStore.Tests.Service
             _sut.AddNew(fakeGameDTO);
 
             _uow.Verify(uow => uow.Games.Create(It.IsAny<Game>()), Times.Once);
-        }
-
-        [Fact]
-        public void AddNewGame_GameWithoutUniqueKey_ReturnedFalseAddNewGame()
-        {
-            var fakeGameDTO = new GameDTO() { Id = Guid.NewGuid(), Key = _fakeGameKey };
-
-            _uow.Setup(uow => uow.Games.Get(It.IsAny<Func<Game, bool>>())).Returns(_fakeGames);
-
-            Assert.False(_sut.AddNew(fakeGameDTO));
         }
 
         [Fact]

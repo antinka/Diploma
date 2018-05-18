@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using GameStore.BLL.DTO;
-using GameStore.BLL.Exeption;
 using GameStore.BLL.Service;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
@@ -10,6 +9,7 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GameStore.BLL.CustomExeption;
 using Xunit;
 
 namespace GameStore.Tests.Service
@@ -116,20 +116,6 @@ namespace GameStore.Tests.Service
             _sut.AddNew(fakeGenreDTO);
 
             _uow.Verify(uow => uow.Genres.Create(It.IsAny<Genre>()), Times.Once);
-        }
-
-        [Fact]
-        public void AddNewGenre_GenreWithoutUniqueName_ReturnedFalseAddNewGenre()
-        {
-            var fakeGenres = new List<Genre>()
-            {
-                new Genre(){ Name = _fakeGenreName }
-            };
-            var fakeGenreDTO = _mapper.Map<GenreDTO>(_fakeGenre);
-
-            _uow.Setup(uow => uow.Genres.Get(It.IsAny<Func<Genre, bool>>())).Returns(fakeGenres);
-
-            Assert.False(_sut.AddNew(fakeGenreDTO));
         }
 
         [Fact]

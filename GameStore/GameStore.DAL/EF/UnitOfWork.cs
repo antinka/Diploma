@@ -13,7 +13,7 @@ namespace GameStore.DAL.EF
         private readonly Lazy<GenericRepository<Genre>> _lazyGenreRepository;
         private readonly Lazy<GenericRepository<Comment>> _lazyCommentRepository;
         private readonly Lazy<GenericRepository<PlatformType>> _lazyPlatformTypeRepository;
-        private readonly Lazy<GenericRepository<OrderDetail>> _lazyOrderDetailRepository;
+        private readonly Lazy<OrderDetailRepository> _lazyOrderDetailRepository;
         private readonly Lazy<GenericRepository<Order>> _lazyOrderRepository;
         private readonly Lazy<GenericRepository<Publisher>> _lazyPublisherRepository;
 
@@ -25,7 +25,7 @@ namespace GameStore.DAL.EF
             _lazyGenreRepository = new Lazy<GenericRepository<Genre>>(() => new GenericRepository<Genre>(_context));
             _lazyCommentRepository = new Lazy<GenericRepository<Comment>>(() => new GenericRepository<Comment>(_context));
             _lazyPlatformTypeRepository = new Lazy<GenericRepository<PlatformType>>(() => new GenericRepository<PlatformType>(_context));
-            _lazyOrderDetailRepository = new Lazy<GenericRepository<OrderDetail>>(() => new GenericRepository<OrderDetail>(_context));
+            _lazyOrderDetailRepository = new Lazy<OrderDetailRepository>(() => new OrderDetailRepository(_context));
             _lazyOrderRepository = new Lazy<GenericRepository<Order>>(() => new GenericRepository<Order>(_context));
             _lazyPublisherRepository = new Lazy<GenericRepository<Publisher>>(() => new GenericRepository<Publisher>(_context));
         }

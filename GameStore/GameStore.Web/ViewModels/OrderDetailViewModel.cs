@@ -1,4 +1,5 @@
 ﻿using System;
+using GameStore.Web.ViewModels.Games;
 
 namespace GameStore.Web.ViewModels
 {

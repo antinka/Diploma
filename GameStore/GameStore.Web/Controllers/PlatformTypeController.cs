@@ -36,10 +36,17 @@ namespace GameStore.Web.Controllers
             {
                 var platformTypeDTO = _mapper.Map<PlatformTypeDTO>(platformTypeViewModel);
 
-                if (_platformTypeService.AddNew(platformTypeDTO))
-                    return RedirectToAction("Get", new { platformTypeName = platformTypeViewModel.Name });
+                if (!_platformTypeService.IsUniqueName(platformTypeDTO))
+                {
+                    ModelState.AddModelError("Name", "Platform type with such name already exist, please enter another name");
+                }
 
-                ModelState.AddModelError("Name", "Platform type with such name already exist, please enter another name");
+                if (ModelState.IsValid)
+                {
+                    _platformTypeService.AddNew(platformTypeDTO);
+
+                    return RedirectToAction("Get", new { platformTypeName = platformTypeViewModel.Name });
+                }
             }
 
             return View(platformTypeViewModel);
@@ -87,14 +94,17 @@ namespace GameStore.Web.Controllers
             if (ModelState.IsValid)
             {
                 var platformTypeDTO = _mapper.Map<PlatformTypeDTO>(platformTypeViewModel);
+                if (!_platformTypeService.IsUniqueName(platformTypeDTO))
+                {
+                    ModelState.AddModelError("Name", "Platform type with such name already exist, please enter another name");
+                }
 
-				//todo I think there could be cases when platformService returns false not only when "such name already exist"
-				//todo Maybe you coud add service which will check name.
-				//todo fix this here and everywhere where name or key is unique
-                if(_platformTypeService.Update(platformTypeDTO))
+                if (ModelState.IsValid)
+                {
+                    _platformTypeService.Update(platformTypeDTO);
+
                     return RedirectToAction("GetAll");
-
-                ModelState.AddModelError("Name", "Platform type with such name already exist, please enter another name");
+                }
             }
 
             return View(platformTypeViewModel);

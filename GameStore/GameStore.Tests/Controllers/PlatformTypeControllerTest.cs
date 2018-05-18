@@ -35,6 +35,7 @@ namespace GameStore.Tests.Controllers
             var fakePlatformTypeViewModel = new PlatformTypeViewModel() { Name = "test" };
             var fakePlatformTypeDTO = _mapper.Map<PlatformTypeDTO>(fakePlatformTypeViewModel);
 
+            _platformTypeService.Setup(service => service.IsUniqueName(It.IsAny<PlatformTypeDTO>())).Returns(true);
             _platformTypeService.Setup(service => service.AddNew(fakePlatformTypeDTO)).Verifiable();
 
             _sut.New(fakePlatformTypeViewModel);
@@ -70,6 +71,7 @@ namespace GameStore.Tests.Controllers
             var fakePlatformTypeViewModel = new PlatformTypeViewModel() { Name = "test" };
             var fakePlatformTypeDTO = _mapper.Map<PlatformTypeDTO>(fakePlatformTypeViewModel);
 
+            _platformTypeService.Setup(service => service.IsUniqueName(It.IsAny<PlatformTypeDTO>())).Returns(true);
             _platformTypeService.Setup(service => service.Update(fakePlatformTypeDTO)).Verifiable();
 
             _sut.Update(fakePlatformTypeViewModel);

@@ -9,6 +9,8 @@ namespace GameStore.DAL.Entities
     {
         public Guid? ParentGenreId { get; set; }
 
+        public virtual Genre ParentGenre { get; set; }
+
         [Index("Genre_Index_Name", 1, IsUnique = true)]
         [MaxLength(450)]
         public string Name { get; set; }

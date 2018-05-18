@@ -95,7 +95,7 @@
     <Compile Include="DTO\OrderDTO.cs" />
     <Compile Include="DTO\PublisherDTO.cs" />
     <Compile Include="Enums\BanPeriod.cs" />
-    <Compile Include="Exeption\EntityNotFound.cs" />
+    <Compile Include="CustomExeption\EntityNotFound.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Infrastructure\BLLModule.cs" />
     <Compile Include="Infrastructure\Mapper\DTOToEntity.cs" />

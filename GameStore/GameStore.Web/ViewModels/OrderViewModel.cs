@@ -9,7 +9,7 @@ namespace GameStore.Web.ViewModels
 
         public Guid UserId { get; set; }
 
-        public DateTime Date { get; set; }
+        public DateTime? Date { get; set; }
 
         public Decimal Cost { get; set; }
 

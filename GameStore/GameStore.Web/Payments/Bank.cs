@@ -1,17 +1,20 @@
-﻿using System.IO;
-using System.Web.Mvc;
+﻿using GameStore.Web.Payments.Enums;
 using GameStore.Web.ViewModels;
+using System.IO;
+using System.Web.Mvc;
 
 namespace GameStore.Web.Payments
 {
     public class Bank : IPayment
     {
+        public PaymentTypes Name => PaymentTypes.Bank;
+
         public ActionResult Pay(OrderPayment order)
         {
-			//todo Stream implements IDisposable interface, so it must be disposed
-            Stream stream = new MemoryStream();
-
-            return new FileStreamResult(stream, "application/txt");
+            using (Stream stream = new MemoryStream())
+            {
+                return new FileStreamResult(stream, "application/txt");
+            }
         }
     }
 }

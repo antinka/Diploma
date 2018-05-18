@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using GameStore.BLL.DTO;
-using GameStore.BLL.Exeption;
 using GameStore.BLL.Interfaces;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
@@ -8,6 +7,7 @@ using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GameStore.BLL.CustomExeption;
 
 namespace GameStore.BLL.Service
 {
@@ -26,7 +26,7 @@ namespace GameStore.BLL.Service
 
         public GenreDTO GetById(Guid id)
         {
-            var genre = TakeGenreById(id);
+            var genre = GetGenreById(id);
 
             return _mapper.Map<GenreDTO>(genre);
         }
@@ -36,69 +36,34 @@ namespace GameStore.BLL.Service
             var genres = _unitOfWork.Genres.GetAll();
             var genresDto = _mapper.Map<IEnumerable<GenreDTO>>(genres);
 
-			//todo u could do it using mapper
-            foreach (var genre in genresDto)
-            {
-                foreach (var parentGenre in genresDto)
-                {
-                    if (genre.ParentGenreId == parentGenre.Id)
-                    {
-                        genre.ParentGenreName = parentGenre.Name;
-                    }
-                }
-            }
-
             return genresDto;
         }
 
-        public bool AddNew(GenreDTO genreDto)
+        public void AddNew(GenreDTO genreDto)
         {
-            if (IsUniqueName(genreDto))
-            {
-                genreDto.Id = Guid.NewGuid();
-                _unitOfWork.Genres.Create(_mapper.Map<Genre>(genreDto));
-                _unitOfWork.Save();
+            genreDto.Id = Guid.NewGuid();
+            _unitOfWork.Genres.Create(_mapper.Map<Genre>(genreDto));
+            _unitOfWork.Save();
 
-                _log.Info($"{nameof(GenreService)} - add new genre { genreDto.Id}");
-
-                return true;
-            }
-
-            _log.Info($"{nameof(GenreService)} - attempt to add new genre with not unique name, {genreDto.Name}");
-
-            return false;
+            _log.Info($"{nameof(GenreService)} - add new genre { genreDto.Id}");
         }
 
-        public bool Update(GenreDTO genreDto)
+        public void Update(GenreDTO genreDto)
         {
-			//todo u call twice to db, but I think u could do this using only one call.1 call
-            if (TakeGenreById(genreDto.Id) != null)
+            if(GetGenreById(genreDto.Id) != null)
             {
-				//2 call
-				if (IsUniqueName(genreDto))
-                {
-                    var genre = _mapper.Map<Genre>(genreDto);
+                var genre = _mapper.Map<Genre>(genreDto);
 
-                    _unitOfWork.Genres.Update(genre);
-                    _unitOfWork.Save();
+                _unitOfWork.Genres.Update(genre);
+                _unitOfWork.Save();
 
-                    _log.Info($"{nameof(GenreService)} - update genre {genreDto.Id}");
-
-                    return true;
-                }
-
-                _log.Info($"{nameof(GenreService)} - attempt to update genre with not unique name, {genreDto.Name}");
-
-                return false;
+                _log.Info($"{nameof(GenreService)} - update genre {genreDto.Id}");
             }
-
-            return false;
         }
 
         public void Delete(Guid id)
         {
-			//todo Dont like "Take..." Use Get pls, as everywhere you use Get
-            if (TakeGenreById(id) != null)
+            if (GetGenreById(id) != null)
             {
                 _unitOfWork.Genres.Delete(id);
                 _unitOfWork.Save();
@@ -118,10 +83,6 @@ namespace GameStore.BLL.Service
 
             var genresDto = _mapper.Map<GenreDTO>(genre);
 
-			//u don't need this call. Use navigation prop.
-            if (genre.ParentGenreId != null)
-                genresDto.ParentGenreName = _unitOfWork.Genres.GetById(genre.ParentGenreId.Value).Name;
-
             return genresDto;
         }
 
@@ -135,7 +96,7 @@ namespace GameStore.BLL.Service
             return false;
         }
 
-        private bool IsUniqueName(GenreDTO genreDto)
+        public bool IsUniqueName(GenreDTO genreDto)
         {
             var genre = _unitOfWork.Genres.Get(x => x.Name == genreDto.Name).FirstOrDefault();
 
@@ -145,7 +106,7 @@ namespace GameStore.BLL.Service
             return false;
         }
 
-        private Genre TakeGenreById(Guid id)
+        private Genre GetGenreById(Guid id)
         {
             var genre = _unitOfWork.Genres.GetById(id);
 

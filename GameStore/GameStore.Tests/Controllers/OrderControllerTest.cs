@@ -3,10 +3,14 @@ using GameStore.BLL.DTO;
 using GameStore.BLL.Interfaces;
 using GameStore.Web.Controllers;
 using GameStore.Web.Infrastructure.Mapper;
+using GameStore.Web.Payments;
 using GameStore.Web.Payments.Enums;
 using Moq;
 using System;
+using System.Collections.Generic;
+using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using Xunit;
 
 namespace GameStore.Tests.Controllers
@@ -18,12 +22,13 @@ namespace GameStore.Tests.Controllers
         private readonly IMapper _mapper;
         private readonly OrderController _sut;
 
+
         public OrderControllerTest()
         {
             _mapper = MapperConfigUi.GetMapper().CreateMapper();
             _ordersService = new Mock<IOrdersService>();
             _gameService = new Mock<IGameService>();
-            _sut = new OrderController(_ordersService.Object, _gameService.Object, _mapper);
+            _sut = new OrderController(_ordersService.Object, _gameService.Object, _mapper , new List<IPayment>());
         }
 
         [Fact]
@@ -61,6 +66,7 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void AddGameToOrder_GameKeyWhereGameUnitsInStockLessThen1_ReturnedViewResult()
         {
+
             var fakeGameKey = "fakeGameKey";
             var fakeGame = new GameDTO()
             {
@@ -69,7 +75,25 @@ namespace GameStore.Tests.Controllers
                 UnitsInStock = 0
             };
 
+            HttpCookie StudentCookies = new HttpCookie("StudentCookies");
+            StudentCookies.Value = "hallo";
+            StudentCookies.Expires = DateTime.Now.AddHours(1);
+
+            //_sut.HttpContext.Request.Cookies.Add(StudentCookies);
             _gameService.Setup((service => service.GetByKey(fakeGameKey))).Returns(fakeGame);
+
+            var cookieCollection = new HttpCookieCollection { };
+            var reqest = new Mock<HttpRequestBase>();
+            var response = new Mock<HttpResponseBase>();
+            reqest.SetupGet(r => r.Cookies).Returns(cookieCollection);
+            response.SetupGet(r => r.Cookies).Returns(cookieCollection);
+
+            var context = new Mock<HttpContextBase>();
+            context.SetupGet(x => x.Response).Returns(response.Object);
+            context.SetupGet(x => x.Request).Returns(reqest.Object);
+
+
+            _sut.ControllerContext = new ControllerContext(context.Object, new RouteData(), _sut);
 
             var res = _sut.AddGameToOrder(fakeGameKey);
 

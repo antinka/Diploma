@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using GameStore.BLL.DTO;
-using GameStore.BLL.Exeption;
 using GameStore.BLL.Interfaces;
 using GameStore.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GameStore.BLL.CustomExeption;
 using GameStore.DAL.Entities;
 using log4net;
 
@@ -26,7 +26,7 @@ namespace GameStore.BLL.Service
 
         public PlatformTypeDTO GetById(Guid id)
         {
-            var platgormType = TakePlatformTypeById(id);
+            var platgormType = GetPlatformTypeById(id);
 
             return _mapper.Map<PlatformTypeDTO>(platgormType);
         }
@@ -38,51 +38,31 @@ namespace GameStore.BLL.Service
             return _mapper.Map<IEnumerable<PlatformTypeDTO>>(platgormTypes);
         }
 
-        public bool AddNew(PlatformTypeDTO platformTypeDto)
+        public void AddNew(PlatformTypeDTO platformTypeDto)
         {
-            if (IsUniqueName(platformTypeDto))
-            {
-                platformTypeDto.Id = Guid.NewGuid();
-                _unitOfWork.PlatformTypes.Create(_mapper.Map<PlatformType>(platformTypeDto));
-                _unitOfWork.Save();
+            platformTypeDto.Id = Guid.NewGuid();
+            _unitOfWork.PlatformTypes.Create(_mapper.Map<PlatformType>(platformTypeDto));
+            _unitOfWork.Save();
 
-                _log.Info($"{nameof(PublisherService)} - add new platformType {platformTypeDto.Id}");
-
-                return true;
-            }
-
-            _log.Info($"{nameof(PlatformTypeService)} - attempt to add new platformType with not unique name");
-
-            return false;
+            _log.Info($"{nameof(PublisherService)} - add new platformType {platformTypeDto.Id}");
         }
 
-        public bool Update(PlatformTypeDTO platformTypeDto)
+        public void Update(PlatformTypeDTO platformTypeDto)
         {
-            if (TakePlatformTypeById(platformTypeDto.Id) != null)
+            if (GetPlatformTypeById(platformTypeDto.Id) != null)
             {
-                if (IsUniqueName(platformTypeDto))
-                {
-                    var platformType = _mapper.Map<PlatformType>(platformTypeDto);
+                var platformType = _mapper.Map<PlatformType>(platformTypeDto);
 
-                    _unitOfWork.PlatformTypes.Update(platformType);
-                    _unitOfWork.Save();
+                _unitOfWork.PlatformTypes.Update(platformType);
+                _unitOfWork.Save();
 
-                    _log.Info($"{nameof(PlatformTypeService)} - update platformType {platformTypeDto.Id}");
-
-                    return true;
-                }
-
-                _log.Info($"{nameof(PlatformTypeService)} - attempt to update platformType with not unique name");
-
-                return false;
+                _log.Info($"{nameof(PlatformTypeService)} - update platformType {platformTypeDto.Id}");
             }
-
-            return false;
         }
 
         public void Delete(Guid id)
         {
-            if (TakePlatformTypeById(id) != null)
+            if (GetPlatformTypeById(id) != null)
             {
                 _unitOfWork.PlatformTypes.Delete(id);
                 _unitOfWork.Save();
@@ -103,7 +83,7 @@ namespace GameStore.BLL.Service
             return _mapper.Map<PlatformTypeDTO>(platformType);
         }
 
-        private bool IsUniqueName(PlatformTypeDTO platformTypeDTO)
+        public bool IsUniqueName(PlatformTypeDTO platformTypeDTO)
         {
             var platformType = _unitOfWork.PlatformTypes.Get(x => x.Name == platformTypeDTO.Name).FirstOrDefault();
 
@@ -113,8 +93,7 @@ namespace GameStore.BLL.Service
             return false;
         }
 
-		//Use Get instead of Take. here and everywhere
-        private PlatformType TakePlatformTypeById(Guid id)
+        private PlatformType GetPlatformTypeById(Guid id)
         {
             var platformType = _unitOfWork.PlatformTypes.GetById(id);
 

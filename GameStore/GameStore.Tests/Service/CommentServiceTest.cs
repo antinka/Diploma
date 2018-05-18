@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Enums;
-using GameStore.BLL.Exeption;
 using GameStore.BLL.Service;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
@@ -11,6 +10,7 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GameStore.BLL.CustomExeption;
 using Xunit;
 
 namespace GameStore.Tests.Service

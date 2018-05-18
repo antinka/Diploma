@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using GameStore.BLL.Interfaces;
@@ -17,23 +18,24 @@ namespace GameStore.Web.Controllers
         private readonly IOrdersService _ordersService;
         private readonly IGameService _gameService;
         private readonly IMapper _mapper;
+        private readonly IEnumerable<IPayment> _payments;
 
-		//todo use underscore for private instances
-        private IPayment payment { get; set; }
-
-        public OrderController(IOrdersService ordersService, IGameService gameService, IMapper mapper)
+        public OrderController(IOrdersService ordersService, IGameService gameService, IMapper mapper, IEnumerable<IPayment> payments)
         {
             _ordersService = ordersService;
             _gameService = gameService;
             _mapper = mapper;
+            _payments = payments;
         }
 
+        [HttpGet]
         public ActionResult BasketInfo()
         {
-            var userId = Guid.Empty;
+            var userId = GetUserId();
+
             var order = _ordersService.GetOrder(userId);
 
-            if (order == null)
+            if (order == null || !order.OrderDetails.Any())
                 return View("EmptyBasket");
 
             var orderViewModel = _mapper.Map<OrderViewModel>(order);
@@ -41,13 +43,14 @@ namespace GameStore.Web.Controllers
             return View(orderViewModel);
         }
 
+        [HttpGet]
         public ActionResult AddGameToOrder(string gameKey)
         {
-            var userId = Guid.Empty;
+            var userId = GetUserId();
 
             var game = _gameService.GetByKey(gameKey);
-			//todo if UnitsInStock would be 1?
-            if (game.UnitsInStock > 1)
+
+            if (game.UnitsInStock >= 1)
             {
                 _ordersService.AddNewOrderDetails(userId, game.Id);
 
@@ -63,18 +66,19 @@ namespace GameStore.Web.Controllers
             return View("NotEnoughGameInStock");
         }
 
+        [HttpGet]
         public ActionResult DeleteGameFromOrder(Guid gameId)
         {
-            var userId = Guid.Empty;
+            var userId = GetUserId();
 
             _ordersService.DeleteGameFromOrder(userId, gameId);
 
-             return RedirectToAction("BasketInfo");
+            return RedirectToAction("BasketInfo");
         }
 
         public ActionResult CountGamesInOrder()
         {
-            var userId = Guid.Empty;
+            var userId = GetUserId();
 
             var gameCount = _ordersService.CountGamesInOrder(userId);
 
@@ -84,7 +88,7 @@ namespace GameStore.Web.Controllers
         [HttpGet]
         public ActionResult Pay(PaymentTypes paymentType)
         {
-            var userId = Guid.Empty;
+            var userId = GetUserId();
             var order = _ordersService.GetOrder(userId);
 
             var orderPay = new OrderPayment()
@@ -94,30 +98,33 @@ namespace GameStore.Web.Controllers
                 Cost = order.Cost
             };
 
-			//todo move creationg this to PaymentStrategy. And inject it.
-            if (paymentType == PaymentTypes.Bank)
-            {
-                payment = new Bank();
-            }
-            else if (paymentType == PaymentTypes.Box)
-            {
-                payment = new Box();
-            }
-            else if (paymentType == PaymentTypes.Visa)
-            {
-                payment = new Visa();
-            }
-
-            return payment.Pay(orderPay);
+            return new PaymentStrategy(_payments).GetPaymentStrategy(paymentType, orderPay);
         }
-
+        [HttpGet]
         public ActionResult Order()
         {
-            var userId = Guid.Empty;
+            var userId = Guid.Parse(HttpContext.Request.Cookies["userId"].Value);
             var order = _ordersService.GetOrder(userId);
             var orderDetailsViewModel = _mapper.Map<IEnumerable<OrderDetailViewModel>>(order.OrderDetails);
 
             return View(orderDetailsViewModel);
+        }
+
+        private Guid GetUserId()
+        {
+            Guid userId;
+
+            if (HttpContext.Request.Cookies["userId"] != null)
+            {
+                userId = Guid.Parse(HttpContext.Request.Cookies["userId"].Value);
+            }
+            else
+            {
+                HttpContext.Response.Cookies["userId"].Value = Guid.NewGuid().ToString();
+                userId = Guid.Parse(HttpContext.Request.Cookies["userId"].Value);
+            }
+            //https://stackoverflow.com/questions/22585456/moq-a-fake-cookie-in-asp-net-mvc-controller
+            return userId;
         }
     }
 }

@@ -26,6 +26,7 @@ namespace GameStore.Web.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet]
         public ActionResult GetAllCommentToGame(string gamekey)
         {
             var comments = _mapper.Map<List<CommentViewModel>>(_commentService.GetCommentsByGameKey(gamekey));
@@ -85,7 +86,7 @@ namespace GameStore.Web.Controllers
             return PartialView(comment);
         }
 
-
+        [HttpPost]
         public ActionResult Delete(Guid? commentId, CommentViewModel comment)
         {
             if (commentId != null)
@@ -100,6 +101,7 @@ namespace GameStore.Web.Controllers
             return RedirectToAction("GetAllCommentToGame", "Comment", new {gamekey = comment.GameKey});
         }
 
+        [HttpGet]
         public ActionResult Ban(BanPeriod? period)
         {
             var userId = Guid.Empty;

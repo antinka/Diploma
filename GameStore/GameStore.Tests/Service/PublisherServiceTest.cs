@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using GameStore.BLL.DTO;
-using GameStore.BLL.Exeption;
 using GameStore.BLL.Service;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
@@ -10,6 +9,7 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GameStore.BLL.CustomExeption;
 using Xunit;
 
 namespace GameStore.Tests.Service
@@ -87,16 +87,6 @@ namespace GameStore.Tests.Service
             _sut.AddNew(fakePublisherDTO);
 
             _uow.Verify(uow => uow.Publishers.Create(It.IsAny<Publisher>()), Times.Once);
-        }
-
-        [Fact]
-        public void AddNewPublisher_PublisherWithoutUniqueName_ReturnedFalseAddNewPublishe()
-        {
-            var fakePublisherDTO = new PublisherDTO() {Id = Guid.NewGuid(), Name = _fakePublisherName};
-
-            _uow.Setup(uow => uow.Publishers.Get(It.IsAny<Func<Publisher, bool>>())).Returns(_fakePublishers);
-
-            Assert.False(_sut.AddNew(fakePublisherDTO));
         }
 
         [Fact]

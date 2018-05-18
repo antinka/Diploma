@@ -172,12 +172,14 @@
     <Compile Include="Payments\Enums\PaymentTypes.cs" />
     <Compile Include="Payments\Box.cs" />
     <Compile Include="Payments\IPayment.cs" />
+    <Compile Include="Payments\PaymentStrategy.cs" />
     <Compile Include="Payments\ViewModels\BoxViewModel.cs" />
     <Compile Include="Payments\ViewModels\VisaViewModel.cs" />
     <Compile Include="Payments\Visa.cs" />
     <Compile Include="ViewModels\BasketViewModel.cs" />
     <Compile Include="ViewModels\CommentViewModel.cs" />
-    <Compile Include="ViewModels\GameViewModel.cs" />
+    <Compile Include="ViewModels\Games\DetailsGameViewModel.cs" />
+    <Compile Include="ViewModels\Games\GameViewModel.cs" />
     <Compile Include="ViewModels\GenreViewModel.cs" />
     <Compile Include="ViewModels\OrderDetailViewModel.cs" />
     <Compile Include="ViewModels\OrderPayment.cs" />
@@ -236,7 +238,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Logs\" />
     <Folder Include="Views\Shared\DisplayTemplates\" />
   </ItemGroup>
   <ItemGroup>
