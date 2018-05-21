@@ -103,7 +103,7 @@ namespace GameStore.Web.Controllers
         [HttpGet]
         public ActionResult Order()
         {
-            var userId = Guid.Parse(HttpContext.Request.Cookies["userId"].Value);
+            var userId = GetUserId();
             var order = _ordersService.GetOrder(userId);
             var orderDetailsViewModel = _mapper.Map<IEnumerable<OrderDetailViewModel>>(order.OrderDetails);
 
@@ -123,7 +123,7 @@ namespace GameStore.Web.Controllers
                 HttpContext.Response.Cookies["userId"].Value = Guid.NewGuid().ToString();
                 userId = Guid.Parse(HttpContext.Request.Cookies["userId"].Value);
             }
-            //https://stackoverflow.com/questions/22585456/moq-a-fake-cookie-in-asp-net-mvc-controller
+
             return userId;
         }
     }

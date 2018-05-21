@@ -157,5 +157,27 @@ namespace GameStore.Tests.Service
 
             Assert.Throws<EntityNotFound>(() => _sut.GetByName(_fakePlatformTypeName));
         }
+
+        [Fact]
+        public void IsUniqueName_UniqueName_True()
+        {
+            var platformTypes = new PlatformTypeDTO() { Id = Guid.NewGuid(), Name = _fakePlatformTypeName };
+            _uow.Setup(uow => uow.PlatformTypes.Get(It.IsAny<Func<PlatformType, bool>>())).Returns(new List<PlatformType>());
+
+            var res = _sut.IsUniqueName(platformTypes);
+
+            Assert.True(res);
+        }
+
+        [Fact]
+        public void IsUniqueName_NotUniqueName_False()
+        {
+            var platformTypes = new PlatformTypeDTO() { Id = Guid.NewGuid(), Name = _fakePlatformTypeName };
+            _uow.Setup(uow => uow.PlatformTypes.Get(It.IsAny<Func<PlatformType, bool>>())).Returns(new List<PlatformType>() { _fakePlatformType });
+
+            var res = _sut.IsUniqueName(platformTypes);
+
+            Assert.False(res);
+        }
     }
 }

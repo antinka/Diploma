@@ -162,5 +162,52 @@ namespace GameStore.Tests.Service
 
             _uow.Verify(uow => uow.Genres.Delete(It.IsAny<Guid>()), Times.Once);
         }
+
+        [Fact]
+        public void IsUniqueName_UniqueName_True()
+        {
+            var genre = new GenreDTO() { Id = Guid.NewGuid(), Name = _fakeGenreName };
+            _uow.Setup(uow => uow.Genres.Get(It.IsAny<Func<Genre, bool>>())).Returns(new List<Genre>());
+
+            var res = _sut.IsUniqueName(genre);
+
+            Assert.True(res);
+        }
+
+        [Fact]
+        public void IsUniqueName_NotUniqueName_False()
+        {
+            var genre = new GenreDTO() { Id = Guid.NewGuid(), Name = _fakeGenreName };
+            _uow.Setup(uow => uow.Genres.Get(It.IsAny<Func<Genre, bool>>())).Returns(new List<Genre>() { _fakeGenre });
+
+            var res = _sut.IsUniqueName(genre);
+
+            Assert.False(res);
+        }
+
+        [Fact]
+        public void IsPossibleRelation_GenreDTOWithPossibleRelation_True()
+        {
+            Guid firstFakeId = Guid.NewGuid();
+            var newGenre = new GenreDTO() { Id = Guid.NewGuid(), Name = _fakeGenreName, ParentGenreId = firstFakeId };
+            _uow.Setup(uow => uow.Genres.Get(It.IsAny<Func<Genre, bool>>())).Returns(new List<Genre>());
+
+            var res = _sut.IsPossibleRelation(newGenre);
+
+            Assert.True(res);
+        }
+
+        [Fact]
+        public void IsPossibleRelation_GenreDTOWithoutPossibleRelation_False()
+        {
+            Guid firstFakeId = Guid.NewGuid(), secondFakeId = Guid.NewGuid();
+            var newGenre = new GenreDTO() { Id = firstFakeId, Name = _fakeGenreName, ParentGenreId = secondFakeId };
+            var existGenre = new Genre() { Id = secondFakeId, Name = _fakeGenreName, ParentGenreId = firstFakeId };
+            _uow.Setup(uow => uow.Genres.Get(It.IsAny<Func<Genre, bool>>())).Returns(new List<Genre>() { existGenre });
+
+            var res = _sut.IsPossibleRelation(newGenre);
+
+            Assert.False(res);
+        }
     }
 }

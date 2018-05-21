@@ -8,6 +8,7 @@ using GameStore.Web.Payments.Enums;
 using Moq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -21,14 +22,26 @@ namespace GameStore.Tests.Controllers
         private readonly Mock<IGameService> _gameService;
         private readonly IMapper _mapper;
         private readonly OrderController _sut;
-
+        private Bank _bankMock;
+        private Box _boxMock;
+        private Visa _visaMock;
+        private List<IPayment> _stratagy;
 
         public OrderControllerTest()
         {
+
+            _bankMock = new Bank();
+            _boxMock = new Box();
+            _visaMock = new Visa();
+            _stratagy = new List<IPayment>();
+            _stratagy.Add(_bankMock);
+            _stratagy.Add(_boxMock);
+            _stratagy.Add(_visaMock);
+
             _mapper = MapperConfigUi.GetMapper().CreateMapper();
             _ordersService = new Mock<IOrdersService>();
             _gameService = new Mock<IGameService>();
-            _sut = new OrderController(_ordersService.Object, _gameService.Object, _mapper , new List<IPayment>());
+            _sut = new OrderController(_ordersService.Object, _gameService.Object, _mapper, _stratagy);
         }
 
         [Fact]
@@ -36,6 +49,10 @@ namespace GameStore.Tests.Controllers
         {
             var fakeUserId = Guid.Empty;
             _ordersService.Setup(service => service.GetOrder(fakeUserId)).Verifiable();
+            var httpRequest = new HttpRequest("", "http://mySomething", "");
+            var httpResponse = new HttpResponse(new StringWriter());
+            var httpContextMock = new HttpContext(httpRequest, httpResponse);
+            _sut.ControllerContext = new ControllerContext(new HttpContextWrapper(httpContextMock), new RouteData(), _sut);
 
             _sut.BasketInfo();
 
@@ -57,6 +74,10 @@ namespace GameStore.Tests.Controllers
 
             _gameService.Setup((service => service.GetByKey(fakeGameKey))).Returns(fakeGame);
             _ordersService.Setup(service => service.AddNewOrderDetails(fakeUserId, fakeGameId)).Verifiable();
+            var httpRequest = new HttpRequest("", "http://mySomething", "");
+            var httpResponse = new HttpResponse(new StringWriter());
+            var httpContextMock = new HttpContext(httpRequest, httpResponse);
+            _sut.ControllerContext = new ControllerContext(new HttpContextWrapper(httpContextMock), new RouteData(), _sut);
 
             _sut.AddGameToOrder(fakeGameKey);
 
@@ -66,7 +87,6 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void AddGameToOrder_GameKeyWhereGameUnitsInStockLessThen1_ReturnedViewResult()
         {
-
             var fakeGameKey = "fakeGameKey";
             var fakeGame = new GameDTO()
             {
@@ -75,25 +95,11 @@ namespace GameStore.Tests.Controllers
                 UnitsInStock = 0
             };
 
-            HttpCookie StudentCookies = new HttpCookie("StudentCookies");
-            StudentCookies.Value = "hallo";
-            StudentCookies.Expires = DateTime.Now.AddHours(1);
-
-            //_sut.HttpContext.Request.Cookies.Add(StudentCookies);
             _gameService.Setup((service => service.GetByKey(fakeGameKey))).Returns(fakeGame);
-
-            var cookieCollection = new HttpCookieCollection { };
-            var reqest = new Mock<HttpRequestBase>();
-            var response = new Mock<HttpResponseBase>();
-            reqest.SetupGet(r => r.Cookies).Returns(cookieCollection);
-            response.SetupGet(r => r.Cookies).Returns(cookieCollection);
-
-            var context = new Mock<HttpContextBase>();
-            context.SetupGet(x => x.Response).Returns(response.Object);
-            context.SetupGet(x => x.Request).Returns(reqest.Object);
-
-
-            _sut.ControllerContext = new ControllerContext(context.Object, new RouteData(), _sut);
+            var httpRequest = new HttpRequest("", "http://mySomething", "");
+            var httpResponse = new HttpResponse(new StringWriter());
+            var httpContextMock = new HttpContext(httpRequest, httpResponse);
+            _sut.ControllerContext = new ControllerContext(new HttpContextWrapper(httpContextMock), new RouteData(), _sut);
 
             var res = _sut.AddGameToOrder(fakeGameKey);
 
@@ -107,6 +113,10 @@ namespace GameStore.Tests.Controllers
             var fakeGameId = Guid.NewGuid();
 
             _ordersService.Setup(service => service.DeleteGameFromOrder(fakeUserId, fakeGameId)).Verifiable();
+            var httpRequest = new HttpRequest("", "http://mySomething", "");
+            var httpResponse = new HttpResponse(new StringWriter());
+            var httpContextMock = new HttpContext(httpRequest, httpResponse);
+            _sut.ControllerContext = new ControllerContext(new HttpContextWrapper(httpContextMock), new RouteData(), _sut);
 
             _sut.DeleteGameFromOrder(fakeGameId);
 
@@ -116,8 +126,11 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void Pay_PaymentTypesBank_FileStreamResult()
         {
-            var fakeUserId = Guid.Empty;
-            _ordersService.Setup(service => service.GetOrder(fakeUserId)).Returns(new OrderDTO());
+            var httpRequest = new HttpRequest("", "http://mySomething", "");
+            var httpResponse = new HttpResponse(new StringWriter());
+            var httpContextMock = new HttpContext(httpRequest, httpResponse);
+            _sut.ControllerContext = new ControllerContext(new HttpContextWrapper(httpContextMock), new RouteData(), _sut);
+            _ordersService.Setup(service => service.GetOrder(It.IsAny<Guid>())).Returns(new OrderDTO());
 
             var res = _sut.Pay(PaymentTypes.Bank);
 
@@ -127,8 +140,11 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void Pay_PaymentTypesBox_ReturnViewResult()
         {
-            var fakeUserId = Guid.Empty;
-            _ordersService.Setup(service => service.GetOrder(fakeUserId)).Returns(new OrderDTO());
+            var httpRequest = new HttpRequest("", "http://mySomething", "");
+            var httpResponse = new HttpResponse(new StringWriter());
+            var httpContextMock = new HttpContext(httpRequest, httpResponse);
+            _sut.ControllerContext = new ControllerContext(new HttpContextWrapper(httpContextMock), new RouteData(), _sut);
+            _ordersService.Setup(service => service.GetOrder(It.IsAny<Guid>())).Returns(new OrderDTO());
 
             var res = _sut.Pay(PaymentTypes.Box);
 
@@ -138,8 +154,11 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void Pay_PaymentTypesVisa_ReturnViewResult()
         {
-            var fakeUserId = Guid.Empty;
-            _ordersService.Setup(service => service.GetOrder(fakeUserId)).Returns(new OrderDTO());
+            var httpRequest = new HttpRequest("", "http://mySomething", "");
+            var httpResponse = new HttpResponse(new StringWriter());
+            var httpContextMock = new HttpContext(httpRequest, httpResponse);
+            _sut.ControllerContext = new ControllerContext(new HttpContextWrapper(httpContextMock), new RouteData(), _sut);
+            _ordersService.Setup(service => service.GetOrder(It.IsAny<Guid>())).Returns(new OrderDTO());
 
             var res = _sut.Pay(PaymentTypes.Visa);
 
@@ -149,9 +168,28 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void CountGamesInOrder_ReturnPartialViewResult()
         {
+            var httpRequest = new HttpRequest("", "http://mySomething", "");
+            var httpResponse = new HttpResponse(new StringWriter());
+            var httpContextMock = new HttpContext(httpRequest, httpResponse);
+            _sut.ControllerContext = new ControllerContext(new HttpContextWrapper(httpContextMock), new RouteData(), _sut);
+
             var res = _sut.CountGamesInOrder();
 
             Assert.Equal(typeof(PartialViewResult), res.GetType());
+        }
+
+        [Fact]
+        public void Order_ReturnViewResult()
+        {
+            var httpRequest = new HttpRequest("", "http://mySomething", "");
+            var httpResponse = new HttpResponse(new StringWriter());
+            var httpContextMock = new HttpContext(httpRequest, httpResponse);
+            _sut.ControllerContext = new ControllerContext(new HttpContextWrapper(httpContextMock), new RouteData(), _sut);
+            _ordersService.Setup(service => service.GetOrder(It.IsAny<Guid>())).Returns(new OrderDTO());
+
+            var res = _sut.Order();
+
+            Assert.Equal(typeof(ViewResult), res.GetType());
         }
     }
 }

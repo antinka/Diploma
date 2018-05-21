@@ -167,5 +167,27 @@ namespace GameStore.Tests.Controllers
 
             Assert.Equal(typeof(ViewResult), res.GetType());
         }
+
+        [Fact]
+        public void New_GameWithoutUnickKey_Verifiable()
+        {
+            var fakeGameViewModel = new GameViewModel() { Name = "test", Key = "1" };
+            _gameService.Setup(service => service.IsUniqueKey(It.IsAny<GameDTO>())).Returns(false).Verifiable();
+
+            _sut.New(fakeGameViewModel);
+
+            _gameService.Verify(s => s.IsUniqueKey(It.IsAny<GameDTO>()), Times.Once);
+        }
+
+        [Fact]
+        public void Update_GameWithoutUnickKey_Verifiable()
+        {
+            var fakeGameViewModel = new GameViewModel() { Name = "test", Key = "1" };
+            _gameService.Setup(service => service.IsUniqueKey(It.IsAny<GameDTO>())).Returns(false).Verifiable();
+
+            _sut.Update(fakeGameViewModel);
+
+            _gameService.Verify(s => s.IsUniqueKey(It.IsAny<GameDTO>()), Times.Once);
+        }
     }
 }

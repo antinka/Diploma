@@ -124,5 +124,27 @@ namespace GameStore.Tests.Controllers
 
             Assert.Equal(typeof(ViewResult), res.GetType());
         }
+
+        [Fact]
+        public void New_GenreWithoutUnickName_Verifiable()
+        {
+            var fakeGenreViewModel = new GenreViewModel() { Name = "test", };
+            _genreService.Setup(service => service.IsUniqueName(It.IsAny<GenreDTO>())).Returns(false).Verifiable();
+
+            _sut.New(fakeGenreViewModel);
+
+            _genreService.Verify(s => s.IsUniqueName(It.IsAny<GenreDTO>()), Times.Once);
+        }
+
+        [Fact]
+        public void Update_GenreWithoutUnickName_Verifiable()
+        {
+            var fakeGenreViewModel = new GenreViewModel() { Name = "test" };
+            _genreService.Setup(service => service.IsUniqueName(It.IsAny<GenreDTO>())).Returns(false).Verifiable();
+
+            _sut.Update(fakeGenreViewModel);
+
+            _genreService.Verify(s => s.IsUniqueName(It.IsAny<GenreDTO>()), Times.Once);
+        }
     }
 }
