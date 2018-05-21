@@ -32,6 +32,10 @@ namespace GameStore.Web.ViewModels.Games
 
         public bool Discountinues { get; set; }
 
+        public DateTime PublishDate { get; set; }
+
+        public int Views { get; set; }
+
         public Guid? PublisherId { get; set; }
 
         public PublisherViewModel Publisher { get; set; }

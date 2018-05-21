@@ -134,6 +134,7 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\gameStorejs.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -182,7 +183,6 @@
     <Compile Include="ViewModels\Games\GameViewModel.cs" />
     <Compile Include="ViewModels\FilterViewModel.cs" />
     <Compile Include="ViewModels\GamesListViewModel.cs" />
-    <Compile Include="ViewModels\GameViewModel.cs" />
     <Compile Include="ViewModels\GenreViewModel.cs" />
     <Compile Include="ViewModels\OrderDetailViewModel.cs" />
     <Compile Include="ViewModels\OrderPayment.cs" />
@@ -240,6 +240,7 @@
     <Content Include="Views\Game\GamesFilters.cshtml" />
     <Content Include="Views\Game\NothingWasFound.cshtml" />
     <Content Include="Views\Game\Update.cshtml" />
+    <Content Include="Views\Game\GameDeleted.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

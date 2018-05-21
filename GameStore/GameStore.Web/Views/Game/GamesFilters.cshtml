@@ -1,5 +1,6 @@
 ﻿@using GameStore.BLL.Enums
 @using MvcCheckBoxList.Model
+
 @model GameStore.Web.ViewModels.FilterViewModel
 
 @{
@@ -21,22 +22,6 @@
             <label> @Html.RadioButtonFor(m => m.SortDate, SortDate.threeYear, new {required = "required"})three year </label><br/>
         </div>
     </div>
-
-    @*<div class="form-group">
-        @Html.LabelFor(model => model.SortType, htmlAttributes: new { @class = "control-label col-md-6" })
-        <div class="col-md-10">
-            @Html.EnumDropDownListFor(model => model.SortType, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.SortType, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.PageSize, htmlAttributes: new { @class = "control-label col-md-6" })
-        <div class="col-md-10">
-            @Html.EnumDropDownListFor(model => model.PageSize, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.PageSize, "", new { @class = "text-danger" })
-        </div>
-    </div>*@
     <div class="form-group">
         <div class="col-md-10">
             @Html.LabelFor(model => model.SearchGameName)

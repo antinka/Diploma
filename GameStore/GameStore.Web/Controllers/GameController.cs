@@ -68,7 +68,7 @@ namespace GameStore.Web.Controllers
                 {
                     _gameService.AddNew(gameDTO);
 
-                    return RedirectToAction("GetAllGames");
+                    return RedirectToAction("FilteredGames");
                 }
             }
 
@@ -113,7 +113,7 @@ namespace GameStore.Web.Controllers
                 {
                     _gameService.Update(gameDTO);
 
-                    return RedirectToAction("GetAllGames");
+                    return RedirectToAction("FilteredGames");
                 }
             }
 
@@ -132,6 +132,7 @@ namespace GameStore.Web.Controllers
         public ActionResult FilteredGames(FilterViewModel filterViewModel, int page = 1)
         {
             var gamesByFilter = _gameService.GetGamesByFilter(_mapper.Map<FilterDTO>(filterViewModel), page, filterViewModel.PageSize);
+            filterViewModel = GetFilterViewModel(filterViewModel);
             int totalItem;
 
             if (filterViewModel.PageSize == 0)
@@ -144,7 +145,15 @@ namespace GameStore.Web.Controllers
             }
 
             var gameViewModel = _mapper.Map<IEnumerable<GameViewModel>>(gamesByFilter);
-            filterViewModel.Games = gameViewModel;
+
+            if (gameViewModel.Any())
+            {
+                filterViewModel.Games = gameViewModel;
+            }
+            else
+            {
+                filterViewModel.Games = new List<GameViewModel>() { new GameViewModel() };
+            }
 
             var pagingInfo = new PagingInfo()
             {
@@ -159,8 +168,6 @@ namespace GameStore.Web.Controllers
             {
                 return View(filterViewModel);
             }
-            
-            filterViewModel.Games = new List<GameViewModel>(){new GameViewModel()};
 
             return View(filterViewModel);
         }
@@ -190,7 +197,7 @@ namespace GameStore.Web.Controllers
         {
             _gameService.Delete(gameId);
 
-            return RedirectToAction("FilteredGames");
+            return PartialView("GameDeleted");
         }
 
         [OutputCache(Duration = 60)]
@@ -325,7 +332,7 @@ namespace GameStore.Web.Controllers
             {
                 model.SearchGameName = filterViewMode.SearchGameName;
             }
-            
+
             return model;
         }
     }

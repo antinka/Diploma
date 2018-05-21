@@ -154,7 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GameStore.BLL\GameStore.BLL.csproj">
-      <Project>{d0782d1d-3927-4a45-8d57-32b107a8cf69}</Project>
+      <Project>{D0782D1D-3927-4A45-8D57-32B107A8CF69}</Project>
       <Name>GameStore.BLL</Name>
     </ProjectReference>
     <ProjectReference Include="..\GameStore.DAL\GameStore.DAL.csproj">
@@ -162,7 +162,7 @@
       <Name>GameStore.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\GameStore.Web\GameStore.Web.csproj">
-      <Project>{32a109f8-0a2a-4440-a75d-fb0f8fb807be}</Project>
+      <Project>{50A96370-23AA-4A64-87C1-417275B0E45C}</Project>
       <Name>GameStore.Web</Name>
     </ProjectReference>
   </ItemGroup>

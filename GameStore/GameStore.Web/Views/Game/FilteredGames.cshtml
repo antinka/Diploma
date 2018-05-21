@@ -1,11 +1,9 @@
 ﻿@model GameStore.Web.ViewModels.FilterViewModel
-
-@using (Html.BeginForm("FilteredGames", "Game", FormMethod.Get, null))
+@using (Html.BeginForm("FilteredGames", "Game", FormMethod.Get, new { id = "filteredGames" }))
 {
     <div class="row">
         <div class="col-xs-6 col-md-4">
-            @Html.Action("GamesFilters", "Game", Model)
-@*replace with partial*@
+            @Html.Partial("GamesFilters", Model)
         </div>
         <div class="col-xs-6 col-md-4">
 
@@ -27,12 +25,7 @@
                     @Html.ValidationMessageFor(model => model.PageSize, "", new { @class = "text-danger" })
                 </div>
             </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Filter" class="btn btn-default" />
-                </div>
-            </div>
-            <table class="table">
+            <table class="table" id ="notDisabled">
                 <tr>
                     <th>
                         @Html.HiddenFor(model => model.Games.First().Key)
@@ -63,7 +56,7 @@
                 foreach (var item in Model.Games)
                  {
                      <tr>
-                         <td>
+                         <td id="@item.Key">
                              @Html.HiddenFor(modelItem => item.Key)
                          </td>
                          <td>
@@ -85,13 +78,18 @@
                              @Html.DisplayFor(modelItem => item.Publisher.Name)
                          </td>
                          <td>
-                             @Html.ActionLink("Details", "GetGame", new {gamekey = item.Key})
-                             @Html.ActionLink("Update", "Update", new {gamekey = item.Key})
-                             @using (Html.BeginForm("Remove", "Game", FormMethod.Post))
-                             {
-                                 <input type="hidden" name="gameId" value="@item.Id"/>
-                                 <button type="submit" class="btn btn-link">Remove</button>
-                             }
+                             @Html.ActionLink("Details", "GetGame", new { gamekey = item.Key })
+                             @Html.ActionLink("Update", "Update", new { gamekey = item.Key })
+
+                             @*@using (Html.BeginForm("Remove", "Game", FormMethod.Post))*@
+                             @*@using (Ajax.BeginForm("Remove", FormMethod.Post, new AjaxOptions {}))
+        {
+            <input type="hidden" name="gameId" value="@item.Id"/>
+            <input type="hidden" name="filterViewModel" value="@Model"/>
+            <button type="submit"  class="btn btn-link">Remove</button>
+        }*@
+
+                             @Ajax.ActionLink("Remove", "Remove", new { gameId = item.Id }, new AjaxOptions { HttpMethod = "POST" , UpdateTargetId = @item.Key })
 
                          </td>
                      </tr>

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
+using GameStore.BLL.CustomExeption;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Enums;
-using GameStore.BLL.Exeption;
 using GameStore.BLL.Filtration.Implementation;
 using GameStore.BLL.Interfaces;
 using GameStore.DAL.Entities;
@@ -10,7 +10,6 @@ using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using GameStore.BLL.CustomExeption;
 
 namespace GameStore.BLL.Service
 {
@@ -37,6 +36,7 @@ namespace GameStore.BLL.Service
             newGame.Genres = _unitOfWork.Genres.Get(genre => gameDto.SelectedGenresName.Contains(genre.Name)).ToList();
             newGame.PlatformTypes = _unitOfWork.PlatformTypes
                 .Get(platformType => gameDto.SelectedPlatformTypesName.Contains(platformType.Name)).ToList();
+            newGame.PublishDate = DateTime.UtcNow;
 
             _unitOfWork.Games.Create(newGame);
             _unitOfWork.Save();
@@ -164,7 +164,7 @@ namespace GameStore.BLL.Service
 
         public void IncreaseGameView(Guid gameId)
         {
-            var game = TakeGameById(gameId);
+            var game = GetGameById(gameId);
             game.Views += 1;
 
             _unitOfWork.Games.Update(game);
@@ -206,7 +206,6 @@ namespace GameStore.BLL.Service
             gamePipeline.Register(new FilterByDate(filter.SortDate))
                 .Register(new SortFilter(filter.SortType))
                 .Register(new FilterByPage(page, pageSize));
-
         }
 
         public bool IsUniqueKey(GameDTO gameDTO)

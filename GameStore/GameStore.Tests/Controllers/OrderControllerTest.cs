@@ -29,14 +29,10 @@ namespace GameStore.Tests.Controllers
 
         public OrderControllerTest()
         {
-
             _bankMock = new Bank();
             _boxMock = new Box();
             _visaMock = new Visa();
-            _stratagy = new List<IPayment>();
-            _stratagy.Add(_bankMock);
-            _stratagy.Add(_boxMock);
-            _stratagy.Add(_visaMock);
+            _stratagy = new List<IPayment> {_bankMock, _boxMock, _visaMock};
 
             _mapper = MapperConfigUi.GetMapper().CreateMapper();
             _ordersService = new Mock<IOrdersService>();

@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Web.UI.WebControls;
 using GameStore.BLL.Enums;
+using GameStore.Web.ViewModels.Games;
 
 namespace GameStore.Web.ViewModels
 {
