@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
+using GameStore.BLL.CustomExeption;
 using Xunit;
 
 namespace GameStore.Tests.Service
@@ -133,16 +134,6 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void AddNewGame_GameWithoutUniqueKey_ReturnedFalseAddNewGame()
-        {
-            var fakeGameDTO = new GameDTO() { Id = Guid.NewGuid(), Key = _fakeGameKey };
-
-            _uow.Setup(uow => uow.Games.Get(It.IsAny<Func<Game, bool>>())).Returns(_fakeGames);
-
-            Assert.False(_sut.AddNew(fakeGameDTO));
-        }
-
-        [Fact]
         public void GetAllGame_AllGamesReturned()
         {
             _uow.Setup(uow => uow.Games.GetAll()).Returns(_fakeGames);
@@ -191,15 +182,20 @@ namespace GameStore.Tests.Service
         [Fact]
         public void UpdateGame_Game_Verifiable()
         {
-            var fakeGameDTO = new GameDTO() { Id = _fakeGameId, Key = "123" };
-            var fakeGame = _mapper.Map<Game>(fakeGameDTO);
+            var oldFakeGameDTO = new GameDTO() { Id = _fakeGameId, Key = "123", Price = 55 };
+            var oldFakeGame = _mapper.Map<Game>(oldFakeGameDTO);
+            var newFakeGameDTO = new GameDTO() { Id = _fakeGameId, Key = "12", Price = 5 };
+            var newFakeGame = _mapper.Map<Game>(newFakeGameDTO);
+            var fakeOrderDetail = new OrderDetail();
 
-            _uow.Setup(uow => uow.Games.GetById(_fakeGameId)).Returns(fakeGame);
+            _uow.Setup(uow => uow.Games.GetById(_fakeGameId)).Returns(oldFakeGame);
             _uow.Setup(uow => uow.Genres.Get(It.IsAny<Func<Genre, bool>>())).Returns(new List<Genre>());
             _uow.Setup(uow => uow.PlatformTypes.Get(It.IsAny<Func<PlatformType, bool>>())).Returns(new List<PlatformType>());
-            _uow.Setup(uow => uow.Games.Update(fakeGame)).Verifiable();
+            _uow.Setup(uow => uow.OrderDetails.Get(It.IsAny<Func<OrderDetail, bool>>())).Returns(new List<OrderDetail>() { fakeOrderDetail });
+            _uow.Setup(uow => uow.OrderDetails.Update(fakeOrderDetail));
+            _uow.Setup(uow => uow.Games.Update(newFakeGame)).Verifiable();
 
-            _sut.Update(fakeGameDTO);
+            _sut.Update(newFakeGameDTO);
 
             _uow.Verify(uow => uow.Games.Update(It.IsAny<Game>()), Times.Exactly(2));
         }
@@ -550,6 +546,28 @@ namespace GameStore.Tests.Service
             var gamesAfteFilter = gamePipeline.Process(fakeGamesForFilter);
 
             Assert.True(gamesAfteFilter.ElementAt(10).Name == "Игра11");
+        }
+
+        [Fact]
+        public void IsUniqueKey_UniqueKey_True()
+        {
+            var game = new GameDTO() { Id = Guid.NewGuid(), Key = _fakeGameKey };
+            _uow.Setup(uow => uow.Games.Get(It.IsAny<Func<Game, bool>>())).Returns(new List<Game>());
+
+            var res = _sut.IsUniqueKey(game);
+
+            Assert.True(res);
+        }
+
+        [Fact]
+        public void IsUniqueKey_NotUniqueKey_False()
+        {
+            var game = new GameDTO() { Id = Guid.NewGuid(), Key = _fakeGameKey };
+            _uow.Setup(uow => uow.Games.Get(It.IsAny<Func<Game, bool>>())).Returns(_fakeGames);
+
+            var res = _sut.IsUniqueKey(game);
+
+            Assert.False(res);
         }
     }
 }

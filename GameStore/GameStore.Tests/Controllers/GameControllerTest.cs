@@ -8,6 +8,7 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using GameStore.Web.ViewModels.Games;
 using Xunit;
 
 namespace GameStore.Tests.Controllers
@@ -60,6 +61,7 @@ namespace GameStore.Tests.Controllers
             var fakeGameViewModel = new GameViewModel() { Name = "test", Key = "test" , SelectedGenresName = new List<string>(), SelectedPlatformTypesName  = new List<string>()};
             var fakeGameDTO = _mapper.Map<GameDTO>(fakeGameViewModel);
 
+            _gameService.Setup(service => service.IsUniqueKey(It.IsAny<GameDTO>())).Returns(true);
             _gameService.Setup(service => service.AddNew(fakeGameDTO)).Verifiable();
 
             _sut.New(fakeGameViewModel);
@@ -85,6 +87,7 @@ namespace GameStore.Tests.Controllers
             var fakeGameViewModel = new GameViewModel() { Name = "test", Key = "test", SelectedGenresName = new List<string>(), SelectedPlatformTypesName = new List<string>() };
             var fakeGameDTO = _mapper.Map<GameDTO>(fakeGameViewModel);
 
+            _gameService.Setup(service => service.IsUniqueKey(It.IsAny<GameDTO>())).Returns(true);
             _gameService.Setup(service => service.Update(fakeGameDTO)).Verifiable();
 
             _sut.Update(fakeGameViewModel);
@@ -165,6 +168,28 @@ namespace GameStore.Tests.Controllers
             var res = _sut.New();
 
             Assert.Equal(typeof(ViewResult), res.GetType());
+        }
+
+        [Fact]
+        public void New_GameWithoutUnickKey_Verifiable()
+        {
+            var fakeGameViewModel = new GameViewModel() { Name = "test", Key = "1" };
+            _gameService.Setup(service => service.IsUniqueKey(It.IsAny<GameDTO>())).Returns(false).Verifiable();
+
+            _sut.New(fakeGameViewModel);
+
+            _gameService.Verify(s => s.IsUniqueKey(It.IsAny<GameDTO>()), Times.Once);
+        }
+
+        [Fact]
+        public void Update_GameWithoutUnickKey_Verifiable()
+        {
+            var fakeGameViewModel = new GameViewModel() { Name = "test", Key = "1" };
+            _gameService.Setup(service => service.IsUniqueKey(It.IsAny<GameDTO>())).Returns(false).Verifiable();
+
+            _sut.Update(fakeGameViewModel);
+
+            _gameService.Verify(s => s.IsUniqueKey(It.IsAny<GameDTO>()), Times.Once);
         }
 
         [Fact]

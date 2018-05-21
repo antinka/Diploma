@@ -9,7 +9,9 @@ namespace GameStore.DAL.Entities
         public Guid UserId { get; set; }
 
         [DataType(DataType.Date)]
-        public DateTime Date { get; set; }
+        public DateTime? Date { get; set; }
+
+        public bool IsPaid { get; set; }
 
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }

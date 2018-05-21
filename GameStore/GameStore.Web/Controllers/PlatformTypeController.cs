@@ -36,10 +36,17 @@ namespace GameStore.Web.Controllers
             {
                 var platformTypeDTO = _mapper.Map<PlatformTypeDTO>(platformTypeViewModel);
 
-                if (_platformTypeService.AddNew(platformTypeDTO))
-                    return RedirectToAction("Get", new { platformTypeName = platformTypeViewModel.Name });
+                if (!_platformTypeService.IsUniqueName(platformTypeDTO))
+                {
+                    ModelState.AddModelError("Name", "Platform type with such name already exist, please enter another name");
+                }
 
-                ModelState.AddModelError("Name", "Platform type with such name already exist, please enter another name");
+                if (ModelState.IsValid)
+                {
+                    _platformTypeService.AddNew(platformTypeDTO);
+
+                    return RedirectToAction("Get", new { platformTypeName = platformTypeViewModel.Name });
+                }
             }
 
             return View(platformTypeViewModel);
@@ -88,10 +95,17 @@ namespace GameStore.Web.Controllers
             {
                 var platformTypeDTO = _mapper.Map<PlatformTypeDTO>(platformTypeViewModel);
 
-                if(_platformTypeService.Update(platformTypeDTO))
-                    return RedirectToAction("GetAll");
+                if (!_platformTypeService.IsUniqueName(platformTypeDTO))
+                {
+                    ModelState.AddModelError("Name", "Platform type with such name already exist, please enter another name");
+                }
 
-                ModelState.AddModelError("Name", "Platform type with such name already exist, please enter another name");
+                if (ModelState.IsValid)
+                {
+                    _platformTypeService.Update(platformTypeDTO);
+
+                    return RedirectToAction("GetAll");
+                }
             }
 
             return View(platformTypeViewModel);

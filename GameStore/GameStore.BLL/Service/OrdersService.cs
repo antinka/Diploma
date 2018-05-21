@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using GameStore.BLL.DTO;
-using GameStore.BLL.Exeption;
 using GameStore.BLL.Interfaces;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
 using System;
 using System.Linq;
+using GameStore.BLL.CustomExeption;
 using log4net;
 
 namespace GameStore.BLL.Service
@@ -34,13 +34,9 @@ namespace GameStore.BLL.Service
                 return null;
             }
 
-            order.OrderDetails = _unitOfWork.OrderDetails.Get(o => o.OrderId == order.Id).ToList();
             var orderDTO = _mapper.Map<OrderDTO>(order);
 
-            foreach (var i in orderDTO.OrderDetails)
-            {
-                orderDTO.Cost += i.Price;
-            }
+            orderDTO.Cost = orderDTO.OrderDetails.Sum(i => i.Price);
 
             return orderDTO;
         }
@@ -51,7 +47,7 @@ namespace GameStore.BLL.Service
 
             if (game != null)
             {
-                var order = _unitOfWork.Orders.Get(o => o.UserId == userId).FirstOrDefault();
+                var order = _unitOfWork.Orders.Get(o => o.UserId == userId && o.IsPaid == false).FirstOrDefault();
 
                 if (order == null)
                 {
@@ -72,9 +68,7 @@ namespace GameStore.BLL.Service
                     else
                         CreateNewOrderDetailToExistOrder(order, game, gameId);
                 }
-
-                game.UnitsInStock -= 1;
-                _unitOfWork.Games.Update(game);
+            
                 _unitOfWork.Save();
 
                 _log.Info($"{nameof(OrdersService)} - User {userId} add game {game.Key} to order");
@@ -105,18 +99,13 @@ namespace GameStore.BLL.Service
 
                     if (orderDetails.Quantity == 0)
                     {
-                        orderDetails.IsDelete = true;
-
-                        var order = _unitOfWork.Orders.Get(o => o.UserId == userId).FirstOrDefault();
-                        if (order != null && order.OrderDetails.All(o => o.IsDelete))
-                            order.IsDelete = true;
+                        _unitOfWork.OrderDetails.Delete(orderDetails.Id);
                     }
 
                     _unitOfWork.Save();
 
                     _log.Info($"{nameof(OrdersService)} - User {userId} delete game {game.Key} from order");
                 }
-
             }
             else
             {
@@ -145,8 +134,7 @@ namespace GameStore.BLL.Service
                 Order = new OrderDTO()
                 {
                     Id = Guid.NewGuid(),
-                    UserId = userId,
-                    Date = DateTime.UtcNow
+                    UserId = userId
                 }
             };
 

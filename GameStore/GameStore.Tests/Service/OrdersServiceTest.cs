@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using GameStore.BLL.DTO;
-using GameStore.BLL.Exeption;
 using GameStore.BLL.Service;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
@@ -9,6 +8,7 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GameStore.BLL.CustomExeption;
 using GameStore.Web.Infrastructure.Mapper;
 using Xunit;
 
@@ -91,7 +91,7 @@ namespace GameStore.Tests.Service
         [Fact]
         public void AddNewOrderDetails_NotExistedOrder_Verifiable()
         {
-            var fakeOrderDetailsDto = new OrderDetailDTO() { Id = Guid.NewGuid(), Game = _mapper.Map<GameDTO>(_fakeGame), GameId = _fakeGameId};
+            var fakeOrderDetailsDto = new OrderDetailDTO() { Id = Guid.NewGuid(), Game = _mapper.Map<GameDTO>(_fakeGame), GameId = _fakeGameId };
             var fakeOrderDetail = _mapper.Map<OrderDetail>(fakeOrderDetailsDto);
 
             _uow.Setup(uow => uow.Games.GetById(_fakeGameId)).Returns(_fakeGame);
@@ -101,6 +101,22 @@ namespace GameStore.Tests.Service
             _sut.AddNewOrderDetails(_fakeUserId, _fakeGameId);
 
             _uow.Verify(uow => uow.OrderDetails.Create(It.IsAny<OrderDetail>()), Times.Once);
+        }
+
+        [Fact]
+        public void AddNewOrderDetails_ExistedOrder_Verifiable()
+        {
+            var fakeOrderDetailsDto = new OrderDetailDTO() { Id = Guid.NewGuid(), Game = _mapper.Map<GameDTO>(_fakeGame), GameId = _fakeGameId };
+            var fakeOrderDetail = _mapper.Map<OrderDetail>(fakeOrderDetailsDto);
+            var order = new Order() { Id = Guid.NewGuid(), OrderDetails = new List<OrderDetail>() { fakeOrderDetail } };
+            var orders = new List<Order>() { order };
+
+            _uow.Setup(uow => uow.Games.GetById(_fakeGameId)).Returns(_fakeGame);
+            _uow.Setup(uow => uow.Orders.Get(It.IsAny<Func<Order, bool>>())).Returns(orders).Verifiable();
+
+            _sut.AddNewOrderDetails(_fakeUserId, _fakeGameId);
+
+            _uow.Verify(uow => uow.Orders.Get(It.IsAny<Func<Order, bool>>()), Times.Once);
         }
 
         [Fact]
@@ -129,7 +145,7 @@ namespace GameStore.Tests.Service
         public void CountGamesInOrder_UserIdWhichNotMakeOrderYet_NumberOfGamesInUserOrder0()
         {
             _uow.Setup(uow => uow.Orders.Get(It.IsAny<Func<Order, bool>>())).Returns(new List<Order>());
-            
+
             var res = _sut.CountGamesInOrder(_fakeUserId);
 
             Assert.Equal(0, res);

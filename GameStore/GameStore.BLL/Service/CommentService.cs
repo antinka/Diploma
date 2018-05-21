@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Enums;
-using GameStore.BLL.Exeption;
 using GameStore.BLL.Interfaces;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
@@ -9,6 +8,7 @@ using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GameStore.BLL.CustomExeption;
 
 namespace GameStore.BLL.Service
 {

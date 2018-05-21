@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using GameStore.Web.Payments.Enums;
 using GameStore.Web.Payments.ViewModels;
 using GameStore.Web.ViewModels;
 
@@ -6,6 +7,8 @@ namespace GameStore.Web.Payments
 {
     public class Box : IPayment
     {
+        public PaymentTypes Name => PaymentTypes.Box;
+
         public ActionResult Pay(OrderPayment order)
         {
             var box = new BoxViewModel()

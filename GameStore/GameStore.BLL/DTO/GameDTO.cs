@@ -27,11 +27,7 @@ namespace GameStore.BLL.DTO
 
         public ICollection<GenreDTO> Genres { get; set; }
 
-        public IEnumerable<Guid> GenresId { get; set; }
-
         public ICollection<PlatformTypeDTO> PlatformTypes { get; set; }
-
-        public IEnumerable<Guid> PlatformTypesId { get; set; }
 
         public ICollection<string> SelectedGenresName { get; set; }
 

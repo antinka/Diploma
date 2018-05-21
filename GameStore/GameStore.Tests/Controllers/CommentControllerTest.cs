@@ -9,6 +9,7 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using GameStore.Web.ViewModels.Games;
 using Xunit;
 
 namespace GameStore.Tests.Controllers

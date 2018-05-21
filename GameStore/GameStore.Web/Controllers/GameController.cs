@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using System.Web.UI.WebControls;
-using AutoMapper;
+﻿using AutoMapper;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Interfaces;
 using GameStore.Web.Filters;
 using GameStore.Web.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
+using System.Web.UI.WebControls;
+using GameStore.Web.ViewModels.Games;
 
 namespace GameStore.Web.Controllers
 {
@@ -37,7 +38,7 @@ namespace GameStore.Web.Controllers
         [HttpGet]
         public ActionResult New()
         {
-            return View(GetGameViewModel(new GameViewModel()));
+            return View(GetGameViewModelForCreate(new GameViewModel()));
         }
 
         [HttpPost]
@@ -46,6 +47,8 @@ namespace GameStore.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                var gameDTO = _mapper.Map<GameDTO>(game);
+
                 if (game.SelectedGenresName == null)
                 {
                     ModelState.AddModelError("Genres", "Please choose one or more genres");
@@ -53,19 +56,23 @@ namespace GameStore.Web.Controllers
 
                 if (game.SelectedPlatformTypesName == null)
                 {
-                    ModelState.AddModelError("PlatformTypes", "Please choose one or more platform types");
+                    ModelState.AddModelError("SelectedPlatformTypesName", "Please choose one or more platform types");
+                }
+
+                if (!_gameService.IsUniqueKey(gameDTO))
+                {
+                    ModelState.AddModelError("Key", "Game with such key already exist, please enter another name");
                 }
 
                 if (ModelState.IsValid)
                 {
-                    if (_gameService.AddNew(_mapper.Map<GameDTO>(game)))
-                        return RedirectToAction("FilteredGames");
+                    _gameService.AddNew(gameDTO);
 
-                    ModelState.AddModelError("Key", "Game with such key already exist, please enter another name");
+                    return RedirectToAction("GetAllGames");
                 }
             }
 
-            return View(GetGameViewModel(game));
+            return View(GetGameViewModelForCreate(game));
         }
 
         [HttpGet]
@@ -74,7 +81,7 @@ namespace GameStore.Web.Controllers
             var gameDTO = _gameService.GetByKey(gamekey);
             var gameForView = _mapper.Map<GameViewModel>(gameDTO);
 
-            gameForView = GetGameViewModel(gameForView);
+            gameForView = GetGameViewModelForUpdate(gameForView);
 
             return View(gameForView);
         }
@@ -85,6 +92,8 @@ namespace GameStore.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                var gameDTO = _mapper.Map<GameDTO>(game);
+
                 if (game.SelectedGenresName == null)
                 {
                     ModelState.AddModelError("Genres", "Please choose one or more genres");
@@ -95,16 +104,20 @@ namespace GameStore.Web.Controllers
                     ModelState.AddModelError("PlatformTypes", "Please choose one or more platform types");
                 }
 
+                if (!_gameService.IsUniqueKey(gameDTO))
+                {
+                    ModelState.AddModelError("Key", "Game with such key already exist, please enter another name");
+                }
+
                 if (ModelState.IsValid)
                 {
-                    if (_gameService.Update(_mapper.Map<GameDTO>(game)))
-                        return RedirectToAction("FilteredGames");
+                    _gameService.Update(gameDTO);
 
-                    ModelState.AddModelError("Key", "Game with such key already exist, please enter another name");
+                    return RedirectToAction("GetAllGames");
                 }
             }
 
-            return View(GetGameViewModel(game));
+            return View(GetGameViewModelForUpdate(game));
         }
 
         [HttpGet]
@@ -156,7 +169,7 @@ namespace GameStore.Web.Controllers
         public ActionResult GetGame(string gamekey)
         {
             var gameDTO = _gameService.GetByKey(gamekey);
-            var gameForView = _mapper.Map<GameViewModel>(gameDTO);
+            var gameForView = _mapper.Map<DetailsGameViewModel>(gameDTO);
 
             _gameService.IncreaseGameView(gameDTO.Id);
 
@@ -167,7 +180,7 @@ namespace GameStore.Web.Controllers
         public ActionResult GetAllGames()
         {
             var gamesDTO = _gameService.GetAll();
-            var gamesForView = _mapper.Map<IEnumerable<GameViewModel>>(gamesDTO);
+            var gamesForView = _mapper.Map<IEnumerable<DetailsGameViewModel>>(gamesDTO);
 
             return View(gamesForView);
         }
@@ -190,6 +203,7 @@ namespace GameStore.Web.Controllers
             return File(mas, "application/pdf");
         }
 
+      
         [OutputCache(Duration = 60)]
         public ActionResult CountGames()
         {
@@ -198,7 +212,7 @@ namespace GameStore.Web.Controllers
             return PartialView("CountGames", gameCount);
         }
 
-        private GameViewModel GetGameViewModel(GameViewModel gameViewModel)
+        private GameViewModel CreateCheckBoxForGameViewModel(GameViewModel gameViewModel)
         {
             var genrelist = _mapper.Map<IEnumerable<GenreViewModel>>(_genreService.GetAll());
             var platformlist = _mapper.Map<IEnumerable<PlatformTypeViewModel>>(_platformTypeService.GetAll());
@@ -206,32 +220,47 @@ namespace GameStore.Web.Controllers
 
             gameViewModel.PublisherList = new SelectList(publishers, "Id", "Name");
 
-            var listGenreBoxs = new List<CheckBox>();
-            genrelist.ToList().ForEach(genre => listGenreBoxs.Add(new CheckBox() { Text = genre.Name }));
-            gameViewModel.ListGenres = listGenreBoxs;
+            var listGenreBoxes = new List<CheckBox>();
+            genrelist.Select(genre => {listGenreBoxes.Add(new CheckBox() {Text = genre.Name}); return genre; }).ToList();
+            gameViewModel.ListGenres = listGenreBoxes;
 
-            var listPlatformBoxs = new List<CheckBox>();
-            platformlist.ToList().ForEach(platform => listPlatformBoxs.Add(new CheckBox() { Text = platform.Name }));
-            gameViewModel.ListPlatformTypes = listPlatformBoxs;
+            var listPlatformBoxes = new List<CheckBox>();
+            platformlist.Select(platform => { listPlatformBoxes.Add(new CheckBox() { Text = platform.Name }); return platform; }).ToList();
+            gameViewModel.ListPlatformTypes = listPlatformBoxes;
 
-            if (gameViewModel.SelectedGenresName != null)
-            {
-                gameViewModel.SelectedGenres = gameViewModel.ListGenres.Where(x => gameViewModel.SelectedGenresName.Contains(x.Text));
-            }
+            return gameViewModel;
+        }
 
-            if(gameViewModel.Genres != null)
-            {
-                gameViewModel.SelectedGenres = gameViewModel.ListGenres.Where(x => gameViewModel.Genres.Any(g => g.Name.Contains(x.Text)));
-            }
+        private GameViewModel GetGameViewModelForCreate(GameViewModel gameViewModel)
+        {
+            gameViewModel = CreateCheckBoxForGameViewModel(gameViewModel);
 
             if (gameViewModel.SelectedPlatformTypesName != null)
             {
                 gameViewModel.SelectedPlatformTypes = gameViewModel.ListPlatformTypes.Where(x => gameViewModel.SelectedPlatformTypesName.Contains(x.Text));
             }
 
-            if(gameViewModel.PlatformTypes != null)
+            if (gameViewModel.SelectedGenresName != null)
+            {
+                gameViewModel.SelectedGenres = gameViewModel.ListGenres.Where(x => gameViewModel.SelectedGenresName.Contains(x.Text));
+            }
+
+            return gameViewModel;
+        }
+
+        private GameViewModel GetGameViewModelForUpdate(GameViewModel gameViewModel)
+        {
+            gameViewModel = CreateCheckBoxForGameViewModel(gameViewModel);
+            gameViewModel = GetGameViewModelForCreate(gameViewModel);
+
+            if (gameViewModel.PlatformTypes != null)
             {
                 gameViewModel.SelectedPlatformTypes = gameViewModel.ListPlatformTypes.Where(x => gameViewModel.PlatformTypes.Any(g => g.Name.Contains(x.Text)));
+            }
+
+            if (gameViewModel.Genres != null)
+            {
+                gameViewModel.SelectedGenres = gameViewModel.ListGenres.Where(x => gameViewModel.Genres.Any(g => g.Name.Contains(x.Text)));
             }
 
             return gameViewModel;

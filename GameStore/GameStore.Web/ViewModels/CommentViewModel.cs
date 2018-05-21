@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using GameStore.Web.ViewModels.Games;
 
 namespace GameStore.Web.ViewModels
 {
