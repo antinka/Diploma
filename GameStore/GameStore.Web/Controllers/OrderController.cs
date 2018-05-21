@@ -76,15 +76,6 @@ namespace GameStore.Web.Controllers
             return RedirectToAction("BasketInfo");
         }
 
-        public ActionResult CountGamesInOrder()
-        {
-            var userId = GetUserId();
-
-            var gameCount = _ordersService.CountGamesInOrder(userId);
-
-            return PartialView("CountGamesInOrder", gameCount);
-        }
-
         [HttpGet]
         public ActionResult Pay(PaymentTypes paymentType)
         {
@@ -108,6 +99,15 @@ namespace GameStore.Web.Controllers
             var orderDetailsViewModel = _mapper.Map<IEnumerable<OrderDetailViewModel>>(order.OrderDetails);
 
             return View(orderDetailsViewModel);
+        }
+
+        public ActionResult CountGamesInOrder()
+        {
+            var userId = GetUserId();
+
+            var gameCount = _ordersService.CountGamesInOrder(userId);
+
+            return PartialView("CountGamesInOrder", gameCount);
         }
 
         private Guid GetUserId()

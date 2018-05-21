@@ -94,6 +94,7 @@ namespace GameStore.Web.Controllers
             if (ModelState.IsValid)
             {
                 var platformTypeDTO = _mapper.Map<PlatformTypeDTO>(platformTypeViewModel);
+
                 if (!_platformTypeService.IsUniqueName(platformTypeDTO))
                 {
                     ModelState.AddModelError("Name", "Platform type with such name already exist, please enter another name");

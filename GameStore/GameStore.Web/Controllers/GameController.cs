@@ -103,6 +103,7 @@ namespace GameStore.Web.Controllers
                 {
                     ModelState.AddModelError("PlatformTypes", "Please choose one or more platform types");
                 }
+
                 if (!_gameService.IsUniqueKey(gameDTO))
                 {
                     ModelState.AddModelError("Key", "Game with such key already exist, please enter another name");
@@ -155,6 +156,7 @@ namespace GameStore.Web.Controllers
             return File(mas, "application/pdf");
         }
 
+      
         [OutputCache(Duration = 60)]
         public ActionResult CountGames()
         {
