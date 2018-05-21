@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Enums;
-using GameStore.BLL.Exeption;
 using GameStore.BLL.Interfaces;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
@@ -9,6 +8,7 @@ using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GameStore.BLL.CustomExeption;
 
 namespace GameStore.BLL.Service
 {
@@ -55,17 +55,6 @@ namespace GameStore.BLL.Service
 
             if (comment == null)
                 throw new EntityNotFound($"{nameof(CommentService)} - attempt to delete not existed comment, id {id}");
-         
-            var comments = _unitOfWork.Comments.GetAll();
-
-            foreach (var commentChild in comments)
-            {
-                if (commentChild.Quote == comment.Body)
-                {
-                    commentChild.Quote = BodyDeletedComment;
-                    _unitOfWork.Comments.Update(commentChild);
-                }
-            }
 
             comment.Body = BodyDeletedComment;
             _unitOfWork.Comments.Update(comment);
@@ -75,10 +64,9 @@ namespace GameStore.BLL.Service
             _log.Info($"{nameof(CommentService)} - delete comment{id}");
         }
 
-        //todo it'll crash
-        public void Ban(BanPeriod period, Guid userId)
+        public BanPeriod Ban(BanPeriod period, Guid userId)
         {
-            throw new NotImplementedException();
+            return period;
         }
 
         public IEnumerable<CommentDTO> GetCommentsByGameKey(string gameKey)

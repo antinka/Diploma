@@ -6,7 +6,7 @@ namespace GameStore.BLL.Interfaces
 {
     public interface IPublisherService
     {
-        bool AddNew(PublisherDTO publisherDTO);
+        void AddNew(PublisherDTO publisherDTO);
 
         PublisherDTO GetByName(string companyName);
 
@@ -15,5 +15,7 @@ namespace GameStore.BLL.Interfaces
         void Update(PublisherDTO publisherDTO);
 
         void Delete(Guid id);
+
+        bool IsUniqueName(PublisherDTO publisherDTO);
     }
 }

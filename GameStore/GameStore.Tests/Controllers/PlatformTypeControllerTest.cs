@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web.Mvc;
-using AutoMapper;
+﻿using AutoMapper;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Interfaces;
-using GameStore.Controllers;
-using GameStore.Infrastructure.Mapper;
-using GameStore.ViewModels;
+using GameStore.Web.Controllers;
+using GameStore.Web.Infrastructure.Mapper;
+using GameStore.Web.ViewModels;
 using Moq;
+using System;
+using System.Collections.Generic;
+using System.Web.Mvc;
 using Xunit;
 
 namespace GameStore.Tests.Controllers
@@ -35,6 +35,7 @@ namespace GameStore.Tests.Controllers
             var fakePlatformTypeViewModel = new PlatformTypeViewModel() { Name = "test" };
             var fakePlatformTypeDTO = _mapper.Map<PlatformTypeDTO>(fakePlatformTypeViewModel);
 
+            _platformTypeService.Setup(service => service.IsUniqueName(It.IsAny<PlatformTypeDTO>())).Returns(true);
             _platformTypeService.Setup(service => service.AddNew(fakePlatformTypeDTO)).Verifiable();
 
             _sut.New(fakePlatformTypeViewModel);
@@ -70,6 +71,7 @@ namespace GameStore.Tests.Controllers
             var fakePlatformTypeViewModel = new PlatformTypeViewModel() { Name = "test" };
             var fakePlatformTypeDTO = _mapper.Map<PlatformTypeDTO>(fakePlatformTypeViewModel);
 
+            _platformTypeService.Setup(service => service.IsUniqueName(It.IsAny<PlatformTypeDTO>())).Returns(true);
             _platformTypeService.Setup(service => service.Update(fakePlatformTypeDTO)).Verifiable();
 
             _sut.Update(fakePlatformTypeViewModel);

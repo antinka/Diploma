@@ -2,13 +2,14 @@
 using GameStore.BLL.DTO;
 using GameStore.BLL.Enums;
 using GameStore.BLL.Interfaces;
-using GameStore.Controllers;
-using GameStore.ViewModels;
+using GameStore.Web.Controllers;
+using GameStore.Web.Infrastructure.Mapper;
+using GameStore.Web.ViewModels;
+using GameStore.Web.ViewModels.Games;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using GameStore.Infrastructure.Mapper;
 using Xunit;
 
 namespace GameStore.Tests.Controllers
@@ -74,22 +75,20 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void BanComment_UserIdAndPeriod_RedirectToActionResult()
         {
-            var fakeUserId = Guid.NewGuid();
             _commentService.Setup(service => service.Ban(It.IsAny<BanPeriod>(), It.IsAny<Guid>()));
 
-            var res = _sut.Ban(fakeUserId, BanPeriod.Day) as RedirectToRouteResult;
-
+            var res = _sut.Ban(BanPeriod.Day) as RedirectToRouteResult;
+        
             Assert.Equal("Game", res.RouteValues["controller"]);
-            Assert.Equal("GetAllGames", res.RouteValues["action"]);
+            Assert.Equal("FilteredGames", res.RouteValues["action"]);
         }
 
         [Fact]
         public void BanComment_UserId_ReturnPartialViewResult()
         {
-            var fakeUserId = Guid.NewGuid();
             _commentService.Setup(service => service.Ban(It.IsAny<BanPeriod>(), It.IsAny<Guid>()));
 
-            var res = _sut.Ban(fakeUserId, null);
+            var res = _sut.Ban(null);
 
             Assert.Equal(typeof(PartialViewResult), res.GetType());
         }
@@ -102,16 +101,23 @@ namespace GameStore.Tests.Controllers
 
             _commentService.Setup(service => service.AddComment(fakeCommentDTO));
 
-            var res = _sut.CommentToGame(fakeCommentViewModel) as RedirectToRouteResult;
+            var res = _sut.CommentToGame(fakeCommentViewModel);
 
-            Assert.Equal("Comment", res.RouteValues["controller"]);
-            Assert.Equal("GetAllCommentToGame", res.RouteValues["action"]);
+            Assert.Equal(typeof(PartialViewResult), res.GetType());
         }
 
         [Fact]
         public void CommentToGame_GamekeyGameId_ReturnedPartialView()
         {
             var res = _sut.CommentToGame(_fakeGameKey, _fakeGameId, null, null);
+
+            Assert.Equal(typeof(PartialViewResult), res.GetType());
+        }
+
+        [Fact]
+        public void CommentToGame_GameKeyAndIdAndQuoteString_ReturnedView()
+        {
+            var res = _sut.CommentToGame(_fakeGameKey, _fakeGameId, null, "quote");
 
             Assert.Equal(typeof(PartialViewResult), res.GetType());
         }

@@ -108,9 +108,21 @@
     <Compile Include="Migrations\201804131011373_update comment return parentComment.Designer.cs">
       <DependentUpon>201804131011373_update comment return parentComment.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805020843290_updateGames.cs" />
-    <Compile Include="Migrations\201805020843290_updateGames.Designer.cs">
-      <DependentUpon>201805020843290_updateGames.cs</DependentUpon>
+    <Compile Include="Migrations\201805111304112_update column type.cs" />
+    <Compile Include="Migrations\201805111304112_update column type.Designer.cs">
+      <DependentUpon>201805111304112_update column type.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805181231479_upd Orders.cs" />
+    <Compile Include="Migrations\201805181231479_upd Orders.Designer.cs">
+      <DependentUpon>201805181231479_upd Orders.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805210828210_upd Order.cs" />
+    <Compile Include="Migrations\201805210828210_upd Order.Designer.cs">
+      <DependentUpon>201805210828210_upd Order.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805210926513_upd after rebase.cs" />
+    <Compile Include="Migrations\201805210926513_upd after rebase.Designer.cs">
+      <DependentUpon>201805210926513_upd after rebase.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mongo\MongoContext.cs" />
@@ -119,6 +131,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\GenericDecoratorRepository.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />
+    <Compile Include="Repositories\OrderDetailRepository.cs" />
     <Compile Include="Repositories\ReadOnlyGenericRepository.cs" />
     <Compile Include="Repositories\OrderDecoratorRepository.cs" />
   </ItemGroup>
@@ -133,8 +146,17 @@
     <EmbeddedResource Include="Migrations\201804131011373_update comment return parentComment.resx">
       <DependentUpon>201804131011373_update comment return parentComment.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805020843290_updateGames.resx">
-      <DependentUpon>201805020843290_updateGames.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805111304112_update column type.resx">
+      <DependentUpon>201805111304112_update column type.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805181231479_upd Orders.resx">
+      <DependentUpon>201805181231479_upd Orders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805210828210_upd Order.resx">
+      <DependentUpon>201805210828210_upd Order.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805210926513_upd after rebase.resx">
+      <DependentUpon>201805210926513_upd after rebase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

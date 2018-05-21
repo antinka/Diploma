@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using GameStore.BLL.Exeption;
+using GameStore.BLL.DTO;
 using GameStore.BLL.Service;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
@@ -8,8 +8,8 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using GameStore.BLL.DTO;
-using GameStore.Infrastructure.Mapper;
+using GameStore.BLL.CustomExeption;
+using GameStore.Web.Infrastructure.Mapper;
 using Xunit;
 
 namespace GameStore.Tests.Service
@@ -92,22 +92,11 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void AddNewPlatformType_PlatformTypeWithoutUniqueName_ReturnedFalseAddNewPlatformType()
-        {
-            var fakePlatformTypeDTO = _mapper.Map<PlatformTypeDTO>(_fakePlatformType);
-
-            _uow.Setup(uow => uow.PlatformTypes.Get(It.IsAny<Func<PlatformType, bool>>())).Returns(_fakePlatformTypes);
-
-            Assert.False(_sut.AddNew(fakePlatformTypeDTO));
-        }
-
-        [Fact]
         public void UpdatePlatformType_PlatformType_PlatformTypeUpdated()
         {
             var fakePlatformTypeDTO = _mapper.Map<PlatformTypeDTO>(_fakePlatformType);
 
             _uow.Setup(uow => uow.PlatformTypes.GetById(_fakePlatformTypeId)).Returns(_fakePlatformType);
-
             _uow.Setup(uow => uow.PlatformTypes.Update(_fakePlatformType)).Verifiable();
 
             _sut.Update(fakePlatformTypeDTO);
@@ -167,6 +156,28 @@ namespace GameStore.Tests.Service
             _uow.Setup(uow => uow.PlatformTypes.Get(It.IsAny<Func<PlatformType, bool>>())).Returns(new List<PlatformType>());
 
             Assert.Throws<EntityNotFound>(() => _sut.GetByName(_fakePlatformTypeName));
+        }
+
+        [Fact]
+        public void IsUniqueName_UniqueName_True()
+        {
+            var platformTypes = new PlatformTypeDTO() { Id = Guid.NewGuid(), Name = _fakePlatformTypeName };
+            _uow.Setup(uow => uow.PlatformTypes.Get(It.IsAny<Func<PlatformType, bool>>())).Returns(new List<PlatformType>());
+
+            var res = _sut.IsUniqueName(platformTypes);
+
+            Assert.True(res);
+        }
+
+        [Fact]
+        public void IsUniqueName_NotUniqueName_False()
+        {
+            var platformTypes = new PlatformTypeDTO() { Id = Guid.NewGuid(), Name = _fakePlatformTypeName };
+            _uow.Setup(uow => uow.PlatformTypes.Get(It.IsAny<Func<PlatformType, bool>>())).Returns(new List<PlatformType>() { _fakePlatformType });
+
+            var res = _sut.IsUniqueName(platformTypes);
+
+            Assert.False(res);
         }
     }
 }

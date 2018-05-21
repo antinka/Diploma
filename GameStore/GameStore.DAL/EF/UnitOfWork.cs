@@ -19,6 +19,8 @@ namespace GameStore.DAL.EF
         private readonly Lazy<GenericRepository<PlatformType>> _lazyPlatformTypeRepository;
         private readonly Lazy<GenericRepository<OrderDetail>> _lazyOrderDetailRepository;
         private readonly Lazy<OrderDecoratorRepository> _lazyOrderRepository;
+        private readonly Lazy<OrderDetailRepository> _lazyOrderDetailRepository;
+        private readonly Lazy<GenericRepository<Order>> _lazyOrderRepository;
         private readonly Lazy<GenericRepository<Publisher>> _lazyPublisherRepository;
         private readonly Lazy<ReadOnlyGenericRepository<Shipper>> _lazyShipperRepository;
 

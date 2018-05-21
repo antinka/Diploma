@@ -12,7 +12,7 @@ using MongoDB.Bson;
 
 namespace GameStore.DAL.Repositories
 {
-    public class GenericRepository<TEntiy> : IGenericRepository<TEntiy> where TEntiy : class, IBaseEntity
+    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class, IBaseEntity
     {
         private readonly IDbContext _db;
         private readonly IDbSet<TEntiy> _dbSet;
@@ -25,7 +25,7 @@ namespace GameStore.DAL.Repositories
             _mongoDb = mongoDb;
         }
 
-        public virtual void Create(TEntiy item)
+        public virtual void Create(TEntity item)
         {
             if (item != null)
                 _dbSet.Add(item);
@@ -42,17 +42,17 @@ namespace GameStore.DAL.Repositories
             Log(ActionInRepository.Update, item.GetType().ToString(), item.ToJson(), null);
         }
 
-        public virtual TEntiy GetById(Guid id)
+        public virtual TEntity GetById(Guid id)
         {
             return _dbSet.Find(id);
         }
 
-        public virtual IEnumerable<TEntiy> GetAll()
+        public virtual IEnumerable<TEntity> GetAll()
         {
             return _dbSet.Where(x => x.IsDelete == false).ToList();
         }
 
-        public virtual void Update(TEntiy item)
+        public virtual void Update(TEntity item)
         {
             var oldObject = GetById(item.Id);
 
@@ -61,7 +61,7 @@ namespace GameStore.DAL.Repositories
             Log(ActionInRepository.Update, item.GetType().ToString(), item.ToJson(), oldObject.ToJson());
         }
 
-        public virtual IEnumerable<TEntiy> Get(Func<TEntiy, bool> predicate)
+        public virtual IEnumerable<TEntity> Get(Func<TEntity, bool> predicate)
         {
 			return _dbSet.Where(predicate).Where(x => x.IsDelete == false).ToList();
         }

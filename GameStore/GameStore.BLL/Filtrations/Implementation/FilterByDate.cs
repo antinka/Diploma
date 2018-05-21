@@ -10,6 +10,7 @@ namespace GameStore.BLL.Filtration.Implementation
     public class FilterByDate : IPipeLine<IEnumerable<Game>>
     {
         private readonly SortDate _selectedDate;
+        private DateTime _from;
 
         public FilterByDate(SortDate selectedDate)
         {
@@ -18,28 +19,31 @@ namespace GameStore.BLL.Filtration.Implementation
 
         public IEnumerable<Game> Execute(IEnumerable<Game> input)
         {
-            Func<Game, object> condition = null;
 
             if (_selectedDate == SortDate.week)
-                condition = game => game.PublishDate >= DateTime.Today.AddDays(-7);
+                _from = DateTime.UtcNow.AddDays(-7);
             else if (_selectedDate == SortDate.month)
             {
-                condition = game => game.PublishDate >= DateTime.Today.AddMonths(-1);
+                _from = DateTime.UtcNow.AddMonths(-1);
             }
             else if (_selectedDate == SortDate.oneYear)
             {
-                condition = game => game.PublishDate >= DateTime.Today.AddYears(-1);
+                _from = DateTime.UtcNow.AddYears(-1);
             }
             else if (_selectedDate == SortDate.twoYear)
             {
-                condition = game => game.PublishDate >= DateTime.Today.AddYears(-2);
+                _from = DateTime.UtcNow.AddYears(-2);
             }
             else if (_selectedDate == SortDate.threeYear)
             {
-                condition = game => game.PublishDate >= DateTime.Today.AddYears(-3);
+                _from = DateTime.UtcNow.AddYears(-3);
+            }
+            else
+            {
+                _from = DateTime.MinValue;
             }
 
-            return condition != null ? input.OrderBy(condition) : input;
+            return input.Where(g=>g.PublishDate >= _from && g.PublishDate < DateTime.UtcNow);
         }
     }
 }

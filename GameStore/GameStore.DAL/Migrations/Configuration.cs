@@ -3,15 +3,13 @@ namespace GameStore.DAL.Migrations
     using GameStore.DAL.Entities;
     using System;
     using System.Collections.Generic;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
 
     internal sealed class Configuration : DbMigrationsConfiguration<GameStore.DAL.EF.GameStoreDBContext>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(GameStore.DAL.EF.GameStoreDBContext context)
@@ -156,32 +154,208 @@ namespace GameStore.DAL.Migrations
             //    Id = Guid.NewGuid(),
             //    Name = "wow",
             //    Description = "smth",
-            //    Key = Guid.NewGuid().ToString(),
+            //    PublishDate = DateTime.UtcNow.AddYears(-1),
+            //    Key = "wo223w",
             //    Genres = new List<Genre>() { fps, adventure },
             //    PlatformTypes = new List<PlatformType>() { windows }
             //};
-            //context.Games.Add(wow);
+            //context.Games.AddOrUpdate(wow);
 
             //var hero = new Game
             //{
             //    Id = Guid.NewGuid(),
             //    Name = "hero",
             //    Description = "smth",
-            //    Key = Guid.NewGuid().ToString(),
+            //    Key = "hero232",
+            //    PublishDate = DateTime.UtcNow.AddYears(-3),
             //    Genres = new List<Genre>() { puzzleSkill, adventure, subMisc },
             //    PlatformTypes = new List<PlatformType>() { windows, android, ios }
+
             //};
 
             //context.Games.AddOrUpdate(hero);
 
-            //var cm1 = new Comment()
+            //var mobile = new PlatformType { Id = Guid.NewGuid(), Name = "Mobile" };
+            //var browser = new PlatformType { Id = Guid.NewGuid(), Name = "Browser" };
+            //var desktop = new PlatformType { Id = Guid.NewGuid(), Name = "Desktop" };
+            //var console = new PlatformType { Id = Guid.NewGuid(), Name = "Console" };
+
+            //context.PlatformTypes.Add(mobile);
+            //context.PlatformTypes.Add(browser);
+            //context.PlatformTypes.Add(desktop);
+            //context.PlatformTypes.Add(console);
+
+            //var p1 = new Publisher()
             //{
             //    Id = Guid.NewGuid(),
-            //    Game = wow,
-            //    Name = "Vova",
-            //    Body = "cool"
+            //    Name = "test"
+            //};
+            //context.Publishers.AddOrUpdate(p1);
+
+            //var left4Dead = new Game
+            //{
+            //    Id = Guid.NewGuid(),
+            //    Key = "Key-Left4Dead232",
+            //    Name = "Left 4 Dead",
+            //    Price = 6,
+            //    UnitsInStock = 0,
+            //    Genres = new List<Genre>
+            //    {
+            //        fps
+            //    },
+            //    PublishDate = DateTime.UtcNow.AddYears(-1),
+            //    PlatformTypes = new List<PlatformType>
+            //    {
+            //        desktop
+            //    },
+            //    Publisher = p1,
+            //    Views = 300
             //};
 
+            //var cod = new Game
+            //{
+            //    Id = Guid.NewGuid(),
+            //    Key = "Key-CoD232",
+            //    Name = "Call of Duty",
+            //    Price = 12,
+            //    UnitsInStock = 13,
+            //    Publisher = p1,
+            //    Genres = new List<Genre>
+            //    {
+            //        fps
+            //    },
+            //    PublishDate = DateTime.UtcNow.AddYears(-1),
+            //    PlatformTypes = new List<PlatformType>
+            //    {
+            //        desktop,
+            //        console,
+            //        mobile
+            //    },
+            //    Views = 100
+            //};
+
+            //var fifa = new Game
+            //{
+            //    Id = Guid.NewGuid(),
+            //    Key = "Key-FIFA232",
+            //    Name = "FIFA",
+            //    Price = 20,
+            //    UnitsInStock = 5,
+            //    Genres = new List<Genre>
+            //    {
+            //        sports
+            //    },
+            //    PublishDate = DateTime.UtcNow.AddYears(-1),
+            //    PlatformTypes = new List<PlatformType>
+            //    {
+            //        desktop,
+            //        console,
+            //        mobile,
+            //        browser
+            //    },
+            //    Views = 77
+            //};
+
+            //var nfs = new Game
+            //{
+            //    Id = Guid.NewGuid(),
+            //    Key = "Key-NFS232",
+            //    Name = "Need for Speed",
+            //    Price = 15,
+            //    UnitsInStock = 17,
+            //    PublishDate = DateTime.UtcNow.AddYears(-1),
+            //    PlatformTypes = new List<PlatformType>
+            //    {
+            //        desktop,
+            //        console,
+            //        mobile
+            //    },
+            //    Publisher = p1,
+            //    Views = 140
+            //};
+
+            //var qqq = new Game
+            //{
+            //    Id = Guid.NewGuid(),
+            //    Key = "Key-WorldOfWarcraft",
+            //    Name = "World of Warcraft",
+            //    Price = 7,
+            //    UnitsInStock = 56,
+            //    PublishDate = DateTime.UtcNow.AddYears(-1),
+            //    PlatformTypes = new List<PlatformType>
+            //    {
+            //        desktop
+            //    },
+            //    Views = 95
+            //};
+
+            //context.Games.AddOrUpdate(left4Dead);
+            //context.Games.AddOrUpdate(cod);
+            //context.Games.AddOrUpdate(fifa);
+            //context.Games.AddOrUpdate(nfs);
+            //context.Games.AddOrUpdate(qqq);
+
+            //var left4Dead2 = new Game
+            //{
+            //    Id = Guid.NewGuid(),
+            //    Key = "2Key-Left4Dead232",
+            //    Name = "Left 4 Dead",
+            //    Price = 6,
+            //    UnitsInStock = 0,
+            //    Genres = new List<Genre>
+            //    {
+            //        fps
+            //    },
+            //    PublishDate = DateTime.UtcNow.AddYears(-1),
+            //    PlatformTypes = new List<PlatformType>
+            //    {
+            //        desktop
+            //    },
+            //    Views = 300
+            //};
+
+            //var cod2 = new Game
+            //{
+            //    Id = Guid.NewGuid(),
+            //    Key = "2Key-CoD232",
+            //    Name = "Call of Duty",
+            //    Price = 12,
+            //    UnitsInStock = 13,
+            //    Genres = new List<Genre>
+            //    {
+            //        fps
+            //    },
+            //    PublishDate = DateTime.UtcNow.AddYears(-1),
+            //    PlatformTypes = new List<PlatformType>
+            //    {
+            //        desktop,
+            //        console,
+            //        mobile
+            //    },
+            //    Views = 100
+            //};
+
+            //var fifa2 = new Game
+            //{
+            //    Id = Guid.NewGuid(),
+            //    Key = "2Key-FIFA232",
+            //    Name = "FIFA",
+            //    Price = 20,
+            //    UnitsInStock = 5,
+            //    Genres = new List<Genre>
+            //    {
+            //        sports
+            //    },
+            //    PublishDate = DateTime.UtcNow.AddYears(-1),
+            //    PlatformTypes = new List<PlatformType>
+            //    {
+            //        desktop,
+            //        console,
+            //        mobile,
+            //        browser
+            //    },
+            //    Views = 77
+            //};
             //var cm2 = new Comment()
             //{
             //    Id = Guid.NewGuid(),
@@ -190,15 +364,46 @@ namespace GameStore.DAL.Migrations
             //    Body = "realy cool"
             //};
 
+            //var nfs2 = new Game
+            //{
+            //    Id = Guid.NewGuid(),
+            //    Key = "2Key-NFS232",
+            //    Name = "Need for Speed",
+            //    Price = 15,
+            //    UnitsInStock = 17,
+            //    PublishDate = DateTime.UtcNow.AddYears(-1),
+            //    PlatformTypes = new List<PlatformType>
+            //    {
+            //        desktop,
+            //        console,
+            //        mobile
+            //    },
+            //    Views = 140
+            //};
+
             //var cm3 = new Comment()
             //{
             //    Id = Guid.NewGuid(),
             //    Game = wow,
             //    Name = "Vasya",
             //    Body = "why you think so?",
-            //    ParentCommentId = cm1.Id
+            //    ParentCommentId = cm2.Id
             //};
 
+            //var qqq2 = new Game
+            //{
+            //    Id = Guid.NewGuid(),
+            //    Key = "2Key-WorldOfWarcraft",
+            //    Name = "World of Warcraft",
+            //    Price = 7,
+            //    UnitsInStock = 56,
+            //    PublishDate = DateTime.UtcNow.AddYears(-1),
+            //    PlatformTypes = new List<PlatformType>
+            //    {
+            //        desktop
+            //    },
+            //    Views = 95
+            //};
             //var cm4 = new Comment()
             //{
             //    Id = Guid.NewGuid(),
@@ -207,11 +412,15 @@ namespace GameStore.DAL.Migrations
             //    Body = "soso"
             //};
 
-            //context.Comments.AddOrUpdate(cm1);
             //context.Comments.AddOrUpdate(cm2);
             //context.Comments.AddOrUpdate(cm3);
             //context.Comments.AddOrUpdate(cm4);
 
+            //context.Games.AddOrUpdate(left4Dead2);
+            //context.Games.AddOrUpdate(cod2);
+            //context.Games.AddOrUpdate(fifa2);
+            //context.Games.AddOrUpdate(nfs2);
+            //context.Games.AddOrUpdate(qqq2);
 
             //context.SaveChanges();
             //base.Seed(context);

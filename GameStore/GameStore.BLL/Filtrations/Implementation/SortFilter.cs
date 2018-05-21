@@ -28,7 +28,7 @@ namespace GameStore.BLL.Filtration.Implementation
             }
             else if (_sortOption == SortType.NewByDate)
             {
-                condition = game => game.PublishDate.Ticks;
+                condition = game => game.PublishDate.Ticks*(-1);
             }
             else if (_sortOption == SortType.PriceDesc)
             {

@@ -13,7 +13,7 @@ namespace GameStore.BLL.Interfaces
 
         void Delete(Guid id);
 
-        void Ban(BanPeriod period, Guid commentId);
+        BanPeriod Ban(BanPeriod period, Guid commentId);
 
         IEnumerable<CommentDTO> GetCommentsByGameKey(string gameKey);
     }
