@@ -13,6 +13,8 @@ using System.Web;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Routing;
+using GameStore.ViewModels;
+using GameStore.Web.ViewModels;
 using Xunit;
 
 namespace GameStore.Tests.Controllers

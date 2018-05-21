@@ -8,7 +8,7 @@ namespace GameStore.DAL.Repositories
     {
         private readonly IDbContext _db;
 
-        public OrderDetailRepository(IDbContext db) : base(db)
+        public OrderDetailRepository(IDbContext db, Mongo.MongoContext mongoDb) : base(db, mongoDb)
         {
             _db = db;
         }

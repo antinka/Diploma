@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using GameStore.BLL.DTO;
+using GameStore.ViewModels;
 using GameStore.Web.ViewModels;
 using GameStore.Web.ViewModels.Games;
 

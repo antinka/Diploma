@@ -124,6 +124,10 @@
     <Compile Include="Migrations\201805210926513_upd after rebase.Designer.cs">
       <DependentUpon>201805210926513_upd after rebase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805211502489_upd task4.cs" />
+    <Compile Include="Migrations\201805211502489_upd task4.Designer.cs">
+      <DependentUpon>201805211502489_upd task4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mongo\MongoContext.cs" />
     <Compile Include="Mongo\MongoEntities\MongoOrder.cs" />
@@ -157,6 +161,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805210926513_upd after rebase.resx">
       <DependentUpon>201805210926513_upd after rebase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805211502489_upd task4.resx">
+      <DependentUpon>201805211502489_upd task4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

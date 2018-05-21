@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using GameStore.BLL.DTO;
+using GameStore.ViewModels;
 
 namespace GameStore.Web.Controllers
 {
@@ -99,6 +101,22 @@ namespace GameStore.Web.Controllers
             var orderDetailsViewModel = _mapper.Map<IEnumerable<OrderDetailViewModel>>(order.OrderDetails);
 
             return View(orderDetailsViewModel);
+        }
+
+        public ActionResult FilterOrders(FilterOrder filterOrder)
+        {
+            var ordersDTO = _ordersService.GetOrdersBetweenDates(filterOrder.DateTimeFrom, filterOrder.DateTimeTo);
+            filterOrder.OrdersViewModel = _mapper.Map<IEnumerable<OrderViewModel>>(ordersDTO);
+
+            return View(filterOrder);
+        }
+
+        public ActionResult UpdateShipper(OrderViewModel orderViewModel)
+        {
+            var orderDTO = _mapper.Map<OrderDTO>(orderViewModel);
+            _ordersService.UpdateShipper(orderDTO);
+
+            return RedirectToAction("BasketInfo");
         }
 
         public ActionResult CountGamesInOrder()

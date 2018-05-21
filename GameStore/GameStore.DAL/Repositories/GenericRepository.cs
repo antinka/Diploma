@@ -15,13 +15,13 @@ namespace GameStore.DAL.Repositories
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class, IBaseEntity
     {
         private readonly IDbContext _db;
-        private readonly IDbSet<TEntiy> _dbSet;
+        private readonly IDbSet<TEntity> _dbSet;
         private readonly MongoContext _mongoDb;
 
         public GenericRepository(IDbContext db, MongoContext mongoDb)
         {
             _db = db;
-            _dbSet = db.Set<TEntiy>();
+            _dbSet = db.Set<TEntity>();
             _mongoDb = mongoDb;
         }
 
@@ -56,7 +56,7 @@ namespace GameStore.DAL.Repositories
         {
             var oldObject = GetById(item.Id);
 
-            _db.Set<TEntiy>().AddOrUpdate(item);
+            _db.Set<TEntity>().AddOrUpdate(item);
 
             Log(ActionInRepository.Update, item.GetType().ToString(), item.ToJson(), oldObject.ToJson());
         }
