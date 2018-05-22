@@ -128,10 +128,17 @@
     <Compile Include="Migrations\201805211502489_upd task4.Designer.cs">
       <DependentUpon>201805211502489_upd task4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805211545172_upd2 task4.cs" />
+    <Compile Include="Migrations\201805211545172_upd2 task4.Designer.cs">
+      <DependentUpon>201805211545172_upd2 task4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mongo\MongoContext.cs" />
     <Compile Include="Mongo\MongoEntities\MongoOrder.cs" />
     <Compile Include="Mongo\MongoEntities\Shipper.cs" />
+    <Compile Include="Mongo\MongoSerializer\ListGameSerializer.cs" />
+    <Compile Include="Mongo\MongoSerializer\ListGenreSerializer.cs" />
+    <Compile Include="Mongo\MongoSerializer\ListPlatformTypeSerializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\GenericDecoratorRepository.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />
@@ -164,6 +171,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805211502489_upd task4.resx">
       <DependentUpon>201805211502489_upd task4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805211545172_upd2 task4.resx">
+      <DependentUpon>201805211545172_upd2 task4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

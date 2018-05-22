@@ -9,6 +9,19 @@
     <dl class="dl-horizontal">
         @Html.HiddenFor(model => model.UserId)
     </dl>
+
+    @using (Html.BeginForm("UpdateShipper", "Order", FormMethod.Get, null))
+    {
+        @Html.HiddenFor(model => model.Id)
+        <div class="form-group">
+            @Html.LabelFor(model => model.ShipperId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ShipperId, Model.ShipperList as SelectList, "", new { @class = "form-control", onchange = "this.form.submit();" })
+            </div>
+        </div>
+
+    }
+
     <table class="table">
         <tr>
             <th>
@@ -55,5 +68,9 @@
         }
 
     </table>
-    @Html.ActionLink("Make Order", "Order", "Order", null, new { @class = "btn btn-primary btn-large" })
+    @if (Model.ShipperId != null)
+    {
+        @Html.ActionLink("Make Order", "Order", "Order", null, new { @class = "btn btn-primary btn-large" })
+    }
+
 </div>

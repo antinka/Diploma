@@ -41,6 +41,8 @@ namespace GameStore.Web.Controllers
                 return View("EmptyBasket");
 
             var orderViewModel = _mapper.Map<OrderViewModel>(order);
+            var shippers = _mapper.Map<IEnumerable<ShipperViewModel>>(_ordersService.GetAllShippers());
+            orderViewModel.ShipperList = new SelectList(shippers, "Id", "CompanyName");
 
             return View(orderViewModel);
         }
