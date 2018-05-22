@@ -45,7 +45,7 @@ namespace GameStore.Tests.Service
                 }
             };
 
-            var fakeOrder = new Order()
+            _fakeOrder = new Order()
             {
                 UserId = _fakeUserId,
                 OrderDetails = _fakeOrderDetails
