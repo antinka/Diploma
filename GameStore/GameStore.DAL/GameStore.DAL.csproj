@@ -132,6 +132,10 @@
     <Compile Include="Migrations\201805211545172_upd2 task4.Designer.cs">
       <DependentUpon>201805211545172_upd2 task4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805221435443_extend order to mongo order.cs" />
+    <Compile Include="Migrations\201805221435443_extend order to mongo order.Designer.cs">
+      <DependentUpon>201805221435443_extend order to mongo order.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mongo\MongoContext.cs" />
     <Compile Include="Mongo\MongoEntities\MongoOrder.cs" />
@@ -174,6 +178,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805211545172_upd2 task4.resx">
       <DependentUpon>201805211545172_upd2 task4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805221435443_extend order to mongo order.resx">
+      <DependentUpon>201805221435443_extend order to mongo order.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

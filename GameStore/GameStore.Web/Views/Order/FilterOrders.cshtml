@@ -25,17 +25,41 @@
     <input type="submit" value="Filter" class="btn btn-default"/>
 } 
     <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.OrdersViewModel.First().UserId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OrdersViewModel.First().Date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OrdersViewModel.First().Cost)
-        </th>
-    </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OrdersViewModel.First().UserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrdersViewModel.First().Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrdersViewModel.First().Cost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrdersViewModel.First().Freight)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrdersViewModel.First().ShipAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrdersViewModel.First().ShipCity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrdersViewModel.First().ShipCountry)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrdersViewModel.First().ShipName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrdersViewModel.First().ShipPostalCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrdersViewModel.First().ShipRegion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrdersViewModel.First().ShipVia)
+            </th>
+        </tr>
 
     @foreach (var item in Model.OrdersViewModel) {
         <tr>
@@ -47,6 +71,30 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Cost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Freight)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipCity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipCountry)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipPostalCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipVia)
             </td>
         </tr>
     }
