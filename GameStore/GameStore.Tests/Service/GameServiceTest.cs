@@ -566,5 +566,31 @@ namespace GameStore.Tests.Service
 
             Assert.False(res);
         }
+
+        [Fact]
+        public void GetGamesByFilter_FilterDTO_returnedGamesDTO()
+        {
+            FilterDTO filterDto = new FilterDTO()
+            {
+                SortDate = SortDate.threeYear
+            };
+
+            _uow.Setup(uow => uow.Games.GetAll()).Returns(_fakeGames);
+
+            var res = _sut.GetGamesByFilter(filterDto);
+
+            Assert.True(res.Any());
+        }
+
+        [Fact]
+        public void IncreaseGameView_GameId_Verifiable()
+        {
+            _uow.Setup(uow => uow.Games.GetById(_fakeGameId)).Returns(_fakeGame);
+            _uow.Setup(uow => uow.Games.Update(_fakeGame)).Verifiable();
+
+            _sut.IncreaseGameView(_fakeGameId);
+
+            _uow.Verify(uow => uow.Games.Update(It.IsAny<Game>()), Times.Once);
+        }
     }
 }

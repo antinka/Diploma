@@ -9,7 +9,7 @@ namespace GameStore.DAL.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(GameStore.DAL.EF.GameStoreDBContext context)
@@ -304,12 +304,14 @@ namespace GameStore.DAL.Migrations
             //    UnitsInStock = 0,
             //    Genres = new List<Genre>
             //    {
-            //        fps
+            //        new Genre { Id = Guid.NewGuid(), Name = "rally" },
             //    },
             //    PublishDate = DateTime.UtcNow.AddYears(-1),
             //    PlatformTypes = new List<PlatformType>
             //    {
-            //        desktop
+            //        new PlatformType { Id = Guid.NewGuid(), Name = "Desktop" },
+            //        new PlatformType { Id = Guid.NewGuid(), Name = "console" },
+            //        new PlatformType { Id = Guid.NewGuid(), Name = "mobile" }
             //    },
             //    Views = 300
             //};
@@ -321,16 +323,12 @@ namespace GameStore.DAL.Migrations
             //    Name = "Call of Duty",
             //    Price = 12,
             //    UnitsInStock = 13,
-            //    Genres = new List<Genre>
-            //    {
-            //        fps
-            //    },
             //    PublishDate = DateTime.UtcNow.AddYears(-1),
             //    PlatformTypes = new List<PlatformType>
             //    {
-            //        desktop,
-            //        console,
-            //        mobile
+            //        new PlatformType { Id = Guid.NewGuid(), Name = "Desktop" },
+            //        new PlatformType { Id = Guid.NewGuid(), Name = "console" },
+            //        new PlatformType { Id = Guid.NewGuid(), Name = "mobile" }
             //    },
             //    Views = 100
             //};
@@ -342,17 +340,12 @@ namespace GameStore.DAL.Migrations
             //    Name = "FIFA",
             //    Price = 20,
             //    UnitsInStock = 5,
-            //    Genres = new List<Genre>
-            //    {
-            //        sports
-            //    },
             //    PublishDate = DateTime.UtcNow.AddYears(-1),
             //    PlatformTypes = new List<PlatformType>
             //    {
-            //        desktop,
-            //        console,
-            //        mobile,
-            //        browser
+            //        new PlatformType { Id = Guid.NewGuid(), Name = "Desktop" },
+            //        new PlatformType { Id = Guid.NewGuid(), Name = "console" },
+            //        new PlatformType { Id = Guid.NewGuid(), Name = "mobile" }
             //    },
             //    Views = 77
             //};
@@ -374,9 +367,8 @@ namespace GameStore.DAL.Migrations
             //    PublishDate = DateTime.UtcNow.AddYears(-1),
             //    PlatformTypes = new List<PlatformType>
             //    {
-            //        desktop,
-            //        console,
-            //        mobile
+            //        new PlatformType { Id = Guid.NewGuid(), Name = "console" },
+            //        new PlatformType { Id = Guid.NewGuid(), Name = "mobile" }
             //    },
             //    Views = 140
             //};
@@ -390,20 +382,20 @@ namespace GameStore.DAL.Migrations
             //    ParentCommentId = cm2.Id
             //};
 
-            //var qqq2 = new Game
-            //{
-            //    Id = Guid.NewGuid(),
-            //    Key = "2Key-WorldOfWarcraft",
-            //    Name = "World of Warcraft",
-            //    Price = 7,
-            //    UnitsInStock = 56,
-            //    PublishDate = DateTime.UtcNow.AddYears(-1),
-            //    PlatformTypes = new List<PlatformType>
-            //    {
-            //        desktop
-            //    },
-            //    Views = 95
-            //};
+        //    var qqq2 = new Game
+        //    {
+        //        Id = Guid.NewGuid(),
+        //        Key = "2Key-WorldOfWarcraft",
+        //        Name = "World of Warcraft",
+        //        Price = 7,
+        //        UnitsInStock = 56,
+        //        PublishDate = DateTime.UtcNow.AddYears(-1),
+        //        PlatformTypes = new List<PlatformType>
+        //        {
+        //            new PlatformType { Id = Guid.NewGuid(), Name = "Desktop" }
+        //},
+        //        Views = 95
+        //    };
             //var cm4 = new Comment()
             //{
             //    Id = Guid.NewGuid(),
@@ -414,16 +406,16 @@ namespace GameStore.DAL.Migrations
 
             //context.Comments.AddOrUpdate(cm2);
             //context.Comments.AddOrUpdate(cm3);
-            //context.Comments.AddOrUpdate(cm4);
+            //context.Comments.AddOrUpdate(cm4);mobile
 
             //context.Games.AddOrUpdate(left4Dead2);
             //context.Games.AddOrUpdate(cod2);
             //context.Games.AddOrUpdate(fifa2);
-            //context.Games.AddOrUpdate(nfs2);
-            //context.Games.AddOrUpdate(qqq2);
+            //context.Games.Add(nfs2);
+            //context.Games.Add(qqq2);
 
-            //context.SaveChanges();
-            //base.Seed(context);
+            context.SaveChanges();
+            base.Seed(context);
         }
     }
 }
