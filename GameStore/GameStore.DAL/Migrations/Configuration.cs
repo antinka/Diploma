@@ -9,7 +9,7 @@ namespace GameStore.DAL.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(GameStore.DAL.EF.GameStoreDBContext context)
