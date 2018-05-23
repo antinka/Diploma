@@ -20,6 +20,7 @@ namespace GameStore.Tests.Controllers
     {
         private readonly Mock<IOrdersService> _ordersService;
         private readonly Mock<IGameService> _gameService;
+        private readonly IPaymentStrategy _paymentStrategy;
         private readonly IMapper _mapper;
         private readonly OrderController _sut;
         private Bank _bankMock;
@@ -38,10 +39,11 @@ namespace GameStore.Tests.Controllers
             _stratagy.Add(_boxMock);
             _stratagy.Add(_visaMock);
 
+            _paymentStrategy = new PaymentStrategy(_stratagy);
             _mapper = MapperConfigUi.GetMapper().CreateMapper();
             _ordersService = new Mock<IOrdersService>();
             _gameService = new Mock<IGameService>();
-            _sut = new OrderController(_ordersService.Object, _gameService.Object, _mapper, _stratagy);
+            _sut = new OrderController(_ordersService.Object, _gameService.Object, _mapper, _paymentStrategy);
         }
 
         [Fact]
