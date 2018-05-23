@@ -1,8 +1,9 @@
 namespace GameStore.DAL.Migrations
 {
+    using System;
     using System.Data.Entity.Migrations;
-
-    public partial class initial : DbMigration
+    
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
@@ -14,11 +15,14 @@ namespace GameStore.DAL.Migrations
                         Name = c.String(),
                         Body = c.String(),
                         ParentCommentId = c.Guid(),
+                        Quote = c.String(),
                         GameId = c.Guid(nullable: false),
                         IsDelete = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Games", t => t.GameId, cascadeDelete: true)
+                .ForeignKey("dbo.Comments", t => t.ParentCommentId)
+                .Index(t => t.ParentCommentId)
                 .Index(t => t.GameId);
             
             CreateTable(
@@ -45,11 +49,13 @@ namespace GameStore.DAL.Migrations
                 c => new
                     {
                         Id = c.Guid(nullable: false),
-                        IdParentGenre = c.Guid(),
+                        ParentGenreId = c.Guid(),
                         Name = c.String(maxLength: 450),
                         IsDelete = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Genres", t => t.ParentGenreId)
+                .Index(t => t.ParentGenreId)
                 .Index(t => t.Name, unique: true, name: "Genre_Index_Name");
             
             CreateTable(
@@ -68,7 +74,7 @@ namespace GameStore.DAL.Migrations
                 c => new
                     {
                         Id = c.Guid(nullable: false),
-                        Name = c.String(),
+                        Name = c.String(maxLength: 40),
                         Description = c.String(),
                         HomePage = c.String(),
                         IsDelete = c.Boolean(nullable: false),
@@ -99,7 +105,8 @@ namespace GameStore.DAL.Migrations
                     {
                         Id = c.Guid(nullable: false),
                         UserId = c.Guid(nullable: false),
-                        Date = c.DateTime(nullable: false),
+                        Date = c.DateTime(),
+                        IsPaid = c.Boolean(nullable: false),
                         IsDelete = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
@@ -136,10 +143,12 @@ namespace GameStore.DAL.Migrations
         {
             DropForeignKey("dbo.OrderDetails", "OrderId", "dbo.Orders");
             DropForeignKey("dbo.OrderDetails", "GameId", "dbo.Games");
+            DropForeignKey("dbo.Comments", "ParentCommentId", "dbo.Comments");
             DropForeignKey("dbo.Comments", "GameId", "dbo.Games");
             DropForeignKey("dbo.Games", "PublisherId", "dbo.Publishers");
             DropForeignKey("dbo.PlatformTypeGames", "Game_Id", "dbo.Games");
             DropForeignKey("dbo.PlatformTypeGames", "PlatformType_Id", "dbo.PlatformTypes");
+            DropForeignKey("dbo.Genres", "ParentGenreId", "dbo.Genres");
             DropForeignKey("dbo.GenreGames", "Game_Id", "dbo.Games");
             DropForeignKey("dbo.GenreGames", "Genre_Id", "dbo.Genres");
             DropIndex("dbo.PlatformTypeGames", new[] { "Game_Id" });
@@ -150,9 +159,11 @@ namespace GameStore.DAL.Migrations
             DropIndex("dbo.OrderDetails", new[] { "GameId" });
             DropIndex("dbo.PlatformTypes", "PlatformType_Index_Name");
             DropIndex("dbo.Genres", "Genre_Index_Name");
+            DropIndex("dbo.Genres", new[] { "ParentGenreId" });
             DropIndex("dbo.Games", new[] { "PublisherId" });
             DropIndex("dbo.Games", "Game_Index_Key");
             DropIndex("dbo.Comments", new[] { "GameId" });
+            DropIndex("dbo.Comments", new[] { "ParentCommentId" });
             DropTable("dbo.PlatformTypeGames");
             DropTable("dbo.GenreGames");
             DropTable("dbo.Orders");

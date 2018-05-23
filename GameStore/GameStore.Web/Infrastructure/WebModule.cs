@@ -22,6 +22,7 @@ namespace GameStore.Web.Infrastructure
             builder.RegisterType<Bank>().As<IPayment>().InstancePerLifetimeScope();
             builder.RegisterType<Visa>().As<IPayment>().InstancePerLifetimeScope();
             builder.RegisterType<Box>().As<IPayment>().InstancePerLifetimeScope();
+            builder.RegisterType<PaymentStrategy>().As<IPaymentStrategy>().InstancePerLifetimeScope();
         }
     }
 }
