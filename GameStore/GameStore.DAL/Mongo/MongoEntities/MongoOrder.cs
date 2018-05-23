@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using GameStore.DAL.Mongo.MongoSerializer;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace GameStore.DAL.Mongo.MongoEntities
@@ -18,14 +19,18 @@ namespace GameStore.DAL.Mongo.MongoEntities
 
         public string ShipName { get; set; }
 
-       //// public string ShipAddress { get; set; }
+        [BsonSerializer(typeof(StringSerializer))]
+        public string ShipAddress { get; set; }
 
-       // public string ShipCity { get; set; }
+        [BsonSerializer(typeof(StringSerializer))]
+        public string ShipCity { get; set; }
 
         public string ShipRegion { get; set; }
 
-        //public string ShipPostalCode { get; set; }
+        [BsonSerializer(typeof(StringSerializer))]
+        public string ShipPostalCode { get; set; }
 
-        //public string ShipCountry { get; set; }
+        [BsonSerializer(typeof(StringSerializer))]
+        public string ShipCountry { get; set; }
     }
 }
