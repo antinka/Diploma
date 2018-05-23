@@ -75,26 +75,9 @@
     <Compile Include="Interfaces\IDbContext.cs" />
     <Compile Include="Interfaces\IGenericRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
-    <Compile Include="Migrations\201804091454527_initial.cs" />
-    <Compile Include="Migrations\201804130915491_update comment.cs" />
-    <Compile Include="Migrations\201804130915491_update comment.Designer.cs">
-      <DependentUpon>201804130915491_update comment.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804131011373_update comment return parentComment.cs" />
-    <Compile Include="Migrations\201804131011373_update comment return parentComment.Designer.cs">
-      <DependentUpon>201804131011373_update comment return parentComment.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805111304112_update column type.cs" />
-    <Compile Include="Migrations\201805111304112_update column type.Designer.cs">
-      <DependentUpon>201805111304112_update column type.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805181231479_upd Orders.cs" />
-    <Compile Include="Migrations\201805181231479_upd Orders.Designer.cs">
-      <DependentUpon>201805181231479_upd Orders.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805210828210_upd Order.cs" />
-    <Compile Include="Migrations\201805210828210_upd Order.Designer.cs">
-      <DependentUpon>201805210828210_upd Order.cs</DependentUpon>
+    <Compile Include="Migrations\201805231429201_Initial.cs" />
+    <Compile Include="Migrations\201805231429201_Initial.Designer.cs">
+      <DependentUpon>201805231429201_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -106,20 +89,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201804130915491_update comment.resx">
-      <DependentUpon>201804130915491_update comment.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804131011373_update comment return parentComment.resx">
-      <DependentUpon>201804131011373_update comment return parentComment.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805111304112_update column type.resx">
-      <DependentUpon>201805111304112_update column type.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805181231479_upd Orders.resx">
-      <DependentUpon>201805181231479_upd Orders.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805210828210_upd Order.resx">
-      <DependentUpon>201805210828210_upd Order.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805231429201_Initial.resx">
+      <DependentUpon>201805231429201_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -14,8 +14,6 @@ namespace GameStore.BLL.DTO
 
         public Guid? ParentCommentId { get; set; }
 
-        public CommentDTO ParentComment { get; set; }
-
         public string Quote { get; set; }
 
         public Guid GameId { get; set; }
