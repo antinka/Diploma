@@ -132,7 +132,7 @@ namespace GameStore.Web.Controllers
         public ActionResult FilteredGames(FilterViewModel filterViewModel, int page = 1)
         {
             var gamesByFilter = _gameService.GetGamesByFilter(_mapper.Map<FilterDTO>(filterViewModel), page, filterViewModel.PageSize);
-            filterViewModel = GetFilterViewModel(filterViewModel);
+
             int totalItem;
 
             if (filterViewModel.PageSize == 0)
@@ -141,9 +141,18 @@ namespace GameStore.Web.Controllers
             }
             else
             {
-                totalItem = (int) filterViewModel.PageSize;
+                totalItem = (int)filterViewModel.PageSize;
             }
 
+            var pagingInfo = new PagingInfo()
+            {
+                CurrentPage = page,
+                ItemsPerPage = totalItem,
+                TotalItems = _gameService.GetGamesByFilter(_mapper.Map<FilterDTO>(filterViewModel)).Count()
+            };
+            filterViewModel.PagingInfo = pagingInfo;
+
+            filterViewModel = GetFilterViewModel(filterViewModel);
             var gameViewModel = _mapper.Map<IEnumerable<GameViewModel>>(gamesByFilter);
 
             if (gameViewModel.Any())
@@ -154,15 +163,6 @@ namespace GameStore.Web.Controllers
             {
                 filterViewModel.Games = new List<GameViewModel>() { new GameViewModel() };
             }
-
-            var pagingInfo = new PagingInfo()
-            {
-                CurrentPage = page,
-                ItemsPerPage = totalItem,
-                TotalItems = _gameService.GetGamesByFilter(_mapper.Map<FilterDTO>(filterViewModel)).Count()
-            };
-
-            filterViewModel.PagingInfo = pagingInfo;
 
             if (filterViewModel.PagingInfo.TotalItems != 0)
             {
@@ -210,7 +210,7 @@ namespace GameStore.Web.Controllers
             return File(mas, "application/pdf");
         }
 
-      
+
         [OutputCache(Duration = 60)]
         public ActionResult CountGames()
         {
@@ -228,7 +228,7 @@ namespace GameStore.Web.Controllers
             gameViewModel.PublisherList = new SelectList(publishers, "Id", "Name");
 
             var listGenreBoxes = new List<CheckBox>();
-            genrelist.Select(genre => {listGenreBoxes.Add(new CheckBox() {Text = genre.Name}); return genre; }).ToList();
+            genrelist.Select(genre => { listGenreBoxes.Add(new CheckBox() { Text = genre.Name }); return genre; }).ToList();
             gameViewModel.ListGenres = listGenreBoxes;
 
             var listPlatformBoxes = new List<CheckBox>();
@@ -332,6 +332,8 @@ namespace GameStore.Web.Controllers
             {
                 model.SearchGameName = filterViewMode.SearchGameName;
             }
+
+            model.PagingInfo = filterViewMode.PagingInfo;
 
             return model;
         }

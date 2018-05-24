@@ -1,16 +1,15 @@
-﻿
-$('#filteredGames')
+﻿$('#filteredGames')
     .each(function () {
         $(this).data('serialized', $(this).serialize())
     })
     .on('change input', function () {
         $(this)
-                .find('input:submit')
+            .find('#filter')
                 .attr('disabled', $(this).serialize() === $(this).data('serialized'))
             ;
     })
-    .find('input:submit')
+    .find('#filter')
     .attr('disabled', true);
 
-$("#notDisabled").find('input: submit, button: submit')
-    .attr('disabled', false);
+$('#filteredGames').find("#page").attr('disabled', false);
+
