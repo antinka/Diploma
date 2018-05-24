@@ -8,6 +8,7 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using GameStore.BLL.Enums;
 using GameStore.Web.ViewModels.Games;
 using Xunit;
 
@@ -58,7 +59,7 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void New_ValidGame_Verifiable()
         {
-            var fakeGameViewModel = new GameViewModel() { Name = "test", Key = "test" , SelectedGenresName = new List<string>(), SelectedPlatformTypesName  = new List<string>()};
+            var fakeGameViewModel = new GameViewModel() { Name = "test", Key = "test", SelectedGenresName = new List<string>(), SelectedPlatformTypesName = new List<string>() };
             var fakeGameDTO = _mapper.Map<GameDTO>(fakeGameViewModel);
 
             _gameService.Setup(service => service.IsUniqueKey(It.IsAny<GameDTO>())).Returns(true);
@@ -193,11 +194,35 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
-        public void GamesFilters_EmptyFilterViewModel_ReturnedPartialViewResult()
+        public void GamesFilters_EmptyFilterViewModel_ReturnedlViewResult()
         {
-            var res = _sut.GamesFilters(new FilterViewModel());
+            var filterViewModel = new FilterViewModel()
+            {
+                SearchGameName = "name",
+                MaxPrice = 20,
+                MinPrice = 10,
+                PageSize = PageSize.All
+            };
 
-            Assert.Equal(typeof(PartialViewResult), res.GetType());
+            var res = _sut.FilteredGames(filterViewModel);
+
+            Assert.Equal(typeof(ViewResult), res.GetType());
+        }
+
+        [Fact]
+        public void FilteredGames_EmptyFilterViewModel_ReturnedlViewResult()
+        {
+            var filterViewModel = new FilterViewModel()
+            {
+                SearchGameName = "name",
+                MaxPrice = 20,
+                MinPrice = 10,
+
+            };
+
+            var res = _sut.FilteredGames(filterViewModel);
+
+            Assert.Equal(typeof(ViewResult), res.GetType());
         }
     }
 }

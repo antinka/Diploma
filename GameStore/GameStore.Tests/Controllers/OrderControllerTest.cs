@@ -1,20 +1,19 @@
 ﻿using AutoMapper;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Interfaces;
+using GameStore.ViewModels;
 using GameStore.Web.Controllers;
 using GameStore.Web.Infrastructure.Mapper;
 using GameStore.Web.Payments;
 using GameStore.Web.Payments.Enums;
+using GameStore.Web.ViewModels;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Web;
-using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Routing;
-using GameStore.ViewModels;
-using GameStore.Web.ViewModels;
 using Xunit;
 
 namespace GameStore.Tests.Controllers
