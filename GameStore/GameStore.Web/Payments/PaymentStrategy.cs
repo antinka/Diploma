@@ -6,7 +6,7 @@ using GameStore.Web.ViewModels;
 
 namespace GameStore.Web.Payments
 {
-    public class PaymentStrategy
+    public class PaymentStrategy : IPaymentStrategy
     {
         private readonly IEnumerable<IPayment> _payments;
 

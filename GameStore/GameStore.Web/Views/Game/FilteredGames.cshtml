@@ -80,15 +80,6 @@
                          <td>
                              @Html.ActionLink("Details", "GetGame", new { gamekey = item.Key })
                              @Html.ActionLink("Update", "Update", new { gamekey = item.Key })
-
-                             @*@using (Html.BeginForm("Remove", "Game", FormMethod.Post))*@
-                             @*@using (Ajax.BeginForm("Remove", FormMethod.Post, new AjaxOptions {}))
-        {
-            <input type="hidden" name="gameId" value="@item.Id"/>
-            <input type="hidden" name="filterViewModel" value="@Model"/>
-            <button type="submit"  class="btn btn-link">Remove</button>
-        }*@
-
                              @Ajax.ActionLink("Remove", "Remove", new { gameId = item.Id }, new AjaxOptions { HttpMethod = "POST" , UpdateTargetId = @item.Key })
 
                          </td>
@@ -97,14 +88,14 @@
                 }
             </table>
 
-            <div style="text-align: center">
+            <div style="text-align: center" >
                 <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
+                    <div class="col-md-offset-2 col-md-10"  >
                         @for (int i = 1; i <= Model.PagingInfo.TotalPages; i++)
                         {
                             if (Model.PagingInfo.CurrentPage != i)
                             {
-                                <input type="submit" value=@i name="page" class="btn btn-default" />
+                                <input disabled="disabled" id ="page" type="submit" value=@i name="page" class="btn btn-default" />
                             }
                             else
                             {

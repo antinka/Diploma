@@ -20,14 +20,18 @@ namespace GameStore.Web.Controllers
         private readonly IOrdersService _ordersService;
         private readonly IGameService _gameService;
         private readonly IMapper _mapper;
-        private readonly IEnumerable<IPayment> _payments;
+        private readonly IPaymentStrategy _paymentStrategy;
 
-        public OrderController(IOrdersService ordersService, IGameService gameService, IMapper mapper, IEnumerable<IPayment> payments)
+        public OrderController(IOrdersService ordersService,
+            IGameService gameService, 
+            IMapper mapper,
+            IPaymentStrategy paymentStrategy
+            )
         {
             _ordersService = ordersService;
             _gameService = gameService;
             _mapper = mapper;
-            _payments = payments;
+            _paymentStrategy = paymentStrategy;
         }
 
         [HttpGet]
@@ -93,7 +97,7 @@ namespace GameStore.Web.Controllers
                 Cost = order.Cost
             };
 
-            return new PaymentStrategy(_payments).GetPaymentStrategy(paymentType, orderPay);
+            return _paymentStrategy.GetPaymentStrategy(paymentType, orderPay);
         }
         [HttpGet]
         public ActionResult Order()
@@ -140,8 +144,8 @@ namespace GameStore.Web.Controllers
             }
             else
             {
-                HttpContext.Response.Cookies["userId"].Value = Guid.NewGuid().ToString();
-                userId = Guid.Parse(HttpContext.Request.Cookies["userId"].Value);
+                userId = Guid.NewGuid();
+                HttpContext.Response.Cookies["userId"].Value = userId.ToString();
             }
 
             return userId;

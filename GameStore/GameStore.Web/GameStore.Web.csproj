@@ -173,6 +173,7 @@
     <Compile Include="Payments\Enums\PaymentTypes.cs" />
     <Compile Include="Payments\Box.cs" />
     <Compile Include="Payments\IPayment.cs" />
+    <Compile Include="Payments\IPaymentStrategy.cs" />
     <Compile Include="Payments\PaymentStrategy.cs" />
     <Compile Include="Payments\ViewModels\BoxViewModel.cs" />
     <Compile Include="Payments\ViewModels\VisaViewModel.cs" />

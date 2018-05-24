@@ -11,6 +11,5 @@ namespace GameStore.Web.ViewModels
         public Guid UserId { get; set; }
 
         public decimal Price { get; set; }
-
     }
 }

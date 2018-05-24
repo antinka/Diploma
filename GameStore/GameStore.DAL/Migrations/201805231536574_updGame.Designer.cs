@@ -7,13 +7,13 @@ namespace GameStore.DAL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class updatecommentreturnparentComment : IMigrationMetadata
+    public sealed partial class updGame : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(updatecommentreturnparentComment));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(updGame));
         
         string IMigrationMetadata.Id
         {
-            get { return "201804131011373_update comment return parentComment"; }
+            get { return "201805231536574_updGame"; }
         }
         
         string IMigrationMetadata.Source
