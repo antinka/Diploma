@@ -1,9 +1,8 @@
-﻿using System;
+﻿using GameStore.DAL.Interfaces;
+using GameStore.DAL.Mongo;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using GameStore.DAL.Interfaces;
-using GameStore.DAL.Mongo;
-using log4net.Core;
 
 namespace GameStore.DAL.Repositories
 {

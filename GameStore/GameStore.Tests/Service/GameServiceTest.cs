@@ -572,7 +572,12 @@ namespace GameStore.Tests.Service
         {
             FilterDTO filterDto = new FilterDTO()
             {
-                SortDate = SortDate.threeYear
+                SortDate = SortDate.threeYear,
+                MinPrice = 5,
+                MaxPrice = 1000,
+                SearchGameName = "gam",
+                SelectedGenresName = new List<string>() { "genre1" },
+                SelectedPlatformTypesName = new List<string>() { "platformType1" }
             };
 
             _uow.Setup(uow => uow.Games.GetAll()).Returns(_fakeGames);
