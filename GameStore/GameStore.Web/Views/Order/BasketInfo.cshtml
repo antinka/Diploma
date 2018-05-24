@@ -1,0 +1,59 @@
+﻿@model GameStore.Web.ViewModels.OrderViewModel
+
+@{
+    ViewBag.Title = "BasketInfo";
+}
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        @Html.HiddenFor(model => model.UserId)
+    </dl>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDetails.First().Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDetails.First().Game.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDetails.First().Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDetails.First().Discount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDetails.First().Price)
+            </th>
+            <th>
+            </th>
+        </tr>
+
+        @foreach (var item in Model.OrderDetails)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Game.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Discount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.ActionLink("delete", "DeleteGameFromOrder", new { gameId = item.GameId })
+                </td>
+            </tr>
+        }
+
+    </table>
+    @Html.ActionLink("Make Order", "Order", "Order", null, new { @class = "btn btn-primary btn-large" })
+</div>
