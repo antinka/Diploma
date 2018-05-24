@@ -7,18 +7,18 @@ namespace GameStore.DAL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class extendordertomongoorder : IMigrationMetadata
+    public sealed partial class updorder : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(extendordertomongoorder));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(updorder));
         
         string IMigrationMetadata.Id
         {
-            get { return "201805221435443_extend order to mongo order"; }
+            get { return "201805241205247_upd order"; }
         }
         
         string IMigrationMetadata.Source
         {
-            get { return null; }
+            get { return Resources.GetString("Source"); }
         }
         
         string IMigrationMetadata.Target

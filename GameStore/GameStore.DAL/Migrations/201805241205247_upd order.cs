@@ -2,11 +2,12 @@ namespace GameStore.DAL.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
-
-    public partial class extendordertomongoorder : DbMigration
+    
+    public partial class updorder : DbMigration
     {
         public override void Up()
         {
+            AddColumn("dbo.Orders", "ShipperId", c => c.String());
             AddColumn("dbo.Orders", "ShipVia", c => c.Int());
             AddColumn("dbo.Orders", "Freight", c => c.Decimal(precision: 18, scale: 2));
             AddColumn("dbo.Orders", "ShipName", c => c.String());
@@ -16,7 +17,7 @@ namespace GameStore.DAL.Migrations
             AddColumn("dbo.Orders", "ShipPostalCode", c => c.String());
             AddColumn("dbo.Orders", "ShipCountry", c => c.String());
         }
-
+        
         public override void Down()
         {
             DropColumn("dbo.Orders", "ShipCountry");
@@ -27,6 +28,7 @@ namespace GameStore.DAL.Migrations
             DropColumn("dbo.Orders", "ShipName");
             DropColumn("dbo.Orders", "Freight");
             DropColumn("dbo.Orders", "ShipVia");
+            DropColumn("dbo.Orders", "ShipperId");
         }
     }
 }
