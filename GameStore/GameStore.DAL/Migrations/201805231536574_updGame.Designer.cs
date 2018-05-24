@@ -7,18 +7,18 @@ namespace GameStore.DAL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class updateGames : IMigrationMetadata
+    public sealed partial class updGame : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(updateGames));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(updGame));
         
         string IMigrationMetadata.Id
         {
-            get { return "201805020843290_updateGames"; }
+            get { return "201805231536574_updGame"; }
         }
         
         string IMigrationMetadata.Source
         {
-            get { return Resources.GetString("Source"); }
+            get { return null; }
         }
         
         string IMigrationMetadata.Target

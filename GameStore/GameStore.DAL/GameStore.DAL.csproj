@@ -79,9 +79,9 @@
     <Compile Include="Migrations\201805231429201_Initial.Designer.cs">
       <DependentUpon>201805231429201_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805210926513_upd after rebase.cs" />
-    <Compile Include="Migrations\201805210926513_upd after rebase.Designer.cs">
-      <DependentUpon>201805210926513_upd after rebase.cs</DependentUpon>
+    <Compile Include="Migrations\201805231536574_updGame.cs" />
+    <Compile Include="Migrations\201805231536574_updGame.Designer.cs">
+      <DependentUpon>201805231536574_updGame.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -96,8 +96,8 @@
     <EmbeddedResource Include="Migrations\201805231429201_Initial.resx">
       <DependentUpon>201805231429201_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805210926513_upd after rebase.resx">
-      <DependentUpon>201805210926513_upd after rebase.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805231536574_updGame.resx">
+      <DependentUpon>201805231536574_updGame.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
