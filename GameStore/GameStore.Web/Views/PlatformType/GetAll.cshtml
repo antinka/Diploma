@@ -1,0 +1,37 @@
+﻿@model IEnumerable<GameStore.Web.ViewModels.PlatformTypeViewModel>
+@using GameStore.App_LocalResources
+@model IEnumerable<GameStore.ViewModels.PlatformTypeViewModel>
+
+@{
+    ViewBag.Title = "GetAll";
+}
+<p>
+    @Html.ActionLink(GlobalRes.Create, "New")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.ActionLink(GlobalRes.Update, "Update", new { platformTypeName = item.Name }) |
+            @Html.ActionLink(GlobalRes.Details, "Get", new { platformTypeName = item.Name }) |
+
+            @using (Html.BeginForm("Remove", "PlatformType", FormMethod.Post))
+            {
+                <input type="hidden" name="platformTypeId" value="@item.Id"/>
+                <button type="submit" class="btn btn-link">(GlobalRes.Remove</button>
+            }
+        </td>
+    </tr>
+}
+
+</table>

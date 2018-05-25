@@ -1,0 +1,75 @@
+﻿@model IEnumerable<GameStore.Web.ViewModels.CommentViewModel>
+
+@foreach (var comment in Model.Where(parentComment => parentComment.ParentCommentId == null))
+{
+    @CommentView(comment, string.Empty)
+    @RenderMenuItem(comment)
+}
+
+@helper RenderMenuItem(GameStore.Web.ViewModels.CommentViewModel parentComment)
+    {
+        foreach (var childComment in Model)
+        {
+            <ul style=" list-style-type: none;">
+                @if (parentComment.Id == childComment.ParentCommentId)
+                {
+                    <li>
+                        @CommentView(childComment, parentComment.Name.ToString())
+                    </li>
+                    @RenderMenuItem(childComment)
+                }
+            </ul>
+        }
+}
+
+@helper CommentView(GameStore.Web.ViewModels.CommentViewModel comment, string answerTo)
+    {
+
+        if (comment.Quote != null)
+        {
+            <q style="font-family: 'Times New Roman', Times, serif; font-style: italic;">
+                <span>Quote: </span> @Html.DisplayFor(modelItem => comment.Quote)
+            </q>
+        }
+
+        <table>
+            <tr>
+               
+                <td>
+                @if (comment.Name != null)
+                {
+                    <span> Name: </span>
+                    @Html.DisplayFor(modelItem => comment.Name)
+                }
+                </td>
+                
+            </tr>
+            <tr>
+                <td>
+                    @if (answerTo != string.Empty)
+                    {
+                        <a>@answerTo,</a>
+                    }
+                    @Html.DisplayFor(modelItem => comment.Body)
+                </td>
+            </tr>
+            @if (comment.Body != "This comment was deleted" && comment.Name != null)
+            {
+                <tr>
+                    <td>
+                        @Ajax.ActionLink("Quote", "CommentToGame", "Comment", new { gameId = comment.GameId, gamekey = comment.GameKey, quote = comment.Body }, new AjaxOptions { UpdateTargetId = "commentForm" })
+                        @Ajax.ActionLink("Answer", "CommentToGame", "Comment", new { gameId = comment.GameId, gamekey = comment.GameKey, parentsCommentId = comment.Id }, new AjaxOptions { UpdateTargetId = "commentForm" })
+                        @Ajax.ActionLink("Delete", "Delete", "Comment", new { commentId = comment.Id, comment = comment }, new AjaxOptions { UpdateTargetId = comment.Id.ToString() , HttpMethod = "POST"})
+                        @Ajax.ActionLink("Ban", "Ban", "Comment", new {}, new AjaxOptions { UpdateTargetId = comment.Id.ToString() })
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td colspan="5" id="@comment.Id.ToString()"></td>
+            </tr>
+        </table>
+}
+
+<div id="commentForm">
+    @Html.Partial("CommentToGame", new GameStore.Web.ViewModels.CommentViewModel() { GameId = Model.First().GameId, GameKey = Model.First().GameKey })
+</div>

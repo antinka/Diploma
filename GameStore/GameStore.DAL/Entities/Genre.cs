@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using GameStore.DAL.Mongo.MongoSerializer;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace GameStore.DAL.Entities
@@ -10,11 +11,13 @@ namespace GameStore.DAL.Entities
     {
         public Guid? ParentGenreId { get; set; }
 
+        public virtual Genre ParentGenre { get; set; }
+
         [Index("Genre_Index_Name", 1, IsUnique = true)]
         [MaxLength(450)]
         public string Name { get; set; }
 
-        [BsonIgnore]
+        [BsonSerializer(typeof(ListGameSerializer))]
         public virtual ICollection<Game> Games { get; set; }
     }
 }

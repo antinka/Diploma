@@ -1,0 +1,42 @@
+﻿@using GameStore.App_LocalResources
+@model IEnumerable<GameStore.Web.ViewModels.GenreViewModel>
+
+@{
+    ViewBag.Title = "GetAll";
+}
+<p>
+    @Html.ActionLink(GlobalRes.Create, "New", "Genre")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ParentGenreName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParentGenreName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.ActionLink(GlobalRes.Update, "Update", new { genreName = item.Name }) |
+            @Html.ActionLink(GlobalRes.Details, "Get", new { genreName = item.Name }) |
+  
+            @using (Html.BeginForm("Remove", "Genre", FormMethod.Post))
+            {
+                <input type="hidden" name="genreId" value="@item.Id"/>
+                <button type="submit" class="btn btn-link">GlobalRes.Remove</button>
+            }
+        </td>
+    </tr>
+}
+
+</table>

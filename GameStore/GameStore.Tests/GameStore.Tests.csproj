@@ -47,6 +47,7 @@
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Core.4.2.1\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
     <Reference Include="JetBrains.Annotations, Version=9.2.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
       <HintPath>..\packages\JetBrains.Annotations.9.2.0\lib\net20\JetBrains.Annotations.dll</HintPath>
     </Reference>
@@ -161,9 +162,9 @@
       <Project>{36F7A06D-95A3-4D75-8FE1-284806F45845}</Project>
       <Name>GameStore.DAL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\GameStore\GameStore.csproj">
-      <Project>{32A109F8-0A2A-4440-A75D-FB0F8FB807BE}</Project>
-      <Name>GameStore</Name>
+    <ProjectReference Include="..\GameStore.Web\GameStore.Web.csproj">
+      <Project>{50A96370-23AA-4A64-87C1-417275B0E45C}</Project>
+      <Name>GameStore.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

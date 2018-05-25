@@ -1,6 +1,7 @@
 ﻿using Moq;
 using System.Web;
 using System.Web.Routing;
+using GameStore.Web;
 using Xunit;
 
 namespace GameStore.Tests.Routes
@@ -66,7 +67,7 @@ namespace GameStore.Tests.Routes
         {
             var httpContextMock = new Mock<HttpContextBase>();
             httpContextMock.Setup(c => c.Request.AppRelativeCurrentExecutionFilePath)
-                .Returns("~/games/remove/{id}");
+                .Returns("~/games/remove");
             var routeData = RouteTable.Routes.GetRouteData(httpContextMock.Object);
 
             Assert.Equal("Game", routeData.Values["Controller"]);

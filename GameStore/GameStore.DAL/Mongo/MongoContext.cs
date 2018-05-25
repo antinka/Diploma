@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Mongo.MongoEntities;
 using MongoDB.Driver;
@@ -12,7 +13,7 @@ namespace GameStore.DAL.Mongo
 
         public MongoContext()
         {
-            string connectionString = "mongodb://localhost:27017";
+            var connectionString = ConfigurationManager.ConnectionStrings["GameStoreMongoContext"].ConnectionString;
             var client = new MongoClient(connectionString);
             _database = client.GetDatabase("Northwind");
         }

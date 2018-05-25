@@ -1,13 +1,15 @@
 ﻿using AutoMapper;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Interfaces;
-using GameStore.Controllers;
-using GameStore.Infrastructure.Mapper;
-using GameStore.ViewModels;
+using GameStore.Web.Controllers;
+using GameStore.Web.Infrastructure.Mapper;
+using GameStore.Web.ViewModels;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using GameStore.BLL.Enums;
+using GameStore.Web.ViewModels.Games;
 using Xunit;
 
 namespace GameStore.Tests.Controllers
@@ -21,7 +23,7 @@ namespace GameStore.Tests.Controllers
         private readonly IMapper _mapper;
         private readonly GameController _sut;
 
-        private readonly Guid _fakeCommentId, _fakeGameId;
+        private readonly Guid _fakeGameId;
         private readonly string _fakeGameKey;
         private readonly List<GameDTO> _fakeGames;
 
@@ -35,9 +37,9 @@ namespace GameStore.Tests.Controllers
             _sut = new GameController(_gameService.Object, _genreService.Object,
                 _platformTypeService.Object, _mapper, _publisherService.Object);
 
-            _fakeCommentId = Guid.NewGuid();
+            var fakeCommentId = Guid.NewGuid();
             _fakeGameId = Guid.NewGuid(); ;
-            _fakeGameKey = _fakeCommentId.ToString();
+            _fakeGameKey = fakeCommentId.ToString();
 
             _fakeGames = new List<GameDTO>
             {
@@ -57,9 +59,10 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void New_ValidGame_Verifiable()
         {
-            var fakeGameViewModel = new GameViewModel() { Name = "test", Key = "test" };
+            var fakeGameViewModel = new GameViewModel() { Name = "test", Key = "test", SelectedGenresName = new List<string>(), SelectedPlatformTypesName = new List<string>() };
             var fakeGameDTO = _mapper.Map<GameDTO>(fakeGameViewModel);
 
+            _gameService.Setup(service => service.IsUniqueKey(It.IsAny<GameDTO>())).Returns(true);
             _gameService.Setup(service => service.AddNew(fakeGameDTO)).Verifiable();
 
             _sut.New(fakeGameViewModel);
@@ -82,9 +85,10 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void UpdateGame_ValidGame_Verifiable()
         {
-            var fakeGameViewModel = new GameViewModel() { Name = "test", Key = "test" };
+            var fakeGameViewModel = new GameViewModel() { Name = "test", Key = "test", SelectedGenresName = new List<string>(), SelectedPlatformTypesName = new List<string>() };
             var fakeGameDTO = _mapper.Map<GameDTO>(fakeGameViewModel);
 
+            _gameService.Setup(service => service.IsUniqueKey(It.IsAny<GameDTO>())).Returns(true);
             _gameService.Setup(service => service.Update(fakeGameDTO)).Verifiable();
 
             _sut.Update(fakeGameViewModel);
@@ -107,7 +111,7 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void UpdateGame_Gamekey_ReturnView()
         {
-            var fakeGame = new GameDTO() {Id = Guid.NewGuid(), Key = _fakeGameKey, Name = "test"};
+            var fakeGame = new GameDTO() { Id = Guid.NewGuid(), Key = _fakeGameKey, Name = "test" };
 
             _gameService.Setup(service => service.GetByKey(_fakeGameKey)).Returns(fakeGame);
             _publisherService.Setup(service => service.GetAll()).Returns(new List<PublisherDTO>());
@@ -120,11 +124,13 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void GetGame_Gamekey_Verifiable()
         {
-            _gameService.Setup(service => service.GetByKey(_fakeGameKey)).Verifiable();
+            var fakeGame = new GameDTO() { Id = Guid.NewGuid(), Key = _fakeGameKey, Name = "test" };
+            _gameService.Setup(service => service.GetByKey(_fakeGameKey)).Returns(fakeGame);
+            _gameService.Setup(service => service.IncreaseGameView(fakeGame.Id)).Verifiable();
 
             _sut.GetGame(_fakeGameKey);
 
-            _gameService.Verify(s => s.GetByKey(It.IsAny<string>()), Times.Once);
+            _gameService.Verify(s => s.IncreaseGameView(It.IsAny<Guid>()), Times.Once);
         }
 
         [Fact]
@@ -166,19 +172,57 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
-        public void FilteredGames_EmptyFilterViewModel_ReturnedViewResult()
+        public void New_GameWithoutUnickKey_Verifiable()
         {
-            var res = _sut.FilteredGames(new FilterViewModel()) as ViewResult;
+            var fakeGameViewModel = new GameViewModel() { Name = "test", Key = "1" };
+            _gameService.Setup(service => service.IsUniqueKey(It.IsAny<GameDTO>())).Returns(false).Verifiable();
 
-            Assert.Equal("NothingWasFound", res.ViewName);
+            _sut.New(fakeGameViewModel);
+
+            _gameService.Verify(s => s.IsUniqueKey(It.IsAny<GameDTO>()), Times.Once);
         }
 
         [Fact]
-        public void GamesFilters_EmptyFilterViewModel_ReturnedPartialViewResult()
+        public void Update_GameWithoutUnickKey_Verifiable()
         {
-            var res = _sut.GamesFilters(new FilterViewModel());
+            var fakeGameViewModel = new GameViewModel() { Name = "test", Key = "1" };
+            _gameService.Setup(service => service.IsUniqueKey(It.IsAny<GameDTO>())).Returns(false).Verifiable();
 
-            Assert.Equal(typeof(PartialViewResult), res.GetType());
+            _sut.Update(fakeGameViewModel);
+
+            _gameService.Verify(s => s.IsUniqueKey(It.IsAny<GameDTO>()), Times.Once);
+        }
+
+        [Fact]
+        public void GamesFilters_EmptyFilterViewModel_ReturnedlViewResult()
+        {
+            var filterViewModel = new FilterViewModel()
+            {
+                SearchGameName = "name",
+                MaxPrice = 20,
+                MinPrice = 10,
+                PageSize = PageSize.All
+            };
+
+            var res = _sut.FilteredGames(filterViewModel);
+
+            Assert.Equal(typeof(ViewResult), res.GetType());
+        }
+
+        [Fact]
+        public void FilteredGames_EmptyFilterViewModel_ReturnedlViewResult()
+        {
+            var filterViewModel = new FilterViewModel()
+            {
+                SearchGameName = "name",
+                MaxPrice = 20,
+                MinPrice = 10,
+
+            };
+
+            var res = _sut.FilteredGames(filterViewModel);
+
+            Assert.Equal(typeof(ViewResult), res.GetType());
         }
     }
 }

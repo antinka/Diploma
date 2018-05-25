@@ -8,12 +8,17 @@ namespace GameStore.BLL.Interfaces
     {
         OrderDTO GetOrder(Guid userId);
 
-        void AddNewOrderDetails(Guid userId, Guid gameId, short quantity);
 
         IEnumerable<OrderDTO> GetOrdersBetweenDates(DateTime? from, DateTime? to);
 
         IEnumerable<ShipperDTO> GetAllShippers();
 
         void UpdateShipper(OrderDTO orderDto);
+
+        void AddNewOrderDetails(Guid userId, Guid gameId);
+
+        int CountGamesInOrder(Guid userId);
+
+        void DeleteGameFromOrder(Guid userId, Guid gameId);
     }
 }

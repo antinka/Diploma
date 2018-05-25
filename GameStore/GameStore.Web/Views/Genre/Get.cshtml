@@ -1,0 +1,29 @@
+﻿@using GameStore.App_LocalResources
+@model GameStore.Web.ViewModels.GenreViewModel
+
+@{
+    ViewBag.Title = "Get";
+}
+<h2>@GlobalRes.Details</h2>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ParentGenreName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ParentGenreName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+    </dl>
+</div>
+

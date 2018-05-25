@@ -10,12 +10,16 @@ namespace GameStore.BLL.Interfaces
 
         IEnumerable<GenreDTO> GetAll();
 
-        bool AddNew(GenreDTO genreDto);
+        void AddNew(GenreDTO genreDto);
 
         void Update(GenreDTO genreDto);
 
         void Delete(Guid id);
 
         GenreDTO GetByName(string name);
+
+        bool IsPossibleRelation(GenreDTO genreDto);
+
+        bool IsUniqueName(GenreDTO genreDto);
     }
 }

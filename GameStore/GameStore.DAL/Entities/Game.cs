@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using GameStore.DAL.Mongo.MongoSerializer;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace GameStore.DAL.Entities
@@ -30,15 +31,16 @@ namespace GameStore.DAL.Entities
         [ForeignKey("Publisher")]
         public Guid? PublisherId { get; set; }
 
+        [BsonIgnore]
         public virtual Publisher Publisher { get; set; }
 
         [BsonIgnore]
         public virtual ICollection<Comment> Comments { get; set; }
 
-        [BsonIgnore]
+        [BsonSerializer(typeof(ListGenreSerializer))]
         public virtual ICollection<Genre> Genres { get; set; }
 
-        [BsonIgnore]
+        [BsonSerializer(typeof(ListPlatformTypeSerializer))]
         public virtual ICollection<PlatformType> PlatformTypes { get; set; }
     }
 }
