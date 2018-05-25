@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using GameStore.Web.ViewModels;
 
-namespace GameStore.ViewModels
+namespace GameStore.Web.ViewModels
 {
     public class FilterOrder
     {

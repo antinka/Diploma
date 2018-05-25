@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Interfaces;
-using GameStore.ViewModels;
 using GameStore.Web.Controllers;
 using GameStore.Web.Infrastructure.Mapper;
 using GameStore.Web.Payments;

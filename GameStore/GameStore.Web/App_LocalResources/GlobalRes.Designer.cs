@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GameStore.App_LocalResources {
+namespace GameStore.Web.App_LocalResources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace GameStore.App_LocalResources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GameStore.App_LocalResources.GlobalRes", typeof(GlobalRes).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GameStore.Web.App_LocalResources.GlobalRes", typeof(GlobalRes).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -277,6 +277,15 @@ namespace GameStore.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Оформить заказ.
+        /// </summary>
+        public static string MakeOrder {
+            get {
+                return ResourceManager.GetString("MakeOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Максимальная стоимость.
         /// </summary>
         public static string MaxPrice {
@@ -295,11 +304,29 @@ namespace GameStore.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Месяц.
+        /// </summary>
+        public static string month {
+            get {
+                return ResourceManager.GetString("month", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Название.
         /// </summary>
         public static string Name {
             get {
                 return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Год.
+        /// </summary>
+        public static string oneYear {
+            get {
+                return ResourceManager.GetString("oneYear", resourceCulture);
             }
         }
         
@@ -336,6 +363,15 @@ namespace GameStore.App_LocalResources {
         public static string PlatformTypes {
             get {
                 return ResourceManager.GetString("PlatformTypes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Год.
+        /// </summary>
+        public static string pneYear {
+            get {
+                return ResourceManager.GetString("pneYear", resourceCulture);
             }
         }
         
@@ -439,6 +475,33 @@ namespace GameStore.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Три года.
+        /// </summary>
+        public static string threeYear {
+            get {
+                return ResourceManager.GetString("threeYear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Двадцать.
+        /// </summary>
+        public static string Twenty {
+            get {
+                return ResourceManager.GetString("Twenty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Два года.
+        /// </summary>
+        public static string twoYear {
+            get {
+                return ResourceManager.GetString("twoYear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to В наличии.
         /// </summary>
         public static string UnitsInStock {
@@ -462,6 +525,15 @@ namespace GameStore.App_LocalResources {
         public static string UserId {
             get {
                 return ResourceManager.GetString("UserId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Неделя.
+        /// </summary>
+        public static string week {
+            get {
+                return ResourceManager.GetString("week", resourceCulture);
             }
         }
     }

@@ -1,9 +1,9 @@
-﻿using System;
+﻿using GameStore.Web.App_LocalResources;
+using GameStore.Web.ViewModels.Games;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
-using GameStore.App_LocalResources;
-using GameStore.Web.ViewModels.Games;
 
 namespace GameStore.Web.ViewModels
 {

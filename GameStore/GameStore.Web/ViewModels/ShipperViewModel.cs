@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace GameStore.ViewModels
+﻿namespace GameStore.Web.ViewModels
 {
     public class ShipperViewModel
     {

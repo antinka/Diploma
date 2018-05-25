@@ -1,8 +1,7 @@
-﻿@model GameStore.ViewModels.FilterOrder
+﻿@using GameStore.Web.App_LocalResources
+@model GameStore.Web.ViewModels.FilterOrder
 
 <div>
-    <h4>FilterOrder</h4>
-    <hr />
 @using (Html.BeginForm("FilterOrders", "Order", FormMethod.Get, null))
 {
     <dl class="dl-horizontal">
@@ -22,7 +21,7 @@
             @Html.TextBoxFor(model => model.DateTimeTo,new {@type = "date"})
         </dd>
     </dl>
-    <input type="submit" value="Filter" class="btn btn-default"/>
+    <input type="submit" value="@GlobalRes.Filter" class="btn btn-default"/>
 } 
     <table class="table">
         <tr>

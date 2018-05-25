@@ -1,11 +1,10 @@
-﻿@using GameStore.App_LocalResources
-@model IEnumerable<GameStore.Web.ViewModels.Games.DetailsGameViewModel>
-
+﻿@model IEnumerable<GameStore.Web.ViewModels.Games.DetailsGameViewModel>
+@using GameStore.Web.App_LocalResources
 @{
     ViewBag.Title = "GetAllGames";
 }
 <p>
-    @Html.ActionLink(GlobalRes.Create, "New","Game")
+    @Html.ActionLink(GlobalRes.Create, "New", "Game")
 </p>
 <table class="table">
     <tr>
@@ -33,40 +32,41 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Key)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UnitsInStock)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Discountinues)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Publisher.Name)
-        </td>
-        <td>
-            @Html.ActionLink(GlobalRes.Details, "GetGame", new { gamekey = item.Key })
-            @Html.ActionLink(GlobalRes.Update, "Update", new { gamekey = item.Key })
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Key)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitsInStock)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Discountinues)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Publisher.Name)
+            </td>
+            <td>
+                @Html.ActionLink(GlobalRes.Details, "GetGame", new { gamekey = item.Key })
+                @Html.ActionLink(GlobalRes.Update, "Update", new { gamekey = item.Key })
 
-        @using (Html.BeginForm("Remove", "Game", FormMethod.Post))
-        {
-            <input type="hidden" name="gameId" value="@item.Id"/>
-            <button type="submit" class="btn btn-link">GlobalRes.Remove</button>
-        }
+                @using (Html.BeginForm("Remove", "Game", FormMethod.Post))
+                {
+                    <input type="hidden" name="gameId" value="@item.Id" />
+                    <button type="submit" class="btn btn-link">GlobalRes.Remove</button>
+                }
 
-        </td>
-    </tr>
-}
+            </td>
+        </tr>
+    }
 </table>

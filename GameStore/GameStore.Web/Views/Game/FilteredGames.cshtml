@@ -1,4 +1,5 @@
-﻿@model GameStore.Web.ViewModels.FilterViewModel
+﻿@using GameStore.Web.App_LocalResources
+@model GameStore.Web.ViewModels.FilterViewModel
 @using (Html.BeginForm("FilteredGames", "Game", FormMethod.Get, new { id = "filteredGames" }))
 {
     <div class="row">
@@ -8,7 +9,7 @@
         <div class="col-xs-6 col-md-4">
 
             <p>
-                @Html.ActionLink("Create New", "New", "Game")
+                @Html.ActionLink(GlobalRes.Create, "New", "Game")
             </p>
             <div class="form-group">
                 @Html.LabelFor(model => model.SortType, htmlAttributes: new { @class = "control-label col-md-6" })
@@ -78,9 +79,9 @@
                              @Html.DisplayFor(modelItem => item.Publisher.Name)
                          </td>
                          <td>
-                             @Html.ActionLink("Details", "GetGame", new { gamekey = item.Key })
-                             @Html.ActionLink("Update", "Update", new { gamekey = item.Key })
-                             @Ajax.ActionLink("Remove", "Remove", new { gameId = item.Id }, new AjaxOptions { HttpMethod = "POST" , UpdateTargetId = @item.Key })
+                             @Html.ActionLink(GlobalRes.Details, "GetGame", new { gamekey = item.Key })
+                             @Html.ActionLink(GlobalRes.Update, "Update", new { gamekey = item.Key })
+                             @Ajax.ActionLink(GlobalRes.Remove, "Remove", new { gameId = item.Id }, new AjaxOptions { HttpMethod = "POST" , UpdateTargetId = @item.Key })
 
                          </td>
                      </tr>

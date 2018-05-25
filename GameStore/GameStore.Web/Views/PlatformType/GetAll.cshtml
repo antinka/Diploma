@@ -1,6 +1,5 @@
 ﻿@model IEnumerable<GameStore.Web.ViewModels.PlatformTypeViewModel>
-@using GameStore.App_LocalResources
-@model IEnumerable<GameStore.ViewModels.PlatformTypeViewModel>
+@using GameStore.Web.App_LocalResources
 
 @{
     ViewBag.Title = "GetAll";
@@ -28,10 +27,9 @@
             @using (Html.BeginForm("Remove", "PlatformType", FormMethod.Post))
             {
                 <input type="hidden" name="platformTypeId" value="@item.Id"/>
-                <button type="submit" class="btn btn-link">(GlobalRes.Remove</button>
+                <button type="submit" class="btn btn-link">@GlobalRes.Remove</button>
             }
         </td>
     </tr>
 }
-
 </table>

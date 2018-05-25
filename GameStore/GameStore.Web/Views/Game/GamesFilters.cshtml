@@ -1,4 +1,4 @@
-﻿@using GameStore.App_LocalResources
+﻿@using GameStore.Web.App_LocalResources
 @using GameStore.BLL.Enums
 @using MvcCheckBoxList.Model
 
@@ -16,11 +16,11 @@
     <div class="form-group">
         @Html.LabelFor(model => model.SortDate, htmlAttributes: new { @class = "control-label col-md-6" })<br />
         <div class="col-md-10">
-            <label> @Html.RadioButtonFor(m => m.SortDate, SortDate.week, new {required = "required"})week </label><br/>
-            <label> @Html.RadioButtonFor(m => m.SortDate, SortDate.month, new {required = "required"})month </label><br/>
-            <label> @Html.RadioButtonFor(m => m.SortDate, SortDate.oneYear, new {required = "required"})one year </label><br/>
-            <label> @Html.RadioButtonFor(m => m.SortDate, SortDate.twoYear, new {required = "required"})two year </label><br/>
-            <label> @Html.RadioButtonFor(m => m.SortDate, SortDate.threeYear, new {required = "required"})three year </label><br/>
+            <label> @Html.RadioButtonFor(m => m.SortDate, SortDate.Week, new { required = "required" }) @GlobalRes.week </label><br/>
+            <label> @Html.RadioButtonFor(m => m.SortDate, SortDate.Month, new {required = "required"})@GlobalRes.month </label><br/>
+            <label> @Html.RadioButtonFor(m => m.SortDate, SortDate.OneYear, new {required = "required"})@GlobalRes.oneYear </label><br/>
+            <label> @Html.RadioButtonFor(m => m.SortDate, SortDate.TwoYear, new {required = "required"}) @GlobalRes.twoYear </label><br/>
+            <label> @Html.RadioButtonFor(m => m.SortDate, SortDate.ThreeYear, new {required = "required"})@GlobalRes.threeYear </label><br/>
         </div>
     </div>
     <div class="form-group">

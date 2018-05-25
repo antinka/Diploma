@@ -1,4 +1,4 @@
-﻿@using GameStore.App_LocalResources
+﻿@using GameStore.Web.App_LocalResources
 @model IEnumerable<GameStore.Web.ViewModels.GenreViewModel>
 
 @{
@@ -33,7 +33,7 @@
             @using (Html.BeginForm("Remove", "Genre", FormMethod.Post))
             {
                 <input type="hidden" name="genreId" value="@item.Id"/>
-                <button type="submit" class="btn btn-link">GlobalRes.Remove</button>
+                <button type="submit" class="btn btn-link">@GlobalRes.Remove</button>
             }
         </td>
     </tr>

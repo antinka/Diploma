@@ -425,7 +425,7 @@ namespace GameStore.Tests.Service
         {
             FilterDTO filterDto = new FilterDTO()
             {
-                SortDate = SortDate.month
+                SortDate = SortDate.Month
             };
             GamePipeline gamePipeline = new GamePipeline();
 
@@ -440,7 +440,7 @@ namespace GameStore.Tests.Service
         {
             FilterDTO filterDto = new FilterDTO()
             {
-                SortDate = SortDate.week
+                SortDate = SortDate.Week
             };
             GamePipeline gamePipeline = new GamePipeline();
 
@@ -455,7 +455,7 @@ namespace GameStore.Tests.Service
         {
             FilterDTO filterDto = new FilterDTO()
             {
-                SortDate = SortDate.oneYear
+                SortDate = SortDate.OneYear
             };
             GamePipeline gamePipeline = new GamePipeline();
 
@@ -470,7 +470,7 @@ namespace GameStore.Tests.Service
         {
             FilterDTO filterDto = new FilterDTO()
             {
-                SortDate = SortDate.twoYear
+                SortDate = SortDate.TwoYear
             };
             GamePipeline gamePipeline = new GamePipeline();
 
@@ -485,7 +485,7 @@ namespace GameStore.Tests.Service
         {
             FilterDTO filterDto = new FilterDTO()
             {
-                SortDate = SortDate.threeYear
+                SortDate = SortDate.ThreeYear
             };
             GamePipeline gamePipeline = new GamePipeline();
 
@@ -572,7 +572,7 @@ namespace GameStore.Tests.Service
         {
             FilterDTO filterDto = new FilterDTO()
             {
-                SortDate = SortDate.threeYear,
+                SortDate = SortDate.ThreeYear,
                 MinPrice = 5,
                 MaxPrice = 1000,
                 SearchGameName = "gam",

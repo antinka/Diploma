@@ -252,4 +252,28 @@
   <data name="UserId" xml:space="preserve">
     <value>Id пользователя</value>
   </data>
+  <data name="threeYear" xml:space="preserve">
+    <value>Три года</value>
+  </data>
+  <data name="Twenty" xml:space="preserve">
+    <value>Двадцать</value>
+  </data>
+  <data name="twoYear" xml:space="preserve">
+    <value>Два года</value>
+  </data>
+  <data name="week" xml:space="preserve">
+    <value>Неделя</value>
+  </data>
+  <data name="month" xml:space="preserve">
+    <value>Месяц</value>
+  </data>
+  <data name="pneYear" xml:space="preserve">
+    <value>Год</value>
+  </data>
+  <data name="MakeOrder" xml:space="preserve">
+    <value>Оформить заказ</value>
+  </data>
+  <data name="oneYear" xml:space="preserve">
+    <value>Год</value>
+  </data>
 </root>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
-using GameStore.App_LocalResources;
+using GameStore.Web.App_LocalResources;
 
 namespace GameStore.Web.ViewModels.Games
 {

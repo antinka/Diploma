@@ -169,38 +169,11 @@ namespace GameStore.BLL.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Три года.
-        /// </summary>
-        public static string threeYear {
-            get {
-                return ResourceManager.GetString("threeYear", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Двадцать.
         /// </summary>
         public static string Twenty {
             get {
                 return ResourceManager.GetString("Twenty", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Два года.
-        /// </summary>
-        public static string twoYear {
-            get {
-                return ResourceManager.GetString("twoYear", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Неделя.
-        /// </summary>
-        public static string week {
-            get {
-                return ResourceManager.GetString("week", resourceCulture);
             }
         }
     }

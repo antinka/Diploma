@@ -252,4 +252,25 @@
   <data name="UserId" xml:space="preserve">
     <value>User id</value>
   </data>
+  <data name="threeYear" xml:space="preserve">
+    <value>Three year</value>
+  </data>
+  <data name="Twenty" xml:space="preserve">
+    <value>Twenty</value>
+  </data>
+  <data name="twoYear" xml:space="preserve">
+    <value>Two year</value>
+  </data>
+  <data name="week" xml:space="preserve">
+    <value>Week</value>
+  </data>
+  <data name="month" xml:space="preserve">
+    <value>Month</value>
+  </data>
+  <data name="oneYear" xml:space="preserve">
+    <value>OneYear</value>
+  </data>
+  <data name="MakeOrder" xml:space="preserve">
+    <value>Make Order</value>
+  </data>
 </root>

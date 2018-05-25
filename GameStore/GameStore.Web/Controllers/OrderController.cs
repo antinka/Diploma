@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using GameStore.BLL.DTO;
-using GameStore.ViewModels;
 
 namespace GameStore.Web.Controllers
 {

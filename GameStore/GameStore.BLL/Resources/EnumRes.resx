@@ -153,16 +153,7 @@
   <data name="Ten" xml:space="preserve">
     <value>Десять</value>
   </data>
-  <data name="threeYear" xml:space="preserve">
-    <value>Три года</value>
-  </data>
   <data name="Twenty" xml:space="preserve">
     <value>Двадцать</value>
-  </data>
-  <data name="twoYear" xml:space="preserve">
-    <value>Два года</value>
-  </data>
-  <data name="week" xml:space="preserve">
-    <value>Неделя</value>
   </data>
 </root>

@@ -141,15 +141,6 @@
   <data name="PriceDesc" xml:space="preserve">
     <value>Price desc</value>
   </data>
-  <data name="threeYear" xml:space="preserve">
-    <value>Three year</value>
-  </data>
-  <data name="twoYear" xml:space="preserve">
-    <value>Two year</value>
-  </data>
-  <data name="week" xml:space="preserve">
-    <value>Week</value>
-  </data>
   <data name="All" xml:space="preserve">
     <value>All</value>
   </data>
@@ -157,7 +148,7 @@
     <value>Fifty</value>
   </data>
   <data name="OneHundred" xml:space="preserve">
-    <value />
+    <value>One hundred</value>
   </data>
   <data name="Ten" xml:space="preserve">
     <value>Ten</value>

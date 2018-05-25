@@ -3,7 +3,7 @@ using System.Threading;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace GameStore.Controllers
+namespace GameStore.Web.Controllers
 {
     public class BaseController : Controller
     {

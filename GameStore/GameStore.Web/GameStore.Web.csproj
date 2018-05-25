@@ -227,21 +227,12 @@
     <Content Include="Views\Payments\Visa.cshtml" />
     <Content Include="Views\Comment\GetAllCommentToGame.cshtml" />
     <Content Include="Views\Comment\Ban.cshtml" />
-    <Content Include="Views\Order\EmptyBasket.cshtml" />
     <Content Include="Views\Comment\Delete.cshtml" />
     <Content Include="Views\Order\EmptyBasket.cshtml" />
-    <Content Include="Views\Genre\Get.cshtml" />
-    <Content Include="Views\Genre\GetAll.cshtml" />
-    <Content Include="Views\Genre\New.cshtml" />
-    <Content Include="Views\Genre\Update.cshtml" />
     <Content Include="Views\PlatformType\Get.cshtml" />
     <Content Include="Views\PlatformType\GetAll.cshtml" />
     <Content Include="Views\PlatformType\New.cshtml" />
     <Content Include="Views\PlatformType\Update.cshtml" />
-    <Content Include="Views\Genre\New.cshtml" />
-    <Content Include="Views\Genre\Get.cshtml" />
-    <Content Include="Views\Genre\GetAll.cshtml" />
-    <Content Include="Views\Genre\Update.cshtml" />
     <Content Include="Views\Order\CountGamesInOrder.cshtml" />
     <Content Include="Views\Order\NotEnoughGameInStock.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\GameViewModel.cshtml" />
@@ -256,6 +247,10 @@
     <Content Include="Views\Game\Update.cshtml" />
     <Content Include="Views\Order\FilterOrders.cshtml" />
     <Content Include="Views\Game\GameDeleted.cshtml" />
+    <Content Include="Views\Genre\Get.cshtml" />
+    <Content Include="Views\Genre\GetAll.cshtml" />
+    <Content Include="Views\Genre\New.cshtml" />
+    <Content Include="Views\Genre\Update.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -301,7 +296,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>53364</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:50333/</IISUrl>
+          <IISUrl>http://localhost:50331/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

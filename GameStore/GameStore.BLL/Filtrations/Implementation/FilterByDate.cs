@@ -20,21 +20,21 @@ namespace GameStore.BLL.Filtration.Implementation
         public IEnumerable<Game> Execute(IEnumerable<Game> input)
         {
 
-            if (_selectedDate == SortDate.week)
+            if (_selectedDate == SortDate.Week)
                 _from = DateTime.UtcNow.AddDays(-7);
-            else if (_selectedDate == SortDate.month)
+            else if (_selectedDate == SortDate.Month)
             {
                 _from = DateTime.UtcNow.AddMonths(-1);
             }
-            else if (_selectedDate == SortDate.oneYear)
+            else if (_selectedDate == SortDate.OneYear)
             {
                 _from = DateTime.UtcNow.AddYears(-1);
             }
-            else if (_selectedDate == SortDate.twoYear)
+            else if (_selectedDate == SortDate.TwoYear)
             {
                 _from = DateTime.UtcNow.AddYears(-2);
             }
-            else if (_selectedDate == SortDate.threeYear)
+            else if (_selectedDate == SortDate.ThreeYear)
             {
                 _from = DateTime.UtcNow.AddYears(-3);
             }
