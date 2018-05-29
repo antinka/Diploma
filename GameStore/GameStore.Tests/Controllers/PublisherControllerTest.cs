@@ -32,15 +32,15 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void New_ValidPublisherViewModel_Verifiable()
         {
-            var fakePublisherViewModel = new PublisherViewModel() {Name = "test", Description = "test", HomePage = "test" };
-            var fakePublisherDTO = _mapper.Map<PublisherDTO>(fakePublisherViewModel);
+            var fakePublisherViewModel = new PublisherViewModel() {Name = "test", DescriptionEn = "test", HomePage = "test" };
+            var fakePublisherDTO = _mapper.Map<ExtendPublisherDTO>(fakePublisherViewModel);
 
-            _publisherService.Setup(service => service.IsUniqueName(It.IsAny<PublisherDTO>())).Returns(true);
+            _publisherService.Setup(service => service.IsUniqueName(It.IsAny<ExtendPublisherDTO>())).Returns(true);
             _publisherService.Setup(service => service.AddNew(fakePublisherDTO)).Verifiable();
 
             _sut.New(fakePublisherViewModel);
 
-            _publisherService.Verify(s => s.AddNew(It.IsAny<PublisherDTO>()), Times.Once);
+            _publisherService.Verify(s => s.AddNew(It.IsAny<ExtendPublisherDTO>()), Times.Once);
         }
 
         [Fact]
@@ -69,14 +69,14 @@ namespace GameStore.Tests.Controllers
         public void Update_ValidUpdatePublisher_Verifiable()
         {
             var fakePublisherViewModel = new PublisherViewModel() { Name = "test"};
-            var fakePublisherDTO = _mapper.Map<PublisherDTO>(fakePublisherViewModel);
+            var fakePublisherDTO = _mapper.Map<ExtendPublisherDTO>(fakePublisherViewModel);
 
-            _publisherService.Setup(service => service.IsUniqueName(It.IsAny<PublisherDTO>())).Returns(true);
+            _publisherService.Setup(service => service.IsUniqueName(It.IsAny<ExtendPublisherDTO>())).Returns(true);
             _publisherService.Setup(service => service.Update(fakePublisherDTO)).Verifiable();
 
             _sut.Update(fakePublisherViewModel);
 
-            _publisherService.Verify(s => s.Update(It.IsAny<PublisherDTO>()), Times.Once);
+            _publisherService.Verify(s => s.Update(It.IsAny<ExtendPublisherDTO>()), Times.Once);
         }
 
         [Fact]

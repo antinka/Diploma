@@ -10,7 +10,7 @@ namespace GameStore.BLL.DTO
 
         public Guid GameId { get; set; }
 
-        public GameDTO Game { get; set; }
+        public ExtendGameDTO Game { get; set; }
 
         public short Quantity { get; set; }
 

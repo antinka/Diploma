@@ -32,21 +32,21 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void New_ValidGenreViewModel_Verifiable()
         {
-            var fakeGenreViewModel = new DelailsGenreViewModel() { Name = "test" };
-            var fakeGenreDTO = _mapper.Map<GenreDTO>(fakeGenreViewModel);
+            var fakeGenreViewModel = new GenreViewModel() { NameEn = "test" };
+            var fakeGenreDTO = _mapper.Map<ExtendGenreDTO>(fakeGenreViewModel);
 
-            _genreService.Setup(service => service.IsUniqueName(It.IsAny<GenreDTO>())).Returns(true);
+            _genreService.Setup(service => service.IsUniqueEnName(It.IsAny<ExtendGenreDTO>())).Returns(true);
             _genreService.Setup(service => service.AddNew(fakeGenreDTO)).Verifiable();
 
             _sut.New(fakeGenreViewModel);
 
-            _genreService.Verify(s => s.AddNew(It.IsAny<GenreDTO>()), Times.Once);
+            _genreService.Verify(s => s.AddNew(It.IsAny<ExtendGenreDTO>()), Times.Once);
         }
 
         [Fact]
         public void New_InvalidGenreViewModel_ReturnViewResult()
         {
-            var fakeGenreViewModel = new DelailsGenreViewModel() { Name = "test" };
+            var fakeGenreViewModel = new GenreViewModel() { NameEn = "test" };
             _sut.ModelState.Add("testError", new ModelState());
             _sut.ModelState.AddModelError("testError", "test");
 
@@ -68,21 +68,21 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void Update_ValidGenre_Verifiable()
         {
-            var fakeGenreViewModel = new DelailsGenreViewModel() { Name = "test" };
-            var fakeGenreDTO = _mapper.Map<GenreDTO>(fakeGenreViewModel);
+            var fakeGenreViewModel = new GenreViewModel() { NameEn = "test" };
+            var fakeGenreDTO = _mapper.Map<ExtendGenreDTO>(fakeGenreViewModel);
 
-            _genreService.Setup(service => service.IsUniqueName(It.IsAny<GenreDTO>())).Returns(true);
+            _genreService.Setup(service => service.IsUniqueEnName(It.IsAny<ExtendGenreDTO>())).Returns(true);
             _genreService.Setup(service => service.Update(fakeGenreDTO)).Verifiable();
 
             _sut.Update(fakeGenreViewModel);
 
-            _genreService.Verify(s => s.Update(It.IsAny<GenreDTO>()), Times.Once);
+            _genreService.Verify(s => s.Update(It.IsAny<ExtendGenreDTO>()), Times.Once);
         }
 
         [Fact]
         public void Update_InvalidGenre_ReturnViewResult()
         {
-            var fakeGenreViewModel = new DelailsGenreViewModel();
+            var fakeGenreViewModel = new GenreViewModel();
             _sut.ModelState.Add("testError", new ModelState());
             _sut.ModelState.AddModelError("testError", "test");
 
@@ -94,7 +94,7 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void Update_GenreName_ReturnedView()
         {
-            var fakeGenre = new GenreDTO() {Id = Guid.NewGuid(), Name = _fakeGenreName};
+            var fakeGenre = new ExtendGenreDTO() {Id = Guid.NewGuid(), NameEn = _fakeGenreName};
 
             _genreService.Setup(service => service.GetByName(_fakeGenreName)).Returns(fakeGenre);
             _genreService.Setup(service => service.GetAll()).Returns(new List<GenreDTO>());
@@ -141,23 +141,23 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void New_GenreWithoutUnickName_Verifiable()
         {
-            var fakeGenreViewModel = new DelailsGenreViewModel() { Name = "test", };
-            _genreService.Setup(service => service.IsUniqueName(It.IsAny<GenreDTO>())).Returns(false).Verifiable();
+            var fakeGenreViewModel = new GenreViewModel() { NameEn = "test", };
+            _genreService.Setup(service => service.IsUniqueEnName(It.IsAny<ExtendGenreDTO>())).Returns(false).Verifiable();
 
             _sut.New(fakeGenreViewModel);
 
-            _genreService.Verify(s => s.IsUniqueName(It.IsAny<GenreDTO>()), Times.Once);
+            _genreService.Verify(s => s.IsUniqueEnName(It.IsAny<ExtendGenreDTO>()), Times.Once);
         }
 
         [Fact]
         public void Update_GenreWithoutUnickName_Verifiable()
         {
-            var fakeGenreViewModel = new DelailsGenreViewModel() { Name = "test" };
-            _genreService.Setup(service => service.IsUniqueName(It.IsAny<GenreDTO>())).Returns(false).Verifiable();
+            var fakeGenreViewModel = new GenreViewModel() { NameEn = "test" };
+            _genreService.Setup(service => service.IsUniqueEnName(It.IsAny<ExtendGenreDTO>())).Returns(false).Verifiable();
 
             _sut.Update(fakeGenreViewModel);
 
-            _genreService.Verify(s => s.IsUniqueName(It.IsAny<GenreDTO>()), Times.Once);
+            _genreService.Verify(s => s.IsUniqueEnName(It.IsAny<ExtendGenreDTO>()), Times.Once);
         }
     }
 }

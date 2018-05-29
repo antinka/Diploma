@@ -93,7 +93,7 @@ namespace GameStore.Tests.Service
         [Fact]
         public void AddNewOrderDetails_NotExistedOrder_Verifiable()
         {
-            var fakeOrderDetailsDto = new OrderDetailDTO() { Id = Guid.NewGuid(), Game = _mapper.Map<GameDTO>(_fakeGame), GameId = _fakeGameId };
+            var fakeOrderDetailsDto = new OrderDetailDTO() { Id = Guid.NewGuid(), Game = _mapper.Map<ExtendGameDTO>(_fakeGame), GameId = _fakeGameId };
             var fakeOrderDetail = _mapper.Map<OrderDetail>(fakeOrderDetailsDto);
 
             _uow.Setup(uow => uow.Games.GetById(_fakeGameId)).Returns(_fakeGame);
@@ -225,7 +225,7 @@ namespace GameStore.Tests.Service
         [Fact]
         public void AddNewOrderDetails_ExistedOrder_Verifiable()
         {
-            var fakeOrderDetailsDto = new OrderDetailDTO() { Id = Guid.NewGuid(), Game = _mapper.Map<GameDTO>(_fakeGame), GameId = _fakeGameId };
+            var fakeOrderDetailsDto = new OrderDetailDTO() { Id = Guid.NewGuid(), Game = _mapper.Map<ExtendGameDTO>(_fakeGame), GameId = _fakeGameId };
             var fakeOrderDetail = _mapper.Map<OrderDetail>(fakeOrderDetailsDto);
             var order = new Order() { Id = Guid.NewGuid(), OrderDetails = new List<OrderDetail>() { fakeOrderDetail } };
             var orders = new List<Order>() { order };

@@ -45,7 +45,7 @@ namespace GameStore.Tests.Service
             _fakeGenre = new Genre
             {
                 Id = _fakeGenreId,
-                Name = "genre1"
+                NameEn = "genre1"
             };
 
             _fakePublisher = new Publisher()
@@ -61,14 +61,14 @@ namespace GameStore.Tests.Service
                 new Genre()
                 {
                     Id = new Guid(),
-                    Name = "genre1"
+                    NameEn = "genre1"
                 }
             };
 
             _fakePlatformType = new PlatformType()
             {
                 Id = _fakePlatformTypeId,
-                Name = "platformType1"
+                NameEn = "platformType1"
             };
 
             var fakePlatformTypes = new List<PlatformType>()
@@ -82,7 +82,7 @@ namespace GameStore.Tests.Service
                 Key = _fakeGameKey,
                 Genres = fakeGenres,
                 PlatformTypes = fakePlatformTypes,
-                Name = "game",
+                NameEn = "game",
                 Price = 10,
                 Publisher = _fakePublisher,
                 PublishDate = DateTime.Today,
@@ -102,7 +102,7 @@ namespace GameStore.Tests.Service
                 {
                     Id = Guid.NewGuid(),
                     Key = Guid.NewGuid().ToString(),
-                    Name = "gamegame",
+                    NameEn = "gamegame",
                     Genres = fakeGenres,
                     PlatformTypes = fakePlatformTypes,
                     Price = 15,
@@ -116,7 +116,7 @@ namespace GameStore.Tests.Service
         [Fact]
         public void AddNewGame_GameWithUniqueKey_Verifiable()
         {
-            var fakeGameDTO = new GameDTO() { Id = Guid.NewGuid(), Key = "qweqwe", Name = "1", Description = "2" };
+            var fakeGameDTO = new ExtendGameDTO() { Id = Guid.NewGuid(), Key = "qweqwe", NameEn = "1", DescriptionEn = "2" };
             var fakeGame = _mapper.Map<Game>(fakeGameDTO);
 
             _uow.Setup(uow => uow.Games.Get(It.IsAny<Func<Game, bool>>())).Returns(new List<Game>());
@@ -179,9 +179,9 @@ namespace GameStore.Tests.Service
         [Fact]
         public void UpdateGame_Game_Verifiable()
         {
-            var oldFakeGameDTO = new GameDTO() { Id = _fakeGameId, Key = "123", Price = 55 };
+            var oldFakeGameDTO = new ExtendGameDTO() { Id = _fakeGameId, Key = "123", Price = 55 };
             var oldFakeGame = _mapper.Map<Game>(oldFakeGameDTO);
-            var newFakeGameDTO = new GameDTO() { Id = _fakeGameId, Key = "12", Price = 5 };
+            var newFakeGameDTO = new ExtendGameDTO() { Id = _fakeGameId, Key = "12", Price = 5 };
             var newFakeGame = _mapper.Map<Game>(newFakeGameDTO);
             var fakeOrderDetail = new OrderDetail();
 
@@ -202,7 +202,7 @@ namespace GameStore.Tests.Service
         {
             _uow.Setup(uow => uow.Games.GetById(_fakeGameId)).Returns(null as Game);
 
-            Assert.Throws<EntityNotFound>(() => _sut.Update(new GameDTO()));
+            Assert.Throws<EntityNotFound>(() => _sut.Update(new ExtendGameDTO()));
         }
 
         [Fact]
@@ -500,24 +500,24 @@ namespace GameStore.Tests.Service
         {
             var fakeGamesForFilter = new List<Game>()
             {
-                new Game { Id = Guid.NewGuid(), Name = "Игра1", Key = "Игра1"},
-                new Game { Id = Guid.NewGuid(), Name = "Игра2", Key = "Игра2"},
-                new Game { Id = Guid.NewGuid(), Name = "Игра3", Key = "Игра3"},
-                new Game { Id = Guid.NewGuid(), Name = "Игра4", Key = "Игра4"},
-                new Game { Id = Guid.NewGuid(), Name = "Игра5", Key = "Игра5"},
-                new Game { Id = Guid.NewGuid(), Name = "Игра6", Key = "Игра6"},
-                new Game { Id = Guid.NewGuid(), Name = "Игра7", Key = "Игра7"},
-                new Game { Id = Guid.NewGuid(), Name = "Игра8", Key = "Игра8"},
-                new Game { Id = Guid.NewGuid(), Name = "Игра9", Key = "Игра9"},
-                new Game { Id = Guid.NewGuid(), Name = "Игра10", Key = "Игра10"},
-                new Game { Id = Guid.NewGuid(), Name = "Игра11", Key = "Игра11"},
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра1", Key = "Игра1"},
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра2", Key = "Игра2"},
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра3", Key = "Игра3"},
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра4", Key = "Игра4"},
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра5", Key = "Игра5"},
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра6", Key = "Игра6"},
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра7", Key = "Игра7"},
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра8", Key = "Игра8"},
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра9", Key = "Игра9"},
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра10", Key = "Игра10"},
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра11", Key = "Игра11"},
             };
             GamePipeline gamePipeline = new GamePipeline();
 
             gamePipeline.Register(new FilterByPage(2, PageSize.Ten));
             var gamesAfteFilter = gamePipeline.Process(fakeGamesForFilter);
 
-            Assert.True(gamesAfteFilter.ElementAt(0).Name== "Игра11");
+            Assert.True(gamesAfteFilter.ElementAt(0).NameRu == "Игра11");
         }
 
         [Fact]
@@ -525,30 +525,30 @@ namespace GameStore.Tests.Service
         {
             var fakeGamesForFilter = new List<Game>()
             {
-                new Game { Id = Guid.NewGuid(), Name = "Игра1", Key = "Игра1"},
-                new Game { Id = Guid.NewGuid(), Name = "Игра2", Key = "Игра2"},
-                new Game { Id = Guid.NewGuid(), Name = "Игра3", Key = "Игра3"},
-                new Game { Id = Guid.NewGuid(), Name = "Игра4", Key = "Игра4"},
-                new Game { Id = Guid.NewGuid(), Name = "Игра5", Key = "Игра5"},
-                new Game { Id = Guid.NewGuid(), Name = "Игра6", Key = "Игра6"},
-                new Game { Id = Guid.NewGuid(), Name = "Игра7", Key = "Игра7"},
-                new Game { Id = Guid.NewGuid(), Name = "Игра8", Key = "Игра8"},
-                new Game { Id = Guid.NewGuid(), Name = "Игра9", Key = "Игра9"},
-                new Game { Id = Guid.NewGuid(), Name = "Игра10", Key = "Игра10"},
-                new Game { Id = Guid.NewGuid(), Name = "Игра11", Key = "Игра11"},
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра1", Key = "Игра1"},
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра2", Key = "Игра2"},
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра3", Key = "Игра3"},
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра4", Key = "Игра4"},
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра5", Key = "Игра5"},
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра6", Key = "Игра6"},
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра7", Key = "Игра7"},
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра8", Key = "Игра8"},
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра9", Key = "Игра9"},
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра10", Key = "Игра10"},
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра11", Key = "Игра11"},
             };
             GamePipeline gamePipeline = new GamePipeline();
 
             gamePipeline.Register(new FilterByPage(1, PageSize.All));
             var gamesAfteFilter = gamePipeline.Process(fakeGamesForFilter);
 
-            Assert.True(gamesAfteFilter.ElementAt(10).Name == "Игра11");
+            Assert.True(gamesAfteFilter.ElementAt(10).NameRu == "Игра11");
         }
 
         [Fact]
         public void IsUniqueKey_UniqueKey_True()
         {
-            var game = new GameDTO() { Id = Guid.NewGuid(), Key = _fakeGameKey };
+            var game = new ExtendGameDTO() { Id = Guid.NewGuid(), Key = _fakeGameKey };
             _uow.Setup(uow => uow.Games.Get(It.IsAny<Func<Game, bool>>())).Returns(new List<Game>());
 
             var res = _sut.IsUniqueKey(game);
@@ -559,7 +559,7 @@ namespace GameStore.Tests.Service
         [Fact]
         public void IsUniqueKey_NotUniqueKey_False()
         {
-            var game = new GameDTO() { Id = Guid.NewGuid(), Key = _fakeGameKey };
+            var game = new ExtendGameDTO() { Id = Guid.NewGuid(), Key = _fakeGameKey };
             _uow.Setup(uow => uow.Games.Get(It.IsAny<Func<Game, bool>>())).Returns(_fakeGames);
 
             var res = _sut.IsUniqueKey(game);

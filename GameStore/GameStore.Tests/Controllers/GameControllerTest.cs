@@ -59,21 +59,21 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void New_ValidGame_Verifiable()
         {
-            var fakeGameViewModel = new FilterGameViewModel() { Name = "test", Key = "test", SelectedGenresName = new List<string>(), SelectedPlatformTypesName = new List<string>() };
-            var fakeGameDTO = _mapper.Map<GameDTO>(fakeGameViewModel);
+            var fakeGameViewModel = new GameViewModel() { NameEn = "test", Key = "test", SelectedGenresName = new List<string>(), SelectedPlatformTypesName = new List<string>() };
+            var fakeGameDTO = _mapper.Map<ExtendGameDTO>(fakeGameViewModel);
 
-            _gameService.Setup(service => service.IsUniqueKey(It.IsAny<GameDTO>())).Returns(true);
+            _gameService.Setup(service => service.IsUniqueKey(It.IsAny<ExtendGameDTO>())).Returns(true);
             _gameService.Setup(service => service.AddNew(fakeGameDTO)).Verifiable();
 
             _sut.New(fakeGameViewModel);
 
-            _gameService.Verify(s => s.AddNew(It.IsAny<GameDTO>()), Times.Once);
+            _gameService.Verify(s => s.AddNew(It.IsAny<ExtendGameDTO>()), Times.Once);
         }
 
         [Fact]
         public void New_InvalidGame_ReturnViewResult()
         {
-            var fakeGameViewModel = new FilterGameViewModel() { Name = "test" };
+            var fakeGameViewModel = new GameViewModel() { NameEn = "test" };
             _sut.ModelState.Add("testError", new ModelState());
             _sut.ModelState.AddModelError("testError", "test");
 
@@ -85,21 +85,21 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void UpdateGame_ValidGame_Verifiable()
         {
-            var fakeGameViewModel = new FilterGameViewModel() { Name = "test", Key = "test", SelectedGenresName = new List<string>(), SelectedPlatformTypesName = new List<string>() };
-            var fakeGameDTO = _mapper.Map<GameDTO>(fakeGameViewModel);
+            var fakeGameViewModel = new GameViewModel() { NameEn = "test", Key = "test", SelectedGenresName = new List<string>(), SelectedPlatformTypesName = new List<string>() };
+            var fakeGameDTO = _mapper.Map<ExtendGameDTO>(fakeGameViewModel);
 
-            _gameService.Setup(service => service.IsUniqueKey(It.IsAny<GameDTO>())).Returns(true);
+            _gameService.Setup(service => service.IsUniqueKey(It.IsAny<ExtendGameDTO>())).Returns(true);
             _gameService.Setup(service => service.Update(fakeGameDTO)).Verifiable();
 
             _sut.Update(fakeGameViewModel);
 
-            _gameService.Verify(s => s.Update(It.IsAny<GameDTO>()), Times.Once);
+            _gameService.Verify(s => s.Update(It.IsAny<ExtendGameDTO>()), Times.Once);
         }
 
         [Fact]
         public void UpdateGame_InvalidGame_ReturnViewResult()
         {
-            var fakeGameViewModel = new FilterGameViewModel();
+            var fakeGameViewModel = new GameViewModel();
             _sut.ModelState.Add("testError", new ModelState());
             _sut.ModelState.AddModelError("testError", "test");
 
@@ -111,7 +111,7 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void UpdateGame_Gamekey_ReturnView()
         {
-            var fakeGame = new GameDTO() { Id = Guid.NewGuid(), Key = _fakeGameKey, Name = "test" };
+            var fakeGame = new ExtendGameDTO() { Id = Guid.NewGuid(), Key = _fakeGameKey, NameEn = "test" };
 
             _gameService.Setup(service => service.GetByKey(_fakeGameKey)).Returns(fakeGame);
             _publisherService.Setup(service => service.GetAll()).Returns(new List<PublisherDTO>());
@@ -124,7 +124,7 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void GetGame_Gamekey_Verifiable()
         {
-            var fakeGame = new GameDTO() { Id = Guid.NewGuid(), Key = _fakeGameKey, Name = "test" };
+            var fakeGame = new ExtendGameDTO() { Id = Guid.NewGuid(), Key = _fakeGameKey, NameEn = "test" };
             _gameService.Setup(service => service.GetByKey(_fakeGameKey)).Returns(fakeGame);
             _gameService.Setup(service => service.IncreaseGameView(fakeGame.Id)).Verifiable();
 
@@ -174,23 +174,23 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void New_GameWithoutUnickKey_Verifiable()
         {
-            var fakeGameViewModel = new FilterGameViewModel() { Name = "test", Key = "1" };
-            _gameService.Setup(service => service.IsUniqueKey(It.IsAny<GameDTO>())).Returns(false).Verifiable();
+            var fakeGameViewModel = new GameViewModel() { NameEn = "test", Key = "1" };
+            _gameService.Setup(service => service.IsUniqueKey(It.IsAny<ExtendGameDTO>())).Returns(false).Verifiable();
 
             _sut.New(fakeGameViewModel);
 
-            _gameService.Verify(s => s.IsUniqueKey(It.IsAny<GameDTO>()), Times.Once);
+            _gameService.Verify(s => s.IsUniqueKey(It.IsAny<ExtendGameDTO>()), Times.Once);
         }
 
         [Fact]
         public void Update_GameWithoutUnickKey_Verifiable()
         {
-            var fakeGameViewModel = new FilterGameViewModel() { Name = "test", Key = "1" };
-            _gameService.Setup(service => service.IsUniqueKey(It.IsAny<GameDTO>())).Returns(false).Verifiable();
+            var fakeGameViewModel = new GameViewModel() { NameEn = "test", Key = "1" };
+            _gameService.Setup(service => service.IsUniqueKey(It.IsAny<ExtendGameDTO>())).Returns(false).Verifiable();
 
             _sut.Update(fakeGameViewModel);
 
-            _gameService.Verify(s => s.IsUniqueKey(It.IsAny<GameDTO>()), Times.Once);
+            _gameService.Verify(s => s.IsUniqueKey(It.IsAny<ExtendGameDTO>()), Times.Once);
         }
 
         [Fact]

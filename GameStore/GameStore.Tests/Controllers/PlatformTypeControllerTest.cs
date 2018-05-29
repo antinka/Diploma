@@ -32,21 +32,21 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void New_ValidPlatformTypeViewModel_Verifiable()
         {
-            var fakePlatformTypeViewModel = new DetailsPlatformTypeViewModel() { Name = "test" };
-            var fakePlatformTypeDTO = _mapper.Map<PlatformTypeDTO>(fakePlatformTypeViewModel);
+            var fakePlatformTypeViewModel = new PlatformTypeViewModel() { NameEn = "test" };
+            var fakePlatformTypeDTO = _mapper.Map<ExtendPlatformTypeDTO>(fakePlatformTypeViewModel);
 
-            _platformTypeService.Setup(service => service.IsUniqueName(It.IsAny<PlatformTypeDTO>())).Returns(true);
+            _platformTypeService.Setup(service => service.IsUniqueEnName(It.IsAny<ExtendPlatformTypeDTO>())).Returns(true);
             _platformTypeService.Setup(service => service.AddNew(fakePlatformTypeDTO)).Verifiable();
 
             _sut.New(fakePlatformTypeViewModel);
 
-            _platformTypeService.Verify(s => s.AddNew(It.IsAny<PlatformTypeDTO>()), Times.Once);
+            _platformTypeService.Verify(s => s.AddNew(It.IsAny<ExtendPlatformTypeDTO>()), Times.Once);
         }
 
         [Fact]
         public void New_InvalidPlatformTypeViewModel_ReturnViewResult()
         {
-            var fakePlatformTypeViewModel = new DetailsPlatformTypeViewModel() { Name = "test" };
+            var fakePlatformTypeViewModel = new PlatformTypeViewModel() { NameEn = "test" };
             _sut.ModelState.Add("testError", new ModelState());
             _sut.ModelState.AddModelError("testError", "test");
 
@@ -68,21 +68,21 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void Update_ValidUpdatePlatformType_Verifiable()
         {
-            var fakePlatformTypeViewModel = new DetailsPlatformTypeViewModel() { Name = "test" };
-            var fakePlatformTypeDTO = _mapper.Map<PlatformTypeDTO>(fakePlatformTypeViewModel);
+            var fakePlatformTypeViewModel = new PlatformTypeViewModel() { NameEn = "test" };
+            var fakePlatformTypeDTO = _mapper.Map<ExtendPlatformTypeDTO>(fakePlatformTypeViewModel);
 
-            _platformTypeService.Setup(service => service.IsUniqueName(It.IsAny<PlatformTypeDTO>())).Returns(true);
+            _platformTypeService.Setup(service => service.IsUniqueEnName(It.IsAny<ExtendPlatformTypeDTO>())).Returns(true);
             _platformTypeService.Setup(service => service.Update(fakePlatformTypeDTO)).Verifiable();
 
             _sut.Update(fakePlatformTypeViewModel);
 
-            _platformTypeService.Verify(s => s.Update(It.IsAny<PlatformTypeDTO>()), Times.Once);
+            _platformTypeService.Verify(s => s.Update(It.IsAny<ExtendPlatformTypeDTO>()), Times.Once);
         }
 
         [Fact]
         public void Update_InvalidUpdatePlatformType_ReturnViewResult()
         {
-            var fakePlatformTypeViewModel = new DetailsPlatformTypeViewModel();
+            var fakePlatformTypeViewModel = new PlatformTypeViewModel();
             _sut.ModelState.Add("testError", new ModelState());
             _sut.ModelState.AddModelError("testError", "test");
 

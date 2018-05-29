@@ -68,7 +68,7 @@ namespace GameStore.Tests.Controllers
             var fakeGameKey = "fakeGameKey";
             var fakeUserId = Guid.NewGuid();
             var fakeGameId = Guid.NewGuid();
-            var fakeGame = new GameDTO()
+            var fakeGame = new ExtendGameDTO()
             {
                 Id = Guid.NewGuid(),
                 Key = fakeGameKey,
@@ -91,7 +91,7 @@ namespace GameStore.Tests.Controllers
         public void AddGameToOrder_GameKeyWhereGameUnitsInStockLessThen1_ReturnedViewResult()
         {
             var fakeGameKey = "fakeGameKey";
-            var fakeGame = new GameDTO()
+            var fakeGame = new ExtendGameDTO()
             {
                 Id = Guid.NewGuid(),
                 Key = fakeGameKey,
