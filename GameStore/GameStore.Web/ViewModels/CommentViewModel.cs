@@ -29,6 +29,6 @@ namespace GameStore.Web.ViewModels
 
         public string GameKey { get; set; }
 
-        public GameViewModel Game { get; set; }
+        public FilterGameViewModel FilterGame { get; set; }
     }
 }

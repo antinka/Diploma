@@ -14,7 +14,7 @@ namespace GameStore.Web.ViewModels
 
         public Guid GameId { get; set; }
 
-        public GameViewModel Game { get; set; }
+        public FilterGameViewModel FilterGame { get; set; }
 
         [Display(Name = "Quantity", ResourceType = typeof(GlobalRes))]
         public short Quantity { get; set; }

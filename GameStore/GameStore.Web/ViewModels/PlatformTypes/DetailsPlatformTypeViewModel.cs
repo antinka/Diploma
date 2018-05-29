@@ -6,16 +6,13 @@ using GameStore.Web.ViewModels.Games;
 
 namespace GameStore.Web.ViewModels
 {
-    public class PlatformTypeViewModel
+    public class DetailsPlatformTypeViewModel
     {
         public Guid Id { get; set; }
 
-        [Required]
-        [StringLength(200, MinimumLength = 3, ErrorMessage = "Name cannot be longer than 200 characters and less than 3 characters")]
-        [MaxLength(450)]
         [Display(Name = "Name", ResourceType = typeof(GlobalRes))]
         public string Name { get; set; }
 
-        public ICollection<GameViewModel> Games { get; set; }
+        public ICollection<FilterGameViewModel> Games { get; set; }
     }
 }

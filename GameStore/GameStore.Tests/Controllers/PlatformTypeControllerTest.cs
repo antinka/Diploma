@@ -32,7 +32,7 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void New_ValidPlatformTypeViewModel_Verifiable()
         {
-            var fakePlatformTypeViewModel = new PlatformTypeViewModel() { Name = "test" };
+            var fakePlatformTypeViewModel = new DetailsPlatformTypeViewModel() { Name = "test" };
             var fakePlatformTypeDTO = _mapper.Map<PlatformTypeDTO>(fakePlatformTypeViewModel);
 
             _platformTypeService.Setup(service => service.IsUniqueName(It.IsAny<PlatformTypeDTO>())).Returns(true);
@@ -46,7 +46,7 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void New_InvalidPlatformTypeViewModel_ReturnViewResult()
         {
-            var fakePlatformTypeViewModel = new PlatformTypeViewModel() { Name = "test" };
+            var fakePlatformTypeViewModel = new DetailsPlatformTypeViewModel() { Name = "test" };
             _sut.ModelState.Add("testError", new ModelState());
             _sut.ModelState.AddModelError("testError", "test");
 
@@ -68,7 +68,7 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void Update_ValidUpdatePlatformType_Verifiable()
         {
-            var fakePlatformTypeViewModel = new PlatformTypeViewModel() { Name = "test" };
+            var fakePlatformTypeViewModel = new DetailsPlatformTypeViewModel() { Name = "test" };
             var fakePlatformTypeDTO = _mapper.Map<PlatformTypeDTO>(fakePlatformTypeViewModel);
 
             _platformTypeService.Setup(service => service.IsUniqueName(It.IsAny<PlatformTypeDTO>())).Returns(true);
@@ -82,7 +82,7 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void Update_InvalidUpdatePlatformType_ReturnViewResult()
         {
-            var fakePlatformTypeViewModel = new PlatformTypeViewModel();
+            var fakePlatformTypeViewModel = new DetailsPlatformTypeViewModel();
             _sut.ModelState.Add("testError", new ModelState());
             _sut.ModelState.AddModelError("testError", "test");
 

@@ -24,7 +24,7 @@ namespace GameStore.BLL.Service
             _log = log;
         }
 
-        public void AddNew(PublisherDTO publisherDTO)
+        public void AddNew(ExtendPublisherDTO publisherDTO)
         {
             publisherDTO.Id = Guid.NewGuid();
             _unitOfWork.Publishers.Create(_mapper.Map<Publisher>(publisherDTO));
@@ -33,7 +33,7 @@ namespace GameStore.BLL.Service
             _log.Info($"{nameof(PublisherService)} - add new publisher{ publisherDTO.Id}");
         }
 
-        public PublisherDTO GetByName(string companyName)
+        public ExtendPublisherDTO GetByName(string companyName)
         {
             var publisher = _unitOfWork.Publishers.Get(x => x.Name == companyName).FirstOrDefault();
 
@@ -42,7 +42,7 @@ namespace GameStore.BLL.Service
                 throw new EntityNotFound($"{nameof(PublisherService)} - publisher with such company name {companyName} did not exist");
             }
 
-            return _mapper.Map<PublisherDTO>(publisher);
+            return _mapper.Map<ExtendPublisherDTO>(publisher);
         }
 
         public IEnumerable<PublisherDTO> GetAll()
@@ -52,7 +52,7 @@ namespace GameStore.BLL.Service
             return _mapper.Map<IEnumerable<PublisherDTO>>(publishers);
         }
 
-        public void Update(PublisherDTO publisherDTO)
+        public void Update(ExtendPublisherDTO publisherDTO)
         {
             if (GetPublisherById(publisherDTO.Id) != null)
             {
@@ -76,7 +76,7 @@ namespace GameStore.BLL.Service
             }
         }
 
-        public bool IsUniqueName(PublisherDTO publisherDTO)
+        public bool IsUniqueName(ExtendPublisherDTO publisherDTO)
         {
             var publisher = _unitOfWork.Publishers.Get(x => x.Name == publisherDTO.Name).FirstOrDefault();
 

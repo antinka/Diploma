@@ -9,12 +9,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using GameStore.BLL.DTO;
+using GameStore.Web.ViewModels.Games;
 
 namespace GameStore.Web.Controllers
 {
     [TrackRequestIp]
     [ExceptionFilter]
-    public class OrderController : Controller
+    public class OrderController : BaseController
     {
         private readonly IOrdersService _ordersService;
         private readonly IGameService _gameService;
@@ -55,7 +56,8 @@ namespace GameStore.Web.Controllers
         {
             var userId = GetUserId();
 
-            var game = _gameService.GetByKey(gameKey);
+            var gameDTO = _gameService.GetByKey(gameKey);
+            var game = _mapper.Map<DetailsGameViewModel>(gameDTO);
 
             if (game.UnitsInStock >= 1)
             {

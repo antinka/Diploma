@@ -29,23 +29,23 @@
                     <li style="color: aliceblue">@Html.Action("CountGames", "Game") </li>
 
                     <li> @Html.ActionLink(GlobalRes.Basket, "BasketInfo", "Order")</li>
+                    <li style="color: aliceblue">@Html.Action("CountGamesInOrder", "Order") </li>
                     <li> @Html.ActionLink(GlobalRes.Publishers, "GetAll", "Publisher")</li>
                     <li> @Html.ActionLink(GlobalRes.PlatformTypes, "GetAll", "PlatformType")</li>
                     <li> @Html.ActionLink(GlobalRes.Genres, "GetAll", "Genre")</li>
                     <li> @Html.ActionLink(GlobalRes.Orders, "FilterOrders", "Order")</li>
                     
-                    
                 </ul>
                 
                <ul class="nav navbar-nav navbar-right">
-                   <li>@Html.ActionLink("ru", ViewContext.RouteData.Values["action"].ToString(),new { lang = "ru" })</li>
-                   <li> @Html.ActionLink( "en",  ViewContext.RouteData.Values["action"].ToString(),new { lang = "en" })</li>
+                   <li>@Html.ActionLink("ru", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["lang"] = "ru"))</li>
+                   <li> @Html.ActionLink( "en",  ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["lang"] = "en"))</li>
                </ul>
 
             </div>
         </div>
     </div>
-
+    <br/>
     <div class="container body-content">
         @RenderBody()
         <hr />

@@ -18,7 +18,7 @@ namespace GameStore.BLL.Filtration.Implementation
         {
             if (_selectedPublishers.Count() != 0)
             {
-                return input.Where(x => x.Publisher != null ? _selectedPublishers.Contains(x.Publisher.Name) : x.Name == "");
+                return input.Where(x => x.Publisher != null ? _selectedPublishers.Contains(x.Publisher.Name) : x.NameEn == "");
             }
             return input;
         }

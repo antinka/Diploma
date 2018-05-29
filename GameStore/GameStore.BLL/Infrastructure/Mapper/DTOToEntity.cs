@@ -15,13 +15,13 @@ namespace GameStore.BLL.Infrastructure.Mapper
 
             CreateMap<OrderDetailDTO, OrderDetail>();
 
-            CreateMap<PublisherDTO, Publisher>();
+            CreateMap<ExtendPublisherDTO, Publisher>();
 
-            CreateMap<GameDTO, Game>();
+            CreateMap<ExtendGameDTO, Game>();
         
-            CreateMap<GenreDTO, Genre>();
+            CreateMap<ExtendGenreDTO, Genre>();
 
-            CreateMap<PlatformTypeDTO, PlatformType>();
+            CreateMap<ExtendPlatformTypeDTO, PlatformType>();
 
             CreateMap<ShipperDTO, Shipper>();
         }

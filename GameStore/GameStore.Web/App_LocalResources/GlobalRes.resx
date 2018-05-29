@@ -276,4 +276,111 @@
   <data name="oneYear" xml:space="preserve">
     <value>Год</value>
   </data>
+  <data name="ChooseGenres" xml:space="preserve">
+    <value>Пожалуйста
+ выберите один или несколько жанров</value>
+  </data>
+  <data name="ChoosePlatformTypes" xml:space="preserve">
+    <value>Пожалуйста
+выберите один или несколько типов платформ</value>
+  </data>
+  <data name="DescriptionBank" xml:space="preserve">
+    <value>Описание Bank</value>
+  </data>
+  <data name="DescriptionEn" xml:space="preserve">
+    <value>Описание на английском языке</value>
+  </data>
+  <data name="DescriptionIBox" xml:space="preserve">
+    <value>Описание IBox</value>
+  </data>
+  <data name="DescriptionRu" xml:space="preserve">
+    <value>Описание на русском языке</value>
+  </data>
+  <data name="DescriptionVisa" xml:space="preserve">
+    <value>Описание Visa</value>
+  </data>
+  <data name="ExistGenreName" xml:space="preserve">
+    <value>Жанр с таким именем уже существует, пожалуйста введите другое имя</value>
+  </data>
+  <data name="ExistGenreRelation" xml:space="preserve">
+    <value>Такая связь не может существовать</value>
+  </data>
+  <data name="ExistKey" xml:space="preserve">
+    <value>Игра с таким ключом уже существует, пожалуйста введите другое имя</value>
+  </data>
+  <data name="ExistPlatformTypeName" xml:space="preserve">
+    <value>Платформа с таким именем уже существует, пожалуйста введите другое имя</value>
+  </data>
+  <data name="ExistPublisherName" xml:space="preserve">
+    <value>Издатель с таким именем уже существует, введите другое имя</value>
+  </data>
+  <data name="KeyRegexExpression" xml:space="preserve">
+    <value>Ключ не может быть длиннее 200 символов и менее 3 символов и может содержать только A-Za-z0-9</value>
+  </data>
+  <data name="NameEn" xml:space="preserve">
+    <value>Имя на английском языке</value>
+  </data>
+  <data name="NameExpression3_200" xml:space="preserve">
+    <value>Имя не может быть длиннее 200 символов и менее 3 символов.</value>
+  </data>
+  <data name="NameExpression3_40" xml:space="preserve">
+    <value>Имя не может быть длиннее 40 символов и менее 3 символов.</value>
+  </data>
+  <data name="NameRu" xml:space="preserve">
+    <value>Имя на русском языке</value>
+  </data>
+  <data name="NotEnoughtGame" xml:space="preserve">
+    <value>Не хватает игр на складе</value>
+  </data>
+  <data name="Pay" xml:space="preserve">
+    <value>Оплатить</value>
+  </data>
+  <data name="CardHoldersName" xml:space="preserve">
+    <value>Имя владельца карты</value>
+  </data>
+  <data name="CardHoldersNameExpression" xml:space="preserve">
+    <value>Имя держателя карты может состоять только из символов, не менее 3</value>
+  </data>
+  <data name="CardNumber" xml:space="preserve">
+    <value>Номер карты</value>
+  </data>
+  <data name="CardNumberExpression" xml:space="preserve">
+    <value>Номер карты может состоять только из цифр, не менее 3</value>
+  </data>
+  <data name="CardVerificationExpression" xml:space="preserve">
+    <value>Значение верификации карты может состоять только из чисел, не менее 4, не более 6</value>
+  </data>
+  <data name="CardVerificationValue" xml:space="preserve">
+    <value>Значение Проверки Карты</value>
+  </data>
+  <data name="DateOfExpity" xml:space="preserve">
+    <value>Дата истечения срока действия</value>
+  </data>
+  <data name="OrderId" xml:space="preserve">
+    <value>Id заказа</value>
+  </data>
+  <data name="Freight" xml:space="preserve">
+    <value>Груз</value>
+  </data>
+  <data name="ShipAddress" xml:space="preserve">
+    <value>Адрес Доставки</value>
+  </data>
+  <data name="ShipCity" xml:space="preserve">
+    <value>Город доставки</value>
+  </data>
+  <data name="ShipCountry" xml:space="preserve">
+    <value>Страна доставки</value>
+  </data>
+  <data name="ShipName" xml:space="preserve">
+    <value>Название поставщика</value>
+  </data>
+  <data name="ShipPostalCode" xml:space="preserve">
+    <value>Почтовый Индекс</value>
+  </data>
+  <data name="ShipRegion" xml:space="preserve">
+    <value>Регион</value>
+  </data>
+  <data name="ShipVia" xml:space="preserve">
+    <value>Доставить через</value>
+  </data>
 </root>

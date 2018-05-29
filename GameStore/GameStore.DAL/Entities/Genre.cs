@@ -15,7 +15,10 @@ namespace GameStore.DAL.Entities
 
         [Index("Genre_Index_Name", 1, IsUnique = true)]
         [MaxLength(450)]
-        public string Name { get; set; }
+        public string NameEn { get; set; }
+
+        [MaxLength(450)]
+        public string NameRu { get; set; }
 
         [BsonSerializer(typeof(ListGameSerializer))]
         public virtual ICollection<Game> Games { get; set; }

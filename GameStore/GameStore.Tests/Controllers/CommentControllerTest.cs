@@ -96,7 +96,7 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void CommentToGame_ValidComment_RedirectToActionResult()
         {
-            var fakeCommentViewModel = new CommentViewModel() { Name = "test", Body = "test", Game = new GameViewModel() };
+            var fakeCommentViewModel = new CommentViewModel() { Name = "test", Body = "test", FilterGame = new FilterGameViewModel() };
             var fakeCommentDTO = _mapper.Map<CommentDTO>(fakeCommentViewModel);
 
             _commentService.Setup(service => service.AddComment(fakeCommentDTO));

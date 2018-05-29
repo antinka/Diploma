@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using AutoMapper;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Interfaces;
+using GameStore.Web.App_LocalResources;
 using GameStore.Web.Filters;
 using GameStore.Web.ViewModels;
 
@@ -11,7 +12,7 @@ namespace GameStore.Web.Controllers
 {
     [TrackRequestIp]
     [ExceptionFilter]
-    public class PublisherController : Controller
+    public class PublisherController : BaseController
     {
         private readonly IPublisherService _publisherService;
         private readonly IMapper _mapper;
@@ -34,7 +35,7 @@ namespace GameStore.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var publisherDTO = _mapper.Map<PublisherDTO>(publisher);
+                var publisherDTO = _mapper.Map<ExtendPublisherDTO>(publisher);
 
                 var isUniqueName = _publisherService.IsUniqueName(publisherDTO);
 
@@ -42,11 +43,10 @@ namespace GameStore.Web.Controllers
                 { 
                     _publisherService.AddNew(publisherDTO);
 
-                    return RedirectToAction("Get", new { companyName = publisher.Name });
+                    return RedirectToAction("GetAll");
                 }
 
-                ModelState.AddModelError("Name",
-                    "Publisher with such name already exist, please enter another name");
+                ModelState.AddModelError("Name", GlobalRes.ExistPublisherName);
             }
 
             return View(publisher);
@@ -56,7 +56,7 @@ namespace GameStore.Web.Controllers
         public ActionResult Get(string companyName)
         {
             var publisherDTO = _publisherService.GetByName(companyName);
-            var publisherViewModel = _mapper.Map<PublisherViewModel>(publisherDTO);
+            var publisherViewModel = _mapper.Map<DetailsPublisherViewModel>(publisherDTO);
 
             return View(publisherViewModel);
         }
@@ -65,7 +65,7 @@ namespace GameStore.Web.Controllers
         public ActionResult GetAll()
         {
             var publishersDTO = _publisherService.GetAll();
-            var publisherViewModel = _mapper.Map<IEnumerable<PublisherViewModel>>(publishersDTO);
+            var publisherViewModel = _mapper.Map<IEnumerable<DetailsPublisherViewModel>>(publishersDTO);
 
             return View(publisherViewModel);
         }
@@ -93,11 +93,11 @@ namespace GameStore.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var publisherDTO = _mapper.Map<PublisherDTO>(publisherViewModel);
+                var publisherDTO = _mapper.Map<ExtendPublisherDTO>(publisherViewModel);
 
                 if (!_publisherService.IsUniqueName(publisherDTO))
                 {
-                    ModelState.AddModelError("Name", "Publisher with such name already exist, please enter another name");
+                    ModelState.AddModelError("Name", GlobalRes.ExistPublisherName);
                 }
 
                 if (ModelState.IsValid)

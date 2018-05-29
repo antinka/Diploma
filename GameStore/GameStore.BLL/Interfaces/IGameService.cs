@@ -13,7 +13,7 @@ namespace GameStore.BLL.Interfaces
 
         int GetCountGame();
 
-        bool IsUniqueKey(GameDTO gameDTO);
+        bool IsUniqueKey(ExtendGameDTO gameDTO);
 
         void IncreaseGameView(Guid gameId);
 

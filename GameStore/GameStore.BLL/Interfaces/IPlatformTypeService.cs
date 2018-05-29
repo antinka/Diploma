@@ -10,14 +10,16 @@ namespace GameStore.BLL.Interfaces
 
         IEnumerable<PlatformTypeDTO> GetAll();
 
-        void AddNew(PlatformTypeDTO platformTypeDto);
+        void AddNew(ExtendPlatformTypeDTO platformTypeDTO);
 
-        void Update(PlatformTypeDTO platformTypeDto);
+        void Update(ExtendPlatformTypeDTO platformTypeDto);
 
         void Delete(Guid id);
 
-        PlatformTypeDTO GetByName(string name);
+        ExtendPlatformTypeDTO GetByName(string name);
 
-        bool IsUniqueName(PlatformTypeDTO platformTypeDTO);
+        bool IsUniqueEnName(ExtendPlatformTypeDTO platformTypeDTO);
+
+        bool IsUniqueRuName(ExtendPlatformTypeDTO platformTypeDTO);
     }
 }

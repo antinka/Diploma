@@ -29,13 +29,13 @@ namespace GameStore.BLL.Service
             _log = log;
         }
 
-        public void AddNew(GameDTO gameDto)
+        public void AddNew(ExtendGameDTO gameDto)
         {
             gameDto.Id = Guid.NewGuid();
             var newGame = _mapper.Map<Game>(gameDto);
-            newGame.Genres = _unitOfWork.Genres.Get(genre => gameDto.SelectedGenresName.Contains(genre.Name)).ToList();
+            newGame.Genres = _unitOfWork.Genres.Get(genre => gameDto.SelectedGenresName.Contains(genre.NameEn)).ToList();
             newGame.PlatformTypes = _unitOfWork.PlatformTypes
-                .Get(platformType => gameDto.SelectedPlatformTypesName.Contains(platformType.Name)).ToList();
+                .Get(platformType => gameDto.SelectedPlatformTypesName.Contains(platformType.NameEn)).ToList();
             newGame.PublishDate = DateTime.UtcNow;
 
             _unitOfWork.Games.Create(newGame);
@@ -55,7 +55,7 @@ namespace GameStore.BLL.Service
             }
         }
 
-        public void Update(GameDTO gameDto)
+        public void Update(ExtendGameDTO gameDto)
         {
             var game = GetGameById(gameDto.Id);
 
@@ -75,9 +75,9 @@ namespace GameStore.BLL.Service
                 game.Genres.Clear();
                 game.PlatformTypes.Clear();
 
-                game.Genres = _unitOfWork.Genres.Get(genre => gameDto.SelectedGenresName.Contains(genre.Name)).ToList();
+                game.Genres = _unitOfWork.Genres.Get(genre => gameDto.SelectedGenresName.Contains(genre.NameEn)).ToList();
                 game.PlatformTypes = _unitOfWork.PlatformTypes
-                    .Get(platformType => gameDto.SelectedPlatformTypesName.Contains(platformType.Name)).ToList();
+                    .Get(platformType => gameDto.SelectedPlatformTypesName.Contains(platformType.NameEn)).ToList();
 
                 _unitOfWork.Games.Update(game);
                 game = _mapper.Map<Game>(gameDto);
@@ -93,7 +93,7 @@ namespace GameStore.BLL.Service
             return _mapper.Map<IEnumerable<GameDTO>>(_unitOfWork.Games.GetAll());
         }
 
-        public GameDTO GetByKey(string gamekey)
+        public ExtendGameDTO GetByKey(string gamekey)
         {
             var game = _unitOfWork.Games.Get(g => g.Key == gamekey).FirstOrDefault();
 
@@ -102,7 +102,7 @@ namespace GameStore.BLL.Service
                 throw new EntityNotFound($"{nameof(GameService)} - game with such gamekey {gamekey} did not exist");
             }
 
-            return _mapper.Map<GameDTO>(game);
+            return _mapper.Map<ExtendGameDTO>(game);
         }
 
         public GameDTO GetById(Guid id)
@@ -208,7 +208,7 @@ namespace GameStore.BLL.Service
                 .Register(new FilterByPage(page, pageSize));
         }
 
-        public bool IsUniqueKey(GameDTO gameDTO)
+        public bool IsUniqueKey(ExtendGameDTO gameDTO)
         {
             var game = _unitOfWork.Games.Get(x => x.Key == gameDTO.Key).FirstOrDefault();
 

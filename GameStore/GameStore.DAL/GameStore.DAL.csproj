@@ -112,6 +112,10 @@
     <Compile Include="Migrations\201805241205247_upd order.Designer.cs">
       <DependentUpon>201805241205247_upd order.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805251241226_updForLocalization.cs" />
+    <Compile Include="Migrations\201805251241226_updForLocalization.Designer.cs">
+      <DependentUpon>201805251241226_updForLocalization.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mongo\MongoContext.cs" />
     <Compile Include="Mongo\MongoEntities\MongoOrder.cs" />
@@ -140,6 +144,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805241205247_upd order.resx">
       <DependentUpon>201805241205247_upd order.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805251241226_updForLocalization.resx">
+      <DependentUpon>201805251241226_updForLocalization.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

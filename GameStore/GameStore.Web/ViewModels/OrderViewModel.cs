@@ -22,20 +22,28 @@ namespace GameStore.Web.ViewModels
         [Display(Name = "Shipper", ResourceType = typeof(GlobalRes))]
         public string ShipperId { get; set; }
 
+        [Display(Name = "ShipVia", ResourceType = typeof(GlobalRes))]
         public int? ShipVia { get; set; }
 
+        [Display(Name = "Freight", ResourceType = typeof(GlobalRes))]
         public decimal? Freight { get; set; }
 
+        [Display(Name = "ShipName", ResourceType = typeof(GlobalRes))]
         public string ShipName { get; set; }
 
+        [Display(Name = "ShipAddress", ResourceType = typeof(GlobalRes))]
         public string ShipAddress { get; set; }
 
+        [Display(Name = "ShipCity", ResourceType = typeof(GlobalRes))]
         public string ShipCity { get; set; }
 
+        [Display(Name = "ShipRegion", ResourceType = typeof(GlobalRes))]
         public string ShipRegion { get; set; }
 
+        [Display(Name = "ShipPostalCode", ResourceType = typeof(GlobalRes))]
         public string ShipPostalCode { get; set; }
 
+        [Display(Name = "ShipCountry", ResourceType = typeof(GlobalRes))]
         public string ShipCountry { get; set; }
 
         public SelectList ShipperList { get; set; }

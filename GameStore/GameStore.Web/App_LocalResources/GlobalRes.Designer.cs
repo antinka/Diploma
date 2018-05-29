@@ -115,11 +115,85 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Имя владельца карты.
+        /// </summary>
+        public static string CardHoldersName {
+            get {
+                return ResourceManager.GetString("CardHoldersName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Имя держателя карты может состоять только из символов, не менее 3.
+        /// </summary>
+        public static string CardHoldersNameExpression {
+            get {
+                return ResourceManager.GetString("CardHoldersNameExpression", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Номер карты.
+        /// </summary>
+        public static string CardNumber {
+            get {
+                return ResourceManager.GetString("CardNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Номер карты может состоять только из цифр, не менее 3.
+        /// </summary>
+        public static string CardNumberExpression {
+            get {
+                return ResourceManager.GetString("CardNumberExpression", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Значение верификации карты может состоять только из чисел, не менее 4, не более 6.
+        /// </summary>
+        public static string CardVerificationExpression {
+            get {
+                return ResourceManager.GetString("CardVerificationExpression", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Значение Проверки Карты.
+        /// </summary>
+        public static string CardVerificationValue {
+            get {
+                return ResourceManager.GetString("CardVerificationValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Выбрать.
         /// </summary>
         public static string Choose {
             get {
                 return ResourceManager.GetString("Choose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пожалуйста
+        /// выберите один или несколько жанров.
+        /// </summary>
+        public static string ChooseGenres {
+            get {
+                return ResourceManager.GetString("ChooseGenres", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пожалуйста
+        ///выберите один или несколько типов платформ.
+        /// </summary>
+        public static string ChoosePlatformTypes {
+            get {
+                return ResourceManager.GetString("ChoosePlatformTypes", resourceCulture);
             }
         }
         
@@ -169,6 +243,15 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Дата истечения срока действия.
+        /// </summary>
+        public static string DateOfExpity {
+            get {
+                return ResourceManager.GetString("DateOfExpity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to от.
         /// </summary>
         public static string DateTimeFrom {
@@ -192,6 +275,51 @@ namespace GameStore.Web.App_LocalResources {
         public static string Description {
             get {
                 return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Описание Bank.
+        /// </summary>
+        public static string DescriptionBank {
+            get {
+                return ResourceManager.GetString("DescriptionBank", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Описание на английском языке.
+        /// </summary>
+        public static string DescriptionEn {
+            get {
+                return ResourceManager.GetString("DescriptionEn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Описание IBox.
+        /// </summary>
+        public static string DescriptionIBox {
+            get {
+                return ResourceManager.GetString("DescriptionIBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Описание на русском языке.
+        /// </summary>
+        public static string DescriptionRu {
+            get {
+                return ResourceManager.GetString("DescriptionRu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Описание Visa.
+        /// </summary>
+        public static string DescriptionVisa {
+            get {
+                return ResourceManager.GetString("DescriptionVisa", resourceCulture);
             }
         }
         
@@ -232,11 +360,65 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Жанр с таким именем уже существует, пожалуйста введите другое имя.
+        /// </summary>
+        public static string ExistGenreName {
+            get {
+                return ResourceManager.GetString("ExistGenreName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Такая связь не может существовать.
+        /// </summary>
+        public static string ExistGenreRelation {
+            get {
+                return ResourceManager.GetString("ExistGenreRelation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Игра с таким ключом уже существует, пожалуйста введите другое имя.
+        /// </summary>
+        public static string ExistKey {
+            get {
+                return ResourceManager.GetString("ExistKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Платформа с таким именем уже существует, пожалуйста введите другое имя.
+        /// </summary>
+        public static string ExistPlatformTypeName {
+            get {
+                return ResourceManager.GetString("ExistPlatformTypeName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Издатель с таким именем уже существует, введите другое имя.
+        /// </summary>
+        public static string ExistPublisherName {
+            get {
+                return ResourceManager.GetString("ExistPublisherName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Фильтровать.
         /// </summary>
         public static string Filter {
             get {
                 return ResourceManager.GetString("Filter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Груз.
+        /// </summary>
+        public static string Freight {
+            get {
+                return ResourceManager.GetString("Freight", resourceCulture);
             }
         }
         
@@ -273,6 +455,15 @@ namespace GameStore.Web.App_LocalResources {
         public static string Key {
             get {
                 return ResourceManager.GetString("Key", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ключ не может быть длиннее 200 символов и менее 3 символов и может содержать только A-Za-z0-9.
+        /// </summary>
+        public static string KeyRegexExpression {
+            get {
+                return ResourceManager.GetString("KeyRegexExpression", resourceCulture);
             }
         }
         
@@ -322,11 +513,65 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Имя на английском языке.
+        /// </summary>
+        public static string NameEn {
+            get {
+                return ResourceManager.GetString("NameEn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Имя не может быть длиннее 200 символов и менее 3 символов..
+        /// </summary>
+        public static string NameExpression3_200 {
+            get {
+                return ResourceManager.GetString("NameExpression3_200", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Имя не может быть длиннее 40 символов и менее 3 символов..
+        /// </summary>
+        public static string NameExpression3_40 {
+            get {
+                return ResourceManager.GetString("NameExpression3_40", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Имя на русском языке.
+        /// </summary>
+        public static string NameRu {
+            get {
+                return ResourceManager.GetString("NameRu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Не хватает игр на складе.
+        /// </summary>
+        public static string NotEnoughtGame {
+            get {
+                return ResourceManager.GetString("NotEnoughtGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Год.
         /// </summary>
         public static string oneYear {
             get {
                 return ResourceManager.GetString("oneYear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Id заказа.
+        /// </summary>
+        public static string OrderId {
+            get {
+                return ResourceManager.GetString("OrderId", resourceCulture);
             }
         }
         
@@ -354,6 +599,15 @@ namespace GameStore.Web.App_LocalResources {
         public static string ParentGenreName {
             get {
                 return ResourceManager.GetString("ParentGenreName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Оплатить.
+        /// </summary>
+        public static string Pay {
+            get {
+                return ResourceManager.GetString("Pay", resourceCulture);
             }
         }
         
@@ -439,11 +693,74 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Адрес Доставки.
+        /// </summary>
+        public static string ShipAddress {
+            get {
+                return ResourceManager.GetString("ShipAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Город доставки.
+        /// </summary>
+        public static string ShipCity {
+            get {
+                return ResourceManager.GetString("ShipCity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Страна доставки.
+        /// </summary>
+        public static string ShipCountry {
+            get {
+                return ResourceManager.GetString("ShipCountry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Название поставщика.
+        /// </summary>
+        public static string ShipName {
+            get {
+                return ResourceManager.GetString("ShipName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Поставщик.
         /// </summary>
         public static string Shipper {
             get {
                 return ResourceManager.GetString("Shipper", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Почтовый Индекс.
+        /// </summary>
+        public static string ShipPostalCode {
+            get {
+                return ResourceManager.GetString("ShipPostalCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Регион.
+        /// </summary>
+        public static string ShipRegion {
+            get {
+                return ResourceManager.GetString("ShipRegion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Доставить через.
+        /// </summary>
+        public static string ShipVia {
+            get {
+                return ResourceManager.GetString("ShipVia", resourceCulture);
             }
         }
         

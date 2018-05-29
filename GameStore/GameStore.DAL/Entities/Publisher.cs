@@ -11,7 +11,9 @@ namespace GameStore.DAL.Entities
         [MaxLength(40)]
         public string Name { get; set; }
 
-        public string Description { get; set; }
+        public string DescriptionEn { get; set; }
+
+        public string DescriptionRu { get; set; }
 
         public string HomePage { get; set; }
 

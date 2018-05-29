@@ -38,7 +38,7 @@ namespace GameStore.BLL.Service
             return _mapper.Map<IEnumerable<PlatformTypeDTO>>(platgormTypes);
         }
 
-        public void AddNew(PlatformTypeDTO platformTypeDto)
+        public void AddNew(ExtendPlatformTypeDTO platformTypeDto)
         {
             platformTypeDto.Id = Guid.NewGuid();
             _unitOfWork.PlatformTypes.Create(_mapper.Map<PlatformType>(platformTypeDto));
@@ -47,16 +47,16 @@ namespace GameStore.BLL.Service
             _log.Info($"{nameof(PublisherService)} - add new platformType {platformTypeDto.Id}");
         }
 
-        public void Update(PlatformTypeDTO platformTypeDto)
+        public void Update(ExtendPlatformTypeDTO platformTypeDTO)
         {
-            if (GetPlatformTypeById(platformTypeDto.Id) != null)
+            if (GetPlatformTypeById(platformTypeDTO.Id) != null)
             {
-                var platformType = _mapper.Map<PlatformType>(platformTypeDto);
+                var platformType = _mapper.Map<PlatformType>(platformTypeDTO);
 
                 _unitOfWork.PlatformTypes.Update(platformType);
                 _unitOfWork.Save();
 
-                _log.Info($"{nameof(PlatformTypeService)} - update platformType {platformTypeDto.Id}");
+                _log.Info($"{nameof(PlatformTypeService)} - update platformType {platformTypeDTO.Id}");
             }
         }
 
@@ -71,21 +71,32 @@ namespace GameStore.BLL.Service
             }
         }
 
-        public PlatformTypeDTO GetByName(string name)
+        public ExtendPlatformTypeDTO GetByName(string name)
         {
-            var platformType = _unitOfWork.PlatformTypes.Get(p => p.Name == name).FirstOrDefault();
+            var platformType = _unitOfWork.PlatformTypes.Get(p => p.NameEn == name || p.NameRu == name).FirstOrDefault();
 
             if (platformType == null)
             {
                 throw new EntityNotFound($"{nameof(PlatformTypeService)} - platformType with such name {name} did not exist");
             }
 
-            return _mapper.Map<PlatformTypeDTO>(platformType);
+            return _mapper.Map<ExtendPlatformTypeDTO>(platformType);
         }
 
-        public bool IsUniqueName(PlatformTypeDTO platformTypeDTO)
+        public bool IsUniqueEnName(ExtendPlatformTypeDTO platformTypeDTO)
         {
-            var platformType = _unitOfWork.PlatformTypes.Get(x => x.Name == platformTypeDTO.Name).FirstOrDefault();
+            var platformType = _unitOfWork.PlatformTypes.Get(x => x.NameEn == platformTypeDTO.NameEn).FirstOrDefault();
+
+            if (platformType == null || platformTypeDTO.Id == platformType.Id)
+                return true;
+
+            return false;
+        }
+
+        public bool IsUniqueRuName(ExtendPlatformTypeDTO platformTypeDTO)
+        {
+            var platformType = _unitOfWork.PlatformTypes.Get(x => x.NameRu == platformTypeDTO.NameRu)
+                .FirstOrDefault();
 
             if (platformType == null || platformTypeDTO.Id == platformType.Id)
                 return true;

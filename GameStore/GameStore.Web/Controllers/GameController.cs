@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
+using GameStore.Web.App_LocalResources;
 using GameStore.Web.ViewModels.Games;
 
 namespace GameStore.Web.Controllers
@@ -47,21 +48,21 @@ namespace GameStore.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var gameDTO = _mapper.Map<GameDTO>(game);
+                var gameDTO = _mapper.Map<ExtendGameDTO>(game);
 
                 if (game.SelectedGenresName == null)
                 {
-                    ModelState.AddModelError("Genres", "Please choose one or more genres");
+                    ModelState.AddModelError("Genres", GlobalRes.ChooseGenres);
                 }
 
                 if (game.SelectedPlatformTypesName == null)
                 {
-                    ModelState.AddModelError("SelectedPlatformTypesName", "Please choose one or more platform types");
+                    ModelState.AddModelError("SelectedPlatformTypesName", GlobalRes.ChoosePlatformTypes);
                 }
 
                 if (!_gameService.IsUniqueKey(gameDTO))
                 {
-                    ModelState.AddModelError("Key", "Game with such key already exist, please enter another name");
+                    ModelState.AddModelError("Key", GlobalRes.ExistKey);
                 }
 
                 if (ModelState.IsValid)
@@ -92,21 +93,21 @@ namespace GameStore.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var gameDTO = _mapper.Map<GameDTO>(game);
+                var gameDTO = _mapper.Map<ExtendGameDTO>(game);
 
                 if (game.SelectedGenresName == null)
                 {
-                    ModelState.AddModelError("Genres", "Please choose one or more genres");
+                    ModelState.AddModelError("Genres", GlobalRes.ChooseGenres);
                 }
 
                 if (game.SelectedPlatformTypesName == null)
                 {
-                    ModelState.AddModelError("PlatformTypes", "Please choose one or more platform types");
+                    ModelState.AddModelError("PlatformTypes", GlobalRes.ChoosePlatformTypes);
                 }
 
                 if (!_gameService.IsUniqueKey(gameDTO))
                 {
-                    ModelState.AddModelError("Key", "Game with such key already exist, please enter another name");
+                    ModelState.AddModelError("Key", GlobalRes.ExistKey);
                 }
 
                 if (ModelState.IsValid)
@@ -153,7 +154,7 @@ namespace GameStore.Web.Controllers
             filterViewModel.PagingInfo = pagingInfo;
 
             filterViewModel = GetFilterViewModel(filterViewModel);
-            var gameViewModel = _mapper.Map<IEnumerable<GameViewModel>>(gamesByFilter);
+            var gameViewModel = _mapper.Map<IEnumerable<FilterGameViewModel>>(gamesByFilter);
 
             if (gameViewModel.Any())
             {
@@ -161,7 +162,7 @@ namespace GameStore.Web.Controllers
             }
             else
             {
-                filterViewModel.Games = new List<GameViewModel>() { new GameViewModel() };
+                filterViewModel.Games = new List<FilterGameViewModel>() { new FilterGameViewModel() };
             }
 
             if (filterViewModel.PagingInfo.TotalItems != 0)
@@ -221,9 +222,9 @@ namespace GameStore.Web.Controllers
 
         private GameViewModel CreateCheckBoxForGameViewModel(GameViewModel gameViewModel)
         {
-            var genrelist = _mapper.Map<IEnumerable<GenreViewModel>>(_genreService.GetAll());
-            var platformlist = _mapper.Map<IEnumerable<PlatformTypeViewModel>>(_platformTypeService.GetAll());
-            var publishers = _mapper.Map<IEnumerable<PublisherViewModel>>(_publisherService.GetAll());
+            var genrelist = _mapper.Map<IEnumerable<DelailsGenreViewModel>>(_genreService.GetAll());
+            var platformlist = _mapper.Map<IEnumerable<DetailsPlatformTypeViewModel>>(_platformTypeService.GetAll());
+            var publishers = _mapper.Map<IEnumerable<DetailsPublisherViewModel>>(_publisherService.GetAll());
 
             gameViewModel.PublisherList = new SelectList(publishers, "Id", "Name");
 
@@ -276,10 +277,10 @@ namespace GameStore.Web.Controllers
         private FilterViewModel GetInitFilterViewModel()
         {
             var model = new FilterViewModel();
-
-            var genrelist = _mapper.Map<IEnumerable<GenreViewModel>>(_genreService.GetAll());
-            var platformlist = _mapper.Map<IEnumerable<PlatformTypeViewModel>>(_platformTypeService.GetAll());
-            var publisherlist = _mapper.Map<IEnumerable<PublisherViewModel>>(_publisherService.GetAll());
+            var genresDto = _genreService.GetAll();
+            var genrelist = _mapper.Map<IEnumerable<DelailsGenreViewModel>>(genresDto);
+            var platformlist = _mapper.Map<IEnumerable<DetailsPlatformTypeViewModel>>(_platformTypeService.GetAll());
+            var publisherlist = _mapper.Map<IEnumerable<DetailsPublisherViewModel>>(_publisherService.GetAll());
 
             var listGenreBoxs = new List<CheckBox>();
             genrelist.ToList().ForEach(genre => listGenreBoxs.Add(new CheckBox() { Text = genre.Name }));

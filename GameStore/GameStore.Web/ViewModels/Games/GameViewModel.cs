@@ -12,19 +12,24 @@ namespace GameStore.Web.ViewModels.Games
         public Guid Id { get; set; }
 
         [Required]
-        [RegularExpression(@"^[A-Za-z0-9_-]{3,100}", ErrorMessage = "Key cannot be longer than 200 characters and less than 3 characters and could contains only A-Za-z0-9")]
+        [RegularExpression(@"^[A-Za-z0-9_-]{3,100}", ErrorMessageResourceType = typeof(GlobalRes), ErrorMessageResourceName = "KeyRegexExpression")]
         [Display(Name = "Key", ResourceType = typeof(GlobalRes))]
         [MaxLength(450)]
         public string Key { get; set; }
 
-        [Display(Name = "Name", ResourceType = typeof(GlobalRes))]
+        [Display(Name = "NameEn", ResourceType = typeof(GlobalRes))]
         [Required]
-        [StringLength(200, MinimumLength = 3, ErrorMessage = "Name cannot be longer than 200 characters and less than 3 characters")]
-        public string Name { get; set; }
+        [StringLength(200, MinimumLength = 3, ErrorMessageResourceType = typeof(GlobalRes), ErrorMessageResourceName = "NameExpression3_200")]
+        public string NameEn { get; set; }
 
-        [Display(Name = "Description", ResourceType = typeof(GlobalRes))]
-        [Required]
-        public string Description { get; set; }
+        [Display(Name = "NameRu", ResourceType = typeof(GlobalRes))]
+        public string NameRu { get; set; }
+
+        [Display(Name = "DescriptionEn", ResourceType = typeof(GlobalRes))]
+        public string DescriptionEn { get; set; }
+
+        [Display(Name = "DescriptionRu", ResourceType = typeof(GlobalRes))]
+        public string DescriptionRu { get; set; }
 
         [Required]
         [Display(Name = "Price", ResourceType = typeof(GlobalRes))]
@@ -45,7 +50,7 @@ namespace GameStore.Web.ViewModels.Games
 
         public Guid? PublisherId { get; set; }
 
-        public PublisherViewModel Publisher { get; set; }
+        public DetailsPublisherViewModel Publisher { get; set; }
 
         public SelectList PublisherList { get; set; }
 
@@ -53,14 +58,14 @@ namespace GameStore.Web.ViewModels.Games
         public ICollection<CommentViewModel> Comments { get; set; }
 
         [Display(Name = "Genres", ResourceType = typeof(GlobalRes))]
-        public ICollection<GenreViewModel> Genres { get; set; }
+        public ICollection<DelailsGenreViewModel> Genres { get; set; }
 
         public ICollection<Guid> GenresId { get; set; }
 
         public SelectList GenreList { get; set; }
 
         [Display(Name = "PlatformTypes", ResourceType = typeof(GlobalRes))]
-        public ICollection<PlatformTypeViewModel> PlatformTypes { get; set; }
+        public ICollection<DetailsPlatformTypeViewModel> PlatformTypes { get; set; }
 
         public ICollection<Guid> PlatformTypesId { get; set; }
 
@@ -77,6 +82,5 @@ namespace GameStore.Web.ViewModels.Games
         public IEnumerable<CheckBox> SelectedPlatformTypes { get; set; }
 
         public ICollection<string> SelectedPlatformTypesName { get; set; }
-
     }
 }

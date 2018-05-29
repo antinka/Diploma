@@ -273,4 +273,109 @@
   <data name="MakeOrder" xml:space="preserve">
     <value>Make Order</value>
   </data>
+  <data name="ChooseGenres" xml:space="preserve">
+    <value>Please choose one or more genres</value>
+  </data>
+  <data name="ChoosePlatformTypes" xml:space="preserve">
+    <value>Please choose one or more platform types</value>
+  </data>
+  <data name="DescriptionEn" xml:space="preserve">
+    <value>Description in english</value>
+  </data>
+  <data name="DescriptionRu" xml:space="preserve">
+    <value>Description in russian</value>
+  </data>
+  <data name="ExistGenreName" xml:space="preserve">
+    <value>Genre with such name already exist, please enter another name</value>
+  </data>
+  <data name="ExistGenreRelation" xml:space="preserve">
+    <value>Such relation could not exist</value>
+  </data>
+  <data name="ExistKey" xml:space="preserve">
+    <value>Game with such key already exist, please enter another name</value>
+  </data>
+  <data name="ExistPlatformTypeName" xml:space="preserve">
+    <value>Platform type with such name already exist, please enter another name</value>
+  </data>
+  <data name="ExistPublisherName" xml:space="preserve">
+    <value>Publisher with such name already exist, please enter another name</value>
+  </data>
+  <data name="KeyRegexExpression" xml:space="preserve">
+    <value>Key cannot be longer than 200 characters and less than 3 characters and could contains only A-Za-z0-9</value>
+  </data>
+  <data name="NameEn" xml:space="preserve">
+    <value>Name in english</value>
+  </data>
+  <data name="NameExpression3_200" xml:space="preserve">
+    <value>Name cannot be longer than 200 characters and less than 3 characters</value>
+  </data>
+  <data name="NameExpression3_40" xml:space="preserve">
+    <value>Name cannot be longer than 40 characters and less than 3 characters</value>
+  </data>
+  <data name="NameRu" xml:space="preserve">
+    <value>Name in russian</value>
+  </data>
+  <data name="DescriptionBank" xml:space="preserve">
+    <value>Description Bank</value>
+  </data>
+  <data name="DescriptionIBox" xml:space="preserve">
+    <value>Description IBox</value>
+  </data>
+  <data name="DescriptionVisa" xml:space="preserve">
+    <value>Description Visa</value>
+  </data>
+  <data name="NotEnoughtGame" xml:space="preserve">
+    <value>Not Enough Game in stock</value>
+  </data>
+  <data name="Pay" xml:space="preserve">
+    <value>Pay</value>
+  </data>
+  <data name="CardHoldersName" xml:space="preserve">
+    <value>Card holders name</value>
+  </data>
+  <data name="CardHoldersNameExpression" xml:space="preserve">
+    <value>Card holder's name could consist only from characters,  not less than 3</value>
+  </data>
+  <data name="CardNumber" xml:space="preserve">
+    <value>Card number</value>
+  </data>
+  <data name="CardNumberExpression" xml:space="preserve">
+    <value>Card number could consist only from numbers, not less than 3</value>
+  </data>
+  <data name="CardVerificationExpression" xml:space="preserve">
+    <value>Card verification value could consist only from numbers, not less than 4, no more than 6</value>
+  </data>
+  <data name="CardVerificationValue" xml:space="preserve">
+    <value>Card verification value</value>
+  </data>
+  <data name="DateOfExpity" xml:space="preserve">
+    <value>Date of expity</value>
+  </data>
+  <data name="OrderId" xml:space="preserve">
+    <value>Order Id</value>
+  </data>
+  <data name="Freight" xml:space="preserve">
+    <value>Freight</value>
+  </data>
+  <data name="ShipAddress" xml:space="preserve">
+    <value>Ship Address</value>
+  </data>
+  <data name="ShipCity" xml:space="preserve">
+    <value>Ship City</value>
+  </data>
+  <data name="ShipCountry" xml:space="preserve">
+    <value>Ship Country</value>
+  </data>
+  <data name="ShipName" xml:space="preserve">
+    <value>Ship Name</value>
+  </data>
+  <data name="ShipPostalCode" xml:space="preserve">
+    <value>Ship Postal Code</value>
+  </data>
+  <data name="ShipRegion" xml:space="preserve">
+    <value>Ship Region</value>
+  </data>
+  <data name="ShipVia" xml:space="preserve">
+    <value>Ship Via</value>
+  </data>
 </root>

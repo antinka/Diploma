@@ -59,7 +59,7 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void New_ValidGame_Verifiable()
         {
-            var fakeGameViewModel = new GameViewModel() { Name = "test", Key = "test", SelectedGenresName = new List<string>(), SelectedPlatformTypesName = new List<string>() };
+            var fakeGameViewModel = new FilterGameViewModel() { Name = "test", Key = "test", SelectedGenresName = new List<string>(), SelectedPlatformTypesName = new List<string>() };
             var fakeGameDTO = _mapper.Map<GameDTO>(fakeGameViewModel);
 
             _gameService.Setup(service => service.IsUniqueKey(It.IsAny<GameDTO>())).Returns(true);
@@ -73,7 +73,7 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void New_InvalidGame_ReturnViewResult()
         {
-            var fakeGameViewModel = new GameViewModel() { Name = "test" };
+            var fakeGameViewModel = new FilterGameViewModel() { Name = "test" };
             _sut.ModelState.Add("testError", new ModelState());
             _sut.ModelState.AddModelError("testError", "test");
 
@@ -85,7 +85,7 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void UpdateGame_ValidGame_Verifiable()
         {
-            var fakeGameViewModel = new GameViewModel() { Name = "test", Key = "test", SelectedGenresName = new List<string>(), SelectedPlatformTypesName = new List<string>() };
+            var fakeGameViewModel = new FilterGameViewModel() { Name = "test", Key = "test", SelectedGenresName = new List<string>(), SelectedPlatformTypesName = new List<string>() };
             var fakeGameDTO = _mapper.Map<GameDTO>(fakeGameViewModel);
 
             _gameService.Setup(service => service.IsUniqueKey(It.IsAny<GameDTO>())).Returns(true);
@@ -99,7 +99,7 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void UpdateGame_InvalidGame_ReturnViewResult()
         {
-            var fakeGameViewModel = new GameViewModel();
+            var fakeGameViewModel = new FilterGameViewModel();
             _sut.ModelState.Add("testError", new ModelState());
             _sut.ModelState.AddModelError("testError", "test");
 
@@ -174,7 +174,7 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void New_GameWithoutUnickKey_Verifiable()
         {
-            var fakeGameViewModel = new GameViewModel() { Name = "test", Key = "1" };
+            var fakeGameViewModel = new FilterGameViewModel() { Name = "test", Key = "1" };
             _gameService.Setup(service => service.IsUniqueKey(It.IsAny<GameDTO>())).Returns(false).Verifiable();
 
             _sut.New(fakeGameViewModel);
@@ -185,7 +185,7 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void Update_GameWithoutUnickKey_Verifiable()
         {
-            var fakeGameViewModel = new GameViewModel() { Name = "test", Key = "1" };
+            var fakeGameViewModel = new FilterGameViewModel() { Name = "test", Key = "1" };
             _gameService.Setup(service => service.IsUniqueKey(It.IsAny<GameDTO>())).Returns(false).Verifiable();
 
             _sut.Update(fakeGameViewModel);
