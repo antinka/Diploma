@@ -20,6 +20,10 @@ namespace GameStore.DAL.Interfaces
 
         DbSet<Publisher> Publishers { get; set; }
 
+        DbSet<User> Users { get; set; }
+
+        DbSet<Role> Roles { get; set; }
+
         int SaveChanges();
 
         IDbSet<TEntity> Set<TEntity>() where TEntity : class;

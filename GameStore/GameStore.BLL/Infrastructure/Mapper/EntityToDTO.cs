@@ -12,6 +12,10 @@ namespace GameStore.BLL.Infrastructure.Mapper
         {
             string current;
 
+            CreateMap<Role, RoleDTO>();
+
+            CreateMap<User, UserDTO>();
+
             CreateMap<Comment, CommentDTO>();
 
             CreateMap<Order, OrderDTO>();

@@ -94,6 +94,8 @@
     <Compile Include="Entities\OrderDetail.cs" />
     <Compile Include="Entities\PlatformType.cs" />
     <Compile Include="Entities\Publisher.cs" />
+    <Compile Include="Entities\Role.cs" />
+    <Compile Include="Entities\User.cs" />
     <Compile Include="Enums\ActionInRepository.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Interfaces\IBaseEntity.cs" />
@@ -115,6 +117,10 @@
     <Compile Include="Migrations\201805251241226_updForLocalization.cs" />
     <Compile Include="Migrations\201805251241226_updForLocalization.Designer.cs">
       <DependentUpon>201805251241226_updForLocalization.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805301107032_addUserAndRole.cs" />
+    <Compile Include="Migrations\201805301107032_addUserAndRole.Designer.cs">
+      <DependentUpon>201805301107032_addUserAndRole.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mongo\MongoContext.cs" />
@@ -147,6 +153,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805251241226_updForLocalization.resx">
       <DependentUpon>201805251241226_updForLocalization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805301107032_addUserAndRole.resx">
+      <DependentUpon>201805301107032_addUserAndRole.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

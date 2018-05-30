@@ -9,6 +9,10 @@ namespace GameStore.BLL.Infrastructure.Mapper
     {
         public DtoToEntity()
         {
+            CreateMap<RoleDTO, Role>();
+
+            CreateMap<UserDTO, User>();
+
             CreateMap<CommentDTO, Comment>();
 
             CreateMap<OrderDTO, Order>();

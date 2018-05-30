@@ -21,6 +21,9 @@ namespace GameStore.DAL.EF
         private readonly Lazy<GenericRepository<Publisher>> _lazyPublisherRepository;
         private readonly Lazy<ReadOnlyGenericRepository<Shipper>> _lazyShipperRepository;
 
+        private readonly Lazy<GenericRepository<User>> _lazyUserRepository;
+        private readonly Lazy<GenericRepository<Role>> _lazyRoleRepository;
+
         public UnitOfWork(IDbContext context, IMapper mapper)
         {
             _context = context;
@@ -34,6 +37,8 @@ namespace GameStore.DAL.EF
             _lazyOrderRepository = new Lazy<OrderDecoratorRepository>(() => new OrderDecoratorRepository(_context, mongoDb, mapper));
             _lazyPublisherRepository = new Lazy<GenericRepository<Publisher>>(() => new GenericRepository<Publisher>(_context, mongoDb));
             _lazyShipperRepository = new Lazy<ReadOnlyGenericRepository<Shipper>>(() => new ReadOnlyGenericRepository<Shipper>(mongoDb));
+            _lazyUserRepository = new Lazy<GenericRepository<User>>(() => new GenericRepository<User>(_context, mongoDb));
+            _lazyRoleRepository = new Lazy<GenericRepository<Role>>(() => new GenericRepository<Role>(_context, mongoDb));
         }
 
         public IGenericRepository<Game> Games => _lazyGameRepository.Value;
@@ -51,6 +56,10 @@ namespace GameStore.DAL.EF
         public IGenericRepository<Publisher> Publishers => _lazyPublisherRepository.Value;
 
         public IGenericRepository<Shipper> Shippers => _lazyShipperRepository.Value;
+
+        public IGenericRepository<User> Users => _lazyUserRepository.Value;
+
+        public IGenericRepository<Role> Roles => _lazyRoleRepository.Value;
 
         public void Save() => _context.SaveChanges();
     }

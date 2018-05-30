@@ -102,7 +102,9 @@
     <Compile Include="DTO\OrderDetailDTO.cs" />
     <Compile Include="DTO\OrderDTO.cs" />
     <Compile Include="DTO\PublisherDTO.cs" />
+    <Compile Include="DTO\RoleDTO.cs" />
     <Compile Include="DTO\ShipperDTO.cs" />
+    <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="Enums\BanPeriod.cs" />
     <Compile Include="Enums\PageSize.cs" />
     <Compile Include="Enums\SortDate.cs" />
@@ -135,6 +137,8 @@
     <Compile Include="Interfaces\IOrdersService.cs" />
     <Compile Include="Interfaces\IPlatformTypeService.cs" />
     <Compile Include="Interfaces\IPublisherService.cs" />
+    <Compile Include="Interfaces\IRoleService.cs" />
+    <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\EnumRes.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -152,6 +156,8 @@
     <Compile Include="Service\OrdersService.cs" />
     <Compile Include="Service\PlatformTypeService.cs" />
     <Compile Include="Service\PublisherService.cs" />
+    <Compile Include="Service\RoleService.cs" />
+    <Compile Include="Service\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

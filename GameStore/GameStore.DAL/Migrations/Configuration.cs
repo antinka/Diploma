@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using GameStore.DAL.Entities;
 
 namespace GameStore.DAL.Migrations
@@ -16,6 +17,67 @@ namespace GameStore.DAL.Migrations
 
         protected override void Seed(GameStore.DAL.EF.GameStoreDBContext context)
         {
+            var users = new List<User>()
+            {
+            new User
+            {
+                Id = Guid.NewGuid(),
+                Name = "admin",
+                Password = "123123".GetHashCode().ToString(),
+                Roles = new List<Role>
+                {
+                    new Role()
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Administrator",
+                    }
+                }
+            },
+            new User
+            {
+                Id = Guid.NewGuid(),
+                Name = "moderator",
+                Password = "123123".GetHashCode().ToString(),
+                Roles = new List<Role>
+                {
+                    new Role()
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Moderator",
+                    },
+                }
+            },
+             new User
+            {
+                Id = Guid.NewGuid(),
+                Name = "manager",
+                Password = "123123".GetHashCode().ToString(),
+                Roles = new List<Role>
+                {
+                    new Role()
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Manager",
+                    }
+                }
+            },
+            new User
+            {
+                Id = Guid.NewGuid(),
+                Name = "user",
+                Password = "123123".GetHashCode().ToString(),
+                Roles = new List<Role>
+                {
+                    new Role()
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "User"
+                    },
+                }
+            }};
+
+            context.Users.AddOrUpdate(users.ToArray());
+
             var strategy = new Genre
             {
                 Id = Guid.NewGuid(),

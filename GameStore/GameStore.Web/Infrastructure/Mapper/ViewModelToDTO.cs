@@ -9,6 +9,10 @@ namespace GameStore.Web.Infrastructure.Mapper
     {
         public ViewModelToDto()
         {
+            CreateMap<UserViewModel, UserDTO>();
+
+            CreateMap<RoleViewModel, RoleDTO>();
+
             CreateMap<CommentViewModel, CommentDTO>();
 
             CreateMap<PublisherViewModel, ExtendPublisherDTO>();

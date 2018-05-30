@@ -12,6 +12,10 @@ namespace GameStore.Web.Infrastructure.Mapper
         {
             string current;
 
+            CreateMap<UserDTO, UserViewModel>();
+
+            CreateMap<RoleDTO, RoleViewModel>();
+
             CreateMap<CommentDTO, CommentViewModel>();
 
             CreateMap<PublisherDTO, DetailsPublisherViewModel>();

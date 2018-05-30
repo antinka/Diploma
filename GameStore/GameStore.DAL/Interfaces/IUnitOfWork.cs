@@ -21,6 +21,10 @@ namespace GameStore.DAL.Interfaces
 
         IGenericRepository<Shipper> Shippers { get; }
 
+        IGenericRepository<User> Users { get; }
+
+        IGenericRepository<Role> Roles { get; }
+
         void Save();
     }
 }
