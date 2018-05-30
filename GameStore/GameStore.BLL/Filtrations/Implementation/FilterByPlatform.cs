@@ -18,7 +18,7 @@ namespace GameStore.BLL.Filtration.Implementation
         {
             if (_selectedPlatformTypes.Count() != 0)
             {
-                return input.Where(game => Enumerable.Any(game.PlatformTypes, platform => _selectedPlatformTypes.Contains(platform.NameEn)));
+                return input.Where(game => Enumerable.Any(game.PlatformTypes, platform => _selectedPlatformTypes.Contains(platform.NameEn) || _selectedPlatformTypes.Contains(platform.NameRu)));
             }
 
             return input;

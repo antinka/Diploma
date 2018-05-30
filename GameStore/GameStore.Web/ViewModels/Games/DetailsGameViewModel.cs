@@ -29,6 +29,7 @@ namespace GameStore.Web.ViewModels.Games
 
         public Guid? PublisherId { get; set; }
 
+        [Display(Name = "Publisher", ResourceType = typeof(GlobalRes))]
         public DetailsPublisherViewModel Publisher { get; set; }
 
         [Display(Name = "Comments", ResourceType = typeof(GlobalRes))]

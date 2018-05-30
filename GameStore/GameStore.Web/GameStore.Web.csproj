@@ -166,6 +166,7 @@
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\PlatformTypeController.cs" />
     <Compile Include="Controllers\PublisherController.cs" />
+    <Compile Include="Controllers\ShipperController.cs" />
     <Compile Include="Infrastructure\AutofacConfig.cs" />
     <Compile Include="Infrastructure\Mapper\DTOToViewModel.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -255,6 +256,7 @@
     <Content Include="Views\Genre\GetAll.cshtml" />
     <Content Include="Views\Genre\New.cshtml" />
     <Content Include="Views\Genre\Update.cshtml" />
+    <Content Include="Views\Shipper\GetAll.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

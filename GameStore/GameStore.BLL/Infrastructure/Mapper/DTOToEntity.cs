@@ -18,7 +18,9 @@ namespace GameStore.BLL.Infrastructure.Mapper
             CreateMap<ExtendPublisherDTO, Publisher>();
 
             CreateMap<ExtendGameDTO, Game>();
-        
+
+            CreateMap<GameDTO, Game>();
+
             CreateMap<ExtendGenreDTO, Genre>();
 
             CreateMap<ExtendPlatformTypeDTO, PlatformType>();

@@ -18,7 +18,7 @@ namespace GameStore.BLL.Filtration.Implementation
         {
             if (_selectedGenresName.Count() != 0)
             {
-                return input.Where(game => Enumerable.Any(game.Genres, genre => _selectedGenresName.Contains(genre.NameEn)));
+                return input.Where(game => Enumerable.Any(game.Genres, genre => _selectedGenresName.Contains(genre.NameEn) || _selectedGenresName.Contains(genre.NameRu)));
             }
 
             return input;

@@ -318,16 +318,16 @@
     <value>Ключ не может быть длиннее 200 символов и менее 3 символов и может содержать только A-Za-z0-9</value>
   </data>
   <data name="NameEn" xml:space="preserve">
-    <value>Имя на английском языке</value>
+    <value>Название на английском языке</value>
   </data>
   <data name="NameExpression3_200" xml:space="preserve">
-    <value>Имя не может быть длиннее 200 символов и менее 3 символов.</value>
+    <value>Название не может быть длиннее 200 символов и менее 3 символов.</value>
   </data>
   <data name="NameExpression3_40" xml:space="preserve">
-    <value>Имя не может быть длиннее 40 символов и менее 3 символов.</value>
+    <value>Название не может быть длиннее 40 символов и менее 3 символов.</value>
   </data>
   <data name="NameRu" xml:space="preserve">
-    <value>Имя на русском языке</value>
+    <value>Название на русском языке</value>
   </data>
   <data name="NotEnoughtGame" xml:space="preserve">
     <value>Не хватает игр на складе</value>
@@ -382,5 +382,11 @@
   </data>
   <data name="ShipVia" xml:space="preserve">
     <value>Доставить через</value>
+  </data>
+  <data name="CompanyName" xml:space="preserve">
+    <value>Название компании</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Номер</value>
   </data>
 </root>

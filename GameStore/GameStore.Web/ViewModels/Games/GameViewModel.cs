@@ -50,6 +50,7 @@ namespace GameStore.Web.ViewModels.Games
 
         public Guid? PublisherId { get; set; }
 
+        [Display(Name = "Publisher", ResourceType = typeof(GlobalRes))]
         public DetailsPublisherViewModel Publisher { get; set; }
 
         public SelectList PublisherList { get; set; }

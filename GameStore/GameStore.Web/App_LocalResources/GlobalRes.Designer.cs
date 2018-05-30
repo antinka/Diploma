@@ -216,6 +216,15 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Название компании.
+        /// </summary>
+        public static string CompanyName {
+            get {
+                return ResourceManager.GetString("CompanyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Стоимость.
         /// </summary>
         public static string Cost {
@@ -513,7 +522,7 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Имя на английском языке.
+        ///   Looks up a localized string similar to Название на английском языке.
         /// </summary>
         public static string NameEn {
             get {
@@ -522,7 +531,7 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Имя не может быть длиннее 200 символов и менее 3 символов..
+        ///   Looks up a localized string similar to Название не может быть длиннее 200 символов и менее 3 символов..
         /// </summary>
         public static string NameExpression3_200 {
             get {
@@ -531,7 +540,7 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Имя не может быть длиннее 40 символов и менее 3 символов..
+        ///   Looks up a localized string similar to Название не может быть длиннее 40 символов и менее 3 символов..
         /// </summary>
         public static string NameExpression3_40 {
             get {
@@ -540,7 +549,7 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Имя на русском языке.
+        ///   Looks up a localized string similar to Название на русском языке.
         /// </summary>
         public static string NameRu {
             get {
@@ -608,6 +617,15 @@ namespace GameStore.Web.App_LocalResources {
         public static string Pay {
             get {
                 return ResourceManager.GetString("Pay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Номер.
+        /// </summary>
+        public static string Phone {
+            get {
+                return ResourceManager.GetString("Phone", resourceCulture);
             }
         }
         

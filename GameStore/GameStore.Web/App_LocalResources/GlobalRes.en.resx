@@ -378,4 +378,10 @@
   <data name="ShipVia" xml:space="preserve">
     <value>Ship Via</value>
   </data>
+  <data name="CompanyName" xml:space="preserve">
+    <value>Company name</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Phone</value>
+  </data>
 </root>
