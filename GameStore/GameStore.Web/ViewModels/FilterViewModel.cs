@@ -12,7 +12,7 @@ namespace GameStore.Web.ViewModels
 
         public PagingInfo PagingInfo { get; set; }
 
-        [Display(Name = "Filter Date")]
+        [Display(Name = "Filter by Date")]
         public FilterDate FilterDate { get; set; }
 
         [Display(Name = "Sort Type")]
