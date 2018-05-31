@@ -144,6 +144,7 @@ namespace GameStore.Tests.Service
         public void GetGameById_ExistedGameId_GameReturned()
         {
             _uow.Setup(uow => uow.Games.GetById(_fakeGameId)).Returns(_fakeGame);
+            _uow.Setup(uow => uow.Games.Update(It.IsAny<Game>()));
 
             var resultGame = _sut.GetById(_fakeGameId);
 
@@ -162,6 +163,7 @@ namespace GameStore.Tests.Service
         public void GetGameByKey_ExistedGameKey_GameReturned()
         {
             _uow.Setup(uow => uow.Games.Get(It.IsAny<Func<Game, bool>>())).Returns(_fakeGames);
+            _uow.Setup(uow => uow.Games.Update(It.IsAny<Game>()));
 
             var resultGame = _sut.GetByKey(_fakeGameKey);
 
@@ -281,12 +283,12 @@ namespace GameStore.Tests.Service
         {
             FilterDTO filterDto = new FilterDTO()
             {
-                SelectedGenresName =new List<string>()
+                SelectedGenresName = new List<string>()
                 {
                     "genre1"
                 }
             };
-            GamePipeline gamePipeline = new GamePipeline();
+            var gamePipeline = new GamePipeline();
 
             gamePipeline.Register(new GameFilterByGenre(filterDto.SelectedGenresName));
             var gamesAfteFilter = gamePipeline.Process(_fakeGamesForFilter);
@@ -301,7 +303,7 @@ namespace GameStore.Tests.Service
             {
                 SearchGameName = "game"
             };
-            GamePipeline gamePipeline = new GamePipeline();
+            var gamePipeline = new GamePipeline();
 
             gamePipeline.Register(new GameFilterByName(filterDto.SearchGameName));
             var gamesAfteFilter = gamePipeline.Process(_fakeGamesForFilter);
@@ -319,7 +321,7 @@ namespace GameStore.Tests.Service
                     "platformType1"
                 }
             };
-            GamePipeline gamePipeline = new GamePipeline();
+            var gamePipeline = new GamePipeline();
 
             gamePipeline.Register(new GameFilterByPlatform(filterDto.SelectedPlatformTypesName));
             var gamesAfteFilter = gamePipeline.Process(_fakeGamesForFilter);
@@ -332,11 +334,11 @@ namespace GameStore.Tests.Service
         {
             FilterDTO filterDto = new FilterDTO()
             {
-               MinPrice = 5
+                MinPrice = 5
             };
-            GamePipeline gamePipeline = new GamePipeline();
+            var gamePipeline = new GamePipeline();
 
-            gamePipeline.Register(new FilterByMinPrice(filterDto.MinPrice.Value));
+            gamePipeline.Register(new GameFilterByPrice(null, filterDto.MinPrice.Value));
             var gamesAfteFilter = gamePipeline.Process(_fakeGamesForFilter);
 
             Assert.Equal(_fakeGamesForFilter.Count, gamesAfteFilter.Count());
@@ -349,9 +351,9 @@ namespace GameStore.Tests.Service
             {
                 MaxPrice = 30
             };
-            GamePipeline gamePipeline = new GamePipeline();
+            var gamePipeline = new GamePipeline();
 
-            gamePipeline.Register(new FilterByMaxPrice(filterDto.MaxPrice.Value));
+            gamePipeline.Register(new GameFilterByPrice(filterDto.MaxPrice.Value, null));
             var gamesAfteFilter = gamePipeline.Process(_fakeGamesForFilter);
 
             Assert.Equal(_fakeGamesForFilter.Count, gamesAfteFilter.Count());
@@ -362,12 +364,12 @@ namespace GameStore.Tests.Service
         {
             FilterDTO filterDto = new FilterDTO()
             {
-               SelectedPublishersName = new List<string>()
+                SelectedPublishersName = new List<string>()
                {
                    "Publisher"
                }
             };
-            GamePipeline gamePipeline = new GamePipeline();
+            var gamePipeline = new GamePipeline();
 
             gamePipeline.Register(new GameFilterByPublisher(filterDto.SelectedPublishersName));
             var gamesAfteFilter = gamePipeline.Process(_fakeGamesForFilter);
@@ -382,7 +384,7 @@ namespace GameStore.Tests.Service
             {
                 SortType = SortType.PriceDesc
             };
-            GamePipeline gamePipeline = new GamePipeline();
+            var gamePipeline = new GamePipeline();
 
             gamePipeline.Register(new GameSortFilter(filterDto.SortType));
             var gamesAfteFilter = gamePipeline.Process(_fakeGamesForFilter);
@@ -397,7 +399,7 @@ namespace GameStore.Tests.Service
             {
                 SortType = SortType.PriceAsc
             };
-            GamePipeline gamePipeline = new GamePipeline();
+            var gamePipeline = new GamePipeline();
 
             gamePipeline.Register(new GameSortFilter(filterDto.SortType));
             var gamesAfteFilter = gamePipeline.Process(_fakeGamesForFilter);
@@ -412,87 +414,12 @@ namespace GameStore.Tests.Service
             {
                 SortType = SortType.MostPopular
             };
-            GamePipeline gamePipeline = new GamePipeline();
+            var gamePipeline = new GamePipeline();
 
             gamePipeline.Register(new GameSortFilter(filterDto.SortType));
             var gamesAfteFilter = gamePipeline.Process(_fakeGamesForFilter);
 
             Assert.True(gamesAfteFilter.ElementAt(0).Views > gamesAfteFilter.ElementAt(1).Views);
-        }
-
-        [Fact]
-        public void GetGamesByFilter_FilterByDateMonth_GetedGames()
-        {
-            FilterDTO filterDto = new FilterDTO()
-            {
-                FilterDate = FilterDate.month
-            };
-            GamePipeline gamePipeline = new GamePipeline();
-
-            gamePipeline.Register(new GameFilterByDate(filterDto.FilterDate));
-            var gamesAfteFilter = gamePipeline.Process(_fakeGamesForFilter);
-
-            Assert.True(gamesAfteFilter.ElementAt(0).PublishDate >= DateTime.Today.AddMonths(-1));
-        }
-
-        [Fact]
-        public void GetGamesByFilter_FilterByDateWeek_GetedGames()
-        {
-            FilterDTO filterDto = new FilterDTO()
-            {
-                FilterDate = FilterDate.week
-            };
-            GamePipeline gamePipeline = new GamePipeline();
-
-            gamePipeline.Register(new GameFilterByDate(filterDto.FilterDate));
-            var gamesAfteFilter = gamePipeline.Process(_fakeGamesForFilter);
-
-            Assert.True(gamesAfteFilter.ElementAt(0).PublishDate >= DateTime.Today.AddDays(-7));
-        }
-
-        [Fact]
-        public void GetGamesByFilter_FilterByDateOneYear_GetedGames()
-        {
-            FilterDTO filterDto = new FilterDTO()
-            {
-                FilterDate = FilterDate.oneYear
-            };
-            GamePipeline gamePipeline = new GamePipeline();
-
-            gamePipeline.Register(new GameFilterByDate(filterDto.FilterDate));
-            var gamesAfteFilter = gamePipeline.Process(_fakeGamesForFilter);
-
-            Assert.True(gamesAfteFilter.ElementAt(0).PublishDate > gamesAfteFilter.ElementAt(1).PublishDate);
-        }
-
-        [Fact]
-        public void GetGamesByFilter_FilterByDateTwoYear_GetedGames()
-        {
-            FilterDTO filterDto = new FilterDTO()
-            {
-                FilterDate = FilterDate.twoYear
-            };
-            GamePipeline gamePipeline = new GamePipeline();
-
-            gamePipeline.Register(new GameFilterByDate(filterDto.FilterDate));
-            var gamesAfteFilter = gamePipeline.Process(_fakeGamesForFilter);
-
-            Assert.True(gamesAfteFilter.ElementAt(0).PublishDate > gamesAfteFilter.ElementAt(1).PublishDate);
-        }
-
-        [Fact]
-        public void GetGamesByFilter_FilterByDateThreeYear_GetedGames()
-        {
-            FilterDTO filterDto = new FilterDTO()
-            {
-                FilterDate = FilterDate.threeYear
-            };
-            GamePipeline gamePipeline = new GamePipeline();
-
-            gamePipeline.Register(new GameFilterByDate(filterDto.FilterDate));
-            var gamesAfteFilter = gamePipeline.Process(_fakeGamesForFilter);
-
-            Assert.True(gamesAfteFilter.ElementAt(0).PublishDate > gamesAfteFilter.ElementAt(1).PublishDate);
         }
 
         [Fact]
@@ -517,7 +444,7 @@ namespace GameStore.Tests.Service
             gamePipeline.Register(new GameFilterByPage(2, PageSize.Ten));
             var gamesAfteFilter = gamePipeline.Process(fakeGamesForFilter);
 
-            Assert.True(gamesAfteFilter.ElementAt(0).Name== "Игра11");
+            Assert.True(gamesAfteFilter.ElementAt(0).Name == "Игра11");
         }
 
         [Fact]
@@ -572,7 +499,7 @@ namespace GameStore.Tests.Service
         {
             FilterDTO filterDto = new FilterDTO()
             {
-                FilterDate = FilterDate.threeYear
+                SortType = SortType.MostPopular
             };
 
             _uow.Setup(uow => uow.Games.GetAll()).Returns(_fakeGames);
@@ -580,17 +507,6 @@ namespace GameStore.Tests.Service
             var res = _sut.GetGamesByFilter(filterDto);
 
             Assert.True(res.Any());
-        }
-
-        [Fact]
-        public void IncreaseGameView_GameId_Verifiable()
-        {
-            _uow.Setup(uow => uow.Games.GetById(_fakeGameId)).Returns(_fakeGame);
-            _uow.Setup(uow => uow.Games.Update(_fakeGame)).Verifiable();
-
-            _sut.IncreaseGameView(_fakeGameId);
-
-            _uow.Verify(uow => uow.Games.Update(It.IsAny<Game>()), Times.Once);
         }
     }
 }

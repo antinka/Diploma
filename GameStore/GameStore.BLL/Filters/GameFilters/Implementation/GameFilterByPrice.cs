@@ -5,31 +5,34 @@ using GameStore.DAL.Entities;
 
 namespace GameStore.BLL.Filters.GameFilters.Implementation
 {
-    public class FilterByMaxPrice : IPipeLine<IEnumerable<Game>>
+    public class GameFilterByPrice : IPipeLine<IEnumerable<Game>>
     {
-        private readonly decimal _maxPrice;
+        private readonly decimal? _maxPrice;
+        private readonly decimal? _minPrice;
 
-        public FilterByMaxPrice(decimal maxPrice)
+        public GameFilterByPrice(decimal? maxPrice, decimal? minPrice)
         {
             _maxPrice = maxPrice;
-        }
-        public IEnumerable<Game> Execute(IEnumerable<Game> input)
-        {
-            return input.Where(game => game.Price <= _maxPrice);
-        }
-    }
-
-    public class FilterByMinPrice : IPipeLine<IEnumerable<Game>>
-    {
-        private readonly decimal _minPrice;
-
-        public FilterByMinPrice(decimal minPrice)
-        {
             _minPrice = minPrice;
         }
+
         public IEnumerable<Game> Execute(IEnumerable<Game> input)
         {
-            return input.Where(game => game.Price >= _minPrice);
+            if (_minPrice != null && _maxPrice != null)
+            {
+                return input.Where(x => x.Price >= _minPrice && x.Price <= _maxPrice);
+            }
+            else if (_minPrice != null)
+            {
+                return input.Where(x => x.Price >= _minPrice);
+            }
+            else if (_maxPrice != null)
+            {
+                return input.Where(x => x.Price <= _maxPrice);
+            }
+
+            return input;
         }
     }
 }
+

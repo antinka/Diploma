@@ -23,8 +23,7 @@ namespace GameStore.BLL.Filters.GameFilters.Implementation
             switch (_sortOption)
             {
                 case SortType.MostCommented:
-                    condition = game => game.Comments.Count()*-1;
-                    break;
+                    return input.OrderByDescending(game => game.Comments.Count());            
                 case SortType.MostPopular:
                     condition = game => game.Views * -1;
                     break;

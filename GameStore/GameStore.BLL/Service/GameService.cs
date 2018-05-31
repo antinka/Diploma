@@ -102,7 +102,7 @@ namespace GameStore.BLL.Service
                 throw new EntityNotFound($"{nameof(GameService)} - game with such gamekey {gamekey} did not exist");
             }
 
-            IncreaseGameView(game.Id);
+            IncreaseGameView(game);
 
             return _mapper.Map<GameDTO>(game);
         }
@@ -110,7 +110,7 @@ namespace GameStore.BLL.Service
         public GameDTO GetById(Guid id)
         {
             var game = GetGameById(id);
-            IncreaseGameView(game.Id);
+            IncreaseGameView(game);
 
             return _mapper.Map<GameDTO>(game);
         }
@@ -165,9 +165,8 @@ namespace GameStore.BLL.Service
             return _mapper.Map<IEnumerable<GameDTO>>(filterGames);
         }
 
-        public void IncreaseGameView(Guid gameId)
+        private void IncreaseGameView(Game game)
         {
-            var game = GetGameById(gameId);
             game.Views += 1;
 
             _unitOfWork.Games.Update(game);
@@ -183,12 +182,17 @@ namespace GameStore.BLL.Service
 
             if (filter.MaxPrice != null)
             {
-                gamePipeline.Register(new FilterByMaxPrice(filter.MaxPrice.Value));
+                gamePipeline.Register(new GameFilterByPrice(filter.MaxPrice.Value, null));
             }
 
             if (filter.MinPrice != null)
             {
-                gamePipeline.Register(new FilterByMinPrice(filter.MinPrice.Value));
+                gamePipeline.Register(new GameFilterByPrice(null, filter.MinPrice.Value));
+            }
+
+            if (filter.MaxPrice != null && filter.MinPrice != null)
+            {
+                gamePipeline.Register(new GameFilterByPrice(filter.MaxPrice.Value, filter.MinPrice.Value));
             }
 
             if (filter.SelectedPlatformTypesName != null && filter.SelectedPlatformTypesName.Any())
@@ -205,6 +209,7 @@ namespace GameStore.BLL.Service
             {
                 gamePipeline.Register(new GameFilterByName(filter.SearchGameName));
             }
+
             if (filter.FilterDate != FilterDate.all)
             {
                 gamePipeline.Register(new GameFilterByDate(filter.FilterDate));

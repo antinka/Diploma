@@ -4,7 +4,7 @@ namespace GameStore.Web.ViewModels
 {
     public class PagingInfo
     {
-        public int TotalItems { get; set; }
+        public int TotalItemsByFilter { get; set; }
 
         public int ItemsPerPage { get; set; }
 
@@ -15,7 +15,7 @@ namespace GameStore.Web.ViewModels
             get
             {
                 if(ItemsPerPage >0 )
-                    return (int)Math.Ceiling((decimal)TotalItems / ItemsPerPage);
+                    return (int)Math.Ceiling((decimal)TotalItemsByFilter / ItemsPerPage);
                 return 1;
             }
         }

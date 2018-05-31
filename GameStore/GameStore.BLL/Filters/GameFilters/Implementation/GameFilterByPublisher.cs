@@ -13,20 +13,12 @@ namespace GameStore.BLL.Filters.GameFilters.Implementation
 
         public GameFilterByPublisher(IEnumerable<string> selectedPublishers)
         {
-
-            _selectedPublishers = selectedPublishers as IList<string> ?? selectedPublishers.ToList();
+            _selectedPublishers = selectedPublishers;
         }
 
         public IEnumerable<Game> Execute(IEnumerable<Game> input)
         {
-            Func<Game, bool> condition = null;
-
-            if (_selectedPublishers.Any())
-            {
-                condition = p => _selectedPublishers.Any(name => name == p.Publisher.Name);
-            }
-
-            return condition != null ? input.Where(condition) : input;
+            return input.Where(game => game.Publisher != null && _selectedPublishers.Contains(game.Publisher.Name));
         }
     }
 }
