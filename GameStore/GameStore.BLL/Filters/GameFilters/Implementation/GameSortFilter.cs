@@ -20,23 +20,23 @@ namespace GameStore.BLL.Filters.GameFilters.Implementation
         {
             Func<Game, object> condition = null;
 
-            if (_sortOption == SortType.MostCommented)
-                condition = game => game.Comments.Count()*-1;
-            else if (_sortOption == SortType.MostPopular)
+            switch (_sortOption)
             {
-                condition = game => game.Views * -1;
-            }
-            else if (_sortOption == SortType.NewByDate)
-            {
-                condition = game => game.PublishDate.Ticks*(-1);
-            }
-            else if (_sortOption == SortType.PriceDesc)
-            {
-                condition = game => game.Price * -1;
-            }
-            else if (_sortOption == SortType.PriceAsc)
-            {
-                condition = game => game.Price;
+                case SortType.MostCommented:
+                    condition = game => game.Comments.Count()*-1;
+                    break;
+                case SortType.MostPopular:
+                    condition = game => game.Views * -1;
+                    break;
+                case SortType.NewByDate:
+                    condition = game => game.PublishDate.Ticks*(-1);
+                    break;
+                case SortType.PriceDesc:
+                    condition = game => game.Price * -1;
+                    break;
+                case SortType.PriceAsc:
+                    condition = game => game.Price;
+                    break;
             }
 
             return condition != null ? input.OrderBy(condition) : input;

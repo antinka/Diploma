@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using GameStore.BLL.Filters.GameFilters.Interfaces;
 using GameStore.DAL.Entities;
@@ -11,16 +13,20 @@ namespace GameStore.BLL.Filters.GameFilters.Implementation
 
         public GameFilterByPublisher(IEnumerable<string> selectedPublishers)
         {
-            _selectedPublishers = selectedPublishers;
+
+            _selectedPublishers = selectedPublishers as IList<string> ?? selectedPublishers.ToList();
         }
 
         public IEnumerable<Game> Execute(IEnumerable<Game> input)
         {
-            if (_selectedPublishers.Count() != 0)
+            Func<Game, bool> condition = null;
+
+            if (_selectedPublishers.Any())
             {
-                return input.Where(x => x.Publisher != null ? _selectedPublishers.Contains(x.Publisher.Name) : x.Name == "");
+                condition = p => _selectedPublishers.Any(name => name == p.Publisher.Name);
             }
-            return input;
+
+            return condition != null ? input.Where(condition) : input;
         }
     }
 }

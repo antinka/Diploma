@@ -102,12 +102,15 @@ namespace GameStore.BLL.Service
                 throw new EntityNotFound($"{nameof(GameService)} - game with such gamekey {gamekey} did not exist");
             }
 
+            IncreaseGameView(game.Id);
+
             return _mapper.Map<GameDTO>(game);
         }
 
         public GameDTO GetById(Guid id)
         {
             var game = GetGameById(id);
+            IncreaseGameView(game.Id);
 
             return _mapper.Map<GameDTO>(game);
         }
@@ -155,7 +158,7 @@ namespace GameStore.BLL.Service
 
         public IEnumerable<GameDTO> GetGamesByFilter(FilterDTO filter, int page = 1, PageSize pageSize = PageSize.Ten)
         {
-            GamePipeline gamePipeline = new GamePipeline();
+            var gamePipeline = new GamePipeline();
             RegisterFilter(gamePipeline, filter, page, pageSize);
             var filterGames = gamePipeline.Process(_unitOfWork.Games.GetAll());
 

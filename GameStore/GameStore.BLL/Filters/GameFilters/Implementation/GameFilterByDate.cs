@@ -19,31 +19,29 @@ namespace GameStore.BLL.Filters.GameFilters.Implementation
 
         public IEnumerable<Game> Execute(IEnumerable<Game> input)
         {
-
-            if (_selectedDate == FilterDate.week)
-                _from = DateTime.UtcNow.AddDays(-7);
-            else if (_selectedDate == FilterDate.month)
+            switch (_selectedDate)
             {
-                _from = DateTime.UtcNow.AddMonths(-1);
-            }
-            else if (_selectedDate == FilterDate.oneYear)
-            {
-                _from = DateTime.UtcNow.AddYears(-1);
-            }
-            else if (_selectedDate == FilterDate.twoYear)
-            {
-                _from = DateTime.UtcNow.AddYears(-2);
-            }
-            else if (_selectedDate == FilterDate.threeYear)
-            {
-                _from = DateTime.UtcNow.AddYears(-3);
-            }
-            else
-            {
-                _from = DateTime.MinValue;
+                case FilterDate.week:
+                    _from = DateTime.UtcNow.AddDays(-7);
+                    break;
+                case FilterDate.month:
+                    _from = DateTime.UtcNow.AddMonths(-1);
+                    break;
+                case FilterDate.oneYear:
+                    _from = DateTime.UtcNow.AddYears(-1);
+                    break;
+                case FilterDate.twoYear:
+                    _from = DateTime.UtcNow.AddYears(-2);
+                    break;
+                case FilterDate.threeYear:
+                    _from = DateTime.UtcNow.AddYears(-3);
+                    break;
+                default:
+                    _from = DateTime.MinValue;
+                    break;
             }
 
-            return input.Where(g=>g.PublishDate >= _from && g.PublishDate < DateTime.UtcNow);
+            return input.Where(g => g.PublishDate >= _from && g.PublishDate < DateTime.UtcNow);
         }
     }
 }

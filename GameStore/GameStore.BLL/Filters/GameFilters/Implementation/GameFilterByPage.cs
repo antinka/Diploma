@@ -39,7 +39,7 @@ namespace GameStore.BLL.Filters.GameFilters.Implementation
 
             if (size != 0)
             {
-                return input.Skip((_page - 1) * size) .Take(size);
+                return input.Skip((_page - 1) * size).Take(size);
             }
 
             return input;

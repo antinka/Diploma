@@ -144,7 +144,7 @@ namespace GameStore.Web.Controllers
 
             if (filterViewModel.PageSize == PageSize.All)
             {
-                totalItem = _gameService.GetAll().Count();
+                totalItem = _gameService.GetCountGame();
             }
             else
             {
@@ -173,6 +173,7 @@ namespace GameStore.Web.Controllers
                     .GetGamesByFilter(_mapper.Map<FilterDTO>(filterViewModel), 1, PageSize.All)
                     .Count()
             };
+
             filterViewModel.PagingInfo = pagingInfo;
 
             filterViewModel = GetFilterViewModel(filterViewModel);
@@ -195,8 +196,6 @@ namespace GameStore.Web.Controllers
         {
             var gameDTO = _gameService.GetByKey(gamekey);
             var gameForView = _mapper.Map<DetailsGameViewModel>(gameDTO);
-
-            _gameService.IncreaseGameView(gameDTO.Id);
 
             return View(gameForView);
         }
