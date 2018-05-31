@@ -1,9 +1,9 @@
-﻿using GameStore.BLL.Filtration.Interfaces;
-using GameStore.DAL.Entities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using GameStore.BLL.Filters.GameFilters.Interfaces;
+using GameStore.DAL.Entities;
 
-namespace GameStore.BLL.Filtration.Implementation
+namespace GameStore.BLL.Filters.GameFilters.Implementation
 {
     public class FilterByMaxPrice : IPipeLine<IEnumerable<Game>>
     {

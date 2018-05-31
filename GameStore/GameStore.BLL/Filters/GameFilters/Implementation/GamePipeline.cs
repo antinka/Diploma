@@ -1,7 +1,8 @@
-﻿using GameStore.DAL.Entities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using GameStore.BLL.Filters.GameFilters.Abstract;
+using GameStore.DAL.Entities;
 
-namespace GameStore.BLL.Filtration.Implementation
+namespace GameStore.BLL.Filters.GameFilters.Implementation
 {
     public class GamePipeline : Pipeline<IEnumerable<Game>>
     {

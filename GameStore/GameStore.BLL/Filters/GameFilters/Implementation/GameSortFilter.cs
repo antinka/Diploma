@@ -1,17 +1,17 @@
 ﻿using System;
-using GameStore.BLL.Enums;
-using GameStore.BLL.Filtration.Interfaces;
-using GameStore.DAL.Entities;
 using System.Collections.Generic;
 using System.Linq;
+using GameStore.BLL.Enums;
+using GameStore.BLL.Filters.GameFilters.Interfaces;
+using GameStore.DAL.Entities;
 
-namespace GameStore.BLL.Filtration.Implementation
+namespace GameStore.BLL.Filters.GameFilters.Implementation
 {
-    public class SortFilter : IPipeLine<IEnumerable<Game>>
+    public class GameSortFilter : IPipeLine<IEnumerable<Game>>
     {
         private readonly SortType _sortOption;
 
-        public SortFilter(SortType sortOption)
+        public GameSortFilter(SortType sortOption)
         {
             _sortOption = sortOption;
         }

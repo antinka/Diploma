@@ -1,15 +1,15 @@
-﻿using GameStore.BLL.Filtration.Interfaces;
-using GameStore.DAL.Entities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using GameStore.BLL.Filters.GameFilters.Interfaces;
+using GameStore.DAL.Entities;
 
-namespace GameStore.BLL.Filtration.Implementation
+namespace GameStore.BLL.Filters.GameFilters.Implementation
 {
-    public class FilterByPlatform : IPipeLine<IEnumerable<Game>>
+    public class GameFilterByPlatform : IPipeLine<IEnumerable<Game>>
     {
         private readonly IEnumerable<string> _selectedPlatformTypes;
 
-        public FilterByPlatform(IEnumerable<string> selectedPlatformTypes)
+        public GameFilterByPlatform(IEnumerable<string> selectedPlatformTypes)
         {
             _selectedPlatformTypes = selectedPlatformTypes;
         }

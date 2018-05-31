@@ -8,27 +8,29 @@ namespace GameStore.Web.ViewModels
 {
     public class FilterViewModel
     {
-        public IEnumerable<GameViewModel> Games { get; set; }
+        public IEnumerable<DetailsGameViewModel> Games { get; set; }
 
         public PagingInfo PagingInfo { get; set; }
 
-        [Display(Name = "Sort Date")]
-        public SortDate SortDate { get; set; }
+        [Display(Name = "Filter Date")]
+        public FilterDate FilterDate { get; set; }
 
         [Display(Name = "Sort Type")]
         public SortType SortType { get; set; }
 
-        [Display(Name = "Page Size")]
+        [Display(Name = "Games per page")]
         public PageSize PageSize { get; set; }
 
         [Display(Name = "Search Game Name")]
-        [MinLength(3)]
+        [RegularExpression(@"^[A-Za-z0-9_-]{3,200}", ErrorMessage = "Key cannot be longer than 200 characters and less than 3 characters and could contains only A-Za-z0-9")]
         public string SearchGameName { get; set; }
 
         [Display(Name = "Min Price")]
+        [Range(0, 10000)]
         public decimal? MinPrice { get; set; }
 
         [Display(Name = "Max Price")]
+        [Range(0, 10000)]
         public decimal? MaxPrice { get; set; }
 
         public IEnumerable<CheckBox> ListGenres { get; set; }

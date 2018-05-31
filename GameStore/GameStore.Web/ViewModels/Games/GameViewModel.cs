@@ -11,7 +11,7 @@ namespace GameStore.Web.ViewModels.Games
         public Guid Id { get; set; }
 
         [Required]
-        [RegularExpression(@"^[A-Za-z0-9_-]{3,100}", ErrorMessage = "Key cannot be longer than 200 characters and less than 3 characters and could contains only A-Za-z0-9")]
+        [RegularExpression(@"^[A-Za-z0-9_-]{3,200}", ErrorMessage = "Key cannot be longer than 200 characters and less than 3 characters and could contains only A-Za-z0-9")]
         public string Key { get; set; }
 
         [Required]

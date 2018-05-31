@@ -1,7 +1,7 @@
-﻿using GameStore.BLL.Filtration.Interfaces;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using GameStore.BLL.Filters.GameFilters.Interfaces;
 
-namespace GameStore.BLL.Filtration.Implementation
+namespace GameStore.BLL.Filters.GameFilters.Abstract
 {
     public abstract class Pipeline<T> where T : class
     {

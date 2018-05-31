@@ -1,15 +1,15 @@
-﻿using GameStore.BLL.Filtration.Interfaces;
-using GameStore.DAL.Entities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using GameStore.BLL.Filters.GameFilters.Interfaces;
+using GameStore.DAL.Entities;
 
-namespace GameStore.BLL.Filtration.Implementation
+namespace GameStore.BLL.Filters.GameFilters.Implementation
 {
-    public class FilterByGenre : IPipeLine<IEnumerable<Game>>
+    public class GameFilterByGenre : IPipeLine<IEnumerable<Game>>
     {
         private readonly IEnumerable<string> _selectedGenresName;
 
-        public FilterByGenre(IEnumerable<string> selectedGenresName)
+        public GameFilterByGenre(IEnumerable<string> selectedGenresName)
         {
             _selectedGenresName = selectedGenresName;
         }

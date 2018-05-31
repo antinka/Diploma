@@ -1,15 +1,15 @@
-﻿using GameStore.BLL.Filtration.Interfaces;
-using GameStore.DAL.Entities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using GameStore.BLL.Filters.GameFilters.Interfaces;
+using GameStore.DAL.Entities;
 
-namespace GameStore.BLL.Filtration.Implementation
+namespace GameStore.BLL.Filters.GameFilters.Implementation
 {
-    public class FilterByPublisher : IPipeLine<IEnumerable<Game>>
+    public class GameFilterByPublisher : IPipeLine<IEnumerable<Game>>
     {
         private readonly IEnumerable<string> _selectedPublishers;
 
-        public FilterByPublisher(IEnumerable<string> selectedPublishers)
+        public GameFilterByPublisher(IEnumerable<string> selectedPublishers)
         {
             _selectedPublishers = selectedPublishers;
         }

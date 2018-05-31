@@ -1,4 +1,4 @@
-﻿namespace GameStore.BLL.Filtration.Interfaces
+﻿namespace GameStore.BLL.Filters.GameFilters.Interfaces
 {
     public interface IPipeLine<T> where T : class
     {

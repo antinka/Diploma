@@ -2,7 +2,6 @@
 using GameStore.BLL.CustomExeption;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Enums;
-using GameStore.BLL.Filtration.Implementation;
 using GameStore.BLL.Interfaces;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
@@ -10,6 +9,7 @@ using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GameStore.BLL.Filters.GameFilters.Implementation;
 
 namespace GameStore.BLL.Service
 {
@@ -153,7 +153,7 @@ namespace GameStore.BLL.Service
             return _unitOfWork.Games.Count();
         }
 
-        public IEnumerable<GameDTO> GetGamesByFilter(FilterDTO filter, int page = 1, PageSize pageSize = PageSize.Twenty)
+        public IEnumerable<GameDTO> GetGamesByFilter(FilterDTO filter, int page = 1, PageSize pageSize = PageSize.Ten)
         {
             GamePipeline gamePipeline = new GamePipeline();
             RegisterFilter(gamePipeline, filter, page, pageSize);
@@ -175,7 +175,7 @@ namespace GameStore.BLL.Service
         {
             if (filter.SelectedGenresName != null && filter.SelectedGenresName.Any())
             {
-                gamePipeline.Register(new FilterByGenre(filter.SelectedGenresName));
+                gamePipeline.Register(new GameFilterByGenre(filter.SelectedGenresName));
             }
 
             if (filter.MaxPrice != null)
@@ -190,22 +190,25 @@ namespace GameStore.BLL.Service
 
             if (filter.SelectedPlatformTypesName != null && filter.SelectedPlatformTypesName.Any())
             {
-                gamePipeline.Register(new FilterByPlatform(filter.SelectedPlatformTypesName));
+                gamePipeline.Register(new GameFilterByPlatform(filter.SelectedPlatformTypesName));
             }
 
             if (filter.SelectedPublishersName != null && filter.SelectedPublishersName.Any())
             {
-                gamePipeline.Register(new FilterByPublisher(filter.SelectedPublishersName));
+                gamePipeline.Register(new GameFilterByPublisher(filter.SelectedPublishersName));
             }
 
             if (filter.SearchGameName != null && filter.SearchGameName.Length >= 3)
             {
-                gamePipeline.Register(new FilterByName(filter.SearchGameName));
+                gamePipeline.Register(new GameFilterByName(filter.SearchGameName));
+            }
+            if (filter.FilterDate != FilterDate.all)
+            {
+                gamePipeline.Register(new GameFilterByDate(filter.FilterDate));
             }
 
-            gamePipeline.Register(new FilterByDate(filter.SortDate))
-                .Register(new SortFilter(filter.SortType))
-                .Register(new FilterByPage(page, pageSize));
+            gamePipeline.Register(new GameSortFilter(filter.SortType))
+                .Register(new GameFilterByPage(page, pageSize));
         }
 
         public bool IsUniqueKey(GameDTO gameDTO)
