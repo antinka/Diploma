@@ -19,6 +19,8 @@ namespace GameStore.Web.Infrastructure
             builder.RegisterType<OrdersService>().As<IOrdersService>().InstancePerLifetimeScope();
             builder.RegisterType<GenreService>().As<IGenreService>().InstancePerLifetimeScope();
             builder.RegisterType<PlatformTypeService>().As<IPlatformTypeService>().InstancePerLifetimeScope();
+            builder.RegisterType<UserService>().As<IUserService>().InstancePerLifetimeScope();
+            builder.RegisterType<RoleService>().As<IRoleService>().InstancePerLifetimeScope();
             builder.RegisterType<Bank>().As<IPayment>().InstancePerLifetimeScope();
             builder.RegisterType<Visa>().As<IPayment>().InstancePerLifetimeScope();
             builder.RegisterType<Box>().As<IPayment>().InstancePerLifetimeScope();

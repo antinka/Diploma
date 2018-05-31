@@ -1,4 +1,5 @@
 ﻿using System.Web;
+using GameStore.Web.ViewModels;
 
 namespace GameStore.Web.Authorization.Interfaces
 {
@@ -6,9 +7,7 @@ namespace GameStore.Web.Authorization.Interfaces
     {
         HttpContext HttpContext { get; set; }
 
-        //User Login(string login, string password, bool isPersistent);
-
-        //User Login(string login);
+        UserViewModel Login(string login, string password, bool isPersistent);
 
         void LogOut();
 

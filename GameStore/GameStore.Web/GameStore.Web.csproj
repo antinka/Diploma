@@ -164,6 +164,7 @@
     <Compile Include="Authorization\Interfaces\IAuthentication.cs" />
     <Compile Include="Authorization\Interfaces\IIdentity.cs" />
     <Compile Include="Authorization\Interfaces\IPrincipal.cs" />
+    <Compile Include="Authorization\UserProvider.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\GenreController.cs" />
