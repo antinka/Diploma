@@ -18,7 +18,7 @@ namespace GameStore.BLL.Filters.GameFilters.Implementation
         {
             if (_selectedPublishers.Any())
             {
-                return input.Where(x => x.Publisher != null && _selectedPublishers.Contains(x.Publisher.Name));
+                return input.Where(game => game.Publisher != null && _selectedPublishers.Contains(game.Publisher.Name));
             }
 
             return input;

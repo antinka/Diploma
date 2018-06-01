@@ -281,7 +281,7 @@ namespace GameStore.Tests.Service
         [Fact]
         public void GetGamesByFilter_FilterByGenre_GetedGames()
         {
-            FilterDTO filterDto = new FilterDTO()
+            var filterDto = new FilterDTO()
             {
                 SelectedGenresName = new List<string>()
                 {
@@ -299,7 +299,7 @@ namespace GameStore.Tests.Service
         [Fact]
         public void GetGamesByFilter_FilterByName_GetedGames()
         {
-            FilterDTO filterDto = new FilterDTO()
+            var filterDto = new FilterDTO()
             {
                 SearchGameName = "game"
             };
@@ -314,7 +314,7 @@ namespace GameStore.Tests.Service
         [Fact]
         public void GetGamesByFilter_FilterByPlatform_GetedGames()
         {
-            FilterDTO filterDto = new FilterDTO()
+            var filterDto = new FilterDTO()
             {
                 SelectedPlatformTypesName = new List<string>()
                 {
@@ -332,7 +332,7 @@ namespace GameStore.Tests.Service
         [Fact]
         public void GetGamesByFilter_FilterByFilterByMaxPrice_GetedGames()
         {
-            FilterDTO filterDto = new FilterDTO()
+            var filterDto = new FilterDTO()
             {
                 MinPrice = 5
             };
@@ -347,7 +347,7 @@ namespace GameStore.Tests.Service
         [Fact]
         public void GetGamesByFilter_FilterByFilterByMinPrice_GetedGames()
         {
-            FilterDTO filterDto = new FilterDTO()
+            var filterDto = new FilterDTO()
             {
                 MaxPrice = 30
             };
@@ -362,7 +362,7 @@ namespace GameStore.Tests.Service
         [Fact]
         public void GetGamesByFilter_FilterByPublisher_GetedGames()
         {
-            FilterDTO filterDto = new FilterDTO()
+            var filterDto = new FilterDTO()
             {
                 SelectedPublishersName = new List<string>()
                {
@@ -380,7 +380,7 @@ namespace GameStore.Tests.Service
         [Fact]
         public void GetGamesByFilter_SortFilterPriceDesc_GetedGames()
         {
-            FilterDTO filterDto = new FilterDTO()
+            var filterDto = new FilterDTO()
             {
                 SortType = SortType.PriceDesc
             };
@@ -395,7 +395,7 @@ namespace GameStore.Tests.Service
         [Fact]
         public void GetGamesByFilter_SortFilterPriceAsc_GetedGames()
         {
-            FilterDTO filterDto = new FilterDTO()
+            var filterDto = new FilterDTO()
             {
                 SortType = SortType.PriceAsc
             };
@@ -410,7 +410,7 @@ namespace GameStore.Tests.Service
         [Fact]
         public void GetGamesByFilter_SortFilterMostPopular_GetedGames()
         {
-            FilterDTO filterDto = new FilterDTO()
+            var filterDto = new FilterDTO()
             {
                 SortType = SortType.MostPopular
             };
@@ -439,7 +439,7 @@ namespace GameStore.Tests.Service
                 new Game { Id = Guid.NewGuid(), Name = "Игра10", Key = "Игра10"},
                 new Game { Id = Guid.NewGuid(), Name = "Игра11", Key = "Игра11"},
             };
-            GamePipeline gamePipeline = new GamePipeline();
+            var gamePipeline = new GamePipeline();
 
             gamePipeline.Register(new GameFilterByPage(2, PageSize.Ten));
             var gamesAfteFilter = gamePipeline.Process(fakeGamesForFilter);
@@ -464,7 +464,7 @@ namespace GameStore.Tests.Service
                 new Game { Id = Guid.NewGuid(), Name = "Игра10", Key = "Игра10"},
                 new Game { Id = Guid.NewGuid(), Name = "Игра11", Key = "Игра11"},
             };
-            GamePipeline gamePipeline = new GamePipeline();
+            var gamePipeline = new GamePipeline();
 
             gamePipeline.Register(new GameFilterByPage(1, PageSize.All));
             var gamesAfteFilter = gamePipeline.Process(fakeGamesForFilter);
@@ -497,7 +497,7 @@ namespace GameStore.Tests.Service
         [Fact]
         public void GetGamesByFilter_FilterDTO_returnedGamesDTO()
         {
-            FilterDTO filterDto = new FilterDTO()
+            var filterDto = new FilterDTO()
             {
                 SortType = SortType.MostPopular
             };
@@ -512,7 +512,7 @@ namespace GameStore.Tests.Service
         [Fact]
         public void GetGamesByFilter_FilterByDateThreeYear_GetedGames()
         {
-            FilterDTO filterDto = new FilterDTO()
+            var filterDto = new FilterDTO()
             {
                 FilterDate = FilterDate.threeYear
             };
@@ -526,7 +526,7 @@ namespace GameStore.Tests.Service
         [Fact]
         public void GetGamesByFilter_FilterByDateMonth_GetedGames()
         {
-            FilterDTO filterDto = new FilterDTO()
+            var filterDto = new FilterDTO()
             {
                 FilterDate = FilterDate.month
             };
@@ -541,7 +541,7 @@ namespace GameStore.Tests.Service
         [Fact]
         public void GetGamesByFilter_FilterByDateWeek_GetedGames()
         {
-            FilterDTO filterDto = new FilterDTO()
+            var filterDto = new FilterDTO()
             {
                 FilterDate = FilterDate.week
             };
@@ -556,7 +556,7 @@ namespace GameStore.Tests.Service
         [Fact]
         public void GetGamesByFilter_FilterByDateOneYear_GetedGames()
         {
-            FilterDTO filterDto = new FilterDTO()
+            var filterDto = new FilterDTO()
             {
                 FilterDate = FilterDate.oneYear
             };
@@ -571,7 +571,7 @@ namespace GameStore.Tests.Service
         [Fact]
         public void GetGamesByFilter_FilterByDateTwoYear_GetedGames()
         {
-            FilterDTO filterDto = new FilterDTO()
+            var filterDto = new FilterDTO()
             {
                 FilterDate = FilterDate.twoYear
             };
