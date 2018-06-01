@@ -504,7 +504,7 @@ namespace GameStore.Tests.Service
 
             _uow.Setup(uow => uow.Games.GetAll()).Returns(_fakeGames);
 
-            var res = _sut.GetGamesByFilter(filterDto);
+            var res = _sut.GetGamesByFilter(filterDto, 1, PageSize.All, out var totalItemsByFilter);
 
             Assert.True(res.Any());
         }

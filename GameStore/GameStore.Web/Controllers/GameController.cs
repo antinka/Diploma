@@ -138,7 +138,7 @@ namespace GameStore.Web.Controllers
             }
 
             var gamesByFilter = _gameService.GetGamesByFilter(_mapper.Map<FilterDTO>(filterViewModel), page,
-                filterViewModel.PageSize);
+                filterViewModel.PageSize, out var totalItemsByFilter);
 
             int totalItem = 0;
 
@@ -169,9 +169,7 @@ namespace GameStore.Web.Controllers
             {
                 CurrentPage = page,
                 ItemsPerPage = totalItem,
-                TotalItemsByFilter = _gameService
-                    .GetGamesByFilter(_mapper.Map<FilterDTO>(filterViewModel), 1, PageSize.All)
-                    .Count()
+                TotalItemsByFilter = totalItemsByFilter
             };
 
             filterViewModel.PagingInfo = pagingInfo;

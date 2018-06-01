@@ -156,11 +156,17 @@ namespace GameStore.BLL.Service
             return _unitOfWork.Games.Count();
         }
 
-        public IEnumerable<GameDTO> GetGamesByFilter(FilterDTO filter, int page = 1, PageSize pageSize = PageSize.Ten)
+        public IEnumerable<GameDTO> GetGamesByFilter(FilterDTO filter, int page, PageSize pageSize, out int totalItemsByFilter)
         {
-            var gamePipeline = new GamePipeline();
-            RegisterFilter(gamePipeline, filter, page, pageSize);
-            var filterGames = gamePipeline.Process(_unitOfWork.Games.GetAll());
+            var games = _unitOfWork.Games.GetAll();
+
+            var filterGamePipeline = new GamePipeline();
+            RegisterFilter(filterGamePipeline, filter, page, pageSize);
+            var filterGames = filterGamePipeline.Process(games);
+
+            var totalItemsByFilteripeline = new GamePipeline();
+            RegisterFilter(totalItemsByFilteripeline, filter, 1, PageSize.All);
+            totalItemsByFilter = totalItemsByFilteripeline.Process(games).Count();
 
             return _mapper.Map<IEnumerable<GameDTO>>(filterGames);
         }
