@@ -22,11 +22,13 @@ namespace GameStore.BLL.Filters.GameFilters.Implementation
             {
                 return input.Where(x => x.Price >= _minPrice && x.Price <= _maxPrice);
             }
-            else if (_minPrice != null)
+
+            if (_minPrice != null)
             {
                 return input.Where(x => x.Price >= _minPrice);
             }
-            else if (_maxPrice != null)
+
+            if (_maxPrice != null)
             {
                 return input.Where(x => x.Price <= _maxPrice);
             }

@@ -165,6 +165,16 @@ namespace GameStore.BLL.Service
             return _mapper.Map<IEnumerable<GameDTO>>(filterGames);
         }
 
+        public bool IsUniqueKey(GameDTO gameDTO)
+        {
+            var game = _unitOfWork.Games.Get(x => x.Key == gameDTO.Key).FirstOrDefault();
+
+            if (game == null || gameDTO.Id == game.Id)
+                return true;
+
+            return false;
+        }
+
         private void IncreaseGameView(Game game)
         {
             game.Views += 1;
@@ -217,16 +227,6 @@ namespace GameStore.BLL.Service
 
             gamePipeline.Register(new GameSortFilter(filter.SortType))
                 .Register(new GameFilterByPage(page, pageSize));
-        }
-
-        public bool IsUniqueKey(GameDTO gameDTO)
-        {
-            var game = _unitOfWork.Games.Get(x => x.Key == gameDTO.Key).FirstOrDefault();
-
-            if (game == null || gameDTO.Id == game.Id)
-                return true;
-
-            return false;
         }
 
         private Game GetGameById(Guid id)

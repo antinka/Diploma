@@ -508,5 +508,79 @@ namespace GameStore.Tests.Service
 
             Assert.True(res.Any());
         }
+
+        [Fact]
+        public void GetGamesByFilter_FilterByDateThreeYear_GetedGames()
+        {
+            FilterDTO filterDto = new FilterDTO()
+            {
+                FilterDate = FilterDate.threeYear
+            };
+            var gamePipeline = new GamePipeline();
+
+            gamePipeline.Register(new GameFilterByDate(filterDto.FilterDate));
+            var gamesAfteFilter = gamePipeline.Process(_fakeGamesForFilter);
+
+            Assert.True(gamesAfteFilter.ElementAt(0).PublishDate > gamesAfteFilter.ElementAt(1).PublishDate);
+        }
+        [Fact]
+        public void GetGamesByFilter_FilterByDateMonth_GetedGames()
+        {
+            FilterDTO filterDto = new FilterDTO()
+            {
+                FilterDate = FilterDate.month
+            };
+            var gamePipeline = new GamePipeline();
+
+            gamePipeline.Register(new GameFilterByDate(filterDto.FilterDate));
+            var gamesAfteFilter = gamePipeline.Process(_fakeGamesForFilter);
+
+            Assert.True(gamesAfteFilter.ElementAt(0).PublishDate >= DateTime.Today.AddMonths(-1));
+        }
+
+        [Fact]
+        public void GetGamesByFilter_FilterByDateWeek_GetedGames()
+        {
+            FilterDTO filterDto = new FilterDTO()
+            {
+                FilterDate = FilterDate.week
+            };
+            var gamePipeline = new GamePipeline();
+
+            gamePipeline.Register(new GameFilterByDate(filterDto.FilterDate));
+            var gamesAfteFilter = gamePipeline.Process(_fakeGamesForFilter);
+
+            Assert.True(gamesAfteFilter.First().PublishDate >= DateTime.Today.AddDays(-7));
+        }
+
+        [Fact]
+        public void GetGamesByFilter_FilterByDateOneYear_GetedGames()
+        {
+            FilterDTO filterDto = new FilterDTO()
+            {
+                FilterDate = FilterDate.oneYear
+            };
+            var gamePipeline = new GamePipeline();
+
+            gamePipeline.Register(new GameFilterByDate(filterDto.FilterDate));
+            var gamesAfteFilter = gamePipeline.Process(_fakeGamesForFilter);
+
+            Assert.True(gamesAfteFilter.ElementAt(0).PublishDate > gamesAfteFilter.ElementAt(1).PublishDate);
+        }
+
+        [Fact]
+        public void GetGamesByFilter_FilterByDateTwoYear_GetedGames()
+        {
+            FilterDTO filterDto = new FilterDTO()
+            {
+                FilterDate = FilterDate.twoYear
+            };
+            var gamePipeline = new GamePipeline();
+
+            gamePipeline.Register(new GameFilterByDate(filterDto.FilterDate));
+            var gamesAfteFilter = gamePipeline.Process(_fakeGamesForFilter);
+
+            Assert.True(gamesAfteFilter.ElementAt(0).PublishDate > gamesAfteFilter.ElementAt(1).PublishDate);
+        }
     }
 }
