@@ -5,6 +5,7 @@ using AutoMapper;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Interfaces;
 using GameStore.Web.App_LocalResources;
+using GameStore.Web.Authorization.Interfaces;
 using GameStore.Web.Filters;
 using GameStore.Web.ViewModels;
 
@@ -17,7 +18,7 @@ namespace GameStore.Web.Controllers
         private readonly IPublisherService _publisherService;
         private readonly IMapper _mapper;
 
-        public PublisherController(IPublisherService publisherService, IMapper mapper)
+        public PublisherController(IPublisherService publisherService, IMapper mapper, IAuthentication authentication) : base(authentication)
         {
             _publisherService = publisherService;
             _mapper = mapper;

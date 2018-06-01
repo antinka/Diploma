@@ -2,7 +2,6 @@
 using System.Web;
 using System.Web.Mvc;
 using GameStore.Web.Authorization.Interfaces;
-using IHttpModule = GameStore.Web.Authorization.Interfaces.IHttpModule;
 
 namespace GameStore.Web.Authorization.Implementation
 {

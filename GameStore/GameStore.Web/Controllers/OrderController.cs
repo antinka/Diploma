@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using GameStore.BLL.DTO;
+using GameStore.Web.Authorization.Interfaces;
 using GameStore.Web.ViewModels.Games;
 
 namespace GameStore.Web.Controllers
@@ -25,8 +26,10 @@ namespace GameStore.Web.Controllers
         public OrderController(IOrdersService ordersService,
             IGameService gameService, 
             IMapper mapper,
-            IPaymentStrategy paymentStrategy
-            )
+            IPaymentStrategy paymentStrategy,
+            IAuthentication authentication) 
+            
+            : base(authentication)
         {
             _ordersService = ordersService;
             _gameService = gameService;

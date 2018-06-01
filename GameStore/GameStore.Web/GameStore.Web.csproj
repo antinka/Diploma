@@ -163,13 +163,11 @@
     <Compile Include="Authorization\Implementation\AuthHttpModule.cs" />
     <Compile Include="Authorization\Implementation\CustomAuthentication.cs" />
     <Compile Include="Authorization\Interfaces\IAuthentication.cs" />
-    <Compile Include="Authorization\Interfaces\IHttpModule.cs" />
-    <Compile Include="Authorization\Interfaces\IIdentity.cs" />
-    <Compile Include="Authorization\Interfaces\IPrincipal.cs" />
     <Compile Include="Authorization\Implementation\UserIdentity.cs" />
     <Compile Include="Authorization\Implementation\UserProvider.cs" />
     <Compile Include="Authorization\User.cs" />
     <Compile Include="Authorization\UserRole.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\GenreController.cs" />
@@ -281,6 +279,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Account\" />
     <Folder Include="Views\Role\" />
     <Folder Include="Views\Shared\DisplayTemplates\" />
     <Folder Include="Views\User\" />

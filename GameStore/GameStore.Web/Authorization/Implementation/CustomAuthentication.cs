@@ -1,12 +1,11 @@
-﻿using System;
-using System.Web;;
-using System.Web.Security;
-using AutoMapper;
-using GameStore.BLL.DTO;
+﻿using AutoMapper;
 using GameStore.BLL.Interfaces;
 using GameStore.Web.Authorization.Interfaces;
-using GameStore.Web.ViewModels;
 using log4net;
+using System;
+using System.Security.Principal;
+using System.Web;
+using System.Web.Security;
 
 namespace GameStore.Web.Authorization.Implementation
 {
@@ -17,11 +16,13 @@ namespace GameStore.Web.Authorization.Implementation
         private const string cookieName = "__AUTH_COOKIE";
         private IPrincipal _currentUser;
         private readonly ILog _log;
+        private readonly IMapper _mapper;
         private readonly IUserService _userService;
 
         public CustomAuthentication(ILog log, IUserService userService, IMapper mapper)
         {
             _log = log;
+            _mapper = mapper;
             _userService = userService;
         }
 
@@ -37,10 +38,10 @@ namespace GameStore.Web.Authorization.Implementation
                         if (authCookie != null && !string.IsNullOrEmpty(authCookie.Value))
                         {
                             var ticket = FormsAuthentication.Decrypt(authCookie.Value);
-                            UserDTO user = _userService.(ticket.Name);
+                            var userDTO = _userService.GetByName(ticket.Name);
 
-                            var syncUser = Mapper.Map<UserModel>(user);
-                            _currentUser = new UserProvider();
+                            var user = _mapper.Map<User>(userDTO);
+                            _currentUser = new UserProvider(user);
                         }
                         else
                         {
@@ -57,14 +58,17 @@ namespace GameStore.Web.Authorization.Implementation
             }
         }
 
-        public UserViewModel Login(string login, string password, bool isPersistent)
+        public User Login(string login, string password, bool isPersistent)
         {
-            var retUser = Repository.Login(login, password);
-            if (retUser != null)
+            var userDTO = _userService.Login(login, password);
+            var user = _mapper.Map<User>(userDTO);
+
+            if (user != null)
             {
                 CreateCookie(login, isPersistent);
             }
-            return retUser;
+
+            return user;
         }
 
         public void LogOut()

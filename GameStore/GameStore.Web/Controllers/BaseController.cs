@@ -2,12 +2,26 @@
 using System.Threading;
 using System.Web.Mvc;
 using System.Web.Routing;
+using GameStore.Web.Authorization;
+using GameStore.Web.Authorization.Implementation;
+using GameStore.Web.Authorization.Interfaces;
 
 namespace GameStore.Web.Controllers
 {
     public class BaseController : Controller
     {
         public string CurrentLangCode { get; protected set; }
+        private readonly IAuthentication _authentication;
+
+        public BaseController(IAuthentication authentication)
+        {
+            _authentication = authentication;
+        }
+
+        public User CurrentUser
+        {
+            get { return ((UserIdentity)_authentication.CurrentUser.Identity).User;}
+        }
 
         protected override void Initialize(RequestContext requestContext)
         {

@@ -6,6 +6,7 @@ using AutoMapper;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Enums;
 using GameStore.BLL.Interfaces;
+using GameStore.Web.Authorization.Interfaces;
 using GameStore.Web.Filters;
 using GameStore.Web.ViewModels;
 
@@ -19,7 +20,7 @@ namespace GameStore.Web.Controllers
         private readonly IGameService _gameService;
         private readonly IMapper _mapper;
 
-        public CommentController(ICommentService commentService, IGameService gameService, IMapper mapper)
+        public CommentController(ICommentService commentService, IGameService gameService, IMapper mapper, IAuthentication authentication) : base(authentication)
         {
             _commentService = commentService;
             _gameService = gameService;

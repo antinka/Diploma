@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using GameStore.Web.Authorization.Interfaces;
+using System.Security.Principal;
 
 namespace GameStore.Web.Authorization.Implementation
 {
@@ -18,24 +18,12 @@ namespace GameStore.Web.Authorization.Implementation
             _user = user;
         }
 
-        public User User
-        {
-            get { return _user; }
-        }
+        public User User => _user;
 
-        public virtual string Name
-        {
-            get { return User.Name; }
-        }
+        public virtual string Name => User.Name;
 
-        public virtual string AuthenticationType
-        {
-            get { return typeof(User).ToString(); }
-        }
+        public virtual string AuthenticationType => typeof(User).ToString();
 
-        public virtual bool IsAuthenticated
-        {
-            get { return !User.Roles.Contains(UserRole.Guest); }
-        }
+        public virtual bool IsAuthenticated => !User.Roles.Contains(UserRole.Guest);
     }
 }

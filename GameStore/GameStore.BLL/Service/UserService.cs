@@ -65,9 +65,36 @@ namespace GameStore.BLL.Service
             return _mapper.Map<UserDTO>(user);
         }
 
+        public UserDTO GetByName(string name)
+        {
+            var user = _unitOfWork.Users.Get(x => x.Name == name).FirstOrDefault();
+
+            if (user == null)
+                throw new EntityNotFound($"{nameof(UserService)} - user with such name {name} did not exist");
+
+            return _mapper.Map<UserDTO>(user);
+        }
+
+        public UserDTO Login(string name, string password)
+        {
+            var user = _unitOfWork.Users.Get(x => x.Name == name).FirstOrDefault();
+
+            if (user == null)
+                return null;
+
+            var encryptedPassword = password.GetHashCode().ToString();
+
+            if (user.Password == encryptedPassword)
+            {
+                return _mapper.Map<UserDTO>(user);
+            }
+
+            return null;
+        }
+
         public bool IsUniqueName(UserDTO userDto)
         {
-            var user = _unitOfWork.Games.Get(x => x.Key == userDto.Name).FirstOrDefault();
+            var user = _unitOfWork.Users.Get(x => x.Name == userDto.Name).FirstOrDefault();
 
             if (user == null)
                 return true;

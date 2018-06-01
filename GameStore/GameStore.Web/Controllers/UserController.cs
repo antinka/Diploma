@@ -2,12 +2,12 @@
 
 namespace GameStore.Web.Controllers
 {
-    public class UserController : BaseController
-    {
-        // GET: User
-        public ActionResult Index()
-        {
-            return View();
-        }
-    }
+    //public class UserController : BaseController
+    //{
+    //    // GET: User
+    //    public ActionResult Index()
+    //    {
+    //        return View();
+    //    }
+    //}
 }

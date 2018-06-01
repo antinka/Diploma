@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using GameStore.Web.Authorization.Interfaces;
+using System.Security.Principal;
 
 namespace GameStore.Web.Authorization.Implementation
 {

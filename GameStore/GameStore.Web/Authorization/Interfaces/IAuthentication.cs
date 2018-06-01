@@ -1,13 +1,15 @@
-﻿using System.Web;
-using GameStore.Web.ViewModels;
+﻿using System.Runtime.InteropServices;
+using System.Security.Principal;
+using System.Web;
 
 namespace GameStore.Web.Authorization.Interfaces
 {
+    [ComVisible(true)]
     public interface IAuthentication
     {
         HttpContext HttpContext { get; set; }
 
-        UserViewModel Login(string login, string password, bool isPersistent);
+        User Login(string login, string password, bool isPersistent);
 
         void LogOut();
 

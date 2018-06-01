@@ -1,6 +1,8 @@
 ﻿using Autofac;
 using GameStore.BLL.Interfaces;
 using GameStore.BLL.Service;
+using GameStore.Web.Authorization.Implementation;
+using GameStore.Web.Authorization.Interfaces;
 using GameStore.Web.Infrastructure.Mapper;
 using GameStore.Web.Payments;
 using log4net;
@@ -25,6 +27,7 @@ namespace GameStore.Web.Infrastructure
             builder.RegisterType<Visa>().As<IPayment>().InstancePerLifetimeScope();
             builder.RegisterType<Box>().As<IPayment>().InstancePerLifetimeScope();
             builder.RegisterType<PaymentStrategy>().As<IPaymentStrategy>().InstancePerLifetimeScope();
+            builder.RegisterType<CustomAuthentication>().As<IAuthentication>();
         }
     }
 }

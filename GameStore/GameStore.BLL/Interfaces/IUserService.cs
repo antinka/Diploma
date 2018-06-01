@@ -13,6 +13,10 @@ namespace GameStore.BLL.Interfaces
 
         UserDTO GetById(Guid id);
 
+        UserDTO GetByName(string name);
+
+        UserDTO Login(string name, string password);
+
         bool IsUniqueName(UserDTO userDto);
     }
 }

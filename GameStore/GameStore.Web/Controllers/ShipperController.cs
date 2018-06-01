@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using AutoMapper;
 using GameStore.BLL.Interfaces;
+using GameStore.Web.Authorization.Interfaces;
 using GameStore.Web.ViewModels;
 
 namespace GameStore.Web.Controllers
@@ -11,7 +12,7 @@ namespace GameStore.Web.Controllers
         private readonly IOrdersService _ordersService;
         private readonly IMapper _mapper;
 
-        public ShipperController(IOrdersService ordersService, IMapper mapper)
+        public ShipperController(IOrdersService ordersService, IMapper mapper, IAuthentication authentication) : base(authentication)
         {
             _ordersService = ordersService;
             _mapper = mapper;
