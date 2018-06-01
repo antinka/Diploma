@@ -12,6 +12,5 @@ namespace GameStore.Web.Authorization.Interfaces
         void LogOut();
 
         IPrincipal CurrentUser { get; }
-
     }
 }

@@ -1,12 +1,14 @@
 ﻿using System;
-using System.Web;
+using System.Web;;
 using System.Web.Security;
+using AutoMapper;
+using GameStore.BLL.DTO;
 using GameStore.BLL.Interfaces;
 using GameStore.Web.Authorization.Interfaces;
 using GameStore.Web.ViewModels;
 using log4net;
 
-namespace GameStore.Web.Authorization
+namespace GameStore.Web.Authorization.Implementation
 {
     public class CustomAuthentication : IAuthentication
     {
@@ -17,7 +19,7 @@ namespace GameStore.Web.Authorization
         private readonly ILog _log;
         private readonly IUserService _userService;
 
-        public CustomAuthentication(ILog log, IUserService userService)
+        public CustomAuthentication(ILog log, IUserService userService, IMapper mapper)
         {
             _log = log;
             _userService = userService;
@@ -35,17 +37,20 @@ namespace GameStore.Web.Authorization
                         if (authCookie != null && !string.IsNullOrEmpty(authCookie.Value))
                         {
                             var ticket = FormsAuthentication.Decrypt(authCookie.Value);
-                            _currentUser = new UserProvider(ticket.Name, Repository);
+                            UserDTO user = _userService.(ticket.Name);
+
+                            var syncUser = Mapper.Map<UserModel>(user);
+                            _currentUser = new UserProvider();
                         }
                         else
                         {
-                            _currentUser = new UserProvider(null, null);
+                            _currentUser = new UserProvider();
                         }
                     }
                     catch (Exception ex)
                     {
                         _log.Info("Failed authentication: " + ex.Message);
-                        _currentUser = new UserProvider(null, null);
+                        _currentUser = new UserProvider();
                     }
                 }
                 return _currentUser;
