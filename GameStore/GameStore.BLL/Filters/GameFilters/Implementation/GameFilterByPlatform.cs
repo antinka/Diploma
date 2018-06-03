@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using GameStore.BLL.Filters.GameFilters.Interfaces;
+using GameStore.BLL.Filters.Interfaces;
 using GameStore.DAL.Entities;
 
 namespace GameStore.BLL.Filters.GameFilters.Implementation
@@ -18,7 +18,7 @@ namespace GameStore.BLL.Filters.GameFilters.Implementation
         {
             if (_selectedPlatformTypes.Any())
             {
-                return input.Where(game => Enumerable.Any(game.PlatformTypes, platform => _selectedPlatformTypes.Contains(platform.Name)));
+                return input.Where(game => game.PlatformTypes.Any(platform => _selectedPlatformTypes.Contains(platform.Name)));
             }
 
             return input;

@@ -106,15 +106,57 @@
             <div style="text-align: center">
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        @for (int i = 1; i <= Model.PagingInfo.TotalPages; i++)
+                        @if (Model.PagingInfo.TotalPages > 9)
                         {
-                            if (Model.PagingInfo.CurrentPage != i)
+                            int s = 1, e = 9;
+                            if (Model.PagingInfo.CurrentPage > 5)
                             {
-                                <input disabled="disabled" id="page" type="submit" value=@i name="page" class="btn btn-default" />
+                                s = Model.PagingInfo.CurrentPage - 4;
+
+                                if (Model.PagingInfo.CurrentPage + 4 < Model.PagingInfo.TotalPages)
+                                {
+                                    e = Model.PagingInfo.CurrentPage + 4;
+                                }
+                                else
+                                {
+                                    e = Model.PagingInfo.TotalPages;
+                                    s = e - 8;
+                                }
+
+                                <input id="page" type="submit" value=1 name="page" class="btn btn-default" />
+                                <span>....</span>
                             }
-                            else
+
+                            for (int i = s; i <= e; i++)
                             {
-                                <input type="button" value=@i class="btn btn-default" style=" background-color:#A9A9A9"/>
+                                if (Model.PagingInfo.CurrentPage == i)
+                                {
+                                    <input disabled="disabled" type="button" value=@i class="btn btn-default" style="background-color: #A9A9A9" />
+                                }
+                                else
+                                {
+                                    <input id="page" type="submit" value=@i name="page" class="btn btn-default" />
+                                }
+                            }
+
+                            if (s + 4 < Model.PagingInfo.TotalPages - 4)
+                            {
+                                <span>....</span>
+                                <input id="page" type="submit" value=@Model.PagingInfo.TotalPages name="page" class="btn btn-default" />
+                            }
+                        }
+                        else
+                        {
+                            for (int i = 1; i <= Model.PagingInfo.TotalPages; i++)
+                            {
+                                if (Model.PagingInfo.CurrentPage != i)
+                                {
+                                    <input id="page" type="submit" value=@i name="page" class="btn btn-default" />
+                                }
+                                else
+                                {
+                                    <input disabled="disabled" type="button" value=@i class="btn btn-default" style="background-color: #A9A9A9" />
+                                }
                             }
                         }
                     </div>

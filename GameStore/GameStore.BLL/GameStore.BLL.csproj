@@ -99,7 +99,7 @@
     <Compile Include="Enums\PageSize.cs" />
     <Compile Include="Enums\FilterDate.cs" />
     <Compile Include="Enums\SortType.cs" />
-    <Compile Include="Filters\GameFilters\Abstract\Filter.cs" />
+    <Compile Include="Filters\Abstract\Filter.cs" />
     <Compile Include="Filters\GameFilters\Implementation\GameFilterByDate.cs" />
     <Compile Include="Filters\GameFilters\Implementation\GameFilterByGenre.cs" />
     <Compile Include="Filters\GameFilters\Implementation\GameFilterByName.cs" />
@@ -109,7 +109,7 @@
     <Compile Include="Filters\GameFilters\Implementation\GameFilterByPublisher.cs" />
     <Compile Include="Filters\GameFilters\Implementation\GamePipeline.cs" />
     <Compile Include="Filters\GameFilters\Implementation\GameSortFilter.cs" />
-    <Compile Include="Filters\GameFilters\Interfaces\IPipeLine.cs" />
+    <Compile Include="Filters\Interfaces\IPipeLine.cs" />
     <Compile Include="CustomExeption\EntityNotFound.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Infrastructure\BLLModule.cs" />

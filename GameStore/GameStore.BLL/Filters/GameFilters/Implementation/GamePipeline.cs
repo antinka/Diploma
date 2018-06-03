@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using GameStore.BLL.Filters.GameFilters.Abstract;
+using GameStore.BLL.Filters.Abstract;
 using GameStore.DAL.Entities;
 
 namespace GameStore.BLL.Filters.GameFilters.Implementation

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using GameStore.BLL.Filters.GameFilters.Interfaces;
+using GameStore.BLL.Filters.Interfaces;
 using GameStore.DAL.Entities;
 
 namespace GameStore.BLL.Filters.GameFilters.Implementation

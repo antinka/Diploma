@@ -46,31 +46,14 @@ namespace GameStore.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult New(GameViewModel game)
         {
+            game = CheckValidationGameViewModel(game);
+
             if (ModelState.IsValid)
             {
                 var gameDTO = _mapper.Map<GameDTO>(game);
+                _gameService.AddNew(gameDTO);
 
-                if (game.SelectedGenresName == null)
-                {
-                    ModelState.AddModelError("Genres", "Please choose one or more genres");
-                }
-
-                if (game.SelectedPlatformTypesName == null)
-                {
-                    ModelState.AddModelError("SelectedPlatformTypesName", "Please choose one or more platform types");
-                }
-
-                if (!_gameService.IsUniqueKey(gameDTO))
-                {
-                    ModelState.AddModelError("Key", "Game with such key already exist, please enter another name");
-                }
-
-                if (ModelState.IsValid)
-                {
-                    _gameService.AddNew(gameDTO);
-
-                    return RedirectToAction("FilteredGames");
-                }
+                return RedirectToAction("FilteredGames");
             }
 
             return View(GetGameViewModelForCreate(game));
@@ -91,31 +74,15 @@ namespace GameStore.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Update(GameViewModel game)
         {
+            game = CheckValidationGameViewModel(game);
+
             if (ModelState.IsValid)
             {
                 var gameDTO = _mapper.Map<GameDTO>(game);
+                _gameService.Update(gameDTO);
 
-                if (game.SelectedGenresName == null)
-                {
-                    ModelState.AddModelError("Genres", "Please choose one or more genres");
-                }
+                return RedirectToAction("FilteredGames");
 
-                if (game.SelectedPlatformTypesName == null)
-                {
-                    ModelState.AddModelError("PlatformTypes", "Please choose one or more platform types");
-                }
-
-                if (!_gameService.IsUniqueKey(gameDTO))
-                {
-                    ModelState.AddModelError("Key", "Game with such key already exist, please enter another name");
-                }
-
-                if (ModelState.IsValid)
-                {
-                    _gameService.Update(gameDTO);
-
-                    return RedirectToAction("FilteredGames");
-                }
             }
 
             return View(GetGameViewModelForUpdate(game));
@@ -232,6 +199,28 @@ namespace GameStore.Web.Controllers
             var gameCount = _gameService.GetCountGame();
 
             return PartialView("CountGames", gameCount);
+        }
+
+        private GameViewModel CheckValidationGameViewModel(GameViewModel game)
+        {
+            var gameDTO = _mapper.Map<GameDTO>(game);
+
+            if (game.SelectedGenresName == null)
+            {
+                ModelState.AddModelError("Genres", "Please choose one or more genres");
+            }
+
+            if (game.SelectedPlatformTypesName == null)
+            {
+                ModelState.AddModelError("PlatformTypes", "Please choose one or more platform types");
+            }
+
+            if (!_gameService.IsUniqueKey(gameDTO))
+            {
+                ModelState.AddModelError("Key", "Game with such key already exist, please enter another name");
+            }
+
+            return game;
         }
 
         private GameViewModel CreateCheckBoxForGameViewModel(GameViewModel gameViewModel)

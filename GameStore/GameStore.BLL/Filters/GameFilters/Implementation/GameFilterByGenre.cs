@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using GameStore.BLL.Filters.GameFilters.Interfaces;
+using GameStore.BLL.Filters.Interfaces;
 using GameStore.DAL.Entities;
 
 namespace GameStore.BLL.Filters.GameFilters.Implementation
@@ -16,9 +16,9 @@ namespace GameStore.BLL.Filters.GameFilters.Implementation
 
         public IEnumerable<Game> Execute(IEnumerable<Game> input)
         {
-            if (_selectedGenresName.Count() != 0)
+            if (_selectedGenresName.Any())
             {
-                return input.Where(game => Enumerable.Any(game.Genres, genre => _selectedGenresName.Contains(genre.Name)));
+                return input.Where(game => game.Genres.Any(genre => _selectedGenresName.Contains(genre.Name)));
             }
 
             return input;
