@@ -11,16 +11,16 @@ namespace GameStore.Web.Controllers
     public class BaseController : Controller
     {
         public string CurrentLangCode { get; protected set; }
-        private readonly IAuthentication _authentication;
+        public IAuthentication Authentication { get; }
 
         public BaseController(IAuthentication authentication)
         {
-            _authentication = authentication;
+            Authentication = authentication;
         }
 
         public User CurrentUser
         {
-            get { return ((UserIdentity)_authentication.CurrentUser.Identity).User;}
+            get { return ((UserIdentity)Authentication.CurrentUser.Identity).User;}
         }
 
         protected override void Initialize(RequestContext requestContext)
