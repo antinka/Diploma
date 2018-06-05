@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using AutoMapper;
+﻿using AutoMapper;
 using GameStore.BLL.Interfaces;
 using GameStore.Web.Filters;
 using GameStore.Web.Payments;
 using GameStore.Web.Payments.Enums;
 using GameStore.Web.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace GameStore.Web.Controllers
 {

@@ -79,6 +79,10 @@
     <Compile Include="Migrations\201805231429201_Initial.Designer.cs">
       <DependentUpon>201805231429201_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805231536574_updGame.cs" />
+    <Compile Include="Migrations\201805231536574_updGame.Designer.cs">
+      <DependentUpon>201805231536574_updGame.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />
@@ -91,6 +95,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201805231429201_Initial.resx">
       <DependentUpon>201805231429201_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805231536574_updGame.resx">
+      <DependentUpon>201805231536574_updGame.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

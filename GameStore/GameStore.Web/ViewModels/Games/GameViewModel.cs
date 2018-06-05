@@ -11,7 +11,7 @@ namespace GameStore.Web.ViewModels.Games
         public Guid Id { get; set; }
 
         [Required]
-        [RegularExpression(@"^[A-Za-z0-9_-]{3,100}", ErrorMessage = "Key cannot be longer than 200 characters and less than 3 characters and could contains only A-Za-z0-9")]
+        [RegularExpression(@"^[A-Za-z0-9_-]{3,200}", ErrorMessage = "Key cannot be longer than 200 characters and less than 3 characters and could contains only A-Za-z0-9")]
         public string Key { get; set; }
 
         [Required]
@@ -32,6 +32,10 @@ namespace GameStore.Web.ViewModels.Games
 
         public bool Discountinues { get; set; }
 
+        public DateTime PublishDate { get; set; }
+
+        public int Views { get; set; }
+
         public Guid? PublisherId { get; set; }
 
         public PublisherViewModel Publisher { get; set; }
@@ -42,10 +46,14 @@ namespace GameStore.Web.ViewModels.Games
 
         public ICollection<GenreViewModel> Genres { get; set; }
 
+        public ICollection<Guid> GenresId { get; set; }
+
         public SelectList GenreList { get; set; }
 
         [Display(Name = "Platform types")]
         public ICollection<PlatformTypeViewModel> PlatformTypes { get; set; }
+
+        public ICollection<Guid> PlatformTypesId { get; set; }
 
         public SelectList PlatformTypeList { get; set; }
 
@@ -60,5 +68,6 @@ namespace GameStore.Web.ViewModels.Games
         public IEnumerable<CheckBox> SelectedPlatformTypes { get; set; }
 
         public ICollection<string> SelectedPlatformTypesName { get; set; }
+
     }
 }

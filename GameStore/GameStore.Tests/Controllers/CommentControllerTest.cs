@@ -5,11 +5,11 @@ using GameStore.BLL.Interfaces;
 using GameStore.Web.Controllers;
 using GameStore.Web.Infrastructure.Mapper;
 using GameStore.Web.ViewModels;
+using GameStore.Web.ViewModels.Games;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using GameStore.Web.ViewModels.Games;
 using Xunit;
 
 namespace GameStore.Tests.Controllers
@@ -20,8 +20,8 @@ namespace GameStore.Tests.Controllers
         private readonly IMapper _mapper;
         private readonly CommentController _sut;
 
+        private readonly Guid _fakeCommentId, _fakeGameId;
         private readonly string _fakeGameKey;
-        private readonly Guid _fakeGameId;
         private readonly List<CommentDTO> _fakeComment;
 
         public CommentControllerTest()
@@ -31,8 +31,10 @@ namespace GameStore.Tests.Controllers
             _mapper = MapperConfigUi.GetMapper().CreateMapper();
             _sut = new CommentController(_commentService.Object, gameService.Object, _mapper);
 
-            _fakeGameKey = Guid.NewGuid().ToString();
+            _fakeCommentId = Guid.NewGuid();
             _fakeGameId = Guid.NewGuid();
+            _fakeGameKey = _fakeCommentId.ToString();
+
             _fakeComment = new List<CommentDTO>()
             {
                 new CommentDTO()
@@ -78,7 +80,7 @@ namespace GameStore.Tests.Controllers
             var res = _sut.Ban(BanPeriod.Day) as RedirectToRouteResult;
         
             Assert.Equal("Game", res.RouteValues["controller"]);
-            Assert.Equal("GetAllGames", res.RouteValues["action"]);
+            Assert.Equal("FilteredGames", res.RouteValues["action"]);
         }
 
         [Fact]
@@ -100,6 +102,14 @@ namespace GameStore.Tests.Controllers
             _commentService.Setup(service => service.AddComment(fakeCommentDTO));
 
             var res = _sut.CommentToGame(fakeCommentViewModel);
+
+            Assert.Equal(typeof(PartialViewResult), res.GetType());
+        }
+
+        [Fact]
+        public void CommentToGame_GamekeyGameId_ReturnedPartialView()
+        {
+            var res = _sut.CommentToGame(_fakeGameKey, _fakeGameId, null, null);
 
             Assert.Equal(typeof(PartialViewResult), res.GetType());
         }

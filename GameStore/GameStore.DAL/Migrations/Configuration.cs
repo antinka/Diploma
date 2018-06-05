@@ -1,22 +1,24 @@
-using System.Collections.Generic;
 using GameStore.DAL.Entities;
+using System.Collections.Generic;
+using GameStore.DAL.EF;
 
 namespace GameStore.DAL.Migrations
 {
     using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<GameStore.DAL.EF.GameStoreDBContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<GameStoreDBContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(GameStore.DAL.EF.GameStoreDBContext context)
+        protected override void Seed(GameStoreDBContext context)
         {
+            context.Database.Delete();
+            context.Database.Create();
+
             var strategy = new Genre
             {
                 Id = Guid.NewGuid(),
@@ -158,6 +160,8 @@ namespace GameStore.DAL.Migrations
                 Name = "wow",
                 Description = "smth",
                 Key = "wo223w",
+                PublishDate = DateTime.UtcNow.AddYears(-1),
+                Views = 140,
                 Genres = new List<Genre>() { fps, adventure },
                 PlatformTypes = new List<PlatformType>() { windows }
             };
@@ -169,6 +173,8 @@ namespace GameStore.DAL.Migrations
                 Name = "hero",
                 Description = "smth",
                 Key = "hero232",
+                PublishDate = DateTime.UtcNow.AddYears(-1),
+                Views = 140,
                 Genres = new List<Genre>() { puzzleSkill, adventure, subMisc },
                 PlatformTypes = new List<PlatformType>() { windows, android, ios }
 
@@ -181,10 +187,10 @@ namespace GameStore.DAL.Migrations
             var desktop = new PlatformType { Id = Guid.NewGuid(), Name = "Desktop" };
             var console = new PlatformType { Id = Guid.NewGuid(), Name = "Console" };
 
-            context.PlatformTypes.Add(mobile);
-            context.PlatformTypes.Add(browser);
-            context.PlatformTypes.Add(desktop);
-            context.PlatformTypes.Add(console);
+            context.PlatformTypes.AddOrUpdate(mobile);
+            context.PlatformTypes.AddOrUpdate(browser);
+            context.PlatformTypes.AddOrUpdate(desktop);
+            context.PlatformTypes.AddOrUpdate(console);
 
             var p1 = new Publisher()
             {
@@ -200,6 +206,8 @@ namespace GameStore.DAL.Migrations
                 Name = "Left 4 Dead",
                 Price = 6,
                 UnitsInStock = 0,
+                PublishDate = DateTime.UtcNow.AddYears(-2),
+                Views = 130,
                 Genres = new List<Genre>
                 {
                     fps
@@ -219,6 +227,8 @@ namespace GameStore.DAL.Migrations
                 Price = 12,
                 UnitsInStock = 13,
                 Publisher = p1,
+                PublishDate = DateTime.UtcNow.AddYears(-1),
+                Views = 1400,
                 Genres = new List<Genre>
                 {
                     fps
@@ -238,6 +248,8 @@ namespace GameStore.DAL.Migrations
                 Name = "FIFA",
                 Price = 20,
                 UnitsInStock = 5,
+                PublishDate = DateTime.UtcNow.AddYears(-1),
+                Views = 140,
                 Genres = new List<Genre>
                 {
                     sports
@@ -258,6 +270,8 @@ namespace GameStore.DAL.Migrations
                 Name = "Need for Speed",
                 Price = 15,
                 UnitsInStock = 17,
+                PublishDate = DateTime.UtcNow.AddYears(-3),
+                Views = 190,
                 PlatformTypes = new List<PlatformType>
                 {
                     desktop,
@@ -274,6 +288,8 @@ namespace GameStore.DAL.Migrations
                 Name = "World of Warcraft",
                 Price = 7,
                 UnitsInStock = 56,
+                PublishDate = DateTime.UtcNow.AddYears(-1),
+                Views = 140,
                 PlatformTypes = new List<PlatformType>
                 {
                     desktop
@@ -293,6 +309,8 @@ namespace GameStore.DAL.Migrations
                 Name = "Left 4 Dead",
                 Price = 6,
                 UnitsInStock = 0,
+                PublishDate = DateTime.UtcNow.AddMonths(-1),
+                Views = 14,
                 Genres = new List<Genre>
                 {
                     rally
@@ -300,7 +318,7 @@ namespace GameStore.DAL.Migrations
                 PlatformTypes = new List<PlatformType>
                 {
                     desktop
-            
+
                 },
             };
 
@@ -311,6 +329,8 @@ namespace GameStore.DAL.Migrations
                 Name = "Call of Duty",
                 Price = 12,
                 UnitsInStock = 13,
+                PublishDate = DateTime.UtcNow.AddMonths(-1),
+                Views = 14,
                 PlatformTypes = new List<PlatformType>
                 {
                     desktop
@@ -324,6 +344,8 @@ namespace GameStore.DAL.Migrations
                 Name = "FIFA",
                 Price = 20,
                 UnitsInStock = 5,
+                PublishDate = DateTime.UtcNow.AddMonths(-1),
+                Views = 140,
                 PlatformTypes = new List<PlatformType>
                 {
                     desktop
@@ -344,6 +366,8 @@ namespace GameStore.DAL.Migrations
                 Name = "Need for Speed",
                 Price = 15,
                 UnitsInStock = 17,
+                PublishDate = DateTime.UtcNow.AddMonths(-2),
+                Views = 104,
                 PlatformTypes = new List<PlatformType>
                 {
                     console,
@@ -367,6 +391,8 @@ namespace GameStore.DAL.Migrations
                 Name = "World of Warcraft",
                 Price = 7,
                 UnitsInStock = 56,
+                PublishDate = DateTime.UtcNow.AddMonths(-1),
+                Views = 1400,
                 PlatformTypes = new List<PlatformType>
                     {
                         desktop
@@ -387,11 +413,12 @@ namespace GameStore.DAL.Migrations
             context.Games.AddOrUpdate(left4Dead2);
             context.Games.AddOrUpdate(cod2);
             context.Games.AddOrUpdate(fifa2);
-            context.Games.Add(nfs2);
-            context.Games.Add(qqq2);
+            context.Games.AddOrUpdate(nfs2);
+            context.Games.AddOrUpdate(qqq2);
 
             context.SaveChanges();
             base.Seed(context);
+
         }
     }
 }

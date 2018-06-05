@@ -23,5 +23,6 @@ namespace GameStore.Web.Payments.ViewModels
         [Required]
         [RegularExpression(@"^[0-9]{4,6}", ErrorMessage = "Card verification value could consist only from numbers, not less than 4, no more than 6")]
         public int CardVerificationValue { get; set; }
+
     }
 }

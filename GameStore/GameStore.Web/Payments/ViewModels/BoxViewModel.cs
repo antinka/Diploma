@@ -12,5 +12,6 @@ namespace GameStore.Web.Payments.ViewModels
         public Guid OrderId { get; set; }
 
         public decimal Cost { get; set; }
+
     }
 }

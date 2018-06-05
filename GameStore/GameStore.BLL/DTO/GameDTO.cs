@@ -19,6 +19,10 @@ namespace GameStore.BLL.DTO
 
         public bool Discountinues { get; set; }
 
+        public DateTime PublishDate { get; set; }
+
+        public int Views { get; set; }
+
         public Guid? PublisherId { get; set; }
 
         public PublisherDTO Publisher { get; set; }

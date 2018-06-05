@@ -92,6 +92,14 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
+        public void Update_companyName_ReturnView()
+        {
+            var res = _sut.Update(_fakePublisherName);
+
+            Assert.Equal(typeof(ViewResult), res.GetType());
+        }
+
+        [Fact]
         public void Remove_PublisherId_Verifiable()
         {
             var fakePublisherId = Guid.NewGuid();

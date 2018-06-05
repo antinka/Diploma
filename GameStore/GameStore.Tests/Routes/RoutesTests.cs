@@ -35,7 +35,7 @@ namespace GameStore.Tests.Routes
             var routeData = RouteTable.Routes.GetRouteData(httpContextMock.Object);
 
             Assert.Equal("Game", routeData.Values["controller"]);
-            Assert.Equal("GetAllGames", routeData.Values["action"]);
+            Assert.Equal("FilteredGames", routeData.Values["action"]);
         }
 
         [Fact]

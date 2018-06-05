@@ -91,10 +91,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\FilterDTO.cs" />
     <Compile Include="DTO\OrderDetailDTO.cs" />
     <Compile Include="DTO\OrderDTO.cs" />
     <Compile Include="DTO\PublisherDTO.cs" />
     <Compile Include="Enums\BanPeriod.cs" />
+    <Compile Include="Enums\PageSize.cs" />
+    <Compile Include="Enums\FilterDate.cs" />
+    <Compile Include="Enums\SortType.cs" />
+    <Compile Include="Filters\Abstract\Filter.cs" />
+    <Compile Include="Filters\GameFilters\Implementation\GameFilterByDate.cs" />
+    <Compile Include="Filters\GameFilters\Implementation\GameFilterByGenre.cs" />
+    <Compile Include="Filters\GameFilters\Implementation\GameFilterByName.cs" />
+    <Compile Include="Filters\GameFilters\Implementation\GameFilterByPage.cs" />
+    <Compile Include="Filters\GameFilters\Implementation\GameFilterByPlatform.cs" />
+    <Compile Include="Filters\GameFilters\Implementation\GameFilterByPrice.cs" />
+    <Compile Include="Filters\GameFilters\Implementation\GameFilterByPublisher.cs" />
+    <Compile Include="Filters\GameFilters\Implementation\GamePipeline.cs" />
+    <Compile Include="Filters\GameFilters\Implementation\GameSortFilter.cs" />
+    <Compile Include="Filters\Interfaces\IPipeLine.cs" />
     <Compile Include="CustomExeption\EntityNotFound.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Infrastructure\BLLModule.cs" />
@@ -120,14 +135,14 @@
     <Compile Include="Service\PublisherService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GameStore.DAL\GameStore.DAL.csproj">
-      <Project>{36f7a06d-95a3-4d75-8fe1-284806f45845}</Project>
-      <Name>GameStore.DAL</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GameStore.DAL\GameStore.DAL.csproj">
+      <Project>{36F7A06D-95A3-4D75-8FE1-284806F45845}</Project>
+      <Name>GameStore.DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

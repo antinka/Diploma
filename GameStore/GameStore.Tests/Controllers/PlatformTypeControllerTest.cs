@@ -92,6 +92,14 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
+        public void Update_PlatformTypeName_ReturnedView()
+        {
+            var res = _sut.Update(_fakePlatformTypeName);
+
+            Assert.Equal(typeof(ViewResult), res.GetType());
+        }
+
+        [Fact]
         public void Remove_PlatformTypeId_Verifiable()
         {
             var fakePlatformTypeId = Guid.NewGuid();

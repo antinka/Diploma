@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using GameStore.BLL.DTO;
+using GameStore.BLL.Enums;
 
 namespace GameStore.BLL.Interfaces
 {
@@ -13,5 +14,7 @@ namespace GameStore.BLL.Interfaces
         int GetCountGame();
 
         bool IsUniqueKey(GameDTO gameDTO);
+
+        IEnumerable<GameDTO> GetGamesByFilter(FilterDTO filter, int page, PageSize pageSize, out int totalItemsByFilter);
     }
 }

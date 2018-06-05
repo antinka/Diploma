@@ -22,6 +22,8 @@ namespace GameStore.Web.Infrastructure.Mapper
             CreateMap<GenreDTO, GenreViewModel>();
 
             CreateMap<PlatformTypeDTO, PlatformTypeViewModel>();
+
+            CreateMap<FilterDTO, FilterViewModel>();
         }
     }
 }

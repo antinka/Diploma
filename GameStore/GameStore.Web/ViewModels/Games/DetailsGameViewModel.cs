@@ -9,7 +9,7 @@ namespace GameStore.Web.ViewModels.Games
         public Guid Id { get; set; }
 
         [Required]
-        [RegularExpression(@"^[A-Za-z0-9_-]{3,100}", ErrorMessage =
+        [RegularExpression(@"^[A-Za-z0-9_-]{3,200}", ErrorMessage =
             "Key cannot be longer than 200 characters and less than 3 characters and could contains only A-Za-z0-9")]
         public string Key { get; set; }
 
@@ -34,10 +34,12 @@ namespace GameStore.Web.ViewModels.Games
 
         public Guid? PublisherId { get; set; }
 
+        [Display(Name = "Publisher")]
         public PublisherViewModel Publisher { get; set; }
 
         public ICollection<CommentViewModel> Comments { get; set; }
 
+        [Display(Name = "Genres")]
         public ICollection<GenreViewModel> Genres { get; set; }
 
         [Display(Name = "Platform types")]

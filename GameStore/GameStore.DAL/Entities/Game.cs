@@ -22,6 +22,10 @@ namespace GameStore.DAL.Entities
 
         public bool Discountinues { get; set; }
 
+        public DateTime PublishDate { get; set; }
+
+        public int Views { get; set; }
+
         [ForeignKey("Publisher")]
         public Guid? PublisherId { get; set; }
 

@@ -123,8 +123,9 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void GetGame_Gamekey_Verifiable()
         {
-            _gameService.Setup(service => service.GetByKey(_fakeGameKey)).Verifiable();
-
+            var fakeGame = new GameDTO() { Id = Guid.NewGuid(), Key = _fakeGameKey, Name = "test" };
+            _gameService.Setup(service => service.GetByKey(_fakeGameKey)).Returns(fakeGame).Verifiable(); 
+            
             _sut.GetGame(_fakeGameKey);
 
             _gameService.Verify(s => s.GetByKey(It.IsAny<string>()), Times.Once);
@@ -188,6 +189,14 @@ namespace GameStore.Tests.Controllers
             _sut.Update(fakeGameViewModel);
 
             _gameService.Verify(s => s.IsUniqueKey(It.IsAny<GameDTO>()), Times.Once);
+        }
+
+        [Fact]
+        public void GamesFilters_EmptyFilterViewModel_ReturnedPartialViewResult()
+        {
+            var res = _sut.GamesFilters(new FilterViewModel());
+
+            Assert.Equal(typeof(PartialViewResult), res.GetType());
         }
     }
 }

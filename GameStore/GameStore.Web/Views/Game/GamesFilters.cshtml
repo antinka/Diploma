@@ -1,0 +1,86 @@
+﻿@using GameStore.BLL.Enums
+@using MvcCheckBoxList.Model
+
+@model GameStore.Web.ViewModels.FilterViewModel
+
+@{
+    ViewBag.Title = "GamesFilters";
+}
+
+@using (Html.BeginForm("FilteredGames","Game", FormMethod.Get, null))
+{
+<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.SortType, htmlAttributes: new { @class = "control-label col-md-6" })
+        <div class="col-md-10">
+            @Html.EnumDropDownListFor(model => model.SortType, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.SortType, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.FilterDate, htmlAttributes: new { @class = "control-label col-md-6" })<br />
+        <div class="col-md-10">
+            <label> @Html.RadioButtonFor(m => m.FilterDate, FilterDate.week, new {required = "required"})week </label><br/>
+            <label> @Html.RadioButtonFor(m => m.FilterDate, FilterDate.month, new {required = "required"})month </label><br/>
+            <label> @Html.RadioButtonFor(m => m.FilterDate, FilterDate.oneYear, new {required = "required"})one year </label><br/>
+            <label> @Html.RadioButtonFor(m => m.FilterDate, FilterDate.twoYear, new {required = "required"})two year </label><br/>
+            <label> @Html.RadioButtonFor(m => m.FilterDate, FilterDate.threeYear, new {required = "required"})three year </label><br/>
+            <label> @Html.RadioButtonFor(m => m.FilterDate, FilterDate.all, new {required = "required"})All </label><br/>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-10">
+            @Html.LabelFor(model => model.SearchGameName)
+            @Html.EditorFor(model => model.SearchGameName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.SearchGameName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            @Html.LabelFor(model => model.MinPrice)
+            @Html.EditorFor(model => model.MinPrice, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MinPrice, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            @Html.LabelFor(model => model.MaxPrice)
+            @Html.EditorFor(model => model.MaxPrice, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MaxPrice, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Platform types", htmlAttributes: new { @class = "control-label col-md-6" })
+        <div class="col-md-10" style="border-width: 1px; border-style: dashed;">
+            @Html.CheckBoxListFor(model => model.SelectedPlatformTypesName, model => model.ListPlatformTypes, model => model.Text, model => model.Text, model => model.SelectedPlatformTypes, Position.Vertical)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Genres", htmlAttributes: new { @class = "control-label col-md-6" })
+        <div class="col-md-10" style="border-width: 1px; border-style: dashed;">
+            @Html.CheckBoxListFor(model => model.SelectedGenresName, model => model.ListGenres, model => model.Text, model => model.Text, model => model.SelectedGenres, Position.Vertical)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Publishers", htmlAttributes: new { @class = "control-label col-md-6" })
+        <div class="col-md-10" style="border-width: 1px; border-style: dashed;">
+            @Html.CheckBoxListFor(model => model.SelectedPublishersName, model => model.ListPublishers, model => model.Text, model => model.Text, model => model.SelectedPublishers, Position.Vertical)
+        </div>
+    </div>
+
+</div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Filter" id ="filter"class="btn btn-default" />
+        </div>
+    </div>
+
+}

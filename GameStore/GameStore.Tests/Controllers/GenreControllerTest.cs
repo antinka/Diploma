@@ -92,6 +92,19 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
+        public void Update_GenreName_ReturnedView()
+        {
+            var fakeGenre = new GenreDTO() {Id = Guid.NewGuid(), Name = _fakeGenreName};
+
+            _genreService.Setup(service => service.GetByName(_fakeGenreName)).Returns(fakeGenre);
+            _genreService.Setup(service => service.GetAll()).Returns(new List<GenreDTO>());
+
+            var res = _sut.Update(_fakeGenreName);
+
+            Assert.Equal(typeof(ViewResult), res.GetType());
+        }
+
+        [Fact]
         public void Remove_GenreId_Verifiable()
         {
             var fakeGenreId = Guid.NewGuid();
