@@ -124,13 +124,12 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void GetGame_Gamekey_Verifiable()
         {
-            var fakeGame = new ExtendGameDTO() { Id = Guid.NewGuid(), Key = _fakeGameKey, NameEn = "test" };
-            _gameService.Setup(service => service.GetByKey(_fakeGameKey)).Returns(fakeGame);
-            _gameService.Setup(service => service.IncreaseGameView(fakeGame.Id)).Verifiable();
-
+            var fakeGame = new GameDTO() { Id = Guid.NewGuid(), Key = _fakeGameKey, Name = "test" };
+            _gameService.Setup(service => service.GetByKey(_fakeGameKey)).Returns(fakeGame).Verifiable(); 
+            
             _sut.GetGame(_fakeGameKey);
 
-            _gameService.Verify(s => s.IncreaseGameView(It.IsAny<Guid>()), Times.Once);
+            _gameService.Verify(s => s.GetByKey(It.IsAny<string>()), Times.Once);
         }
 
         [Fact]

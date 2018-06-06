@@ -9,7 +9,7 @@ namespace GameStore.Web.ViewModels
 {
     public class FilterViewModel
     {
-        public IEnumerable<FilterGameViewModel> Games { get; set; }
+        public IEnumerable<DetailsGameViewModel> Games { get; set; }
 
         public PagingInfo PagingInfo { get; set; }
 

@@ -5,7 +5,7 @@ namespace GameStore.BLL.DTO
 {
     public class FilterDTO
     {
-        public SortDate SortDate { get; set; }
+        public FilterDate FilterDate { get; set; }
 
         public SortType SortType { get; set; }
 

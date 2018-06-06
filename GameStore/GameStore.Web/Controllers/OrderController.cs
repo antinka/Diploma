@@ -112,6 +112,11 @@ namespace GameStore.Web.Controllers
 
         public ActionResult FilterOrders(FilterOrder filterOrder)
         {
+            if (filterOrder.DateTimeFrom > filterOrder.DateTimeTo)
+            {
+                ModelState.AddModelError("", "Date Time From could not be bigger than Date Time To, please choose another one");
+            }
+
             var ordersDTO = _ordersService.GetOrdersBetweenDates(filterOrder.DateTimeFrom, filterOrder.DateTimeTo);
             filterOrder.OrdersViewModel = _mapper.Map<IEnumerable<OrderViewModel>>(ordersDTO);
 
