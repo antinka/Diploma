@@ -444,7 +444,7 @@ namespace GameStore.Tests.Service
             gamePipeline.Register(new GameFilterByPage(2, PageSize.Ten));
             var gamesAfteFilter = gamePipeline.Process(fakeGamesForFilter);
 
-            Assert.True(gamesAfteFilter.ElementAt(0).Name == "Игра11");
+            Assert.True(gamesAfteFilter.ElementAt(0).NameRu == "Игра11");
         }
 
         [Fact]
