@@ -260,3 +260,16 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/GameStore/GameStore.Web/App_LocalResources
+/GameStore/GameStore.Web/Views/Order
+/GameStore/GameStore.DAL/Migrations
+/GameStore/GameStore.DAL/Enums
+/GameStore/GameStore.DAL/Mongo
+/GameStore/GameStore.DAL/Entities
+/GameStore/GameStore.DAL/Repositories
+/GameStore/GameStore.Web/Controllers/BaseController.cs
+/GameStore/GameStore.BLL/Infrastructure/Mapper
+/GameStore/GameStore.BLL/Resources
+/GameStore/GameStore.BLL/Enums/SortDate.cs
+/GameStore/GameStore.BLL/Filtrations
+/GameStore/GameStore.BLL/DTO

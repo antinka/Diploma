@@ -1,15 +1,15 @@
-﻿using GameStore.BLL.Filtration.Interfaces;
-using GameStore.DAL.Entities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using GameStore.BLL.Filters.Interfaces;
+using GameStore.DAL.Entities;
 
-namespace GameStore.BLL.Filtration.Implementation
+namespace GameStore.BLL.Filters.GameFilters.Implementation
 {
-    public class FilterByName : IPipeLine<IEnumerable<Game>>
+    public class GameFilterByName : IPipeLine<IEnumerable<Game>>
     {
         private readonly string _gameName;
 
-        public FilterByName(string gameName)
+        public GameFilterByName(string gameName)
         {
             _gameName = gameName;
         }

@@ -1,21 +1,24 @@
-using System.Collections.Generic;
 using GameStore.DAL.Entities;
+using System.Collections.Generic;
+using GameStore.DAL.EF;
 
 namespace GameStore.DAL.Migrations
 {
     using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<GameStore.DAL.EF.GameStoreDBContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<GameStoreDBContext>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(GameStore.DAL.EF.GameStoreDBContext context)
+        protected override void Seed(GameStoreDBContext context)
         {
+            context.Database.Delete();
+            context.Database.Create();
+
             var strategy = new Genre
             {
                 Id = Guid.NewGuid(),
