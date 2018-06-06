@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using GameStore.Web.ViewModels;
 
 namespace GameStore.Web.Authorization
 {
@@ -6,7 +7,7 @@ namespace GameStore.Web.Authorization
     {
         public string Name { get; set; }
 
-        public IEnumerable<UserRole> Roles { get; set; }
+        public IEnumerable<RoleViewModel> Roles { get; set; }
 
         public bool IsBanned { get; set; }
     }

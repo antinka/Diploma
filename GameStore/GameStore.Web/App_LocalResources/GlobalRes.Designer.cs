@@ -198,6 +198,16 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Пожалуйста
+        /// выберите один или несколько ролей.
+        /// </summary>
+        public static string ChooseRoles {
+            get {
+                return ResourceManager.GetString("ChooseRoles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Комментарии.
         /// </summary>
         public static string Comment {
@@ -221,6 +231,24 @@ namespace GameStore.Web.App_LocalResources {
         public static string CompanyName {
             get {
                 return ResourceManager.GetString("CompanyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Подтвердите Пароль.
+        /// </summary>
+        public static string ConfirmePassword {
+            get {
+                return ResourceManager.GetString("ConfirmePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пароли не совпадают.
+        /// </summary>
+        public static string ConfirmePasswordError {
+            get {
+                return ResourceManager.GetString("ConfirmePasswordError", resourceCulture);
             }
         }
         
@@ -369,6 +397,15 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Дата окончания бана.
+        /// </summary>
+        public static string EndDateBaned {
+            get {
+                return ResourceManager.GetString("EndDateBaned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Жанр с таким именем уже существует, пожалуйста введите другое имя.
         /// </summary>
         public static string ExistGenreName {
@@ -423,6 +460,15 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Имя.
+        /// </summary>
+        public static string FirstName {
+            get {
+                return ResourceManager.GetString("FirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Груз.
         /// </summary>
         public static string Freight {
@@ -459,6 +505,15 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Оставаться в системе.
+        /// </summary>
+        public static string IsPersistent {
+            get {
+                return ResourceManager.GetString("IsPersistent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ключ.
         /// </summary>
         public static string Key {
@@ -473,6 +528,24 @@ namespace GameStore.Web.App_LocalResources {
         public static string KeyRegexExpression {
             get {
                 return ResourceManager.GetString("KeyRegexExpression", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Фамилия.
+        /// </summary>
+        public static string LastName {
+            get {
+                return ResourceManager.GetString("LastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Войти.
+        /// </summary>
+        public static string Login {
+            get {
+                return ResourceManager.GetString("Login", resourceCulture);
             }
         }
         
@@ -612,6 +685,24 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Пароль.
+        /// </summary>
+        public static string Password {
+            get {
+                return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пароль не может быть длиннее 40 символов и менее 3 символов..
+        /// </summary>
+        public static string PasswordExpression3_40 {
+            get {
+                return ResourceManager.GetString("PasswordExpression3_40", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Оплатить.
         /// </summary>
         public static string Pay {
@@ -684,11 +775,29 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Зарегистрироваться.
+        /// </summary>
+        public static string Register {
+            get {
+                return ResourceManager.GetString("Register", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Удалить.
         /// </summary>
         public static string Remove {
             get {
                 return ResourceManager.GetString("Remove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Роли.
+        /// </summary>
+        public static string Roles {
+            get {
+                return ResourceManager.GetString("Roles", resourceCulture);
             }
         }
         
@@ -801,6 +910,15 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Дата начала бана.
+        /// </summary>
+        public static string StartDateBaned {
+            get {
+                return ResourceManager.GetString("StartDateBaned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Выбрать заказы за период.
         /// </summary>
         public static string TakeOrderBetween {
@@ -860,6 +978,33 @@ namespace GameStore.Web.App_LocalResources {
         public static string UserId {
             get {
                 return ResourceManager.GetString("UserId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Логин.
+        /// </summary>
+        public static string UserName {
+            get {
+                return ResourceManager.GetString("UserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Логин не может быть длиннее 40 символов и менее 3 символов..
+        /// </summary>
+        public static string UserNameExpression3_40 {
+            get {
+                return ResourceManager.GetString("UserNameExpression3_40", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пользователи.
+        /// </summary>
+        public static string Users {
+            get {
+                return ResourceManager.GetString("Users", resourceCulture);
             }
         }
         

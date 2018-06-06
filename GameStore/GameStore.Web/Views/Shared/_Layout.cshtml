@@ -35,12 +35,16 @@
                     <li> @Html.ActionLink(GlobalRes.Genres, "GetAll", "Genre")</li>
                     <li> @Html.ActionLink(GlobalRes.Orders, "FilterOrders", "Order")</li>
                     <li> @Html.ActionLink(GlobalRes.Shipper, "GetAll", "Shipper")</li>
-                    
+                    <li> @Html.ActionLink(GlobalRes.Users, "GetAll", "User")</li>
+                    <li> @Html.ActionLink(GlobalRes.Roles, "GetAll", "Role")</li>
                 </ul>
                 
                <ul class="nav navbar-nav navbar-right">
                    <li>@Html.ActionLink("ru", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["lang"] = "ru"))</li>
                    <li> @Html.ActionLink( "en",  ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["lang"] = "en"))</li>
+                   
+                   <li> @Html.ActionLink(GlobalRes.Login, "Login", "Account")</li>
+                   <li> @Html.ActionLink(GlobalRes.Register, "Register", "Account")</li>
                </ul>
 
             </div>

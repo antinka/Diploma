@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using GameStore.BLL.DTO;
 
 namespace GameStore.BLL.Interfaces
@@ -13,6 +14,10 @@ namespace GameStore.BLL.Interfaces
 
         RoleDTO GetById(Guid id);
 
+        RoleDTO GetByName(string name);
+
         bool IsUniqueName(RoleDTO roleDto);
+
+        IEnumerable<RoleDTO> GetAll();
     }
 }

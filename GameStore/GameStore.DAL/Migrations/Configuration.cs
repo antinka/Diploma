@@ -17,6 +17,9 @@ namespace GameStore.DAL.Migrations
 
         protected override void Seed(GameStore.DAL.EF.GameStoreDBContext context)
         {
+            context.Database.Delete();
+            context.Database.Create();
+
             var users = new List<User>()
             {
             new User

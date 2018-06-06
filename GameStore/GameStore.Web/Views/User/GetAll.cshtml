@@ -1,0 +1,79 @@
+﻿@using GameStore.Web.App_LocalResources
+@model IEnumerable<GameStore.Web.ViewModels.UserViewModel>
+
+@{
+    ViewBag.Title = "GetAll";
+}
+
+<p>
+    @Html.ActionLink(GlobalRes.Create, "New")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsBaned)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartDateBaned)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndDateBaned)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Password)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsBaned)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartDateBaned)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndDateBaned)
+        </td>
+        <td>
+            @Html.ActionLink(GlobalRes.Update, "Update", new { name = item.Name }) |
+            @Html.ActionLink(GlobalRes.Details, "Get", new { name = item.Name }) |
+  
+            @using (Html.BeginForm("Remove", "User", FormMethod.Post))
+            {
+                <input type="hidden" name="userId" value="@item.Id"/>
+                <button type="submit" class="btn btn-link">@GlobalRes.Remove</button>
+            }
+        </td>
+    </tr>
+}
+
+</table>

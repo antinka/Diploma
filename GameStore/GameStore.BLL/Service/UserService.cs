@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using GameStore.BLL.CustomExeption;
@@ -27,6 +28,9 @@ namespace GameStore.BLL.Service
         {
             userDto.Id = Guid.NewGuid();
             var newUser = _mapper.Map<User>(userDto);
+      
+            newUser.Roles = _unitOfWork.Roles.Get(role => userDto.SelectedRolesName.Contains(role.Name)).ToList();
+            newUser.Password = userDto.Password.GetHashCode().ToString();
 
             _unitOfWork.Users.Create(newUser);
             _unitOfWork.Save();
@@ -36,10 +40,16 @@ namespace GameStore.BLL.Service
 
         public void Update(UserDTO userDto)
         {
-            if (GetUserById(userDto.Id) != null)
-            {
-                var user = _mapper.Map<User>(userDto);
 
+            var user = GetUserById(userDto.Id);
+            if (user != null)
+            {
+              
+                user.Roles.Clear();
+                user.Roles = _unitOfWork.Roles.Get(role => userDto.SelectedRolesName.Contains(role.Name)).ToList();
+
+                _unitOfWork.Users.Update(user);
+                user = _mapper.Map<User>(userDto);
                 _unitOfWork.Users.Update(user);
                 _unitOfWork.Save();
 
@@ -96,10 +106,17 @@ namespace GameStore.BLL.Service
         {
             var user = _unitOfWork.Users.Get(x => x.Name == userDto.Name).FirstOrDefault();
 
-            if (user == null)
+            if (user == null || user.Id == userDto.Id)
                 return true;
 
             return false;
+        }
+
+        public IEnumerable<UserDTO> GetAll()
+        {
+            var users = _unitOfWork.Users.GetAll();
+
+            return _mapper.Map<IEnumerable<UserDTO>>(users);
         }
 
         private User GetUserById(Guid id)

@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
+using GameStore.Web.ViewModels;
 
 namespace GameStore.Web.Authorization.Implementation
 {
@@ -10,7 +12,11 @@ namespace GameStore.Web.Authorization.Implementation
 
         public UserIdentity()
         {
-            _user = new User { Name = "guest", Roles = new List<UserRole> { UserRole.Guest} };
+            _user = new User
+            {
+                Name = "guest",
+                Roles = new List<RoleViewModel> {new RoleViewModel() {Name = UserRole.Guest.ToString()}}
+            };
         }
 
         public UserIdentity(User user)
@@ -24,6 +30,7 @@ namespace GameStore.Web.Authorization.Implementation
 
         public virtual string AuthenticationType => typeof(User).ToString();
 
-        public virtual bool IsAuthenticated => !User.Roles.Contains(UserRole.Guest);
+        public virtual bool IsAuthenticated =>
+            !User.Roles.Contains(new RoleViewModel() {Name = UserRole.Guest.ToString()});
     }
 }

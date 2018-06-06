@@ -9,6 +9,7 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using GameStore.Web.App_LocalResources;
+using GameStore.Web.Authorization.Interfaces;
 using GameStore.Web.ViewModels.Games;
 
 namespace GameStore.Web.Controllers
@@ -27,7 +28,8 @@ namespace GameStore.Web.Controllers
             IGenreService genreService,
             IPlatformTypeService platformTypeService,
             IMapper mapper,
-            IPublisherService publisherService)
+            IPublisherService publisherService, 
+            IAuthentication authentication) : base(authentication)
         {
             _gameService = gameService;
             _mapper = mapper;
@@ -179,7 +181,7 @@ namespace GameStore.Web.Controllers
             var gameDTO = _gameService.GetByKey(gamekey);
             var gameForView = _mapper.Map<DetailsGameViewModel>(gameDTO);
 
-            _gameService.IncreaseGameView(gameDTO.Id);
+            //_gameService.IncreaseGameView(gameDTO.Id);
 
             return View(gameForView);
         }

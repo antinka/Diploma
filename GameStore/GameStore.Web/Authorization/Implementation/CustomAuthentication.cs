@@ -58,17 +58,18 @@ namespace GameStore.Web.Authorization.Implementation
             }
         }
 
-        public User Login(string login, string password, bool isPersistent)
+        public bool Login(string login, string password, bool isPersistent)
         {
             var userDTO = _userService.Login(login, password);
-            var user = _mapper.Map<User>(userDTO);
 
-            if (user != null)
+            if (userDTO != null)
             {
                 CreateCookie(login, isPersistent);
+
+                return true;
             }
 
-            return user;
+            return false;
         }
 
         public void LogOut()
@@ -93,8 +94,9 @@ namespace GameStore.Web.Authorization.Implementation
                 isPersistent,
                 string.Empty,
                 FormsAuthentication.FormsCookiePath);
+
             var encTicket = FormsAuthentication.Encrypt(ticket);
-            var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName)
+            var authCookie = new HttpCookie(cookieName)
             {         
                 Value = encTicket,
                 Expires = DateTime.Now.Add(FormsAuthentication.Timeout)

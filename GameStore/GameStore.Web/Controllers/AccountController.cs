@@ -1,16 +1,14 @@
-﻿using System.Web.Mvc;
-using AutoMapper;
+﻿using AutoMapper;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Interfaces;
-using GameStore.Web.App_LocalResources;
 using GameStore.Web.Authorization.Interfaces;
-using GameStore.Web.ViewModels;
+using GameStore.Web.ViewModels.Account;
+using System.Web.Mvc;
 
 namespace GameStore.Web.Controllers
 {
     public class AccountController : BaseController
     {
-
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
 
@@ -28,23 +26,24 @@ namespace GameStore.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Register(UserViewModel model)
+        public ActionResult Register(RegisterViewModel model)
         {
-            var userDto = Mapper.Map<UserDTO>(model);
+            var userDto = _mapper.Map<UserDTO>(model);
 
-            if (!ModelState.IsValid)
+            if (!_userService.IsUniqueName(userDto))
             {
-                if (!_userService.IsUniqueName(userDto))
-                {
-                    ModelState.AddModelError("Name", "exist name");
-                }
-
-                return View(model);
+                ModelState.AddModelError("Name", "exist name");
             }
 
-            _userService.AddNew(userDto);
+            if (ModelState.IsValid)
+            {
 
-            return RedirectToAction("Login");
+                _userService.AddNew(userDto);
+
+                return RedirectToAction("Login");
+            }
+
+            return View(model);
         }
 
         [HttpGet]
@@ -55,24 +54,24 @@ namespace GameStore.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(UserViewModel model)
+        public ActionResult Login(LoginViewModel model)
         {
 
             if (ModelState.IsValid)
             {
-                bool isLogin = Authentication.Login(model.Name, model.Password, model.RememberMe);
+                var isLogin = Authentication.Login(model.Name, model.Password, model.IsPersistent);
 
                 if (isLogin)
                 {
                     return RedirectToAction("FilteredGames", "Game");
                 }
 
-
-
                 ModelState.AddModelError("", "");
 
                 return View(model);
             }
+
+            return View(model);
         }
     }
 }

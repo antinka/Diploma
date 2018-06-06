@@ -160,6 +160,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GlobalRes.en.resx</DependentUpon>
     </Compile>
+    <Compile Include="Authorization\Attributes\CustomAuthorizeAttribute.cs" />
     <Compile Include="Authorization\Implementation\AuthHttpModule.cs" />
     <Compile Include="Authorization\Implementation\CustomAuthentication.cs" />
     <Compile Include="Authorization\Interfaces\IAuthentication.cs" />
@@ -200,6 +201,8 @@
     <Compile Include="Payments\ViewModels\BoxViewModel.cs" />
     <Compile Include="Payments\ViewModels\VisaViewModel.cs" />
     <Compile Include="Payments\Visa.cs" />
+    <Compile Include="ViewModels\Account\LoginViewModel.cs" />
+    <Compile Include="ViewModels\Account\RegisterViewModel.cs" />
     <Compile Include="ViewModels\BasketViewModel.cs" />
     <Compile Include="ViewModels\CommentViewModel.cs" />
     <Compile Include="ViewModels\Games\DetailsGameViewModel.cs" />
@@ -221,7 +224,8 @@
     <Compile Include="ViewModels\Publisher\DetailsPublisherViewModel.cs" />
     <Compile Include="ViewModels\RoleViewModel.cs" />
     <Compile Include="ViewModels\ShipperViewModel.cs" />
-    <Compile Include="ViewModels\UserViewModel.cs" />
+    <Compile Include="ViewModels\User\DetailsUserViewModel .cs" />
+    <Compile Include="ViewModels\User\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -269,6 +273,16 @@
     <Content Include="Views\Genre\New.cshtml" />
     <Content Include="Views\Genre\Update.cshtml" />
     <Content Include="Views\Shipper\GetAll.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\User\GetAll.cshtml" />
+    <Content Include="Views\User\New.cshtml" />
+    <Content Include="Views\User\Get.cshtml" />
+    <Content Include="Views\User\Update.cshtml" />
+    <Content Include="Views\Role\GetAll.cshtml" />
+    <Content Include="Views\Role\New.cshtml" />
+    <Content Include="Views\Role\Get.cshtml" />
+    <Content Include="Views\Role\Update.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -279,10 +293,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Account\" />
-    <Folder Include="Views\Role\" />
     <Folder Include="Views\Shared\DisplayTemplates\" />
-    <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GameStore.BLL\GameStore.BLL.csproj">

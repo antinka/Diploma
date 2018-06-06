@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using GameStore.BLL.DTO;
 using GameStore.Web.ViewModels;
+using GameStore.Web.ViewModels.Account;
 using GameStore.Web.ViewModels.Games;
 
 namespace GameStore.Web.Infrastructure.Mapper
@@ -9,6 +10,8 @@ namespace GameStore.Web.Infrastructure.Mapper
     {
         public ViewModelToDto()
         {
+            CreateMap<RegisterViewModel, UserDTO>();
+
             CreateMap<UserViewModel, UserDTO>();
 
             CreateMap<RoleViewModel, RoleDTO>();

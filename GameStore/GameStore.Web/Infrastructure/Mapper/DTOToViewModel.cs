@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using AutoMapper;
 using GameStore.BLL.DTO;
+using GameStore.Web.Authorization;
 using GameStore.Web.ViewModels;
 using GameStore.Web.ViewModels.Games;
 
@@ -13,6 +14,8 @@ namespace GameStore.Web.Infrastructure.Mapper
             string current;
 
             CreateMap<UserDTO, UserViewModel>();
+
+            CreateMap<UserDTO, User>().ForMember(dest => dest.Roles ,opt => opt.MapFrom(src => src.Roles));
 
             CreateMap<RoleDTO, RoleViewModel>();
 

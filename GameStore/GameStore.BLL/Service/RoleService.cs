@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using GameStore.BLL.CustomExeption;
@@ -67,12 +68,29 @@ namespace GameStore.BLL.Service
 
         public bool IsUniqueName(RoleDTO roleDto)
         {
-            var role = _unitOfWork.Games.Get(x => x.Key == roleDto.Name).FirstOrDefault();
+            var role = _unitOfWork.Roles.Get(x => x.Name == roleDto.Name).FirstOrDefault();
 
-            if (role == null)
+            if (role == null || role.Id == roleDto.Id)
                 return true;
 
             return false;
+        }
+
+        public IEnumerable<RoleDTO> GetAll()
+        {
+            var roles = _unitOfWork.Roles.GetAll();
+
+            return _mapper.Map<IEnumerable<RoleDTO>>(roles);
+        }
+
+        public RoleDTO GetByName(string name)
+        {
+            var role = _unitOfWork.Roles.Get(x => x.Name == name).FirstOrDefault();
+
+            if (role == null)
+                throw new EntityNotFound($"{nameof(RoleService)} - role with such name {name} did not exist");
+
+            return _mapper.Map<RoleDTO>(role);
         }
 
         private Role GetRoleById(Guid id)

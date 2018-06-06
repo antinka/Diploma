@@ -9,10 +9,8 @@ namespace GameStore.Web.Authorization.Implementation
     {
         public void Init(HttpApplication context)
         {
-            context.AuthenticateRequest += new EventHandler(Authenticate);
+            context.AuthenticateRequest += new EventHandler(this.Authenticate);
         }
-
-        public void Dispose() { }
 
         private void Authenticate(Object source, EventArgs e)
         {
@@ -22,5 +20,7 @@ namespace GameStore.Web.Authorization.Implementation
             auth.HttpContext = context;
             context.User = auth.CurrentUser;
         }
+
+        public void Dispose() { }
     }
 }

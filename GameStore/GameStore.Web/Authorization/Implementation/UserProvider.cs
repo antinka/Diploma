@@ -20,11 +20,21 @@ namespace GameStore.Web.Authorization.Implementation
 
         public IIdentity Identity => _userIdentity;
 
-        public bool IsInRole(string role)
+        public bool IsInRole(string roles)
         {
-            var roles = _userIdentity.User.Roles;
+            var userRoles = _userIdentity.User.Roles;
 
-            return roles.Any(r => String.Equals(r.ToString(), role));
+            if (string.IsNullOrWhiteSpace(roles))
+                return false;
+            var rolesArray = roles.Split(new[] { "," },
+                StringSplitOptions.RemoveEmptyEntries);
+            foreach (var role in rolesArray)
+            {
+                var hasRole = userRoles.Any(p => p.Name.Contains(role));
+                if (hasRole)
+                    return true;
+            }
+            return false;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using GameStore.BLL.DTO;
 
 namespace GameStore.BLL.Interfaces
@@ -18,5 +19,7 @@ namespace GameStore.BLL.Interfaces
         UserDTO Login(string name, string password);
 
         bool IsUniqueName(UserDTO userDto);
+
+        IEnumerable<UserDTO> GetAll();
     }
 }
