@@ -91,7 +91,11 @@ namespace GameStore.BLL.Service
 
         public IEnumerable<GameDTO> GetAll()
         {
-            return _mapper.Map<IEnumerable<GameDTO>>(_unitOfWork.Games.GetAll());
+            var games = _unitOfWork.Games.GetAll();
+
+
+
+            return _mapper.Map<IEnumerable<GameDTO>>(games);
         }
 
         public ExtendGameDTO GetByKey(string gamekey)
@@ -103,6 +107,9 @@ namespace GameStore.BLL.Service
                 throw new EntityNotFound($"{nameof(GameService)} - game with such gamekey {gamekey} did not exist");
             }
 
+            if (!game.Genres.Any())
+                game = AddDefaultGenre(game);
+
             return _mapper.Map<ExtendGameDTO>(game);
         }
 
@@ -110,6 +117,9 @@ namespace GameStore.BLL.Service
         {
             var game = GetGameById(id);
             IncreaseGameView(game);
+
+            if (!game.Genres.Any())
+                game = AddDefaultGenre(game);
 
             return _mapper.Map<GameDTO>(game);
         }
@@ -243,6 +253,20 @@ namespace GameStore.BLL.Service
 
             return game;
         }
+
+        private Game AddDefaultGenre(Game game)
+        {
+            var genreDefault = new Genre()
+            {
+                NameRu = "Другие",
+                NameEn = "Other"
+            };
+
+            game.Genres.Add(genreDefault);
+
+            return game;
+        }
+
     }
 }
 

@@ -55,13 +55,6 @@
         <dd>
             @Html.DisplayFor(model => model.Discountinues)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Publisher.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Publisher.Name)
-        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.PlatformTypes)
         </dt>
@@ -89,7 +82,7 @@
                 }
             </ul>
         </dd>
-        @if (Model.PublisherId != null)
+        @{if (Model.PublisherId != null)
         {
             <dt>
                 @Html.DisplayNameFor(model => model.Publisher)
@@ -102,14 +95,28 @@
                 </ul>
             </dd>
         }
+        else
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Publisher)
+            </dt>
+            <dd>
+                <ul>
+                    <li>
+                        unknown
+                    </li>
+                </ul>
+            </dd>
+        }
+        }
     </dl>
 </div>
 <p>
     @Html.ActionLink(GlobalRes.Download, "Download", new { gamekey = Model.Key }, new { target = "_blank" })
     @if (Model.UnitsInStock > 0)
     {
-    @:|
-    @Html.ActionLink(GlobalRes.Buy, "AddGameToOrder", "Order", new { gamekey = Model.Key }, null)
+        @:|
+        @Html.ActionLink(GlobalRes.Buy, "AddGameToOrder", "Order", new { gamekey = Model.Key }, null)
     }
-    |@Html.ActionLink(GlobalRes.Comment, "GetAllCommentToGame", "Comment", new {gamekey = Model.Key}, null)
+    |@Html.ActionLink(GlobalRes.Comment, "GetAllCommentToGame", "Comment", new { gamekey = Model.Key }, null)
 </p>

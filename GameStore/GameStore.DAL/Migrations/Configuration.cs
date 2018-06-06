@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using GameStore.DAL.EF;
 using GameStore.DAL.Entities;
 using System.Collections.Generic;
-using GameStore.DAL.EF;
 
 namespace GameStore.DAL.Migrations
 {

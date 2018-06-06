@@ -29,7 +29,7 @@ namespace GameStore.Tests.Controllers
             _commentService = new Mock<ICommentService>();
             var gameService = new Mock<IGameService>();
             _mapper = MapperConfigUi.GetMapper().CreateMapper();
-            _sut = new CommentController(_commentService.Object, gameService.Object, _mapper);
+            _sut = new CommentController(_commentService.Object, gameService.Object, _mapper, null);
 
             _fakeCommentId = Guid.NewGuid();
             _fakeGameId = Guid.NewGuid();

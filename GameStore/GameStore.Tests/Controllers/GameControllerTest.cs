@@ -35,7 +35,7 @@ namespace GameStore.Tests.Controllers
             _platformTypeService = new Mock<IPlatformTypeService>();
             _publisherService = new Mock<IPublisherService>();
             _sut = new GameController(_gameService.Object, _genreService.Object,
-                _platformTypeService.Object, _mapper, _publisherService.Object);
+                _platformTypeService.Object, _mapper, _publisherService.Object, null);
 
             var fakeCommentId = Guid.NewGuid();
             _fakeGameId = Guid.NewGuid(); ;

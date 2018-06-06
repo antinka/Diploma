@@ -24,7 +24,7 @@ namespace GameStore.Tests.Controllers
         {
             _mapper = MapperConfigUi.GetMapper().CreateMapper();
             _platformTypeService = new Mock<IPlatformTypeService>();
-            _sut = new PlatformTypeController(_platformTypeService.Object, _mapper);
+            _sut = new PlatformTypeController(_platformTypeService.Object, _mapper, null);
 
             _fakePlatformTypeName = "test";
         }

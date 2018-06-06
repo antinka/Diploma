@@ -156,7 +156,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GlobalRes.en.resx</DependentUpon>
     </Compile>
-    <Compile Include="Authorization\Attributes\CustomAuthorizeAttribute.cs" />
     <Compile Include="Authorization\Implementation\AuthHttpModule.cs" />
     <Compile Include="Authorization\Implementation\CustomAuthentication.cs" />
     <Compile Include="Authorization\Interfaces\IAuthentication.cs" />

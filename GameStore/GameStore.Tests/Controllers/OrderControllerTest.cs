@@ -40,7 +40,7 @@ namespace GameStore.Tests.Controllers
             _mapper = MapperConfigUi.GetMapper().CreateMapper();
             _ordersService = new Mock<IOrdersService>();
             _gameService = new Mock<IGameService>();
-            _sut = new OrderController(_ordersService.Object, _gameService.Object, _mapper, _paymentStrategy);
+            _sut = new OrderController(_ordersService.Object, _gameService.Object, _mapper, _paymentStrategy, null);
         }
 
         [Fact]

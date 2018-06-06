@@ -2,8 +2,6 @@
 using GameStore.BLL.DTO;
 using GameStore.BLL.Interfaces;
 using GameStore.Web.App_LocalResources;
-using GameStore.Web.Authorization;
-using GameStore.Web.Authorization.Attributes;
 using GameStore.Web.Authorization.Interfaces;
 using GameStore.Web.ViewModels;
 using System;

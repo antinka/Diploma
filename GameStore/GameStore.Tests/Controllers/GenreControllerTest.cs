@@ -24,7 +24,7 @@ namespace GameStore.Tests.Controllers
         {
             _mapper = MapperConfigUi.GetMapper().CreateMapper();
             _genreService = new Mock<IGenreService>();
-            _sut = new GenreController(_genreService.Object, _mapper);
+            _sut = new GenreController(_genreService.Object, _mapper, null);
 
             _fakeGenreName = "test";
         }

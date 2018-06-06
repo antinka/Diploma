@@ -42,7 +42,9 @@ namespace GameStore.BLL.Infrastructure.Mapper
                     current = Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToUpperInvariant();
 
                     return current == "EN" ? src.DescriptionEn : src.DescriptionRu;
-                }));
+                }))
+                .ForMember(dest => dest.Publisher,
+                    opt => opt.ResolveUsing(src => src.Publisher ?? new Publisher() {Name = "unknown"}));
 
             CreateMap<Game, ExtendGameDTO>();
 

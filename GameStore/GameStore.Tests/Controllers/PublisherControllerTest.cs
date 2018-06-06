@@ -24,7 +24,7 @@ namespace GameStore.Tests.Controllers
         {
             _mapper = MapperConfigUi.GetMapper().CreateMapper();
             _publisherService = new Mock<IPublisherService>();
-            _sut = new PublisherController(_publisherService.Object, _mapper);
+            _sut = new PublisherController(_publisherService.Object, _mapper, null);
 
             _fakePublisherName = "test";
         }

@@ -35,8 +35,13 @@
                     <li> @Html.ActionLink(GlobalRes.Genres, "GetAll", "Genre")</li>
                     <li> @Html.ActionLink(GlobalRes.Orders, "FilterOrders", "Order")</li>
                     <li> @Html.ActionLink(GlobalRes.Shipper, "GetAll", "Shipper")</li>
+
+                @if (User != null && User.IsInRole("Admin"))
+                {
                     <li> @Html.ActionLink(GlobalRes.Users, "GetAll", "User")</li>
                     <li> @Html.ActionLink(GlobalRes.Roles, "GetAll", "Role")</li>
+                }
+
                 </ul>
                 
                <ul class="nav navbar-nav navbar-right">
