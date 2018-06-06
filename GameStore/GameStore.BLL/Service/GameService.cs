@@ -33,13 +33,14 @@ namespace GameStore.BLL.Service
         {
             gameDto.Id = Guid.NewGuid();
             var newGame = _mapper.Map<Game>(gameDto);
-            newGame.Genres = _unitOfWork.Genres.Get(genre => gameDto.SelectedGenresName.Contains(genre.NameEn)).ToList();
+            newGame.Genres = _unitOfWork.Genres.Get(genre => gameDto.SelectedGenresName.Contains(genre.NameEn) || gameDto.SelectedGenresName.Contains(genre.NameRu)).ToList();
             newGame.PlatformTypes = _unitOfWork.PlatformTypes
-                .Get(platformType => gameDto.SelectedPlatformTypesName.Contains(platformType.NameEn)).ToList();
+                .Get(platformType => gameDto.SelectedPlatformTypesName.Contains(platformType.NameEn) || gameDto.SelectedPlatformTypesName.Contains(platformType.NameRu)).ToList();
             newGame.PublishDate = DateTime.UtcNow;
 
             _unitOfWork.Games.Create(newGame);
             _unitOfWork.Save();
+
 
             _log.Info($"{nameof(GameService)} - add new game {gameDto.Id}");
         }
@@ -75,9 +76,9 @@ namespace GameStore.BLL.Service
                 game.Genres.Clear();
                 game.PlatformTypes.Clear();
 
-                game.Genres = _unitOfWork.Genres.Get(genre => gameDto.SelectedGenresName.Contains(genre.NameEn)).ToList();
+                game.Genres = _unitOfWork.Genres.Get(genre => gameDto.SelectedGenresName.Contains(genre.NameEn) || gameDto.SelectedGenresName.Contains(genre.NameRu)).ToList();
                 game.PlatformTypes = _unitOfWork.PlatformTypes
-                    .Get(platformType => gameDto.SelectedPlatformTypesName.Contains(platformType.NameEn)).ToList();
+                    .Get(platformType => gameDto.SelectedPlatformTypesName.Contains(platformType.NameEn) || gameDto.SelectedPlatformTypesName.Contains(platformType.NameRu)).ToList();
 
                 _unitOfWork.Games.Update(game);
                 game = _mapper.Map<Game>(gameDto);
@@ -169,11 +170,11 @@ namespace GameStore.BLL.Service
             return _mapper.Map<IEnumerable<GameDTO>>(filterGames);
         }
 
-        public bool IsUniqueKey(GameDTO gameDTO)
+        public bool IsUniqueKey(ExtendGameDTO gameExtendGameDto)
         {
-            var game = _unitOfWork.Games.Get(x => x.Key == gameDTO.Key).FirstOrDefault();
+            var game = _unitOfWork.Games.Get(x => x.Key == gameExtendGameDto.Key).FirstOrDefault();
 
-            if (game == null || gameDTO.Id == game.Id)
+            if (game == null || gameExtendGameDto.Id == game.Id)
                 return true;
 
             return false;

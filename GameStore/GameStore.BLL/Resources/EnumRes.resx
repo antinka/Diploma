@@ -117,18 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="All" xml:space="preserve">
-    <value>Все</value>
-  </data>
-  <data name="Fifty" xml:space="preserve">
-    <value>Пятьдесят</value>
-  </data>
-  <data name="Hour" xml:space="preserve">
-    <value>Час</value>
-  </data>
-  <data name="month" xml:space="preserve">
-    <value>Месяц</value>
-  </data>
   <data name="MostCommented" xml:space="preserve">
     <value>Самые комментируемые</value>
   </data>
@@ -138,22 +126,10 @@
   <data name="NewByDate" xml:space="preserve">
     <value>По новизне</value>
   </data>
-  <data name="OneHundred" xml:space="preserve">
-    <value>Сто</value>
-  </data>
-  <data name="oneYear" xml:space="preserve">
-    <value>Год</value>
-  </data>
   <data name="PriceAsc" xml:space="preserve">
     <value>По возрастанию стоимости</value>
   </data>
   <data name="PriceDesc" xml:space="preserve">
     <value>По убыванию стоимости</value>
-  </data>
-  <data name="Ten" xml:space="preserve">
-    <value>Десять</value>
-  </data>
-  <data name="Twenty" xml:space="preserve">
-    <value>Двадцать</value>
   </data>
 </root>

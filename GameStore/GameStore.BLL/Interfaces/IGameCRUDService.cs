@@ -6,7 +6,7 @@ namespace GameStore.BLL.Interfaces
 {
     public interface IGameCrudService
     {
-        void AddNew(ExtendGameDTO gameDto);
+        void AddNew(ExtendGameDTO game);
 
         void Update(ExtendGameDTO gameDto);
 

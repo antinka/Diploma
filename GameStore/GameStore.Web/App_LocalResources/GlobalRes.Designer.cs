@@ -79,11 +79,38 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Все.
+        /// </summary>
+        public static string All {
+            get {
+                return ResourceManager.GetString("All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ответить.
+        /// </summary>
+        public static string Answer {
+            get {
+                return ResourceManager.GetString("Answer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Назад к играм.
         /// </summary>
         public static string BackToGames {
             get {
                 return ResourceManager.GetString("BackToGames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Забанить.
+        /// </summary>
+        public static string Ban {
+            get {
+                return ResourceManager.GetString("Ban", resourceCulture);
             }
         }
         
@@ -102,6 +129,15 @@ namespace GameStore.Web.App_LocalResources {
         public static string basketIsEmpty {
             get {
                 return ResourceManager.GetString("basketIsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Сообщение.
+        /// </summary>
+        public static string Body {
+            get {
+                return ResourceManager.GetString("Body", resourceCulture);
             }
         }
         
@@ -279,6 +315,24 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to День.
+        /// </summary>
+        public static string Day {
+            get {
+                return ResourceManager.GetString("Day", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Удалить.
+        /// </summary>
+        public static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Описание.
         /// </summary>
         public static string Description {
@@ -423,6 +477,15 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Фильтрация по периоду.
+        /// </summary>
+        public static string FilterDate {
+            get {
+                return ResourceManager.GetString("FilterDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Груз.
         /// </summary>
         public static string Freight {
@@ -455,6 +518,15 @@ namespace GameStore.Web.App_LocalResources {
         public static string HomePage {
             get {
                 return ResourceManager.GetString("HomePage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Час.
+        /// </summary>
+        public static string Hour {
+            get {
+                return ResourceManager.GetString("Hour", resourceCulture);
             }
         }
         
@@ -621,6 +693,15 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Навсегда.
+        /// </summary>
+        public static string Permanent {
+            get {
+                return ResourceManager.GetString("Permanent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Номер.
         /// </summary>
         public static string Phone {
@@ -680,6 +761,15 @@ namespace GameStore.Web.App_LocalResources {
         public static string Quantity {
             get {
                 return ResourceManager.GetString("Quantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Цитировать.
+        /// </summary>
+        public static string Quote {
+            get {
+                return ResourceManager.GetString("Quote", resourceCulture);
             }
         }
         
@@ -779,15 +869,6 @@ namespace GameStore.Web.App_LocalResources {
         public static string ShipVia {
             get {
                 return ResourceManager.GetString("ShipVia", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Сортировать по периоду.
-        /// </summary>
-        public static string SortDate {
-            get {
-                return ResourceManager.GetString("SortDate", resourceCulture);
             }
         }
         

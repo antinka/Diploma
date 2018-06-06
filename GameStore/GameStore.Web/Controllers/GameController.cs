@@ -51,7 +51,7 @@ namespace GameStore.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                var gameDTO = _mapper.Map<GameDTO>(game);
+                var gameDTO = _mapper.Map<ExtendGameDTO>(game);
                 _gameService.AddNew(gameDTO);
 
                 return RedirectToAction("FilteredGames");
@@ -79,8 +79,8 @@ namespace GameStore.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                var gameDTO = _mapper.Map<GameDTO>(game);
-                _gameService.Update(gameDTO);
+                var gameExtendGameDto = _mapper.Map<ExtendGameDTO>(game);
+                _gameService.Update(gameExtendGameDto);
 
                 return RedirectToAction("FilteredGames");
 
@@ -204,7 +204,7 @@ namespace GameStore.Web.Controllers
 
         private GameViewModel CheckValidationGameViewModel(GameViewModel game)
         {
-            var gameDTO = _mapper.Map<GameDTO>(game);
+            var gameExtendGameDto = _mapper.Map<ExtendGameDTO>(game);
 
             if (game.SelectedGenresName == null)
             {
@@ -216,7 +216,7 @@ namespace GameStore.Web.Controllers
                 ModelState.AddModelError("PlatformTypes", "Please choose one or more platform types");
             }
 
-            if (!_gameService.IsUniqueKey(gameDTO))
+            if (!_gameService.IsUniqueKey(gameExtendGameDto))
             {
                 ModelState.AddModelError("Key", "Game with such key already exist, please enter another name");
             }

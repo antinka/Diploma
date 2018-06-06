@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Hour" xml:space="preserve">
-    <value>Hour</value>
-  </data>
-  <data name="month" xml:space="preserve">
-    <value>Month</value>
-  </data>
   <data name="MostCommented" xml:space="preserve">
     <value>Most commented</value>
   </data>
@@ -132,28 +126,10 @@
   <data name="NewByDate" xml:space="preserve">
     <value>New by date</value>
   </data>
-  <data name="oneYear" xml:space="preserve">
-    <value>One year</value>
-  </data>
   <data name="PriceAsc" xml:space="preserve">
     <value>Price asc</value>
   </data>
   <data name="PriceDesc" xml:space="preserve">
     <value>Price desc</value>
-  </data>
-  <data name="All" xml:space="preserve">
-    <value>All</value>
-  </data>
-  <data name="Fifty" xml:space="preserve">
-    <value>Fifty</value>
-  </data>
-  <data name="OneHundred" xml:space="preserve">
-    <value>One hundred</value>
-  </data>
-  <data name="Ten" xml:space="preserve">
-    <value>Ten</value>
-  </data>
-  <data name="Twenty" xml:space="preserve">
-    <value>Twenty</value>
   </data>
 </root>

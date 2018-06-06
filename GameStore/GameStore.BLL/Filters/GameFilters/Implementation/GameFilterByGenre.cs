@@ -18,7 +18,7 @@ namespace GameStore.BLL.Filters.GameFilters.Implementation
         {
             if (_selectedGenresName.Any())
             {
-                return input.Where(game => game.Genres.Any(genre => _selectedGenresName.Contains(genre.Name)));
+                return input.Where(game => game.Genres.Any(genre => _selectedGenresName.Contains(genre.NameEn) || _selectedGenresName.Contains(genre.NameRu)));
             }
 
             return input;

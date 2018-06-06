@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using GameStore.Web.App_LocalResources;
 using GameStore.Web.ViewModels.Games;
 
 namespace GameStore.Web.ViewModels
@@ -11,13 +12,16 @@ namespace GameStore.Web.ViewModels
         public Guid UserId { get; set; }
 
         [Required]
+        [Display(Name = "Name", ResourceType = typeof(GlobalRes))]
         [StringLength(200, MinimumLength = 3, ErrorMessage = "Name cannot be longer than 200 characters and less than 3 characters")]
         public string Name { get; set; }
 
         [Required]
+        [Display(Name = "Body", ResourceType = typeof(GlobalRes))]
         [StringLength(200, MinimumLength = 3, ErrorMessage = "Message cannot be longer than 200 characters and less than 3 characters")]
         public string Body { get; set; }
 
+        [Display(Name = "Quote", ResourceType = typeof(GlobalRes))]
         public string Quote { get; set; }
 
         public Guid? ParentCommentId { get; set; }
