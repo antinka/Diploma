@@ -237,8 +237,8 @@
   <data name="Shipper" xml:space="preserve">
     <value>Поставщик</value>
   </data>
-  <data name="SortDate" xml:space="preserve">
-    <value>Сортировать по периоду</value>
+  <data name="FilterDate" xml:space="preserve">
+    <value>Фильтрация по периоду</value>
   </data>
   <data name="SortType" xml:space="preserve">
     <value>Тип сортировки</value>
@@ -437,5 +437,32 @@
   <data name="ChooseRoles" xml:space="preserve">
     <value>Пожалуйста
  выберите один или несколько ролей</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Все</value>
+  </data>
+  <data name="Answer" xml:space="preserve">
+    <value>Ответить</value>
+  </data>
+  <data name="Ban" xml:space="preserve">
+    <value>Забанить</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="Quote" xml:space="preserve">
+    <value>Цитировать</value>
+  </data>
+  <data name="Body" xml:space="preserve">
+    <value>Сообщение</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>День</value>
+  </data>
+  <data name="Hour" xml:space="preserve">
+    <value>Час</value>
+  </data>
+  <data name="Permanent" xml:space="preserve">
+    <value>Навсегда</value>
   </data>
 </root>

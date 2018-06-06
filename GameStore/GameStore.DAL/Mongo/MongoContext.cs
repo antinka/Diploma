@@ -15,7 +15,9 @@ namespace GameStore.DAL.Mongo
         {
             var connectionString = ConfigurationManager.ConnectionStrings["GameStoreMongoContext"].ConnectionString;
             var client = new MongoClient(connectionString);
-            _database = client.GetDatabase("Northwind");
+            var dbName = MongoUrl.Create(connectionString).DatabaseName;
+
+            _database = client.GetDatabase(dbName);
         }
 
         public IMongoCollection<TEntity> GetCollection<TEntity>()

@@ -1,12 +1,16 @@
 ﻿@using GameStore.BLL.Enums
+@using GameStore.Web.App_LocalResources
 @using (Html.BeginForm("Ban", "Comment", FormMethod.Get))
 {
 
-    <div class="form-group">
-            <input type="submit" name="period" value="@BanPeriod.Hour" class="btn btn-default" />
-            <input type="submit" name="period" value="@BanPeriod.Day" class="btn btn-default" />
-            <input type="submit" name="period" value="@BanPeriod.Week" class="btn btn-default" />
-            <input type="submit" name="period"  value="@BanPeriod.Month" class="btn btn-default" />
-            <input type="submit" name="period" value="@BanPeriod.Permanent" class="btn btn-default" />
-    </div>
+<div class="form-group">
+
+    <label> @Html.RadioButton("period", BanPeriod.Hour, new { required = "required" })@GlobalRes.Hour </label><br />
+    <label> @Html.RadioButton("period", BanPeriod.Day, new { required = "required" })@GlobalRes.Day </label><br />
+    <label> @Html.RadioButton("period", BanPeriod.Week, new { required = "required" })@GlobalRes.week </label><br />
+    <label> @Html.RadioButton("period", BanPeriod.Month, new { required = "required" })@GlobalRes.month </label><br />
+    <label> @Html.RadioButton("period", BanPeriod.Permanent, new { required = "required" })@GlobalRes.Permanent </label><br />
+
+    <input type="submit" name="period" value="@GlobalRes.Ban" class="btn btn-default" />
+</div>
 }

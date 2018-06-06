@@ -9,12 +9,12 @@ namespace GameStore.Web.ViewModels
 {
     public class FilterViewModel
     {
-        public IEnumerable<FilterGameViewModel> Games { get; set; }
+        public IEnumerable<DetailsGameViewModel> Games { get; set; }
 
         public PagingInfo PagingInfo { get; set; }
 
-        [Display(Name = "SortDate", ResourceType = typeof(GlobalRes))]
-        public SortDate SortDate { get; set; }
+        [Display(Name = "FilterDate", ResourceType = typeof(GlobalRes))]
+        public FilterDate FilterDate { get; set; }
 
         [Display(Name = "SortType", ResourceType = typeof(GlobalRes))]
         public SortType SortType { get; set; }

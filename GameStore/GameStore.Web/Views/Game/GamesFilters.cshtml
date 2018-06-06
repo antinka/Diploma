@@ -11,16 +11,25 @@
 @using (Html.BeginForm("FilteredGames","Game", FormMethod.Get, null))
 {
 <div class="form-horizontal">
-    <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
     <div class="form-group">
-        @Html.LabelFor(model => model.SortDate, htmlAttributes: new { @class = "control-label col-md-6" })<br />
+        @Html.LabelFor(model => model.SortType, htmlAttributes: new { @class = "control-label col-md-6" })
         <div class="col-md-10">
-            <label> @Html.RadioButtonFor(m => m.SortDate, SortDate.Week, new { required = "required" }) @GlobalRes.week </label><br/>
-            <label> @Html.RadioButtonFor(m => m.SortDate, SortDate.Month, new {required = "required"})@GlobalRes.month </label><br/>
-            <label> @Html.RadioButtonFor(m => m.SortDate, SortDate.OneYear, new {required = "required"})@GlobalRes.oneYear </label><br/>
-            <label> @Html.RadioButtonFor(m => m.SortDate, SortDate.TwoYear, new {required = "required"}) @GlobalRes.twoYear </label><br/>
-            <label> @Html.RadioButtonFor(m => m.SortDate, SortDate.ThreeYear, new {required = "required"})@GlobalRes.threeYear </label><br/>
+            @Html.EnumDropDownListFor(model => model.SortType, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.SortType, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.FilterDate, htmlAttributes: new { @class = "control-label col-md-6" })<br />
+        <div class="col-md-10">
+            <label> @Html.RadioButtonFor(m => m.FilterDate, FilterDate.week, new {required = "required"})@GlobalRes.week </label><br/>
+            <label> @Html.RadioButtonFor(m => m.FilterDate, FilterDate.month, new {required = "required"})@GlobalRes.month </label><br/>
+            <label> @Html.RadioButtonFor(m => m.FilterDate, FilterDate.oneYear, new {required = "required"})@GlobalRes.oneYear </label><br/>
+            <label> @Html.RadioButtonFor(m => m.FilterDate, FilterDate.twoYear, new {required = "required"})@GlobalRes.twoYear </label><br/>
+            <label> @Html.RadioButtonFor(m => m.FilterDate, FilterDate.threeYear, new {required = "required"})@GlobalRes.threeYear</label><br/>
+            <label> @Html.RadioButtonFor(m => m.FilterDate, FilterDate.all, new {required = "required"})@GlobalRes.All </label><br/>
         </div>
     </div>
     <div class="form-group">

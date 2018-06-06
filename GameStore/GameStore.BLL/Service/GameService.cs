@@ -2,7 +2,6 @@
 using GameStore.BLL.CustomExeption;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Enums;
-using GameStore.BLL.Filtration.Implementation;
 using GameStore.BLL.Interfaces;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
@@ -10,6 +9,7 @@ using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GameStore.BLL.Filters.GameFilters.Implementation;
 
 namespace GameStore.BLL.Service
 {
@@ -40,6 +40,7 @@ namespace GameStore.BLL.Service
 
             _unitOfWork.Games.Create(newGame);
             _unitOfWork.Save();
+
 
             _log.Info($"{nameof(GameService)} - add new game {gameDto.Id}");
         }
@@ -108,6 +109,7 @@ namespace GameStore.BLL.Service
         public GameDTO GetById(Guid id)
         {
             var game = GetGameById(id);
+            IncreaseGameView(game);
 
             return _mapper.Map<GameDTO>(game);
         }
@@ -153,18 +155,33 @@ namespace GameStore.BLL.Service
             return _unitOfWork.Games.Count();
         }
 
-        public IEnumerable<GameDTO> GetGamesByFilter(FilterDTO filter, int page = 1, PageSize pageSize = PageSize.Twenty)
+        public IEnumerable<GameDTO> GetGamesByFilter(FilterDTO filter, int page, PageSize pageSize, out int totalItemsByFilter)
         {
-            var gamePipeline = new GamePipeline();
-            RegisterFilter(gamePipeline, filter, page, pageSize);
-            var filterGames = gamePipeline.Process(_unitOfWork.Games.GetAll());
+            var games = _unitOfWork.Games.GetAll();
+
+            var filterGamePipeline = new GamePipeline();
+            RegisterFilter(filterGamePipeline, filter, page, pageSize);
+            var filterGames = filterGamePipeline.Process(games);
+
+            var totalItemsByFilteripeline = new GamePipeline();
+            RegisterFilter(totalItemsByFilteripeline, filter, 1, PageSize.All);
+            totalItemsByFilter = totalItemsByFilteripeline.Process(games).Count();
 
             return _mapper.Map<IEnumerable<GameDTO>>(filterGames);
         }
 
-        public void IncreaseGameView(Guid gameId)
+        public bool IsUniqueKey(ExtendGameDTO gameExtendGameDto)
         {
-            var game = GetGameById(gameId);
+            var game = _unitOfWork.Games.Get(x => x.Key == gameExtendGameDto.Key).FirstOrDefault();
+
+            if (game == null || gameExtendGameDto.Id == game.Id)
+                return true;
+
+            return false;
+        }
+
+        private void IncreaseGameView(Game game)
+        {
             game.Views += 1;
 
             _unitOfWork.Games.Update(game);
@@ -175,47 +192,46 @@ namespace GameStore.BLL.Service
         {
             if (filter.SelectedGenresName != null && filter.SelectedGenresName.Any())
             {
-                gamePipeline.Register(new FilterByGenre(filter.SelectedGenresName));
+                gamePipeline.Register(new GameFilterByGenre(filter.SelectedGenresName));
             }
 
             if (filter.MaxPrice != null)
             {
-                gamePipeline.Register(new FilterByMaxPrice(filter.MaxPrice.Value));
+                gamePipeline.Register(new GameFilterByPrice(filter.MaxPrice.Value, null));
             }
 
             if (filter.MinPrice != null)
             {
-                gamePipeline.Register(new FilterByMinPrice(filter.MinPrice.Value));
+                gamePipeline.Register(new GameFilterByPrice(null, filter.MinPrice.Value));
+            }
+
+            if (filter.MaxPrice != null && filter.MinPrice != null)
+            {
+                gamePipeline.Register(new GameFilterByPrice(filter.MaxPrice.Value, filter.MinPrice.Value));
             }
 
             if (filter.SelectedPlatformTypesName != null && filter.SelectedPlatformTypesName.Any())
             {
-                gamePipeline.Register(new FilterByPlatform(filter.SelectedPlatformTypesName));
+                gamePipeline.Register(new GameFilterByPlatform(filter.SelectedPlatformTypesName));
             }
 
             if (filter.SelectedPublishersName != null && filter.SelectedPublishersName.Any())
             {
-                gamePipeline.Register(new FilterByPublisher(filter.SelectedPublishersName));
+                gamePipeline.Register(new GameFilterByPublisher(filter.SelectedPublishersName));
             }
 
             if (filter.SearchGameName != null && filter.SearchGameName.Length >= 3)
             {
-                gamePipeline.Register(new FilterByName(filter.SearchGameName));
+                gamePipeline.Register(new GameFilterByName(filter.SearchGameName));
             }
 
-            gamePipeline.Register(new FilterByDate(filter.SortDate))
-                .Register(new SortFilter(filter.SortType))
-                .Register(new FilterByPage(page, pageSize));
-        }
+            if (filter.FilterDate != FilterDate.all)
+            {
+                gamePipeline.Register(new GameFilterByDate(filter.FilterDate));
+            }
 
-        public bool IsUniqueKey(ExtendGameDTO gameDTO)
-        {
-            var game = _unitOfWork.Games.Get(x => x.Key == gameDTO.Key).FirstOrDefault();
-
-            if (game == null || gameDTO.Id == game.Id)
-                return true;
-
-            return false;
+            gamePipeline.Register(new GameSortFilter(filter.SortType))
+                .Register(new GameFilterByPage(page, pageSize));
         }
 
         private Game GetGameById(Guid id)

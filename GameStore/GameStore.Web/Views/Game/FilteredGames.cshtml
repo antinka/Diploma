@@ -3,30 +3,25 @@
 @using (Html.BeginForm("FilteredGames", "Game", FormMethod.Get, new { id = "filteredGames" }))
 {
     <div class="row">
-        <div class="col-xs-6 col-md-4">
+        <div class="col-sm-3">
             @Html.Partial("GamesFilters", Model)
         </div>
-        <div class="col-xs-6 col-md-4">
-
-            <p>
-                @Html.ActionLink(GlobalRes.Create, "New", "Game")
-            </p>
+        <div class="col-sm-9">
             <div class="form-group">
-                @Html.LabelFor(model => model.SortType, htmlAttributes: new { @class = "control-label col-md-6" })
-                <div class="col-md-10">
-                    @Html.EnumDropDownListFor(model => model.SortType, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.SortType, "", new { @class = "text-danger" })
-                </div>
-            </div>
+                @Html.LabelFor(model => model.PageSize, htmlAttributes: new { @class = "control-label col-sm-3" })
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.PageSize, htmlAttributes: new { @class = "control-label col-md-6" })
-                <div class="col-md-10">
+                <div class="col-sm-2">
                     @Html.EnumDropDownListFor(model => model.PageSize, new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.PageSize, "", new { @class = "text-danger" })
                 </div>
             </div>
-            <table class="table" id ="notDisabled">
+            <br />
+            <br />
+            <br />
+            <p>
+                @Html.ActionLink(GlobalRes.Create, "New", "Game")
+            </p>
+            <table class="table" id="notDisabled">
                 <tr>
                     <th>
                         @Html.HiddenFor(model => model.Games.First().Key)
@@ -47,60 +42,122 @@
                         @Html.DisplayNameFor(model => model.Games.First().Discountinues)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Games.First().Publisher.Name)
+                        @Html.DisplayNameFor(model => model.Games.First().Publisher)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Games.First().Genres)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Games.First().PlatformTypes)
                     </th>
                     <th></th>
                     <th></th>
                 </tr>
                 @if (Model.Games.First().Key != null)
-                { 
-                foreach (var item in Model.Games)
-                 {
-                     <tr>
-                         <td id="@item.Key">
-                             @Html.HiddenFor(modelItem => item.Key)
-                         </td>
-                         <td>
-                             @Html.DisplayFor(modelItem => item.Name)
-                         </td>
-                         <td>
-                             @Html.DisplayFor(modelItem => item.Description)
-                         </td>
-                         <td>
-                             @Html.DisplayFor(modelItem => item.Price)
-                         </td>
-                         <td>
-                             @Html.DisplayFor(modelItem => item.UnitsInStock)
-                         </td>
-                         <td>
-                             @Html.DisplayFor(modelItem => item.Discountinues)
-                         </td>
-                         <td>
-                             @Html.DisplayFor(modelItem => item.Publisher.Name)
-                         </td>
-                         <td>
-                             @Html.ActionLink(GlobalRes.Details, "GetGame", new { gamekey = item.Key })
-                             @Html.ActionLink(GlobalRes.Update, "Update", new { gamekey = item.Key })
-                             @Ajax.ActionLink(GlobalRes.Remove, "Remove", new { gameId = item.Id }, new AjaxOptions { HttpMethod = "POST" , UpdateTargetId = @item.Key })
+                {
+                    foreach (var item in Model.Games)
+                    {
+                        <tr>
+                            <td id="@item.Key">
+                                @Html.HiddenFor(modelItem => item.Key)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Price)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UnitsInStock)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Discountinues)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Publisher.Name)
+                            </td>
+                            <td>
+                                @foreach (var i in item.Genres)
+                                {
+                                    @i.Name
+                                    <br />
+                                }
+                            </td>
+                            <td>
+                                @foreach (var i in item.PlatformTypes)
+                                {
+                                    @i.Name
+                                    <br />
+                                }
+                            </td>
+                            <td>
+                                @Html.ActionLink(GlobalRes.Details, "GetGame", new { gamekey = item.Key })
+                                @Html.ActionLink(GlobalRes.Update, "Update", new { gamekey = item.Key })
+                                @Ajax.ActionLink(GlobalRes.Remove, "Remove", new { gameId = item.Id }, new AjaxOptions { HttpMethod = "POST" , UpdateTargetId = @item.Key })
 
-                         </td>
-                     </tr>
-                 }
+                            </td>
+                        </tr>
+                    }
                 }
             </table>
 
-            <div style="text-align: center" >
+            <div style="text-align: center">
                 <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10"  >
-                        @for (int i = 1; i <= Model.PagingInfo.TotalPages; i++)
+                    <div class="col-md-offset-2 col-md-10">
+                        @if (Model.PagingInfo.TotalPages > 9)
                         {
-                            if (Model.PagingInfo.CurrentPage != i)
+                            int s = 1, e = 9;
+                            if (Model.PagingInfo.CurrentPage > 5)
                             {
-                                <input disabled="disabled" id ="page" type="submit" value=@i name="page" class="btn btn-default" />
+                                s = Model.PagingInfo.CurrentPage - 4;
+
+                                if (Model.PagingInfo.CurrentPage + 4 < Model.PagingInfo.TotalPages)
+                                {
+                                    e = Model.PagingInfo.CurrentPage + 4;
+                                }
+                                else
+                                {
+                                    e = Model.PagingInfo.TotalPages;
+                                    s = e - 8;
+                                }
+
+                                <input id="page" type="submit" value=1 name="page" class="btn btn-default" />
+                                <span>....</span>
                             }
-                            else
+
+                            for (int i = s; i <= e; i++)
                             {
-                                <input type="button" value=@i class="btn btn-default" />
+                                if (Model.PagingInfo.CurrentPage == i)
+                                {
+                                    <input disabled="disabled" type="button" value=@i class="btn btn-default" style="background-color: #A9A9A9" />
+                                }
+                                else
+                                {
+                                    <input id="page" type="submit" value=@i name="page" class="btn btn-default" />
+                                }
+                            }
+
+                            if (s + 4 < Model.PagingInfo.TotalPages - 4)
+                            {
+                                <span>....</span>
+                                <input id="page" type="submit" value=@Model.PagingInfo.TotalPages name="page" class="btn btn-default" />
+                            }
+                        }
+                        else
+                        {
+                            for (int i = 1; i <= Model.PagingInfo.TotalPages; i++)
+                            {
+                                if (Model.PagingInfo.CurrentPage != i)
+                                {
+                                    <input id="page" type="submit" value=@i name="page" class="btn btn-default" />
+                                }
+                                else
+                                {
+                                    <input disabled="disabled" type="button" value=@i class="btn btn-default" style="background-color: #A9A9A9" />
+                                }
                             }
                         }
                     </div>

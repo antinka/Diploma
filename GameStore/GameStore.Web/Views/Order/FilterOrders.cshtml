@@ -2,20 +2,24 @@
 @model GameStore.Web.ViewModels.FilterOrder
 
 <div>
-@using (Html.BeginForm("FilterOrders", "Order", FormMethod.Get, null))
-{
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.DateTimeFrom)
-        </dt>
 
-        <dd>
-            @Html.TextBoxFor(model => model.DateTimeFrom,new {@type = "date"})
-        </dd>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <hr />
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DateTimeTo)
-        </dt>
+    @using (Html.BeginForm("FilterOrders", "Order", FormMethod.Get, null))
+    {
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.DateTimeFrom)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.DateTimeFrom, new { @type = "date" })
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DateTimeTo)
+            </dt>
 
         <dd>
             @Html.TextBoxFor(model => model.DateTimeTo,new {@type = "date"})
@@ -60,43 +64,44 @@
             </th>
         </tr>
 
-    @foreach (var item in Model.OrdersViewModel) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cost)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Freight)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShipAddress)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShipCity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShipCountry)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShipName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShipPostalCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShipRegion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShipVia)
-            </td>
-        </tr>
-    }
-        </table>
+        @foreach (var item in Model.OrdersViewModel)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cost)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Freight)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShipAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShipCity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShipCountry)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShipName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShipPostalCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShipRegion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShipVia)
+                </td>
+            </tr>
+        }
+    </table>
 </div>
 

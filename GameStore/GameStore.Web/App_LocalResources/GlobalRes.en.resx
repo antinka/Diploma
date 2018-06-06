@@ -237,8 +237,8 @@
   <data name="Shipper" xml:space="preserve">
     <value>Shipper</value>
   </data>
-  <data name="SortDate" xml:space="preserve">
-    <value>Sort date</value>
+  <data name="FilterDate" xml:space="preserve">
+    <value>Filter Date</value>
   </data>
   <data name="SortType" xml:space="preserve">
     <value>Sort type</value>
@@ -434,5 +434,32 @@
   </data>
   <data name="ChooseRoles" xml:space="preserve">
     <value>Please choose one or more roles</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="Answer" xml:space="preserve">
+    <value>Answer</value>
+  </data>
+  <data name="Ban" xml:space="preserve">
+    <value>Ban</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Quote" xml:space="preserve">
+    <value>Quote</value>
+  </data>
+  <data name="Body" xml:space="preserve">
+    <value>Body</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>Day</value>
+  </data>
+  <data name="Hour" xml:space="preserve">
+    <value>Hour</value>
+  </data>
+  <data name="Permanent" xml:space="preserve">
+    <value>Permanent</value>
   </data>
 </root>

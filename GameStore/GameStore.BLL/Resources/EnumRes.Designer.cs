@@ -61,42 +61,6 @@ namespace GameStore.BLL.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Все.
-        /// </summary>
-        public static string All {
-            get {
-                return ResourceManager.GetString("All", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Пятьдесят.
-        /// </summary>
-        public static string Fifty {
-            get {
-                return ResourceManager.GetString("Fifty", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Час.
-        /// </summary>
-        public static string Hour {
-            get {
-                return ResourceManager.GetString("Hour", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Месяц.
-        /// </summary>
-        public static string month {
-            get {
-                return ResourceManager.GetString("month", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Самые комментируемые.
         /// </summary>
         public static string MostCommented {
@@ -124,24 +88,6 @@ namespace GameStore.BLL.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Сто.
-        /// </summary>
-        public static string OneHundred {
-            get {
-                return ResourceManager.GetString("OneHundred", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Год.
-        /// </summary>
-        public static string oneYear {
-            get {
-                return ResourceManager.GetString("oneYear", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to По возрастанию стоимости.
         /// </summary>
         public static string PriceAsc {
@@ -156,24 +102,6 @@ namespace GameStore.BLL.Resources {
         public static string PriceDesc {
             get {
                 return ResourceManager.GetString("PriceDesc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Десять.
-        /// </summary>
-        public static string Ten {
-            get {
-                return ResourceManager.GetString("Ten", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Двадцать.
-        /// </summary>
-        public static string Twenty {
-            get {
-                return ResourceManager.GetString("Twenty", resourceCulture);
             }
         }
     }
