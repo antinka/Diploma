@@ -7,6 +7,8 @@ namespace GameStore.BLL.DTO
     {
         public Guid Id { get; set; }
 
+        public bool IsDelete { get; set; }
+
         public string Key { get; set; }
 
         public string Name { get; set; }

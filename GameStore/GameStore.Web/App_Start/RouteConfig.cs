@@ -12,7 +12,7 @@ namespace GameStore.Web
             routes.MapRoute(
                 name: "order",
                 url: "{lang}/order",
-                defaults: new { controller = "Order", action = "Order", lang = "en" },
+                defaults: new { controller = "Order", action = "Orders", lang = "en" },
                 constraints: new { lang = @"ru|en" }
             );
 

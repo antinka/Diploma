@@ -14,8 +14,8 @@ namespace GameStore.Web.Authorization.Implementation
         {
             _user = new User
             {
-                Name = "guest",
-                Roles = new List<RoleViewModel> {new RoleViewModel() {Name = UserRole.Guest.ToString()}}
+                Name = "Guest",
+                Roles = new List<RoleViewModel> {new RoleViewModel() {Name = "Guest"} }
             };
         }
 
@@ -31,6 +31,6 @@ namespace GameStore.Web.Authorization.Implementation
         public virtual string AuthenticationType => typeof(User).ToString();
 
         public virtual bool IsAuthenticated =>
-            !User.Roles.Contains(new RoleViewModel() {Name = UserRole.Guest.ToString()});
+            !User.Roles.Contains(new RoleViewModel() { Name = "Guest" });
     }
 }

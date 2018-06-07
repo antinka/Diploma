@@ -24,7 +24,7 @@ namespace GameStore.BLL.Service
             _log = log;
         }
 
-        public OrderDTO GetOrder(Guid userId)
+        public OrderDTO GetOrderByUserId(Guid userId)
         {
             var order = _unitOfWork.Orders.Get(x => x.UserId == userId).FirstOrDefault();
 
@@ -40,6 +40,21 @@ namespace GameStore.BLL.Service
             orderDTO.Cost = orderDTO.OrderDetails.Sum(i => i.Price);
 
             return orderDTO;
+        }
+
+        public void UpdateOrder(OrderDTO orderDto)
+        {
+            var order = _unitOfWork.Orders.Get(x => x.Id == orderDto.Id).FirstOrDefault();
+
+            if (order == null)
+            {
+                throw new EntityNotFound($"{nameof(OrdersService)} - Orders with such id {orderDto.Id} did not exist");
+            }
+
+            order = _mapper.Map<Order>(orderDto);
+
+            _unitOfWork.Orders.Update(order);
+            _unitOfWork.Save();
         }
 
         public void AddNewOrderDetails(Guid userId, Guid gameId)
@@ -60,18 +75,15 @@ namespace GameStore.BLL.Service
 
                     if (orderDetails != null)
                     {
-                        if (orderDetails.IsDelete)
-                            orderDetails.IsDelete = false;
-
                         orderDetails.Quantity += 1;
                         orderDetails.Price += game.Price;
                     }
                     else
                         CreateNewOrderDetailToExistOrder(order, game, gameId);
+
                 }
             
                 _unitOfWork.Save();
-
                 _log.Info($"{nameof(OrdersService)} - User {userId} add game {game.Key} to order");
             }
             else
@@ -189,6 +201,39 @@ namespace GameStore.BLL.Service
             return ordersDTO;
         }
 
+        public IEnumerable<OrderDTO> GetOrdersWithUnpaidBetweenDates(DateTime? from, DateTime? to)
+        {
+            IEnumerable<Order> orders;
+
+            if (from != null && to != null)
+            {
+                orders = _unitOfWork.Orders.GetAll().Where(x => x.Date >= from && x.Date <= to || x.Date == null);
+            }
+            else if (from != null)
+            {
+                orders = _unitOfWork.Orders.GetAll().Where(x => x.Date >= from || x.Date == null);
+            }
+            else if (to != null)
+            {
+                orders = _unitOfWork.Orders.GetAll().Where(x => x.Date <= to || x.Date == null);
+            }
+            else
+            {
+                orders = _unitOfWork.Orders.GetAll();
+            }
+
+            var ordersDTO = _mapper.Map<IEnumerable<Order>, IEnumerable<OrderDTO>>(orders);
+
+            foreach (var orderDTO in ordersDTO)
+            {
+                foreach (var i in orderDTO.OrderDetails)
+                {
+                    orderDTO.Cost += i.Price;
+                }
+            }
+
+            return ordersDTO;
+        }
         public IEnumerable<ShipperDTO> GetAllShippers()
         {
             var shippers = _unitOfWork.Shippers.GetAll();

@@ -12,6 +12,9 @@ namespace GameStore.DAL.Entities
         [DataType(DataType.Date)]
         public DateTime? Date { get; set; }
 
+        [DataType(DataType.Date)]
+        public DateTime? ShippedDate { get; set; }
+
         public bool IsPaid { get; set; }
 
         public string ShipperId { get; set; }

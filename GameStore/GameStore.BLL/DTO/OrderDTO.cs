@@ -7,9 +7,13 @@ namespace GameStore.BLL.DTO
     {
         public Guid Id { get; set; }
 
+        public bool IsPaid { get; set; }
+
         public Guid UserId { get; set; }
 
         public DateTime? Date { get; set; }
+
+        public DateTime? ShippedDate { get; set; }
 
         public Decimal Cost { get; set; }
 

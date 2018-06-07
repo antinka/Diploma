@@ -122,6 +122,10 @@
     <Compile Include="Migrations\201805301107032_addUserAndRole.Designer.cs">
       <DependentUpon>201805301107032_addUserAndRole.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806071238434_addShippedDate.cs" />
+    <Compile Include="Migrations\201806071238434_addShippedDate.Designer.cs">
+      <DependentUpon>201806071238434_addShippedDate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mongo\MongoContext.cs" />
     <Compile Include="Mongo\MongoEntities\MongoOrder.cs" />
@@ -156,6 +160,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805301107032_addUserAndRole.resx">
       <DependentUpon>201805301107032_addUserAndRole.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806071238434_addShippedDate.resx">
+      <DependentUpon>201806071238434_addShippedDate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

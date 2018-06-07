@@ -462,4 +462,10 @@
   <data name="Permanent" xml:space="preserve">
     <value>Permanent</value>
   </data>
+  <data name="ShippedDate" xml:space="preserve">
+    <value>Shipped date</value>
+  </data>
+  <data name="IsPaid" xml:space="preserve">
+    <value>Is Paid</value>
+  </data>
 </root>

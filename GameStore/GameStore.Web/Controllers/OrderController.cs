@@ -42,7 +42,7 @@ namespace GameStore.Web.Controllers
         {
             var userId = GetUserId();
 
-            var order = _ordersService.GetOrder(userId);
+            var order = _ordersService.GetOrderByUserId(userId);
 
             if (order == null || !order.OrderDetails.Any())
                 return View("EmptyBasket");
@@ -62,7 +62,7 @@ namespace GameStore.Web.Controllers
             var gameDTO = _gameService.GetByKey(gameKey);
             var game = _mapper.Map<DetailsGameViewModel>(gameDTO);
 
-            if (game.UnitsInStock >= 1)
+            if (game.UnitsInStock >= 1 && game.IsDelete == false)
             {
                 _ordersService.AddNewOrderDetails(userId, game.Id);
 
@@ -92,7 +92,7 @@ namespace GameStore.Web.Controllers
         public ActionResult Pay(PaymentTypes paymentType)
         {
             var userId = GetUserId();
-            var order = _ordersService.GetOrder(userId);
+            var order = _ordersService.GetOrderByUserId(userId);
 
             var orderPay = new OrderPayment()
             {
@@ -103,21 +103,28 @@ namespace GameStore.Web.Controllers
 
             return _paymentStrategy.GetPaymentStrategy(paymentType, orderPay);
         }
+
         [HttpGet]
         public ActionResult Order()
         {
             var userId = GetUserId();
-            var order = _ordersService.GetOrder(userId);
+            var order = _ordersService.GetOrderByUserId(userId);
             var orderDetailsViewModel = _mapper.Map<IEnumerable<OrderDetailViewModel>>(order.OrderDetails);
 
             return View(orderDetailsViewModel);
         }
 
-        public ActionResult FilterOrders(FilterOrder filterOrder)
+        public ActionResult HistoryOrders(FilterOrder filterOrder)
         {
-            if (filterOrder.DateTimeFrom > filterOrder.DateTimeTo)
+            
+            if (filterOrder.DateTimeFrom != null && filterOrder.DateTimeTo != null && filterOrder.DateTimeFrom > filterOrder.DateTimeTo)
             {
                 ModelState.AddModelError("", "Date Time From could not be bigger than Date Time To, please choose another one");
+            }
+
+            if (filterOrder.DateTimeTo == null)
+            {
+                filterOrder.DateTimeTo = DateTime.UtcNow.AddDays(-30);
             }
 
             var ordersDTO = _ordersService.GetOrdersBetweenDates(filterOrder.DateTimeFrom, filterOrder.DateTimeTo);
@@ -141,6 +148,65 @@ namespace GameStore.Web.Controllers
             var gameCount = _ordersService.CountGamesInOrder(userId);
 
             return PartialView("CountGamesInOrder", gameCount);
+        }
+
+        public ActionResult AllOrders()
+        {
+            return View();
+        }
+
+        public ActionResult Orders(FilterOrder filterOrder)
+        {
+
+            if (filterOrder.DateTimeFrom != null && filterOrder.DateTimeTo != null && filterOrder.DateTimeFrom > filterOrder.DateTimeTo)
+            {
+                ModelState.AddModelError("", "Date Time From could not be bigger than Date Time To, please choose another one");
+            }
+
+            if (filterOrder.DateTimeFrom == null)
+            {
+                filterOrder.DateTimeFrom = DateTime.UtcNow.AddDays(-30);
+            }
+
+            var ordersDTO = _ordersService.GetOrdersWithUnpaidBetweenDates(filterOrder.DateTimeFrom, filterOrder.DateTimeTo);
+            filterOrder.OrdersViewModel = _mapper.Map<IEnumerable<OrderViewModel>>(ordersDTO);
+
+            return View(filterOrder);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Manager")]
+        public ActionResult EditOrder(Guid userId)
+        {
+            var orderDto = _ordersService.GetOrderByUserId(userId);
+            var orderViewModel = _mapper.Map<OrderViewModel>(orderDto);
+
+            return View(orderViewModel);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Manager")]
+        public ActionResult EditOrder(OrderViewModel orderView)
+        {
+            if (orderView.IsPaid == false && orderView.ShippedDate != null)
+            {
+                ModelState.AddModelError("ShippedDate", "order could not be delivered without paying");
+            }
+
+            if (orderView.IsPaid && orderView.Date == null)
+            {
+                orderView.Date = DateTime.Now.AddDays(10);
+            }
+
+            if (ModelState.IsValid)
+            {
+                _ordersService.UpdateOrder(_mapper.Map<OrderDTO>(orderView));
+
+                return RedirectToAction("Orders");
+            }
+
+
+            return View(orderView);
         }
 
         private Guid GetUserId()

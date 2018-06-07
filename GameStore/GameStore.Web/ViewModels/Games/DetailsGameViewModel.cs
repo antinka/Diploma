@@ -9,6 +9,8 @@ namespace GameStore.Web.ViewModels.Games
     {
         public Guid Id { get; set; }
 
+        public bool IsDelete { get; set; }
+
         [Display(Name = "Key", ResourceType = typeof(GlobalRes))]
         public string Key { get; set; }
 

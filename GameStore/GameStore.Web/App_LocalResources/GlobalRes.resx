@@ -465,4 +465,10 @@
   <data name="Permanent" xml:space="preserve">
     <value>Навсегда</value>
   </data>
+  <data name="ShippedDate" xml:space="preserve">
+    <value>Дата доставки</value>
+  </data>
+  <data name="IsPaid" xml:space="preserve">
+    <value>Оплачено</value>
+  </data>
 </root>

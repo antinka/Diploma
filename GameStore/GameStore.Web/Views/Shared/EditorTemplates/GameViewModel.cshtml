@@ -87,7 +87,7 @@
             @Html.LabelFor(model => model.PlatformTypes, htmlAttributes: new { @class = "control-label col-md-6" })
             <div class="col-md-10" style="border-width: 1px; border-style: dashed;">
                 @Html.CheckBoxListFor(model => model.SelectedPlatformTypesName, model => model.ListPlatformTypes, model => model.Text, model => model.Text, model => model.SelectedPlatformTypes, Position.Vertical)
-                @Html.ValidationMessageFor(model => model.SelectedPlatformTypesName, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.PlatformTypes, "", new { @class = "text-danger" })
             </div>
         </div>
 

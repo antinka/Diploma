@@ -91,9 +91,13 @@ namespace GameStore.BLL.Service
 
         public IEnumerable<GameDTO> GetAll()
         {
-            var games = _unitOfWork.Games.GetAll();
+            var games = _unitOfWork.Games.GetAll().ToList();
 
-
+            for (int i = 0; i < games.Count(); i++)
+            {
+                if (!games[i].Genres.Any())
+                    games[i] = AddDefaultGenre(games[i]);
+            }
 
             return _mapper.Map<IEnumerable<GameDTO>>(games);
         }
@@ -171,7 +175,13 @@ namespace GameStore.BLL.Service
 
             var filterGamePipeline = new GamePipeline();
             RegisterFilter(filterGamePipeline, filter, page, pageSize);
-            var filterGames = filterGamePipeline.Process(games);
+
+            var filterGames = filterGamePipeline.Process(games).ToList();
+            for (int i = 0; i < filterGames.Count(); i++)
+            {
+                if (!filterGames[i].Genres.Any())
+                    filterGames[i] = AddDefaultGenre(filterGames[i]);
+            }
 
             var totalItemsByFilteripeline = new GamePipeline();
             RegisterFilter(totalItemsByFilteripeline, filter, 1, PageSize.All);

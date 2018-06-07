@@ -63,6 +63,7 @@ namespace GameStore.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Administrator, Manager")]
         public ActionResult Update(string gamekey)
         {
             var gameDTO = _gameService.GetByKey(gamekey);
@@ -75,6 +76,7 @@ namespace GameStore.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator, Manager")]
         public ActionResult Update(GameViewModel game)
         {
             game = CheckValidationGameViewModel(game);
@@ -207,11 +209,6 @@ namespace GameStore.Web.Controllers
         private GameViewModel CheckValidationGameViewModel(GameViewModel game)
         {
             var gameExtendGameDto = _mapper.Map<ExtendGameDTO>(game);
-
-            if (game.SelectedGenresName == null)
-            {
-                ModelState.AddModelError("Genres", "Please choose one or more genres");
-            }
 
             if (game.SelectedPlatformTypesName == null)
             {

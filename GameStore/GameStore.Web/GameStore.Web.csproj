@@ -162,7 +162,6 @@
     <Compile Include="Authorization\Implementation\UserIdentity.cs" />
     <Compile Include="Authorization\Implementation\UserProvider.cs" />
     <Compile Include="Authorization\User.cs" />
-    <Compile Include="Authorization\UserRole.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
@@ -261,7 +260,7 @@
     <Content Include="Views\Game\GamesFilters.cshtml" />
     <Content Include="Views\Game\NothingWasFound.cshtml" />
     <Content Include="Views\Game\Update.cshtml" />
-    <Content Include="Views\Order\FilterOrders.cshtml" />
+    <Content Include="Views\Order\HistoryOrders.cshtml" />
     <Content Include="Views\Game\GameDeleted.cshtml" />
     <Content Include="Views\Genre\Get.cshtml" />
     <Content Include="Views\Genre\GetAll.cshtml" />
@@ -278,6 +277,9 @@
     <Content Include="Views\Role\New.cshtml" />
     <Content Include="Views\Role\Get.cshtml" />
     <Content Include="Views\Role\Update.cshtml" />
+    <Content Include="Views\Order\AllOrders.cshtml" />
+    <Content Include="Views\Order\Orders.cshtml" />
+    <Content Include="Views\Order\EditOrder.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

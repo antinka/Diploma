@@ -577,6 +577,15 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Оплачено.
+        /// </summary>
+        public static string IsPaid {
+            get {
+                return ResourceManager.GetString("IsPaid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Оставаться в системе.
         /// </summary>
         public static string IsPersistent {
@@ -942,6 +951,15 @@ namespace GameStore.Web.App_LocalResources {
         public static string ShipName {
             get {
                 return ResourceManager.GetString("ShipName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Дата доставки.
+        /// </summary>
+        public static string ShippedDate {
+            get {
+                return ResourceManager.GetString("ShippedDate", resourceCulture);
             }
         }
         

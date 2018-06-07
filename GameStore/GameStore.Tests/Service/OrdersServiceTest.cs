@@ -69,7 +69,7 @@ namespace GameStore.Tests.Service
             _uow.Setup(uow => uow.Orders.Get(It.IsAny<Func<Order, bool>>())).Returns(_fakeOrders);
             _uow.Setup(uow => uow.OrderDetails.Get(It.IsAny<Func<OrderDetail, bool>>())).Returns(_fakeOrderDetails);
 
-            var resultOrderDetelis = _sut.GetOrder(_fakeUserId);
+            var resultOrderDetelis = _sut.GetOrderByUserId(_fakeUserId);
 
             Assert.True(resultOrderDetelis.UserId == _fakeUserId);
         }
@@ -79,7 +79,7 @@ namespace GameStore.Tests.Service
         {
             _uow.Setup(uow => uow.Orders.Get(It.IsAny<Func<Order, bool>>())).Returns(new List<Order>());
 
-            Assert.Null(_sut.GetOrder(_fakeUserId));
+            Assert.Null(_sut.GetOrderByUserId(_fakeUserId));
         }
 
         [Fact]

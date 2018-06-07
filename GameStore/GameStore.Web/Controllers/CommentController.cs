@@ -9,6 +9,7 @@ using GameStore.BLL.Interfaces;
 using GameStore.Web.Authorization.Interfaces;
 using GameStore.Web.Filters;
 using GameStore.Web.ViewModels;
+using GameStore.Web.ViewModels.Games;
 
 namespace GameStore.Web.Controllers
 {
@@ -31,6 +32,7 @@ namespace GameStore.Web.Controllers
         public ActionResult GetAllCommentToGame(string gamekey)
         {
             var comments = _mapper.Map<List<CommentViewModel>>(_commentService.GetCommentsByGameKey(gamekey));
+            var game = _gameService.GetByKey(gamekey);
 
             if (!comments.Any())
             {
@@ -38,7 +40,8 @@ namespace GameStore.Web.Controllers
                 {
                     new CommentViewModel()
                     {
-                        GameId = _gameService.GetByKey(gamekey).Id,
+                        FilterGame = _mapper.Map<FilterGameViewModel>(game),
+                        GameId = game.Id,
                         GameKey = gamekey
                     }
                 };
@@ -47,6 +50,7 @@ namespace GameStore.Web.Controllers
             {
                 foreach (var comment in comments)
                 {
+                    comment.FilterGame = _mapper.Map<FilterGameViewModel>(game);
                     comment.GameKey = gamekey;
                 }
             }
@@ -55,6 +59,7 @@ namespace GameStore.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Guest, User, Moderator, Publisher")]
         public ActionResult CommentToGame(string gamekey, Guid gameId, Guid? parentsCommentId, string quote)
         {
             var comment = new CommentViewModel { GameId = gameId, GameKey = gamekey };
@@ -73,8 +78,10 @@ namespace GameStore.Web.Controllers
             return PartialView(comment);
         }
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Guest, User, Moderator, Publisher")]
         public ActionResult CommentToGame(CommentViewModel comment)
         {
             if (ModelState.IsValid)
@@ -87,6 +94,7 @@ namespace GameStore.Web.Controllers
             return PartialView(comment);
         }
 
+        [Authorize(Roles = "Moderator")]
         [HttpPost]
         public ActionResult Delete(Guid? commentId, CommentViewModel comment)
         {
@@ -102,6 +110,7 @@ namespace GameStore.Web.Controllers
             return RedirectToAction("GetAllCommentToGame", "Comment", new {gamekey = comment.GameKey});
         }
 
+        [Authorize(Roles = "Moderator")]
         [HttpGet]
         public ActionResult Ban(BanPeriod? period)
         {

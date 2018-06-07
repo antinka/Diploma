@@ -13,8 +13,14 @@ namespace GameStore.Web.ViewModels
         [Display(Name = "UserId", ResourceType = typeof(GlobalRes))]
         public Guid UserId { get; set; }
 
+        [Display(Name = "IsPaid", ResourceType = typeof(GlobalRes))]
+        public bool IsPaid { get; set; }
+
         [Display(Name = "Date", ResourceType = typeof(GlobalRes))]
         public DateTime? Date { get; set; }
+
+        [Display(Name = "ShippedDate", ResourceType = typeof(GlobalRes))]
+        public DateTime? ShippedDate { get; set; }
 
         [Display(Name = "Cost", ResourceType = typeof(GlobalRes))]
         public Decimal Cost { get; set; }
