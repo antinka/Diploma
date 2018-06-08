@@ -146,6 +146,7 @@
     <Compile Include="Service\OrdersServiceTest.cs" />
     <Compile Include="Service\PlatformTypeServiceTest.cs" />
     <Compile Include="Service\PublisherServiceTest.cs" />
+    <Compile Include="Service\RoleServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
