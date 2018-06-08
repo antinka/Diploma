@@ -411,4 +411,10 @@
   <data name="Permanent" xml:space="preserve">
     <value>Permanent</value>
   </data>
+  <data name="DataTimeFromTo" xml:space="preserve">
+    <value>Date Time From could not be bigger than Date Time To, please choose another one</value>
+  </data>
+  <data name="MinMaxPrice" xml:space="preserve">
+    <value>Min Price should be less than Max Price</value>
+  </data>
 </root>

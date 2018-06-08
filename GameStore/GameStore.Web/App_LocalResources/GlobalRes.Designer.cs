@@ -279,6 +279,15 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Дата от не может быть больше, чем дата до, выберите другую.
+        /// </summary>
+        public static string DataTimeFromTo {
+            get {
+                return ResourceManager.GetString("DataTimeFromTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Дата.
         /// </summary>
         public static string Date {
@@ -563,6 +572,15 @@ namespace GameStore.Web.App_LocalResources {
         public static string MaxPrice {
             get {
                 return ResourceManager.GetString("MaxPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Минимальная цена должна быть меньше максимальной.
+        /// </summary>
+        public static string MinMaxPrice {
+            get {
+                return ResourceManager.GetString("MinMaxPrice", resourceCulture);
             }
         }
         

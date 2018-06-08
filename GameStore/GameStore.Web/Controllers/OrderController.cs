@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using GameStore.BLL.DTO;
+using GameStore.Web.App_LocalResources;
 using GameStore.Web.ViewModels.Games;
 
 namespace GameStore.Web.Controllers
@@ -114,7 +115,7 @@ namespace GameStore.Web.Controllers
         {
             if (filterOrder.DateTimeFrom > filterOrder.DateTimeTo)
             {
-                ModelState.AddModelError("", "Date Time From could not be bigger than Date Time To, please choose another one");
+                ModelState.AddModelError("", GlobalRes.DataTimeFromTo);
             }
 
             var ordersDTO = _ordersService.GetOrdersBetweenDates(filterOrder.DateTimeFrom, filterOrder.DateTimeTo);

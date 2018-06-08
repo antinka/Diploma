@@ -102,7 +102,7 @@ namespace GameStore.Web.Controllers
         {
             if (filterViewModel.MinPrice > filterViewModel.MaxPrice)
             {
-                ModelState.AddModelError("MinPrice", "Min Price should be less than Max Price");
+                ModelState.AddModelError("MinPrice", GlobalRes.MinMaxPrice);
             }
 
             var gamesByFilter = _gameService.GetGamesByFilter(_mapper.Map<FilterDTO>(filterViewModel), page,
@@ -208,17 +208,17 @@ namespace GameStore.Web.Controllers
 
             if (game.SelectedGenresName == null)
             {
-                ModelState.AddModelError("Genres", "Please choose one or more genres");
+                ModelState.AddModelError("Genres", GlobalRes.ChooseGenres);
             }
 
             if (game.SelectedPlatformTypesName == null)
             {
-                ModelState.AddModelError("PlatformTypes", "Please choose one or more platform types");
+                ModelState.AddModelError("PlatformTypes", GlobalRes.ChoosePlatformTypes);
             }
 
             if (!_gameService.IsUniqueKey(gameExtendGameDto))
             {
-                ModelState.AddModelError("Key", "Game with such key already exist, please enter another name");
+                ModelState.AddModelError("Key", GlobalRes.ExistKey);
             }
 
             return game;
