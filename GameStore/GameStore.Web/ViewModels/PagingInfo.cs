@@ -14,8 +14,11 @@ namespace GameStore.Web.ViewModels
         {
             get
             {
-                if(ItemsPerPage >0 )
+                if (ItemsPerPage > 0)
+                {
                     return (int)Math.Ceiling((decimal)TotalItemsByFilter / ItemsPerPage);
+                }
+
                 return 1;
             }
         }

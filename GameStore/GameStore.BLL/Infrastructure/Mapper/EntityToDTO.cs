@@ -22,7 +22,9 @@ namespace GameStore.BLL.Infrastructure.Mapper
 
             CreateMap<OrderDetail, OrderDetailDTO>();
 
-            CreateMap<Publisher, PublisherDTO>().ForMember(dest => dest.Description, opt => opt.ResolveUsing(src =>
+            CreateMap<Publisher, PublisherDTO>().ForMember(
+                dest => dest.Description,
+                opt => opt.ResolveUsing(src =>
             {
                 current = Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToUpperInvariant();
 
@@ -31,13 +33,17 @@ namespace GameStore.BLL.Infrastructure.Mapper
 
             CreateMap<Publisher, ExtendPublisherDTO>();
 
-            CreateMap<Game, GameDTO>().ForMember(dest => dest.Name, opt => opt.ResolveUsing(src =>
-                {
-                    current = Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToUpperInvariant();
+            CreateMap<Game, GameDTO>().ForMember(
+                dest => dest.Name,
+                opt => opt.ResolveUsing(src =>
+            {
+                current = Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToUpperInvariant();
 
-                    return current == "EN" ? src.NameEn : src.NameRu ?? src.NameEn;
-                }))
-                .ForMember(dest => dest.Description, opt => opt.ResolveUsing(src =>
+                return current == "EN" ? src.NameEn : src.NameRu ?? src.NameEn;
+            }))
+                .ForMember(
+                dest => dest.Description,
+                opt => opt.ResolveUsing(src =>
                 {
                     current = Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToUpperInvariant();
 
@@ -48,7 +54,9 @@ namespace GameStore.BLL.Infrastructure.Mapper
 
             CreateMap<Game, ExtendGameDTO>();
 
-            CreateMap<Genre, GenreDTO>().ForMember(dest => dest.Name, opt => opt.ResolveUsing(src =>
+            CreateMap<Genre, GenreDTO>().ForMember(
+                dest => dest.Name,
+                opt => opt.ResolveUsing(src =>
             {
                 current = Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToUpperInvariant();
 
@@ -57,7 +65,9 @@ namespace GameStore.BLL.Infrastructure.Mapper
 
             CreateMap<Genre, ExtendGenreDTO>();
 
-            CreateMap<PlatformType, PlatformTypeDTO>().ForMember(dest => dest.Name, opt => opt.ResolveUsing(src =>
+            CreateMap<PlatformType, PlatformTypeDTO>().ForMember(
+                dest => dest.Name,
+                opt => opt.ResolveUsing(src =>
             {
                 current = Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToUpperInvariant();
 

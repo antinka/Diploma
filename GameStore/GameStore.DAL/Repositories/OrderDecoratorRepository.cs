@@ -1,10 +1,10 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
 using GameStore.DAL.Mongo;
 using GameStore.DAL.Mongo.MongoEntities;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace GameStore.DAL.Repositories
 {

@@ -1,4 +1,7 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
 using GameStore.BLL.CustomExeption;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Service;
@@ -8,9 +11,6 @@ using GameStore.DAL.Mongo.MongoEntities;
 using GameStore.Web.Infrastructure.Mapper;
 using log4net;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Xunit;
 
 namespace GameStore.Tests.Service
@@ -157,20 +157,20 @@ namespace GameStore.Tests.Service
                 new Order()
                 {
                     Id = Guid.NewGuid(),
-                    Date =  DateTime.Today.AddMonths(-1)
-                    
+                    Date = DateTime.Today.AddMonths(-1)
                 },
+
                 new Order()
                 {
                     Id = Guid.NewGuid(),
-                    Date =  DateTime.Today.AddMonths(-2)
+                    Date = DateTime.Today.AddMonths(-2)
                 }
             };
             _uow.Setup(uow => uow.Orders.GetAll()).Returns(fakeOrders);
 
             var res = _sut.GetOrdersBetweenDates(DateTime.Today.AddMonths(-1), null);
 
-            Assert.Equal(res.Count(), fakeOrders.Count-1);
+            Assert.Equal(res.Count(), fakeOrders.Count - 1);
         }
 
         [Fact]
@@ -181,13 +181,13 @@ namespace GameStore.Tests.Service
                 new Order()
                 {
                     Id = Guid.NewGuid(),
-                    Date =  DateTime.Today
-
+                    Date = DateTime.Today
                 },
+
                 new Order()
                 {
                     Id = Guid.NewGuid(),
-                    Date =  DateTime.Today.AddMonths(-2)
+                    Date = DateTime.Today.AddMonths(-2)
                 }
             };
             _uow.Setup(uow => uow.Orders.GetAll()).Returns(fakeOrders);
@@ -205,19 +205,19 @@ namespace GameStore.Tests.Service
                 new Order()
                 {
                     Id = Guid.NewGuid(),
-                    Date =  DateTime.Today.AddMonths(-1)
-
+                    Date = DateTime.Today.AddMonths(-1)
                 },
+
                 new Order()
                 {
                     Id = Guid.NewGuid(),
-                    Date =  DateTime.Today.AddMonths(-2)
+                    Date = DateTime.Today.AddMonths(-2)
                 },
+
                 new Order()
                 {
-
                     Id = Guid.NewGuid(),
-                    Date =  DateTime.Today.AddMonths(-3)
+                    Date = DateTime.Today.AddMonths(-3)
                 }
             };
             _uow.Setup(uow => uow.Orders.GetAll()).Returns(fakeOrders);

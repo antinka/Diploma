@@ -17,7 +17,9 @@ namespace GameStore.DAL.Repositories
         {
             var orderDetail = _db.OrderDetails.Find(id);
             if (orderDetail != null)
+            {
                 _db.OrderDetails.Remove(orderDetail);
+            }
         }
     }
 }

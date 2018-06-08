@@ -1,8 +1,8 @@
-﻿using GameStore.BLL.Enums;
+﻿using System.Collections.Generic;
+using System.Linq;
+using GameStore.BLL.Enums;
 using GameStore.BLL.Filters.Interfaces;
 using GameStore.DAL.Entities;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace GameStore.BLL.Filters.GameFilters.Implementation
 {

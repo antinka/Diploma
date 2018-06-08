@@ -1,13 +1,13 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Web.Mvc;
+using AutoMapper;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Interfaces;
 using GameStore.Web.Controllers;
 using GameStore.Web.Infrastructure.Mapper;
 using GameStore.Web.ViewModels;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Web.Mvc;
 using Xunit;
 
 namespace GameStore.Tests.Controllers
@@ -94,7 +94,7 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void Update_GenreName_ReturnedView()
         {
-            var fakeGenre = new ExtendGenreDTO() {Id = Guid.NewGuid(), NameEn = _fakeGenreName};
+            var fakeGenre = new ExtendGenreDTO() { Id = Guid.NewGuid(), NameEn = _fakeGenreName };
 
             _genreService.Setup(service => service.GetByName(_fakeGenreName)).Returns(fakeGenre);
             _genreService.Setup(service => service.GetAll()).Returns(new List<GenreDTO>());
@@ -120,7 +120,7 @@ namespace GameStore.Tests.Controllers
         {
             var fakeGenreDTO = new List<GenreDTO>()
             {
-                new GenreDTO() { Name = "test1"}
+                new GenreDTO() { Name = "test1" }
             };
 
             _genreService.Setup(service => service.GetAll()).Returns(fakeGenreDTO);

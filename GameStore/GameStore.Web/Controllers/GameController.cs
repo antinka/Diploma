@@ -1,16 +1,17 @@
-﻿using AutoMapper;
-using GameStore.BLL.DTO;
-using GameStore.BLL.Interfaces;
-using GameStore.Web.Filters;
-using GameStore.Web.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using GameStore.Web.App_LocalResources;
 using GameStore.Web.Authorization.Interfaces;
+using AutoMapper;
+using GameStore.BLL.DTO;
 using GameStore.BLL.Enums;
+using GameStore.BLL.Interfaces;
+using GameStore.Web.App_LocalResources;
+using GameStore.Web.Filters;
+using GameStore.Web.ViewModels;
 using GameStore.Web.ViewModels.Games;
 
 namespace GameStore.Web.Controllers
@@ -25,7 +26,8 @@ namespace GameStore.Web.Controllers
         private readonly IPublisherService _publisherService;
         private readonly IMapper _mapper;
 
-        public GameController(IGameService gameService,
+        public GameController(
+            IGameService gameService,
             IGenreService genreService,
             IPlatformTypeService platformTypeService,
             IMapper mapper,
@@ -87,7 +89,6 @@ namespace GameStore.Web.Controllers
                 _gameService.Update(gameExtendGameDto);
 
                 return RedirectToAction("FilteredGames");
-
             }
 
             return View(GetGameViewModelForUpdate(game));
@@ -106,11 +107,10 @@ namespace GameStore.Web.Controllers
         {
             if (filterViewModel.MinPrice > filterViewModel.MaxPrice)
             {
-                ModelState.AddModelError("MinPrice", "Min Price should be less than Max Price");
+                ModelState.AddModelError("MinPrice", GlobalRes.MinMaxPrice);
             }
 
-            var gamesByFilter = _gameService.GetGamesByFilter(_mapper.Map<FilterDTO>(filterViewModel), page,
-                filterViewModel.PageSize, out var totalItemsByFilter);
+            var gamesByFilter = _gameService.GetGamesByFilter(_mapper.Map<FilterDTO>(filterViewModel), page, filterViewModel.PageSize, out var totalItemsByFilter);
 
             int totalItem = 0;
 
@@ -197,7 +197,6 @@ namespace GameStore.Web.Controllers
             return File(mas, "application/pdf");
         }
 
-
         [OutputCache(Duration = 60)]
         public ActionResult CountGames()
         {
@@ -212,12 +211,12 @@ namespace GameStore.Web.Controllers
 
             if (game.SelectedPlatformTypesName == null)
             {
-                ModelState.AddModelError("PlatformTypes", "Please choose one or more platform types");
+                ModelState.AddModelError("PlatformTypes", GlobalRes.ChoosePlatformTypes);
             }
 
             if (!_gameService.IsUniqueKey(gameExtendGameDto))
             {
-                ModelState.AddModelError("Key", "Game with such key already exist, please enter another name");
+                ModelState.AddModelError("Key", GlobalRes.ExistKey);
             }
 
             return game;

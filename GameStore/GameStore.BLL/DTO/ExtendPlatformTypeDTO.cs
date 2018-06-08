@@ -11,6 +11,6 @@ namespace GameStore.BLL.DTO
 
         public string NameRu { get; set; }
 
-        public  ICollection<GameDTO> Games { get; set; }
+        public ICollection<GameDTO> Games { get; set; }
     }
 }

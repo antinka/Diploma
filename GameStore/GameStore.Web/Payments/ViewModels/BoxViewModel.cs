@@ -14,6 +14,5 @@ namespace GameStore.Web.Payments.ViewModels
 
         [Display(Name = "Cost", ResourceType = typeof(GlobalRes))]
         public decimal Cost { get; set; }
-
     }
 }

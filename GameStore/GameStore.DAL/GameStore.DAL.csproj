@@ -127,6 +127,7 @@
       <DependentUpon>201806071238434_addShippedDate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Mongo\CollectionName.cs" />
     <Compile Include="Mongo\MongoContext.cs" />
     <Compile Include="Mongo\MongoEntities\MongoOrder.cs" />
     <Compile Include="Mongo\MongoEntities\Shipper.cs" />

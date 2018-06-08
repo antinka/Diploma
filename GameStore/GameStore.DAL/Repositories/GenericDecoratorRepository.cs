@@ -1,8 +1,8 @@
-﻿using GameStore.DAL.Interfaces;
-using GameStore.DAL.Mongo;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using GameStore.DAL.Interfaces;
+using GameStore.DAL.Mongo;
 
 namespace GameStore.DAL.Repositories
 {
@@ -10,7 +10,7 @@ namespace GameStore.DAL.Repositories
     {
         private readonly IGenericRepository<TEntity> _mongoDataRepository;
 
-        public GenericDecoratorRepository(IDbContext sql, MongoContext mongo):base(sql, mongo)
+        public GenericDecoratorRepository(IDbContext sql, MongoContext mongo) : base(sql, mongo)
         {
             _mongoDataRepository = new ReadOnlyGenericRepository<TEntity>(mongo);
         }
@@ -22,7 +22,7 @@ namespace GameStore.DAL.Repositories
 
         public override TEntity GetById(Guid id)
         {
-            return base.GetById(id) ?? (_mongoDataRepository.GetById(id));
+            return base.GetById(id) ?? _mongoDataRepository.GetById(id);
         }
 
         public override IEnumerable<TEntity> Get(Func<TEntity, bool> predicate)

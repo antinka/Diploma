@@ -1,6 +1,6 @@
-﻿using GameStore.DAL.Entities;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using GameStore.DAL.Entities;
 
 namespace GameStore.DAL.Interfaces
 {

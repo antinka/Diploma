@@ -1,9 +1,9 @@
-﻿using GameStore.BLL.Enums;
-using GameStore.Web.App_LocalResources;
-using GameStore.Web.ViewModels.Games;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.UI.WebControls;
+using GameStore.BLL.Enums;
+using GameStore.Web.App_LocalResources;
+using GameStore.Web.ViewModels.Games;
 
 namespace GameStore.Web.ViewModels
 {

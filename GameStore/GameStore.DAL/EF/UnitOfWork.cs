@@ -1,14 +1,14 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
 using GameStore.DAL.Mongo;
 using GameStore.DAL.Mongo.MongoEntities;
 using GameStore.DAL.Repositories;
-using System;
 
 namespace GameStore.DAL.EF
 {
-    public class UnitOfWork: IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly IDbContext _context;
 

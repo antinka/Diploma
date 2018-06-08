@@ -1,7 +1,7 @@
-﻿using GameStore.DAL.Entities;
+﻿using System.Collections.Generic;
+using GameStore.DAL.Entities;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
-using System.Collections.Generic;
 
 namespace GameStore.DAL.Mongo.MongoSerializer
 {

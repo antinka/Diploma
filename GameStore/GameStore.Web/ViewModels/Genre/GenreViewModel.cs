@@ -17,7 +17,7 @@ namespace GameStore.Web.ViewModels
         public string ParentGenreName { get; set; }
 
         [StringLength(200, MinimumLength = 3, ErrorMessageResourceType = typeof(GlobalRes), ErrorMessageResourceName = "NameExpression3_200")]
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(GlobalRes), ErrorMessageResourceName = "Existent")]
         [Display(Name = "NameEn", ResourceType = typeof(GlobalRes))]
         public string NameEn { get; set; }
 

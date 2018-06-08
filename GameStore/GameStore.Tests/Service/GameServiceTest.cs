@@ -1,4 +1,7 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
 using GameStore.BLL.CustomExeption;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Enums;
@@ -8,9 +11,6 @@ using GameStore.DAL.Interfaces;
 using GameStore.Web.Infrastructure.Mapper;
 using log4net;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using GameStore.BLL.Filters.GameFilters.Implementation;
 using Xunit;
 
@@ -427,17 +427,17 @@ namespace GameStore.Tests.Service
         {
             var fakeGamesForFilter = new List<Game>()
             {
-                new Game { Id = Guid.NewGuid(), NameRu = "Игра1", Key = "Игра1"},
-                new Game { Id = Guid.NewGuid(), NameRu = "Игра2", Key = "Игра2"},
-                new Game { Id = Guid.NewGuid(), NameRu = "Игра3", Key = "Игра3"},
-                new Game { Id = Guid.NewGuid(), NameRu = "Игра4", Key = "Игра4"},
-                new Game { Id = Guid.NewGuid(), NameRu = "Игра5", Key = "Игра5"},
-                new Game { Id = Guid.NewGuid(), NameRu = "Игра6", Key = "Игра6"},
-                new Game { Id = Guid.NewGuid(), NameRu = "Игра7", Key = "Игра7"},
-                new Game { Id = Guid.NewGuid(), NameRu = "Игра8", Key = "Игра8"},
-                new Game { Id = Guid.NewGuid(), NameRu = "Игра9", Key = "Игра9"},
-                new Game { Id = Guid.NewGuid(), NameRu = "Игра10", Key = "Игра10"},
-                new Game { Id = Guid.NewGuid(), NameRu = "Игра11", Key = "Игра11"},
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра1", Key = "Игра1" },
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра2", Key = "Игра2" },
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра3", Key = "Игра3" },
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра4", Key = "Игра4" },
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра5", Key = "Игра5" },
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра6", Key = "Игра6" },
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра7", Key = "Игра7" },
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра8", Key = "Игра8" },
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра9", Key = "Игра9" },
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра10", Key = "Игра10" },
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра11", Key = "Игра11" },
             };
             var gamePipeline = new GamePipeline();
 
@@ -452,17 +452,17 @@ namespace GameStore.Tests.Service
         {
             var fakeGamesForFilter = new List<Game>()
             {
-                new Game { Id = Guid.NewGuid(), NameRu = "Игра1", Key = "Игра1"},
-                new Game { Id = Guid.NewGuid(), NameRu = "Игра2", Key = "Игра2"},
-                new Game { Id = Guid.NewGuid(), NameRu = "Игра3", Key = "Игра3"},
-                new Game { Id = Guid.NewGuid(), NameRu = "Игра4", Key = "Игра4"},
-                new Game { Id = Guid.NewGuid(), NameRu = "Игра5", Key = "Игра5"},
-                new Game { Id = Guid.NewGuid(), NameRu = "Игра6", Key = "Игра6"},
-                new Game { Id = Guid.NewGuid(), NameRu = "Игра7", Key = "Игра7"},
-                new Game { Id = Guid.NewGuid(), NameRu = "Игра8", Key = "Игра8"},
-                new Game { Id = Guid.NewGuid(), NameRu = "Игра9", Key = "Игра9"},
-                new Game { Id = Guid.NewGuid(), NameRu = "Игра10", Key = "Игра10"},
-                new Game { Id = Guid.NewGuid(), NameRu = "Игра11", Key = "Игра11"},
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра1", Key = "Игра1" },
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра2", Key = "Игра2" },
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра3", Key = "Игра3" },
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра4", Key = "Игра4" },
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра5", Key = "Игра5" },
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра6", Key = "Игра6" },
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра7", Key = "Игра7" },
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра8", Key = "Игра8" },
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра9", Key = "Игра9" },
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра10", Key = "Игра10" },
+                new Game { Id = Guid.NewGuid(), NameRu = "Игра11", Key = "Игра11" },
             };
             var gamePipeline = new GamePipeline();
 
@@ -523,6 +523,7 @@ namespace GameStore.Tests.Service
 
             Assert.True(gamesAfteFilter.ElementAt(0).PublishDate > gamesAfteFilter.ElementAt(1).PublishDate);
         }
+
         [Fact]
         public void GetGamesByFilter_FilterByDateMonth_GetedGames()
         {

@@ -1,13 +1,13 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Web.Mvc;
+using AutoMapper;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Interfaces;
 using GameStore.Web.Controllers;
 using GameStore.Web.Infrastructure.Mapper;
 using GameStore.Web.ViewModels;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Web.Mvc;
 using Xunit;
 
 namespace GameStore.Tests.Controllers
@@ -115,7 +115,7 @@ namespace GameStore.Tests.Controllers
         {
             var fakePlatformTypesDTO = new List<PlatformTypeDTO>()
             {
-                new PlatformTypeDTO() { Name = "test1"}
+                new PlatformTypeDTO() { Name = "test1" }
             };
 
             _platformTypeService.Setup(service => service.GetAll()).Returns(fakePlatformTypesDTO);

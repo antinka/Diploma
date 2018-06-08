@@ -1,13 +1,13 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Web.Mvc;
+using AutoMapper;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Interfaces;
 using GameStore.Web.Controllers;
 using GameStore.Web.Infrastructure.Mapper;
 using GameStore.Web.ViewModels;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Web.Mvc;
 using Xunit;
 
 namespace GameStore.Tests.Controllers
@@ -32,7 +32,7 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void New_ValidPublisherViewModel_Verifiable()
         {
-            var fakePublisherViewModel = new PublisherViewModel() {Name = "test", DescriptionEn = "test", HomePage = "test" };
+            var fakePublisherViewModel = new PublisherViewModel() { Name = "test", DescriptionEn = "test", HomePage = "test" };
             var fakePublisherDTO = _mapper.Map<ExtendPublisherDTO>(fakePublisherViewModel);
 
             _publisherService.Setup(service => service.IsUniqueName(It.IsAny<ExtendPublisherDTO>())).Returns(true);
@@ -68,7 +68,7 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void Update_ValidUpdatePublisher_Verifiable()
         {
-            var fakePublisherViewModel = new PublisherViewModel() { Name = "test"};
+            var fakePublisherViewModel = new PublisherViewModel() { Name = "test" };
             var fakePublisherDTO = _mapper.Map<ExtendPublisherDTO>(fakePublisherViewModel);
 
             _publisherService.Setup(service => service.IsUniqueName(It.IsAny<ExtendPublisherDTO>())).Returns(true);

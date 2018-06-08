@@ -462,6 +462,15 @@
   <data name="Permanent" xml:space="preserve">
     <value>Permanent</value>
   </data>
+  <data name="DataTimeFromTo" xml:space="preserve">
+    <value>Date Time From could not be bigger than Date Time To, please choose another one</value>
+  </data>
+  <data name="MinMaxPrice" xml:space="preserve">
+    <value>Min Price should be less than Max Price</value>
+  </data>
+  <data name="Existent" xml:space="preserve">
+    <value>Field value can not be empty</value>
+  </data>
   <data name="ShippedDate" xml:space="preserve">
     <value>Shipped date</value>
   </data>

@@ -471,4 +471,13 @@
   <data name="IsPaid" xml:space="preserve">
     <value>Оплачено</value>
   </data>
+  <data name="DataTimeFromTo" xml:space="preserve">
+    <value>Дата от не может быть больше, чем дата до, выберите другую</value>
+  </data>
+  <data name="MinMaxPrice" xml:space="preserve">
+    <value>Минимальная цена должна быть меньше максимальной</value>
+  </data>
+  <data name="Existent" xml:space="preserve">
+    <value>Значение поля не может быть пустым</value>
+  </data>
 </root>

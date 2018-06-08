@@ -1,12 +1,12 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
+using GameStore.BLL.CustomExeption;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Interfaces;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using GameStore.BLL.CustomExeption;
 using log4net;
 
 namespace GameStore.BLL.Service
@@ -79,8 +79,9 @@ namespace GameStore.BLL.Service
                         orderDetails.Price += game.Price;
                     }
                     else
+                    {
                         CreateNewOrderDetailToExistOrder(order, game, gameId);
-
+                    }
                 }
             
                 _unitOfWork.Save();
@@ -131,40 +132,11 @@ namespace GameStore.BLL.Service
             var order = _unitOfWork.Orders.Get(o => o.UserId == userId).FirstOrDefault();
 
             if (order != null)
+            {
                 return order.OrderDetails.Aggregate(0, (current, game) => current + game.Quantity);
+            }
 
             return 0;
-        }
-
-        private void CreateNewOrderWithOrderDetails(Game game, Guid userId, Guid gameId)
-        {
-            var orderDetail = new OrderDetailDTO()
-            {
-                Id = Guid.NewGuid(),
-                GameId = gameId,
-                Price = game.Price,
-                Quantity = 1,
-                Order = new OrderDTO()
-                {
-                    Id = Guid.NewGuid(),
-                    UserId = userId
-                }
-            };
-
-            _unitOfWork.OrderDetails.Create(_mapper.Map<OrderDetail>(orderDetail));
-        }
-
-        private void CreateNewOrderDetailToExistOrder(Order order, Game game, Guid gameId)
-        {
-            var orderDetail = new OrderDetailDTO()
-            {
-                Id = Guid.NewGuid(),
-                GameId = gameId,
-                Price = game.Price,
-                Quantity = 1,
-            };
-
-            order.OrderDetails.Add(_mapper.Map<OrderDetail>(orderDetail));
         }
 
         public IEnumerable<OrderDTO> GetOrdersBetweenDates(DateTime? from, DateTime? to)
@@ -254,6 +226,37 @@ namespace GameStore.BLL.Service
 
             _unitOfWork.Orders.Update(order);
             _unitOfWork.Save();
+        }
+
+        private void CreateNewOrderDetailToExistOrder(Order order, Game game, Guid gameId)
+        {
+            var orderDetail = new OrderDetailDTO()
+            {
+                Id = Guid.NewGuid(),
+                GameId = gameId,
+                Price = game.Price,
+                Quantity = 1,
+            };
+
+            order.OrderDetails.Add(_mapper.Map<OrderDetail>(orderDetail));
+        }
+
+        private void CreateNewOrderWithOrderDetails(Game game, Guid userId, Guid gameId)
+        {
+            var orderDetail = new OrderDetailDTO()
+            {
+                Id = Guid.NewGuid(),
+                GameId = gameId,
+                Price = game.Price,
+                Quantity = 1,
+                Order = new OrderDTO()
+                {
+                    Id = Guid.NewGuid(),
+                    UserId = userId
+                }
+            };
+
+            _unitOfWork.OrderDetails.Create(_mapper.Map<OrderDetail>(orderDetail));
         }
     }
 }

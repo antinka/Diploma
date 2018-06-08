@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
+using GameStore.BLL.CustomExeption;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Interfaces;
-using AutoMapper;
+using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
 using log4net;
-using GameStore.DAL.Entities;
-using System.Linq;
-using GameStore.BLL.CustomExeption;
 
 namespace GameStore.BLL.Service
 {
@@ -81,7 +81,9 @@ namespace GameStore.BLL.Service
             var publisher = _unitOfWork.Publishers.Get(x => x.Name == publisherDTO.Name).FirstOrDefault();
 
             if (publisher == null || publisherDTO.Id == publisher.Id)
+            {
                 return true;
+            }
 
             return false;
         }
@@ -91,7 +93,9 @@ namespace GameStore.BLL.Service
             var publisher = _unitOfWork.Publishers.GetById(id);
 
             if (publisher == null)
+            {
                 throw new EntityNotFound($"{nameof(PublisherService)} - publisher with such id {id} did not exist");
+            }
 
             return publisher;
         }

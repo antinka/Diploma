@@ -1,7 +1,7 @@
-﻿using GameStore.Web.Payments.Enums;
-using GameStore.Web.ViewModels;
-using System.IO;
+﻿using System.IO;
 using System.Web.Mvc;
+using GameStore.Web.Payments.Enums;
+using GameStore.Web.ViewModels;
 
 namespace GameStore.Web.Payments
 {

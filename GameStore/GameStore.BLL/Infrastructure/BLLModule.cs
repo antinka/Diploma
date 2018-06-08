@@ -12,6 +12,7 @@ namespace GameStore.BLL.Infrastructure
         {
             _connectionString = connectionString;
         }
+
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<GameStoreDBContext>().As<IDbContext>().InstancePerLifetimeScope().WithParameter("connectionString", _connectionString);

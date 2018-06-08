@@ -1,15 +1,15 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
+using AutoMapper;
+using GameStore.BLL.DTO;
 using GameStore.BLL.Interfaces;
+using GameStore.Web.App_LocalResources;
 using GameStore.Web.Filters;
 using GameStore.Web.Payments;
 using GameStore.Web.Payments.Enums;
 using GameStore.Web.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using GameStore.BLL.DTO;
-using GameStore.Web.Authorization.Interfaces;
 using GameStore.Web.ViewModels.Games;
 
 namespace GameStore.Web.Controllers
@@ -23,13 +23,7 @@ namespace GameStore.Web.Controllers
         private readonly IMapper _mapper;
         private readonly IPaymentStrategy _paymentStrategy;
 
-        public OrderController(IOrdersService ordersService,
-            IGameService gameService, 
-            IMapper mapper,
-            IPaymentStrategy paymentStrategy,
-            IAuthentication authentication) 
-            
-            : base(authentication)
+        public OrderController(IOrdersService ordersService, IGameService gameService, IMapper mapper, IPaymentStrategy paymentStrategy)
         {
             _ordersService = ordersService;
             _gameService = gameService;
@@ -45,7 +39,9 @@ namespace GameStore.Web.Controllers
             var order = _ordersService.GetOrderByUserId(userId);
 
             if (order == null || !order.OrderDetails.Any())
+            {
                 return View("EmptyBasket");
+            }
 
             var orderViewModel = _mapper.Map<OrderViewModel>(order);
             var shippers = _mapper.Map<IEnumerable<ShipperViewModel>>(_ordersService.GetAllShippers());
@@ -116,10 +112,9 @@ namespace GameStore.Web.Controllers
 
         public ActionResult HistoryOrders(FilterOrder filterOrder)
         {
-            
             if (filterOrder.DateTimeFrom != null && filterOrder.DateTimeTo != null && filterOrder.DateTimeFrom > filterOrder.DateTimeTo)
             {
-                ModelState.AddModelError("", "Date Time From could not be bigger than Date Time To, please choose another one");
+                ModelState.AddModelError(string.Empty, GlobalRes.DataTimeFromTo);
             }
 
             if (filterOrder.DateTimeTo == null)

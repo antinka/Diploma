@@ -1,13 +1,13 @@
-﻿using GameStore.DAL.Entities;
-using GameStore.DAL.Enums;
-using GameStore.DAL.Interfaces;
-using GameStore.DAL.Mongo;
-using MongoDB.Bson;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
+using GameStore.DAL.Entities;
+using GameStore.DAL.Enums;
+using GameStore.DAL.Interfaces;
+using GameStore.DAL.Mongo;
+using MongoDB.Bson;
 
 namespace GameStore.DAL.Repositories
 {
@@ -27,7 +27,9 @@ namespace GameStore.DAL.Repositories
         public virtual void Create(TEntity item)
         {
             if (item != null)
+            {
                 _dbSet.Add(item);
+            }
 
             Log(ActionInRepository.Update, item.GetType().ToString(), item.ToJson(), null);
         }
@@ -35,8 +37,11 @@ namespace GameStore.DAL.Repositories
         public virtual void Delete(Guid id)
         {
             var item = _dbSet.Find(id);
+
             if (item != null)
+            {
                 item.IsDelete = true;
+            }
 
             Log(ActionInRepository.Update, item.GetType().ToString(), item.ToJson(), null);
         }

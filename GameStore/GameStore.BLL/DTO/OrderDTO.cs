@@ -15,7 +15,7 @@ namespace GameStore.BLL.DTO
 
         public DateTime? ShippedDate { get; set; }
 
-        public Decimal Cost { get; set; }
+        public decimal Cost { get; set; }
 
         public string ShipperId { get; set; }
 
