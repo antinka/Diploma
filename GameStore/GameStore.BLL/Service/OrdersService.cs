@@ -60,9 +60,6 @@ namespace GameStore.BLL.Service
 
                     if (orderDetails != null)
                     {
-                        if (orderDetails.IsDelete)
-                            orderDetails.IsDelete = false;
-
                         orderDetails.Quantity += 1;
                         orderDetails.Price += game.Price;
                     }
