@@ -422,4 +422,7 @@
   <data name="MinMaxPrice" xml:space="preserve">
     <value>Минимальная цена должна быть меньше максимальной</value>
   </data>
+  <data name="Existent" xml:space="preserve">
+    <value>Значение поля не может быть пустым</value>
+  </data>
 </root>

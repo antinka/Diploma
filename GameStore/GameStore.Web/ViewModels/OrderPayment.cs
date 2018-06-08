@@ -8,6 +8,6 @@ namespace GameStore.Web.ViewModels
 
         public Guid UserId { get; set; }
 
-        public Decimal Cost { get; set; }
+        public decimal Cost { get; set; }
     }
 }

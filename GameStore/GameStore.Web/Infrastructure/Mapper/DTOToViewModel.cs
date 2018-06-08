@@ -18,7 +18,9 @@ namespace GameStore.Web.Infrastructure.Mapper
 
             CreateMap<ExtendPublisherDTO, PublisherViewModel>();
 
-            CreateMap<ExtendPublisherDTO, DetailsPublisherViewModel>().ForMember(dest => dest.Description, opt => opt.ResolveUsing(src =>
+            CreateMap<ExtendPublisherDTO, DetailsPublisherViewModel>().ForMember(
+                dest => dest.Description, 
+                opt => opt.ResolveUsing(src =>
             {
                 current = Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToUpperInvariant();
 
@@ -35,26 +37,34 @@ namespace GameStore.Web.Infrastructure.Mapper
 
             CreateMap<ExtendGameDTO, GameViewModel>();
 
-            CreateMap<ExtendGameDTO, DetailsGameViewModel>().ForMember(dest => dest.Name, opt => opt.ResolveUsing(src =>
+            CreateMap<ExtendGameDTO, DetailsGameViewModel>().ForMember(
+                dest => dest.Name,
+                opt => opt.ResolveUsing(src =>
             {
                 current = Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToUpperInvariant();
 
                 return current == "EN" ? src.NameEn : src.NameRu ?? src.NameEn;
             }))
-                .ForMember(dest => dest.Description, opt => opt.ResolveUsing(src =>
+                .ForMember(
+                dest => dest.Description,
+                opt => opt.ResolveUsing(src =>
                 {
                     current = Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToUpperInvariant();
 
                     return current == "EN" ? src.DescriptionEn : src.DescriptionRu;
                 }));
 
-            CreateMap<ExtendGameDTO, FilterGameViewModel>().ForMember(dest => dest.Name, opt => opt.ResolveUsing(src =>
+            CreateMap<ExtendGameDTO, FilterGameViewModel>().ForMember(
+                dest => dest.Name, 
+                opt => opt.ResolveUsing(src =>
                 {
                     current = Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToUpperInvariant();
 
                     return current == "EN" ? src.NameEn : src.NameRu ?? src.NameEn;
                 }))
-                .ForMember(dest => dest.Description, opt => opt.ResolveUsing(src =>
+                .ForMember(
+                dest => dest.Description,
+                opt => opt.ResolveUsing(src =>
                 {
                     current = Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToUpperInvariant();
 
@@ -65,7 +75,9 @@ namespace GameStore.Web.Infrastructure.Mapper
 
             CreateMap<ExtendGenreDTO, GenreViewModel>();
 
-            CreateMap<ExtendGenreDTO, DelailsGenreViewModel>().ForMember(dest => dest.Name, opt => opt.ResolveUsing(src =>
+            CreateMap<ExtendGenreDTO, DelailsGenreViewModel>().ForMember(
+                dest => dest.Name,
+                opt => opt.ResolveUsing(src =>
             {
                 current = Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToUpperInvariant();
 
@@ -76,7 +88,9 @@ namespace GameStore.Web.Infrastructure.Mapper
 
             CreateMap<ExtendPlatformTypeDTO, PlatformTypeViewModel>();
 
-            CreateMap<ExtendPlatformTypeDTO, DetailsPlatformTypeViewModel>().ForMember(dest => dest.Name, opt => opt.ResolveUsing(src =>
+            CreateMap<ExtendPlatformTypeDTO, DetailsPlatformTypeViewModel>().ForMember(
+                dest => dest.Name,
+                opt => opt.ResolveUsing(src =>
             {
                 current = Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToUpperInvariant();
 

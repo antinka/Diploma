@@ -1,24 +1,23 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Enums;
 using GameStore.BLL.Interfaces;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
 using log4net;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using GameStore.BLL.CustomExeption;
 
 namespace GameStore.BLL.Service
 {
     public class CommentService : ICommentService
     {
+        private const string BodyDeletedComment = "This comment was deleted";
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILog _log;
         private readonly IMapper _mapper;
-
-        private const string BodyDeletedComment = "This comment was deleted";
 
         public CommentService(IUnitOfWork uow, IMapper mapper, ILog log)
         {
@@ -54,7 +53,9 @@ namespace GameStore.BLL.Service
             var comment = _unitOfWork.Comments.GetById(id);
 
             if (comment == null)
+            {
                 throw new EntityNotFound($"{nameof(CommentService)} - attempt to delete not existed comment, id {id}");
+            }
 
             comment.Body = BodyDeletedComment;
             _unitOfWork.Comments.Update(comment);

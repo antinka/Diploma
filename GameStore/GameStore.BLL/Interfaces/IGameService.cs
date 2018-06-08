@@ -5,7 +5,7 @@ using GameStore.BLL.Enums;
 
 namespace GameStore.BLL.Interfaces
 {
-    public interface IGameService: IGameCrudService
+    public interface IGameService : IGameCrudService
     {
         IEnumerable<GameDTO> GetGamesByGenre(Guid genreId);
 

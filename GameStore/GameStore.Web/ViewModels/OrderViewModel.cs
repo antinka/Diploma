@@ -17,7 +17,7 @@ namespace GameStore.Web.ViewModels
         public DateTime? Date { get; set; }
 
         [Display(Name = "Cost", ResourceType = typeof(GlobalRes))]
-        public Decimal Cost { get; set; }
+        public decimal Cost { get; set; }
 
         [Display(Name = "Shipper", ResourceType = typeof(GlobalRes))]
         public string ShipperId { get; set; }

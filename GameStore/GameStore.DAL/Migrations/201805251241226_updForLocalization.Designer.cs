@@ -7,9 +7,9 @@ namespace GameStore.DAL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class updForLocalization : IMigrationMetadata
+    public sealed partial class UpdForLocalization : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(updForLocalization));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdForLocalization));
         
         string IMigrationMetadata.Id
         {

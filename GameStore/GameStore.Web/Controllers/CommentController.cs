@@ -96,9 +96,10 @@ namespace GameStore.Web.Controllers
 
                 return View(commentViewModel);
             }
+
             _commentService.Delete(comment.Id);
 
-            return RedirectToAction("GetAllCommentToGame", "Comment", new {gamekey = comment.GameKey});
+            return RedirectToAction("GetAllCommentToGame", "Comment", new { gamekey = comment.GameKey });
         }
 
         [HttpGet]

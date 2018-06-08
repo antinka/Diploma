@@ -1,15 +1,15 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Web.Mvc;
+using AutoMapper;
 using GameStore.BLL.DTO;
+using GameStore.BLL.Enums;
 using GameStore.BLL.Interfaces;
 using GameStore.Web.Controllers;
 using GameStore.Web.Infrastructure.Mapper;
 using GameStore.Web.ViewModels;
-using Moq;
-using System;
-using System.Collections.Generic;
-using System.Web.Mvc;
-using GameStore.BLL.Enums;
 using GameStore.Web.ViewModels.Games;
+using Moq;
 using Xunit;
 
 namespace GameStore.Tests.Controllers
@@ -34,11 +34,10 @@ namespace GameStore.Tests.Controllers
             _genreService = new Mock<IGenreService>();
             _platformTypeService = new Mock<IPlatformTypeService>();
             _publisherService = new Mock<IPublisherService>();
-            _sut = new GameController(_gameService.Object, _genreService.Object,
-                _platformTypeService.Object, _mapper, _publisherService.Object);
+            _sut = new GameController(_gameService.Object, _genreService.Object, _platformTypeService.Object, _mapper, _publisherService.Object);
 
             var fakeCommentId = Guid.NewGuid();
-            _fakeGameId = Guid.NewGuid(); ;
+            _fakeGameId = Guid.NewGuid();
             _fakeGameKey = fakeCommentId.ToString();
 
             _fakeGames = new List<GameDTO>
@@ -216,7 +215,6 @@ namespace GameStore.Tests.Controllers
                 SearchGameName = "name",
                 MaxPrice = 20,
                 MinPrice = 10,
-
             };
 
             var res = _sut.FilteredGames(filterViewModel);

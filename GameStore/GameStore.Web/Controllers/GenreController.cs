@@ -119,9 +119,10 @@ namespace GameStore.Web.Controllers
 
                 if (genreViewModel.ParentGenreId != null)
                 {
-
                     if (!_genreService.IsPossibleRelation(genreDto))
-                        ModelState.AddModelError("", GlobalRes.ExistGenreRelation);
+                    {
+                        ModelState.AddModelError(string.Empty, GlobalRes.ExistGenreRelation);
+                    }
                 }
 
                 if (!_genreService.IsUniqueEnName(genreDto))

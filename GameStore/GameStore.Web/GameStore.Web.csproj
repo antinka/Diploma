@@ -193,7 +193,6 @@
     <Compile Include="ViewModels\Games\FilterGameViewModel.cs" />
     <Compile Include="ViewModels\FilterOrder.cs" />
     <Compile Include="ViewModels\FilterViewModel.cs" />
-    <Compile Include="ViewModels\GamesListViewModel.cs" />
     <Compile Include="ViewModels\Genre\DelailsGenreViewModel.cs" />
     <Compile Include="ViewModels\Genre\GenreViewModel.cs" />
     <Compile Include="ViewModels\OrderDetailViewModel.cs" />

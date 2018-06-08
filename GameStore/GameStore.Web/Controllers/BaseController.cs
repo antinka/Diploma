@@ -18,6 +18,7 @@ namespace GameStore.Web.Controllers
                 Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(CurrentLangCode);
                 Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(CurrentLangCode);
             }
+
             base.Initialize(requestContext);
         }
     }

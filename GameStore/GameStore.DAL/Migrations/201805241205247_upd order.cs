@@ -3,7 +3,7 @@ namespace GameStore.DAL.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class updorder : DbMigration
+    public partial class Updorder : DbMigration
     {
         public override void Up()
         {

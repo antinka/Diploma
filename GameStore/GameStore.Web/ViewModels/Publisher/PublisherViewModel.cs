@@ -10,7 +10,7 @@ namespace GameStore.Web.ViewModels
     {
         public Guid Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(GlobalRes), ErrorMessageResourceName = "Existent")]
         [StringLength(40, MinimumLength = 3, ErrorMessageResourceType = typeof(GlobalRes), ErrorMessageResourceName = "NameExpression3_40")]
         [Display(Name = "Name", ResourceType = typeof(GlobalRes))]
         public string Name { get; set; }

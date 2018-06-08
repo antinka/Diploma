@@ -1,5 +1,5 @@
-﻿using GameStore.DAL.Entities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using GameStore.DAL.Entities;
 using GameStore.DAL.EF;
 
 namespace GameStore.DAL.Migrations
@@ -121,7 +121,6 @@ namespace GameStore.DAL.Migrations
             context.Genres.AddOrUpdate(subMisc);
             context.Genres.AddOrUpdate(action);
 
-
             var rpg = new Genre
             {
                 Id = Guid.NewGuid(),
@@ -195,7 +194,6 @@ namespace GameStore.DAL.Migrations
                 Views = 140,
                 Genres = new List<Genre>() { puzzleSkill, adventure, subMisc },
                 PlatformTypes = new List<PlatformType>() { windows, android, ios }
-
             };
 
             context.Games.AddOrUpdate(hero);
@@ -368,7 +366,6 @@ namespace GameStore.DAL.Migrations
                 PlatformTypes = new List<PlatformType>
                 {
                     desktop
-
                 },
             };
 

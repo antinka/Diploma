@@ -69,6 +69,5 @@ namespace GameStore.Web.ViewModels.Games
         public IEnumerable<CheckBox> SelectedPlatformTypes { get; set; }
 
         public ICollection<string> SelectedPlatformTypesName { get; set; }
-
     }
 }

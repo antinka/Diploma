@@ -1,13 +1,12 @@
-﻿using GameStore.BLL.DTO;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using GameStore.BLL.DTO;
 
 namespace GameStore.BLL.Interfaces
 {
     public interface IOrdersService
     {
         OrderDTO GetOrder(Guid userId);
-
 
         IEnumerable<OrderDTO> GetOrdersBetweenDates(DateTime? from, DateTime? to);
 

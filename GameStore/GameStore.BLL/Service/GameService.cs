@@ -1,4 +1,7 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
 using GameStore.BLL.CustomExeption;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Enums;
@@ -6,21 +9,18 @@ using GameStore.BLL.Interfaces;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
 using log4net;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using GameStore.BLL.Filters.GameFilters.Implementation;
 
 namespace GameStore.BLL.Service
 {
     public class GameService : IGameService
     {
+        private static readonly string ExcInReturningGameBy =
+            $"{nameof(GameService)} - exception in returning games by";
+
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILog _log;
         private readonly IMapper _mapper;
-
-        private static readonly string ExcInReturningGameBy =
-            $"{nameof(GameService)} - exception in returning games by";
 
         public GameService(IUnitOfWork uow, IMapper mapper, ILog log)
         {
@@ -40,7 +40,6 @@ namespace GameStore.BLL.Service
 
             _unitOfWork.Games.Create(newGame);
             _unitOfWork.Save();
-
 
             _log.Info($"{nameof(GameService)} - add new game {gameDto.Id}");
         }
@@ -62,7 +61,6 @@ namespace GameStore.BLL.Service
 
             if (game != null)
             {
-
                 if (game.Price != gameDto.Price)
                 {
                     var updateOrderDetails = _unitOfWork.OrderDetails.Get(g => g.Game.Key == gameDto.Key).ToList();
@@ -175,7 +173,9 @@ namespace GameStore.BLL.Service
             var game = _unitOfWork.Games.Get(x => x.Key == gameExtendGameDto.Key).FirstOrDefault();
 
             if (game == null || gameExtendGameDto.Id == game.Id)
+            {
                 return true;
+            }
 
             return false;
         }
@@ -239,10 +239,11 @@ namespace GameStore.BLL.Service
             var game = _unitOfWork.Games.GetById(id);
 
             if (game == null)
+            {
                 throw new EntityNotFound($"{nameof(GameService)} - attempt to take not existed game, id {id}");
+            }
 
             return game;
         }
     }
 }
-

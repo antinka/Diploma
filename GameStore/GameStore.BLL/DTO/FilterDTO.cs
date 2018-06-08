@@ -1,5 +1,5 @@
-﻿using GameStore.BLL.Enums;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using GameStore.BLL.Enums;
 
 namespace GameStore.BLL.DTO
 {

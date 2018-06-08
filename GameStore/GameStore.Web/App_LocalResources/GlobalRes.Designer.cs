@@ -432,6 +432,15 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Значение поля не может быть пустым.
+        /// </summary>
+        public static string Existent {
+            get {
+                return ResourceManager.GetString("Existent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Жанр с таким именем уже существует, пожалуйста введите другое имя.
         /// </summary>
         public static string ExistGenreName {

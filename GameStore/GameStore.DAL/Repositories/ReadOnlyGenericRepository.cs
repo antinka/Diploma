@@ -1,10 +1,10 @@
-﻿using GameStore.DAL.Interfaces;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using GameStore.DAL.Interfaces;
 using GameStore.DAL.Mongo;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace GameStore.DAL.Repositories
 {

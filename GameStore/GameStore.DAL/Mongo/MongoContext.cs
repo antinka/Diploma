@@ -9,7 +9,7 @@ namespace GameStore.DAL.Mongo
 {
     public class MongoContext 
     {
-        readonly IMongoDatabase _database;
+        private readonly IMongoDatabase _database;
 
         public MongoContext()
         {
@@ -23,22 +23,6 @@ namespace GameStore.DAL.Mongo
         public IMongoCollection<TEntity> GetCollection<TEntity>()
         {
             return _database.GetCollection<TEntity>(CollectionName.CollectionNames[typeof(TEntity)]);
-        }
-    }
-    public static class CollectionName
-    {
-        public static IDictionary<Type, string> CollectionNames
-        {
-            get
-            {
-                var collectionNames = new Dictionary<Type, string>()
-                {
-                    {typeof(MongoOrder), "orders"},
-                    {typeof(Shipper), "shippers"},
-                    { typeof(Log), "logging"}
-                };
-                return collectionNames;
-            }
         }
     }
 }

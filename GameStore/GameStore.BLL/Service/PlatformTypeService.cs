@@ -1,12 +1,12 @@
-﻿using AutoMapper;
-using GameStore.BLL.DTO;
-using GameStore.BLL.Interfaces;
-using GameStore.DAL.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using GameStore.BLL.CustomExeption;
+using GameStore.BLL.DTO;
+using GameStore.BLL.Interfaces;
 using GameStore.DAL.Entities;
+using GameStore.DAL.Interfaces;
 using log4net;
 
 namespace GameStore.BLL.Service
@@ -88,7 +88,9 @@ namespace GameStore.BLL.Service
             var platformType = _unitOfWork.PlatformTypes.Get(x => x.NameEn == platformTypeDTO.NameEn).FirstOrDefault();
 
             if (platformType == null || platformTypeDTO.Id == platformType.Id)
+            {
                 return true;
+            }
 
             return false;
         }
@@ -99,7 +101,9 @@ namespace GameStore.BLL.Service
                 .FirstOrDefault();
 
             if (platformType == null || platformTypeDTO.Id == platformType.Id)
+            {
                 return true;
+            }
 
             return false;
         }
@@ -109,7 +113,10 @@ namespace GameStore.BLL.Service
             var platformType = _unitOfWork.PlatformTypes.GetById(id);
 
             if (platformType == null)
-                throw new EntityNotFound($"{nameof(PlatformTypeService)} - platformType with such id {id} did not exist");
+            {
+                throw new EntityNotFound(
+                    $"{nameof(PlatformTypeService)} - platformType with such id {id} did not exist");
+            }
 
             return platformType;
         }

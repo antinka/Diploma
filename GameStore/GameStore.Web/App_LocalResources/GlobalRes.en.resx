@@ -417,4 +417,7 @@
   <data name="MinMaxPrice" xml:space="preserve">
     <value>Min Price should be less than Max Price</value>
   </data>
+  <data name="Existent" xml:space="preserve">
+    <value>Field value can not be empty</value>
+  </data>
 </root>

@@ -1,15 +1,15 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
+using AutoMapper;
+using GameStore.BLL.DTO;
 using GameStore.BLL.Interfaces;
+using GameStore.Web.App_LocalResources;
 using GameStore.Web.Filters;
 using GameStore.Web.Payments;
 using GameStore.Web.Payments.Enums;
 using GameStore.Web.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using GameStore.BLL.DTO;
-using GameStore.Web.App_LocalResources;
 using GameStore.Web.ViewModels.Games;
 
 namespace GameStore.Web.Controllers
@@ -23,11 +23,7 @@ namespace GameStore.Web.Controllers
         private readonly IMapper _mapper;
         private readonly IPaymentStrategy _paymentStrategy;
 
-        public OrderController(IOrdersService ordersService,
-            IGameService gameService, 
-            IMapper mapper,
-            IPaymentStrategy paymentStrategy
-            )
+        public OrderController(IOrdersService ordersService, IGameService gameService, IMapper mapper, IPaymentStrategy paymentStrategy)
         {
             _ordersService = ordersService;
             _gameService = gameService;
@@ -43,7 +39,9 @@ namespace GameStore.Web.Controllers
             var order = _ordersService.GetOrder(userId);
 
             if (order == null || !order.OrderDetails.Any())
+            {
                 return View("EmptyBasket");
+            }
 
             var orderViewModel = _mapper.Map<OrderViewModel>(order);
             var shippers = _mapper.Map<IEnumerable<ShipperViewModel>>(_ordersService.GetAllShippers());
@@ -101,6 +99,7 @@ namespace GameStore.Web.Controllers
 
             return _paymentStrategy.GetPaymentStrategy(paymentType, orderPay);
         }
+
         [HttpGet]
         public ActionResult Order()
         {
@@ -115,7 +114,7 @@ namespace GameStore.Web.Controllers
         {
             if (filterOrder.DateTimeFrom != null && filterOrder.DateTimeTo != null && filterOrder.DateTimeFrom > filterOrder.DateTimeTo)
             {
-                ModelState.AddModelError("", GlobalRes.DataTimeFromTo);
+                ModelState.AddModelError(string.Empty, GlobalRes.DataTimeFromTo);
             }
 
             var ordersDTO = _ordersService.GetOrdersBetweenDates(filterOrder.DateTimeFrom, filterOrder.DateTimeTo);

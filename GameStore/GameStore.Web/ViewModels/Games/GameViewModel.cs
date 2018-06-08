@@ -11,14 +11,14 @@ namespace GameStore.Web.ViewModels.Games
     {
         public Guid Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(GlobalRes), ErrorMessageResourceName = "Existent")]
         [RegularExpression(@"^[A-Za-z0-9_-]{3,100}", ErrorMessageResourceType = typeof(GlobalRes), ErrorMessageResourceName = "KeyRegexExpression")]
         [Display(Name = "Key", ResourceType = typeof(GlobalRes))]
         [MaxLength(450)]
         public string Key { get; set; }
 
         [Display(Name = "NameEn", ResourceType = typeof(GlobalRes))]
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(GlobalRes), ErrorMessageResourceName = "Existent")]
         [StringLength(200, MinimumLength = 3, ErrorMessageResourceType = typeof(GlobalRes), ErrorMessageResourceName = "NameExpression3_200")]
         public string NameEn { get; set; }
 
@@ -31,12 +31,12 @@ namespace GameStore.Web.ViewModels.Games
         [Display(Name = "DescriptionRu", ResourceType = typeof(GlobalRes))]
         public string DescriptionRu { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(GlobalRes), ErrorMessageResourceName = "Existent")]
         [Display(Name = "Price", ResourceType = typeof(GlobalRes))]
         [Range(0, 100000)]
         public decimal Price { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(GlobalRes), ErrorMessageResourceName = "Existent")]
         [Display(Name = "UnitsInStock", ResourceType = typeof(GlobalRes))]
         [Range(0, 100000)]
         public short UnitsInStock { get; set; }

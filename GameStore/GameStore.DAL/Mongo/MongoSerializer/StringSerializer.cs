@@ -30,5 +30,4 @@ namespace GameStore.DAL.Mongo.MongoSerializer
             return null;
         }
     }
-
 }
