@@ -6,6 +6,7 @@ using AutoMapper;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Interfaces;
 using GameStore.Web.App_LocalResources;
+using GameStore.Web.Authorization.Interfaces;
 using GameStore.Web.Filters;
 using GameStore.Web.Payments;
 using GameStore.Web.Payments.Enums;
@@ -23,7 +24,7 @@ namespace GameStore.Web.Controllers
         private readonly IMapper _mapper;
         private readonly IPaymentStrategy _paymentStrategy;
 
-        public OrderController(IOrdersService ordersService, IGameService gameService, IMapper mapper, IPaymentStrategy paymentStrategy)
+        public OrderController(IOrdersService ordersService, IGameService gameService, IMapper mapper, IPaymentStrategy paymentStrategy, IAuthentication authentication) : base(authentication)
         {
             _ordersService = ordersService;
             _gameService = gameService;

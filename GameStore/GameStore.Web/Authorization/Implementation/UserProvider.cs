@@ -25,14 +25,20 @@ namespace GameStore.Web.Authorization.Implementation
             var userRoles = _userIdentity.User.Roles;
 
             if (string.IsNullOrWhiteSpace(roles))
+            {
                 return false;
+            }
+
             var rolesArray = roles.Split(new[] { "," },
                 StringSplitOptions.RemoveEmptyEntries);
             foreach (var role in rolesArray)
             {
                 var hasRole = userRoles.Any(p => p.Name.Contains(role));
+
                 if (hasRole)
+                {
                     return true;
+                }
             }
             return false;
         }

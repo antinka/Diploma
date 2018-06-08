@@ -177,7 +177,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CommentController.cs" />
-    <Compile Include="Controllers\GameController.cs" />
+    <Compile Include="Controllers\GameController.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Filters\ExceptionFilter.cs" />
     <Compile Include="Filters\TrackRequestIP.cs" />
     <Compile Include="Global.asax.cs">

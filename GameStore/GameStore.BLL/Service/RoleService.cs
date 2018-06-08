@@ -71,7 +71,9 @@ namespace GameStore.BLL.Service
             var role = _unitOfWork.Roles.Get(x => x.Name == roleDto.Name).FirstOrDefault();
 
             if (role == null || role.Id == roleDto.Id)
+            {
                 return true;
+            }
 
             return false;
         }
@@ -98,7 +100,9 @@ namespace GameStore.BLL.Service
             var role = _unitOfWork.Roles.GetById(id);
 
             if (role == null)
+            {
                 throw new EntityNotFound($"{nameof(RoleService)} - attempt to take not existed role, id {id}");
+            }
 
             return role;
         }

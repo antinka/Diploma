@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using System.Web.UI.WebControls;
-using GameStore.Web.App_LocalResources;
-using GameStore.Web.Authorization.Interfaces;
-using AutoMapper;
+﻿using AutoMapper;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Enums;
 using GameStore.BLL.Interfaces;
 using GameStore.Web.App_LocalResources;
+using GameStore.Web.Authorization.Interfaces;
 using GameStore.Web.Filters;
 using GameStore.Web.ViewModels;
 using GameStore.Web.ViewModels.Games;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
+using System.Web.UI.WebControls;
 
 namespace GameStore.Web.Controllers
 {

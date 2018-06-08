@@ -19,66 +19,81 @@ namespace GameStore.DAL.Migrations
             context.Database.Delete();
             context.Database.Create();
 
-            //var users = new List<User>()
-            //{
-            //new User
-            //{
-            //    Id = Guid.NewGuid(),
-            //    Name = "admin",
-            //    Password = "123123".GetHashCode().ToString(),
-            //    Roles = new List<Role>
-            //    {
-            //        new Role()
-            //        {
-            //            Id = Guid.NewGuid(),
-            //            Name = "Administrator",
-            //        }
-            //    }
-            //},
-            //new User
-            //{
-            //    Id = Guid.NewGuid(),
-            //    Name = "moderator",
-            //    Password = "123123".GetHashCode().ToString(),
-            //    Roles = new List<Role>
-            //    {
-            //        new Role()
-            //        {
-            //            Id = Guid.NewGuid(),
-            //            Name = "Moderator",
-            //        },
-            //    }
-            //},
-            // new User
-            //{
-            //    Id = Guid.NewGuid(),
-            //    Name = "manager",
-            //    Password = "123123".GetHashCode().ToString(),
-            //    Roles = new List<Role>
-            //    {
-            //        new Role()
-            //        {
-            //            Id = Guid.NewGuid(),
-            //            Name = "Manager",
-            //        }
-            //    }
-            //},
-            //new User
-            //{
-            //    Id = Guid.NewGuid(),
-            //    Name = "user",
-            //    Password = "123123".GetHashCode().ToString(),
-            //    Roles = new List<Role>
-            //    {
-            //        new Role()
-            //        {
-            //            Id = Guid.NewGuid(),
-            //            Name = "User"
-            //        },
-            //    }
-            //}};
+            var users = new List<User>()
+            {
+            new User
+            {
+                Id = Guid.NewGuid(),
+                Name = "admin",
+                Password = "123123".GetHashCode().ToString(),
+                Roles = new List<Role>
+                {
+                    new Role()
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Administrator",
+                    }
+                }
+            },
+            new User
+            {
+                Id = Guid.NewGuid(),
+                Name = "moderator",
+                Password = "123123".GetHashCode().ToString(),
+                Roles = new List<Role>
+                {
+                    new Role()
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Moderator",
+                    },
+                }
+            },
+             new User
+            {
+                Id = Guid.NewGuid(),
+                Name = "manager",
+                Password = "123123".GetHashCode().ToString(),
+                Roles = new List<Role>
+                {
+                    new Role()
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Manager",
+                    }
+                }
+            },
+            new User
+            {
+                Id = Guid.NewGuid(),
+                Name = "user",
+                Password = "123123".GetHashCode().ToString(),
+                Roles = new List<Role>
+                {
+                    new Role()
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "User"
+                    },
+                }
+            }};
 
-            //context.Users.AddOrUpdate(users.ToArray());
+            context.Users.AddOrUpdate(users.ToArray());
+
+            var strategy = new Genre
+            {
+                Id = Guid.NewGuid(),
+                NameEn = "Strategy",
+                NameRu = "Стратегия"
+            };
+
+            var rts = new Genre
+            {
+                Id = Guid.NewGuid(),
+                NameEn = "RTS",
+                NameRu = "Стратегия в реальном времени",
+                ParentGenreId = strategy.Id
+            };
 
             var tbs = new Genre
             {

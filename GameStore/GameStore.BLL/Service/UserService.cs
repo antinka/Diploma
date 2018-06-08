@@ -80,7 +80,9 @@ namespace GameStore.BLL.Service
             var user = _unitOfWork.Users.Get(x => x.Name == name).FirstOrDefault();
 
             if (user == null)
+            {
                 throw new EntityNotFound($"{nameof(UserService)} - user with such name {name} did not exist");
+            }
 
             return _mapper.Map<UserDTO>(user);
         }
@@ -90,7 +92,9 @@ namespace GameStore.BLL.Service
             var user = _unitOfWork.Users.Get(x => x.Name == name).FirstOrDefault();
 
             if (user == null)
+            {
                 return null;
+            }
 
             var encryptedPassword = password.GetHashCode().ToString();
 
@@ -124,7 +128,9 @@ namespace GameStore.BLL.Service
             var user = _unitOfWork.Users.GetById(id);
 
             if (user == null)
+            {
                 throw new EntityNotFound($"{nameof(UserService)} - attempt to take not existed user, id {id}");
+            }
 
             return user;
         }

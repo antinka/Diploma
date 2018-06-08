@@ -47,7 +47,7 @@ namespace GameStore.Tests.Controllers
         public void BasketInfo_Verifiable()
         {
             var fakeUserId = Guid.Empty;
-            _ordersService.Setup(service => service.GetOrder(fakeUserId)).Verifiable();
+            _ordersService.Setup(service => service.GetOrderByUserId(fakeUserId)).Verifiable();
             var httpRequest = new HttpRequest(string.Empty, "http://mySomething", string.Empty);
             var httpResponse = new HttpResponse(new StringWriter());
             var httpContextMock = new HttpContext(httpRequest, httpResponse);

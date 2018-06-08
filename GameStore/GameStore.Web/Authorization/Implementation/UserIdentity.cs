@@ -15,7 +15,7 @@ namespace GameStore.Web.Authorization.Implementation
             _user = new User
             {
                 Name = "Guest",
-                Roles = new List<RoleViewModel> {new RoleViewModel() {Name = "Guest"} }
+                Roles = new List<RoleViewModel> {new RoleViewModel() {Name = "Guest"}}
             };
         }
 
