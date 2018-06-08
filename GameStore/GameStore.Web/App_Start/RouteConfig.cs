@@ -198,6 +198,12 @@ namespace GameStore.Web
             );
 
             routes.MapRoute(
+                name: "OrdersHistory",
+                url: "Orders/history",
+                defaults: new { controller = "Order", action = "FilterOrders", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{lang}/{controller}/{action}/{id}",
                 defaults: new { controller = "Game", action = "FilteredGames", id = UrlParameter.Optional, lang = "en" }
