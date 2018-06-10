@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using GameStore.Web.Filters;
+using log4net;
 
 namespace GameStore.Web
 {
@@ -8,8 +9,6 @@ namespace GameStore.Web
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
-            filters.Add(new TrackRequestIp());
-            filters.Add(new ExceptionFilter());
         }
     }
 }

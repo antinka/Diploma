@@ -1,5 +1,8 @@
 ﻿using Autofac;
+using GameStore.BLL.Interfaces;
+using GameStore.BLL.Service;
 using GameStore.DAL.EF;
+using GameStore.DAL.Infrastructure;
 using GameStore.DAL.Interfaces;
 
 namespace GameStore.BLL.Infrastructure
@@ -15,8 +18,13 @@ namespace GameStore.BLL.Infrastructure
 
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<GameStoreDBContext>().As<IDbContext>().InstancePerLifetimeScope().WithParameter("connectionString", _connectionString);
-            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
+            builder.RegisterType<GameService>().As<IGameService>().InstancePerLifetimeScope();
+            builder.RegisterType<CommentService>().As<ICommentService>().InstancePerLifetimeScope();
+            builder.RegisterType<PublisherService>().As<IPublisherService>().InstancePerLifetimeScope();
+            builder.RegisterType<OrdersService>().As<IOrdersService>().InstancePerLifetimeScope();
+            builder.RegisterType<GenreService>().As<IGenreService>().InstancePerLifetimeScope();
+            builder.RegisterType<PlatformTypeService>().As<IPlatformTypeService>().InstancePerLifetimeScope();
+            builder.RegisterModule(new DALModule(_connectionString));
         }
     }
 }

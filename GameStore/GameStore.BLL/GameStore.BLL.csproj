@@ -121,7 +121,6 @@
     <Compile Include="Filters\GameFilters\Implementation\GameSortFilter.cs" />
     <Compile Include="Filters\Interfaces\IPipeLine.cs" />
     <Compile Include="CustomExeption\EntityNotFound.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Infrastructure\BLLModule.cs" />
     <Compile Include="Infrastructure\Mapper\DTOToEntity.cs" />
     <Compile Include="Infrastructure\Mapper\EntityToDTO.cs" />

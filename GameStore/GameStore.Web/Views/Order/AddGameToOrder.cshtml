@@ -1,8 +1,9 @@
-﻿@model GameStore.Web.ViewModels.BasketViewModel
+﻿@using GameStore.Web.App_LocalResources
+@model GameStore.Web.ViewModels.BasketViewModel
 
 @{
     ViewBag.Title = "AddGameToOrder";
 }
 
-<h2>Game "@Model.GameName" added successfully</h2>
-<h4>Price @Model.Price</h4>
+<h2>@GlobalRes.Game "@Model.GameName" @GlobalRes.addSucces </h2>
+<h4>@GlobalRes.Price @Model.Price</h4>

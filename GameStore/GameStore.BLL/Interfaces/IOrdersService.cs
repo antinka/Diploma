@@ -23,5 +23,7 @@ namespace GameStore.BLL.Interfaces
         int CountGamesInOrder(Guid userId);
 
         void DeleteGameFromOrder(Guid userId, Guid gameId);
+
+        void Pay(Guid orderId);
     }
 }

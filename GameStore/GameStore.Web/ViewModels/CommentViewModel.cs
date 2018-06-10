@@ -12,7 +12,7 @@ namespace GameStore.Web.ViewModels
         public Guid UserId { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(GlobalRes), ErrorMessageResourceName = "Existent")]
-        [Display(Name = "Name", ResourceType = typeof(GlobalRes))]
+        [Display(Name = "UserName", ResourceType = typeof(GlobalRes))]
         [StringLength(200, MinimumLength = 3, ErrorMessage = "Name cannot be longer than 200 characters and less than 3 characters")]
         public string Name { get; set; }
 

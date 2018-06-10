@@ -9,6 +9,8 @@ namespace GameStore.DAL.Mongo.MongoEntities
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
 
+        public int ShipperID { get; set; }
+
         public string CompanyName { get; set; }
 
         public string Phone { get; set; }

@@ -11,8 +11,6 @@ using GameStore.Web.ViewModels;
 
 namespace GameStore.Web.Controllers
 {
-    [TrackRequestIp]
-    [ExceptionFilter]
     public class GenreController : BaseController
     {
         private readonly IGenreService _genreService;

@@ -21,6 +21,8 @@ namespace GameStore.BLL.DTO
 
         public int? ShipVia { get; set; }
 
+        public string ShipViaName { get; set; }
+
         public decimal? Freight { get; set; }
 
         public string ShipName { get; set; }

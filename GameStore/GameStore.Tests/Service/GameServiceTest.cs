@@ -114,7 +114,7 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void AddNewGame_GameWithUniqueKey_Verifiable()
+        public void AddNewGame_GameWithUniqueKey_CreateCalled()
         {
             var fakeGameDTO = new ExtendGameDTO() { Id = Guid.NewGuid(), Key = "qweqwe", NameEn = "1", DescriptionEn = "2" };
             var fakeGame = _mapper.Map<Game>(fakeGameDTO);
@@ -123,7 +123,7 @@ namespace GameStore.Tests.Service
             _uow.Setup(uow => uow.Genres.Get(It.IsAny<Func<Genre, bool>>())).Returns(new List<Genre>());
             _uow.Setup(uow => uow.PlatformTypes.Get(It.IsAny<Func<PlatformType, bool>>())).Returns(new List<PlatformType>());
 
-            _uow.Setup(uow => uow.Games.Create(fakeGame)).Verifiable();
+            _uow.Setup(uow => uow.Games.Create(fakeGame));
 
             _sut.AddNew(fakeGameDTO);
 
@@ -179,7 +179,7 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void UpdateGame_Game_Verifiable()
+        public void UpdateGame_Game_UpdateCalled()
         {
             var oldFakeGameDTO = new ExtendGameDTO() { Id = _fakeGameId, Key = "123", Price = 55 };
             var oldFakeGame = _mapper.Map<Game>(oldFakeGameDTO);
@@ -192,7 +192,7 @@ namespace GameStore.Tests.Service
             _uow.Setup(uow => uow.PlatformTypes.Get(It.IsAny<Func<PlatformType, bool>>())).Returns(new List<PlatformType>());
             _uow.Setup(uow => uow.OrderDetails.Get(It.IsAny<Func<OrderDetail, bool>>())).Returns(new List<OrderDetail>() { fakeOrderDetail });
             _uow.Setup(uow => uow.OrderDetails.Update(fakeOrderDetail));
-            _uow.Setup(uow => uow.Games.Update(newFakeGame)).Verifiable();
+            _uow.Setup(uow => uow.Games.Update(newFakeGame));
 
             _sut.Update(newFakeGameDTO);
 
@@ -219,10 +219,10 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void DeleteGame_ExistedGameId__Verifiable()
+        public void DeleteGame_ExistedGameId_DeleteCalled()
         {
             _uow.Setup(uow => uow.Games.GetById(_fakeGameId)).Returns(_fakeGame);
-            _uow.Setup(uow => uow.Games.Delete(_fakeGameId)).Verifiable();
+            _uow.Setup(uow => uow.Games.Delete(_fakeGameId));
 
             _sut.Delete(_fakeGameId);
 

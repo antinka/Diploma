@@ -20,7 +20,7 @@ namespace GameStore.DAL.Entities
         [ForeignKey("Game")]
         public Guid GameId { get; set; }
 
-        [BsonSerializer(typeof(ListGameSerializer))]
+        [BsonIgnore]
         public virtual Game Game { get; set; }
     }
 }

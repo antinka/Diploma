@@ -3,6 +3,7 @@ using GameStore.BLL.DTO;
 using GameStore.BLL.Enums;
 using GameStore.BLL.Interfaces;
 using GameStore.Web.App_LocalResources;
+using GameStore.Web.Builder.Implementation;
 using GameStore.Web.Authorization.Interfaces;
 using GameStore.Web.Filters;
 using GameStore.Web.ViewModels;
@@ -15,8 +16,6 @@ using System.Web.UI.WebControls;
 
 namespace GameStore.Web.Controllers
 {
-    [TrackRequestIp]
-    [ExceptionFilter]
     public class GameController : BaseController
     {
         private readonly IGameService _gameService;
@@ -24,13 +23,15 @@ namespace GameStore.Web.Controllers
         private readonly IPlatformTypeService _platformTypeService;
         private readonly IPublisherService _publisherService;
         private readonly IMapper _mapper;
+        private readonly FilterViewModelBuilder _filterViewModelBuilder;
 
         public GameController(
             IGameService gameService,
             IGenreService genreService,
             IPlatformTypeService platformTypeService,
             IMapper mapper,
-            IPublisherService publisherService, 
+            IPublisherService publisherService,
+            FilterViewModelBuilder filterViewModelBuilder)
             IAuthentication authentication) : base(authentication)
         {
             _gameService = gameService;
@@ -38,6 +39,7 @@ namespace GameStore.Web.Controllers
             _publisherService = publisherService;
             _genreService = genreService;
             _platformTypeService = platformTypeService;
+            _filterViewModelBuilder = filterViewModelBuilder;
         }
 
         [HttpGet]
@@ -96,7 +98,7 @@ namespace GameStore.Web.Controllers
         [HttpGet]
         public ActionResult GamesFilters(FilterViewModel filterViewModel)
         {
-            var model = GetFilterViewModel(filterViewModel);
+            var model = _filterViewModelBuilder.Rebuild(filterViewModel);
 
             return PartialView(model);
         }
@@ -109,6 +111,11 @@ namespace GameStore.Web.Controllers
                 ModelState.AddModelError("MinPrice", GlobalRes.MinMaxPrice);
             }
 
+            if (filterViewModel.PageSize == 0)
+            {
+                filterViewModel.PageSize = PageSize.Ten;
+            }
+
             var gamesByFilter = _gameService.GetGamesByFilter(_mapper.Map<FilterDTO>(filterViewModel), page, filterViewModel.PageSize, out var totalItemsByFilter);
 
             int totalItem = 0;
@@ -119,21 +126,7 @@ namespace GameStore.Web.Controllers
             }
             else
             {
-                switch (filterViewModel.PageSize)
-                {
-                    case PageSize.OneHundred:
-                        totalItem = 100;
-                        break;
-                    case PageSize.Fifty:
-                        totalItem = 50;
-                        break;
-                    case PageSize.Twenty:
-                        totalItem = 20;
-                        break;
-                    case PageSize.Ten:
-                        totalItem = 10;
-                        break;
-                }
+                totalItem = (int)filterViewModel.PageSize;
             }
 
             var pagingInfo = new PagingInfo()
@@ -145,7 +138,13 @@ namespace GameStore.Web.Controllers
 
             filterViewModel.PagingInfo = pagingInfo;
 
-            filterViewModel = GetFilterViewModel(filterViewModel);
+            filterViewModel = _filterViewModelBuilder.Rebuild(filterViewModel);
+
+            if (filterViewModel.PageSize == 0)
+            {
+                filterViewModel.PageSize = PageSize.Ten;
+            }
+
             var gameViewModel = _mapper.Map<IEnumerable<DetailsGameViewModel>>(gamesByFilter);
 
             if (gameViewModel.Any())
@@ -188,12 +187,12 @@ namespace GameStore.Web.Controllers
 
         [OutputCache(Duration = 60)]
         [HttpGet]
-        public ActionResult Download(Guid gamekey)
+        public ActionResult Download(string gamekey)
         {
             var path = Server.MapPath("~/Files/test.pdf");
             var mas = System.IO.File.ReadAllBytes(path);
 
-            return File(mas, "application/pdf");
+            return new FileContentResult(mas, "application/pdf");
         }
 
         [OutputCache(Duration = 60)]
@@ -273,53 +272,6 @@ namespace GameStore.Web.Controllers
             }
 
             return gameViewModel;
-        }
-
-        private FilterViewModel GetInitFilterViewModel()
-        {
-            var model = new FilterViewModel();
-            var genresDto = _genreService.GetAll();
-            var genrelist = _mapper.Map<IEnumerable<DelailsGenreViewModel>>(genresDto);
-            var platformlist = _mapper.Map<IEnumerable<DetailsPlatformTypeViewModel>>(_platformTypeService.GetAll());
-            var publisherlist = _mapper.Map<IEnumerable<DetailsPublisherViewModel>>(_publisherService.GetAll());
-
-            var listGenreBoxs = new List<CheckBox>();
-            genrelist.ToList().ForEach(genre => listGenreBoxs.Add(new CheckBox() { Text = genre.Name }));
-            model.ListGenres = listGenreBoxs;
-
-            var listPlatformBoxs = new List<CheckBox>();
-            platformlist.ToList().ForEach(platform => listPlatformBoxs.Add(new CheckBox() { Text = platform.Name }));
-            model.ListPlatformTypes = listPlatformBoxs;
-
-            var listPublisherBoxs = new List<CheckBox>();
-            publisherlist.ToList().ForEach(publisher => listPublisherBoxs.Add(new CheckBox() { Text = publisher.Name }));
-            model.ListPublishers = listPublisherBoxs;
-
-            return model;
-        }
-
-        private FilterViewModel GetFilterViewModel(FilterViewModel filterViewMode)
-        {
-            var model = GetInitFilterViewModel();
-
-            if (filterViewMode.SelectedGenresName != null)
-            {
-                model.SelectedGenres = model.ListGenres.Where(x => filterViewMode.SelectedGenresName.Contains(x.Text));
-            }
-
-            if (filterViewMode.SelectedPlatformTypesName != null)
-            {
-                model.SelectedPlatformTypes = model.ListPlatformTypes.Where(x => filterViewMode.SelectedPlatformTypesName.Contains(x.Text));
-            }
-
-            if (filterViewMode.SelectedPublishersName != null)
-            {
-                model.SelectedPublishers = model.ListPublishers.Where(x => filterViewMode.SelectedPublishersName.Contains(x.Text));
-            }
-
-            model.PagingInfo = filterViewMode.PagingInfo;
-
-            return model;
         }
     }
 }

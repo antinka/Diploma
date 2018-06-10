@@ -5,14 +5,19 @@ namespace GameStore.Web.Filters
 {
     public class TrackRequestIp : FilterAttribute, IActionFilter
     {
-        private static readonly ILog Log = DependencyResolver.Current.GetService<ILog>();
+        private readonly ILog _log;
+
+        public TrackRequestIp(ILog log)
+        {
+            _log = log;
+        }
 
         public void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var userIp = filterContext.HttpContext.Request.UserHostAddress;
             if (filterContext.HttpContext.Request.Url != null)
             {
-                Log.Info("Path: " + filterContext.HttpContext.Request.Url.PathAndQuery + " IP: " + userIp + " " +
+                _log.Info("Path: " + filterContext.HttpContext.Request.Url.PathAndQuery + " IP: " + userIp + " " +
                          "Attempted");
             }
         }
@@ -22,7 +27,7 @@ namespace GameStore.Web.Filters
             var userIp = filterContext.HttpContext.Request.UserHostAddress;
             if (filterContext.HttpContext.Request.Url != null)
             {
-                Log.Info("Path: " + filterContext.HttpContext.Request.Url.PathAndQuery + " IP: " + userIp + " " +
+                _log.Info("Path: " + filterContext.HttpContext.Request.Url.PathAndQuery + " IP: " + userIp + " " +
                          "Completed");
             }
         }

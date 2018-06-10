@@ -375,8 +375,8 @@
   <data name="ShipRegion" xml:space="preserve">
     <value>Ship Region</value>
   </data>
-  <data name="ShipVia" xml:space="preserve">
-    <value>Ship Via</value>
+  <data name="ShipViaName" xml:space="preserve">
+    <value>Ship Via Name</value>
   </data>
   <data name="CompanyName" xml:space="preserve">
     <value>Company name</value>
@@ -476,5 +476,14 @@
   </data>
   <data name="IsPaid" xml:space="preserve">
     <value>Is Paid</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="addSucces" xml:space="preserve">
+    <value>added successfully</value>
+  </data>
+  <data name="Game" xml:space="preserve">
+    <value>Game</value>
   </data>
 </root>

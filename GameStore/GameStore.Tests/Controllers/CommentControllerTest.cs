@@ -42,9 +42,9 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
-        public void GetAllCommentToGame_GameKey_Verifiable()
+        public void GetAllCommentToGame_GameKey_GetCommentsByGameKeyCalled()
         {
-            _commentService.Setup(service => service.GetCommentsByGameKey(_fakeGameKey)).Returns(_fakeComment).Verifiable();
+            _commentService.Setup(service => service.GetCommentsByGameKey(_fakeGameKey)).Returns(_fakeComment);
 
             _sut.GetAllCommentToGame(_fakeGameKey);
 
@@ -77,10 +77,10 @@ namespace GameStore.Tests.Controllers
         {
             _commentService.Setup(service => service.Ban(It.IsAny<BanPeriod>(), It.IsAny<Guid>()));
 
-            var res = _sut.Ban(BanPeriod.Day) as RedirectToRouteResult;
+            var res = _sut.Ban(BanPeriod.Day, _fakeGameKey) as RedirectToRouteResult;
         
-            Assert.Equal("Game", res.RouteValues["controller"]);
-            Assert.Equal("FilteredGames", res.RouteValues["action"]);
+            Assert.Equal("Comment", res.RouteValues["controller"]);
+            Assert.Equal("GetAllCommentToGame", res.RouteValues["action"]);
         }
 
         [Fact]
@@ -88,9 +88,9 @@ namespace GameStore.Tests.Controllers
         {
             _commentService.Setup(service => service.Ban(It.IsAny<BanPeriod>(), It.IsAny<Guid>()));
 
-            var res = _sut.Ban(null);
+            var res = _sut.Ban(null, _fakeGameKey);
 
-            Assert.Equal(typeof(PartialViewResult), res.GetType());
+            Assert.IsType<PartialViewResult>(res);
         }
 
         [Fact]
@@ -103,7 +103,7 @@ namespace GameStore.Tests.Controllers
 
             var res = _sut.CommentToGame(fakeCommentViewModel);
 
-            Assert.Equal(typeof(PartialViewResult), res.GetType());
+            Assert.IsType<PartialViewResult>(res);
         }
 
         [Fact]
@@ -111,7 +111,7 @@ namespace GameStore.Tests.Controllers
         {
             var res = _sut.CommentToGame(_fakeGameKey, _fakeGameId, null, null);
 
-            Assert.Equal(typeof(PartialViewResult), res.GetType());
+            Assert.IsType<PartialViewResult>(res);
         }
 
         [Fact]
@@ -119,7 +119,7 @@ namespace GameStore.Tests.Controllers
         {
             var res = _sut.CommentToGame(_fakeGameKey, _fakeGameId, null, "quote");
 
-            Assert.Equal(typeof(PartialViewResult), res.GetType());
+            Assert.IsType<PartialViewResult>(res);
         }
     }
 }

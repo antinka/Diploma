@@ -105,13 +105,13 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void AddNewGenre_GenreWithUniqueName_Verifiable()
+        public void AddNewGenre_GenreWithUniqueName_CreateCalled()
         {
             var fakeGenreDTO = new ExtendGenreDTO() { Id = Guid.NewGuid(), NameEn = "uniqueName" };
             var fakeGenre = _mapper.Map<Genre>(fakeGenreDTO);
 
             _uow.Setup(uow => uow.Genres.Get(It.IsAny<Func<Genre, bool>>())).Returns(new List<Genre>());
-            _uow.Setup(uow => uow.Genres.Create(fakeGenre)).Verifiable();
+            _uow.Setup(uow => uow.Genres.Create(fakeGenre));
 
             _sut.AddNew(fakeGenreDTO);
 
@@ -119,12 +119,12 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void UpdateGenre_Genre_GenreUpdated()
+        public void UpdateGenre_Genre_UpdateCalled()
         {
             var fakeGenreDTO = _mapper.Map<ExtendGenreDTO>(_fakeGenre);
 
             _uow.Setup(uow => uow.Genres.GetById(_fakeGenreId)).Returns(_fakeGenre);
-            _uow.Setup(uow => uow.Genres.Update(_fakeGenre)).Verifiable();
+            _uow.Setup(uow => uow.Genres.Update(_fakeGenre));
 
             _sut.Update(fakeGenreDTO);
 
@@ -142,7 +142,7 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void DeleteGenre_NotExistedGenreName__ExeptionEntityNotFound()
+        public void DeleteGenre_NotExistedGenreName_ExeptionEntityNotFound()
         {
             var notExistGenreId = Guid.NewGuid();
 
@@ -153,10 +153,10 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void DeleteGenre_ExistedGenreName__Verifiable()
+        public void DeleteGenre_ExistedGenreName_DeleteCalled()
         {
             _uow.Setup(uow => uow.Genres.GetById(_fakeGenreId)).Returns(_fakeGenre);
-            _uow.Setup(uow => uow.Genres.Delete(_fakeGenreId)).Verifiable();
+            _uow.Setup(uow => uow.Genres.Delete(_fakeGenreId));
 
             _sut.Delete(_fakeGenreId);
 
@@ -181,6 +181,28 @@ namespace GameStore.Tests.Service
             _uow.Setup(uow => uow.Genres.Get(It.IsAny<Func<Genre, bool>>())).Returns(new List<Genre>() { _fakeGenre });
 
             var res = _sut.IsUniqueEnName(genre);
+
+            Assert.False(res);
+        }
+
+        [Fact]
+        public void IsUniqueRuName_UniqueName_True()
+        {
+            var genre = new ExtendGenreDTO() { Id = Guid.NewGuid(), NameRu = _fakeGenreName };
+            _uow.Setup(uow => uow.Genres.Get(It.IsAny<Func<Genre, bool>>())).Returns(new List<Genre>());
+
+            var res = _sut.IsUniqueRuName(genre);
+
+            Assert.True(res);
+        }
+
+        [Fact]
+        public void IsUniqueRuName_NotUniqueName_False()
+        {
+            var genre = new ExtendGenreDTO() { Id = Guid.NewGuid(), NameRu = _fakeGenreName };
+            _uow.Setup(uow => uow.Genres.Get(It.IsAny<Func<Genre, bool>>())).Returns(new List<Genre>() { _fakeGenre });
+
+            var res = _sut.IsUniqueRuName(genre);
 
             Assert.False(res);
         }

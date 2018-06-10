@@ -10,7 +10,8 @@
     <label> @Html.RadioButton("period", BanPeriod.Week, new { required = "required" })@GlobalRes.week </label><br />
     <label> @Html.RadioButton("period", BanPeriod.Month, new { required = "required" })@GlobalRes.month </label><br />
     <label> @Html.RadioButton("period", BanPeriod.Permanent, new { required = "required" })@GlobalRes.Permanent </label><br />
-
+    
+    <input type="hidden" name="gamekey" value="@ViewBag.gamekey" class="btn btn-default" />
     <input type="submit" name="period" value="@GlobalRes.Ban" class="btn btn-default" />
 </div>
 }

@@ -28,8 +28,8 @@ namespace GameStore.Web.ViewModels
         [Display(Name = "Shipper", ResourceType = typeof(GlobalRes))]
         public string ShipperId { get; set; }
 
-        [Display(Name = "ShipVia", ResourceType = typeof(GlobalRes))]
-        public int? ShipVia { get; set; }
+        [Display(Name = "ShipViaName", ResourceType = typeof(GlobalRes))]
+        public string ShipViaName { get; set; }
 
         [Display(Name = "Freight", ResourceType = typeof(GlobalRes))]
         public decimal? Freight { get; set; }

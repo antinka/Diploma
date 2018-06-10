@@ -68,6 +68,9 @@
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Rotativa, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.1.7.3\lib\net461\Rotativa.dll</HintPath>
+    </Reference>
     <Reference Include="StyleCop, Version=5.0.0.0, Culture=neutral, PublicKeyToken=f904653c63bc2738, processorArchitecture=MSIL">
       <HintPath>..\packages\StyleCop.5.0.0\lib\net40\StyleCop.dll</HintPath>
     </Reference>
@@ -118,6 +121,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="App_Browsers\qt.browser" />
     <None Include="Files\test.pdf" />
     <Content Include="Content\Images\Bank.png" />
     <Content Include="Content\Images\Visa.png" />
@@ -128,6 +132,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Rotativa\help-wkhtmltoimage.txt" />
+    <Content Include="Rotativa\help-wkhtmltopdf.txt" />
+    <Content Include="Rotativa\wkhtmltoimage.exe" />
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\gameStorejs.js" />
@@ -163,6 +171,8 @@
     <Compile Include="Authorization\Implementation\UserProvider.cs" />
     <Compile Include="Authorization\User.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Builder\Implementation\FilterViewModelBuilder.cs" />
+    <Compile Include="Builder\Interfaces\IGenericBuilder.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\GenreController.cs" />
@@ -281,6 +291,7 @@
     <Content Include="Views\Order\AllOrders.cshtml" />
     <Content Include="Views\Order\Orders.cshtml" />
     <Content Include="Views\Order\EditOrder.cshtml" />
+    <Content Include="Views\Payments\Bank.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

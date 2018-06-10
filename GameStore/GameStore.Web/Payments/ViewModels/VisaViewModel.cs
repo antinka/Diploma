@@ -24,5 +24,7 @@ namespace GameStore.Web.Payments.ViewModels
         [Required]
         [RegularExpression(@"^[0-9]{4,6}", ErrorMessageResourceType = typeof(GlobalRes), ErrorMessageResourceName = "CardVerificationExpression")]
         public int CardVerificationValue { get; set; }
+
+        public Guid OrderId { get; set; }
     }
 }
