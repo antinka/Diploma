@@ -30,13 +30,13 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
-        public void New_ValidPlatformTypeViewModel_Verifiable()
+        public void New_ValidPlatformTypeViewModel_AddNewCaleed()
         {
             var fakePlatformTypeViewModel = new PlatformTypeViewModel() { NameEn = "test" };
             var fakePlatformTypeDTO = _mapper.Map<ExtendPlatformTypeDTO>(fakePlatformTypeViewModel);
 
             _platformTypeService.Setup(service => service.IsUniqueEnName(It.IsAny<ExtendPlatformTypeDTO>())).Returns(true);
-            _platformTypeService.Setup(service => service.AddNew(fakePlatformTypeDTO)).Verifiable();
+            _platformTypeService.Setup(service => service.AddNew(fakePlatformTypeDTO));
 
             _sut.New(fakePlatformTypeViewModel);
 
@@ -52,13 +52,13 @@ namespace GameStore.Tests.Controllers
 
             var res = _sut.New(fakePlatformTypeViewModel);
 
-            Assert.Equal(typeof(ViewResult), res.GetType());
+            Assert.IsType<ViewResult>(res);
         }
 
         [Fact]
-        public void Get_PlatformTypeName_Verifiable()
+        public void Get_PlatformTypeName_GetByNameCalled()
         {
-            _platformTypeService.Setup(service => service.GetByName(_fakePlatformTypeName)).Verifiable();
+            _platformTypeService.Setup(service => service.GetByName(_fakePlatformTypeName));
 
             _sut.Get(_fakePlatformTypeName);
 
@@ -66,13 +66,13 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
-        public void Update_ValidUpdatePlatformType_Verifiable()
+        public void Update_ValidUpdatePlatformType_UpdateCalled()
         {
             var fakePlatformTypeViewModel = new PlatformTypeViewModel() { NameEn = "test" };
             var fakePlatformTypeDTO = _mapper.Map<ExtendPlatformTypeDTO>(fakePlatformTypeViewModel);
 
             _platformTypeService.Setup(service => service.IsUniqueEnName(It.IsAny<ExtendPlatformTypeDTO>())).Returns(true);
-            _platformTypeService.Setup(service => service.Update(fakePlatformTypeDTO)).Verifiable();
+            _platformTypeService.Setup(service => service.Update(fakePlatformTypeDTO));
 
             _sut.Update(fakePlatformTypeViewModel);
 
@@ -88,7 +88,7 @@ namespace GameStore.Tests.Controllers
 
             var res = _sut.Update(fakePlatformTypeViewModel);
 
-            Assert.Equal(typeof(ViewResult), res.GetType());
+            Assert.IsType<ViewResult>(res);
         }
 
         [Fact]
@@ -96,11 +96,11 @@ namespace GameStore.Tests.Controllers
         {
             var res = _sut.Update(_fakePlatformTypeName);
 
-            Assert.Equal(typeof(ViewResult), res.GetType());
+            Assert.IsType<ViewResult>(res);
         }
 
         [Fact]
-        public void Remove_PlatformTypeId_Verifiable()
+        public void Remove_PlatformTypeId_DeleteMethodCalled()
         {
             var fakePlatformTypeId = Guid.NewGuid();
             _platformTypeService.Setup(service => service.Delete(fakePlatformTypeId));
@@ -122,7 +122,7 @@ namespace GameStore.Tests.Controllers
 
             var res = _sut.GetAll();
 
-            Assert.Equal(typeof(ViewResult), res.GetType());
+            Assert.IsType<ViewResult>(res);
         }
 
         [Fact]
@@ -130,7 +130,7 @@ namespace GameStore.Tests.Controllers
         {
             var res = _sut.New();
 
-            Assert.Equal(typeof(ViewResult), res.GetType());
+            Assert.IsType<ViewResult>(res);
         }
     }
 }

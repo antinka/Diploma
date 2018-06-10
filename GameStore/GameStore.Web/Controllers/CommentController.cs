@@ -11,8 +11,6 @@ using GameStore.Web.ViewModels;
 
 namespace GameStore.Web.Controllers
 {
-    [TrackRequestIp]
-    [ExceptionFilter]
     public class CommentController : BaseController
     {
         private readonly ICommentService _commentService;
@@ -103,7 +101,7 @@ namespace GameStore.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Ban(BanPeriod? period)
+        public ActionResult Ban(BanPeriod? period, string gamekey)
         {
             var userId = Guid.Empty;
 
@@ -111,9 +109,10 @@ namespace GameStore.Web.Controllers
             {
                 _commentService.Ban(period.Value, userId);
 
-                return RedirectToAction("FilteredGames", "Game");
+                return RedirectToAction("GetAllCommentToGame", "Comment", new { gamekey = gamekey });
             }
 
+            ViewBag.gamekey = gamekey;
             return PartialView();
         }
     }

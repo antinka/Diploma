@@ -7,7 +7,7 @@
 
 <h2>Visa</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm(Html.BeginForm("Visa", "Order", FormMethod.Get))) 
 {
     @Html.AntiForgeryToken()
     
@@ -46,6 +46,8 @@
                 @Html.ValidationMessageFor(model => model.CardVerificationValue, "", new { @class = "text-danger" })
             </div>
         </div>
+        
+        <input type="hidden" value=@Model.OrderId class="btn btn-default" />
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

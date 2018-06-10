@@ -79,6 +79,15 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to добавлена успешно.
+        /// </summary>
+        public static string addSucces {
+            get {
+                return ResourceManager.GetString("addSucces", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Все.
         /// </summary>
         public static string All {
@@ -513,6 +522,15 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Игра.
+        /// </summary>
+        public static string Game {
+            get {
+                return ResourceManager.GetString("Game", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Игры.
         /// </summary>
         public static string Games {
@@ -893,9 +911,9 @@ namespace GameStore.Web.App_LocalResources {
         /// <summary>
         ///   Looks up a localized string similar to Доставить через.
         /// </summary>
-        public static string ShipVia {
+        public static string ShipViaName {
             get {
-                return ResourceManager.GetString("ShipVia", resourceCulture);
+                return ResourceManager.GetString("ShipViaName", resourceCulture);
             }
         }
         
@@ -968,6 +986,15 @@ namespace GameStore.Web.App_LocalResources {
         public static string UserId {
             get {
                 return ResourceManager.GetString("UserId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Имя.
+        /// </summary>
+        public static string UserName {
+            get {
+                return ResourceManager.GetString("UserName", resourceCulture);
             }
         }
         

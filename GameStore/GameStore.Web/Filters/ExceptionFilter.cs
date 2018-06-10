@@ -5,13 +5,18 @@ namespace GameStore.Web.Filters
 {
     public class ExceptionFilter : FilterAttribute, IExceptionFilter
     {
-        private static readonly ILog Log = DependencyResolver.Current.GetService<ILog>();
+        private readonly ILog _log;
+
+        public ExceptionFilter(ILog log)
+        {
+            _log = log;
+        }
 
         public void OnException(ExceptionContext filterContext)
         {
             if (!filterContext.ExceptionHandled)
             {
-                Log.Info($"Exception: {filterContext.Exception.Message} source { filterContext.Exception.Source} StackTrace: { filterContext.Exception.StackTrace}");
+                _log.Info($"Exception: {filterContext.Exception.Message} source { filterContext.Exception.Source} StackTrace: { filterContext.Exception.StackTrace}");
                 filterContext.ExceptionHandled = true;
             }
         }

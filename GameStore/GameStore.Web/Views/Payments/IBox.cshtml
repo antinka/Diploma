@@ -1,4 +1,5 @@
-﻿@model GameStore.Web.Payments.ViewModels.BoxViewModel
+﻿@using GameStore.Web.App_LocalResources
+@model GameStore.Web.Payments.ViewModels.BoxViewModel
 
 @{
     ViewBag.Title = "IBox";
@@ -32,5 +33,8 @@
         </dd>
 
     </dl>
+    @Html.ActionLink(GlobalRes.Pay, "Box", new {controller="Order", orderId = Model.OrderId }, new { @class = "btn btn-default" })
+
+
 </div>
 

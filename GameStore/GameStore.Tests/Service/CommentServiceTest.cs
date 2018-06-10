@@ -72,12 +72,12 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void AddComment_Comment_CommentAdded()
+        public void AddComment_Comment_CreateCalled()
         {
             var fakeCommentDTO = new CommentDTO() { Id = Guid.NewGuid(), Name = "3", Body = "3" };
             var fakeComment = _mapper.Map<Comment>(fakeCommentDTO);
 
-            _uow.Setup(x => x.Comments.Create(fakeComment)).Verifiable();
+            _uow.Setup(x => x.Comments.Create(fakeComment));
 
             _sut.AddComment(fakeCommentDTO);
 
@@ -122,9 +122,9 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void DeleteComment_ExistedCommentId_CommentDeleted()
+        public void DeleteComment_ExistedCommentId_UpdateCalled()
         {
-            _uow.Setup(uow => uow.Comments.GetById(_fakeCommentId)).Returns(_fakeComment).Verifiable();
+            _uow.Setup(uow => uow.Comments.GetById(_fakeCommentId)).Returns(_fakeComment);
             _uow.Setup(uow => uow.Comments.GetAll()).Returns(_fakeComments);
 
             _sut.Delete(_fakeCommentId);

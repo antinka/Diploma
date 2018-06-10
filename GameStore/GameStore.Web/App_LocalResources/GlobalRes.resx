@@ -380,7 +380,7 @@
   <data name="ShipRegion" xml:space="preserve">
     <value>Регион</value>
   </data>
-  <data name="ShipVia" xml:space="preserve">
+  <data name="ShipViaName" xml:space="preserve">
     <value>Доставить через</value>
   </data>
   <data name="CompanyName" xml:space="preserve">
@@ -424,5 +424,14 @@
   </data>
   <data name="Existent" xml:space="preserve">
     <value>Значение поля не может быть пустым</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="addSucces" xml:space="preserve">
+    <value>добавлена успешно</value>
+  </data>
+  <data name="Game" xml:space="preserve">
+    <value>Игра</value>
   </data>
 </root>

@@ -1,17 +1,18 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace GameStore.BLL.Enums
 {
     public enum PageSize
     {
         [Display(Name = "10")]
-        Ten,
+        Ten = 10,
         [Display(Name = "20")]
-        Twenty,
+        Twenty = 20,
         [Display(Name = "50")]
-        Fifty,
+        Fifty = 50,
         [Display(Name = "100")]
-        OneHundred,
-        All
+        OneHundred = 100,
+        All = Int32.MaxValue
     }
 }

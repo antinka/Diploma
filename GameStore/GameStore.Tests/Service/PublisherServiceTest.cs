@@ -76,13 +76,13 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void AddNewPublisher_PublisherWithUniqueName_Verifiable()
+        public void AddNewPublisher_PublisherWithUniqueName_CreateCalled()
         {
             var fakePublisherDTO = new ExtendPublisherDTO() { Id = Guid.NewGuid(), Name = "publisherUniqueName" };
             var fakePublisher = _mapper.Map<Publisher>(fakePublisherDTO);
 
             _uow.Setup(uow => uow.Publishers.Get(It.IsAny<Func<Publisher, bool>>())).Returns(new List<Publisher>());
-            _uow.Setup(uow => uow.Publishers.Create(fakePublisher)).Verifiable();
+            _uow.Setup(uow => uow.Publishers.Create(fakePublisher));
 
             _sut.AddNew(fakePublisherDTO);
 
@@ -90,14 +90,14 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void UpdatePublisher_Publisher_Verifiable()
+        public void UpdatePublisher_Publisher_UpdateCalled()
         {
             var fakePublisherDTO = new ExtendPublisherDTO() { Id = _fakePublisherId, Name = "test" };
             var fakePublisher = _mapper.Map<Publisher>(fakePublisherDTO);
 
             _uow.Setup(uow => uow.Publishers.GetById(_fakePublisherId)).Returns(fakePublisher);
 
-            _uow.Setup(uow => uow.Publishers.Update(fakePublisher)).Verifiable();
+            _uow.Setup(uow => uow.Publishers.Update(fakePublisher));
 
             _sut.Update(fakePublisherDTO);
 
@@ -124,10 +124,10 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void DeletePublisher_ExistedPublisherName__Verifiable()
+        public void DeletePublisher_ExistedPublisherName_DeleteCalled()
         {
             _uow.Setup(uow => uow.Publishers.GetById(_fakePublisherId)).Returns(_fakePublisher);
-            _uow.Setup(uow => uow.Publishers.Delete(_fakePublisherId)).Verifiable();
+            _uow.Setup(uow => uow.Publishers.Delete(_fakePublisherId));
 
             _sut.Delete(_fakePublisherId);
 

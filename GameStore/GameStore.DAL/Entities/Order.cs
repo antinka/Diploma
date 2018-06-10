@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using GameStore.DAL.Mongo.MongoEntities;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace GameStore.DAL.Entities

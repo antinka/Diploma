@@ -30,13 +30,13 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
-        public void New_ValidPublisherViewModel_Verifiable()
+        public void New_ValidPublisherViewModel_AddNewCalled()
         {
             var fakePublisherViewModel = new PublisherViewModel() { Name = "test", DescriptionEn = "test", HomePage = "test" };
             var fakePublisherDTO = _mapper.Map<ExtendPublisherDTO>(fakePublisherViewModel);
 
             _publisherService.Setup(service => service.IsUniqueName(It.IsAny<ExtendPublisherDTO>())).Returns(true);
-            _publisherService.Setup(service => service.AddNew(fakePublisherDTO)).Verifiable();
+            _publisherService.Setup(service => service.AddNew(fakePublisherDTO));
 
             _sut.New(fakePublisherViewModel);
 
@@ -52,13 +52,13 @@ namespace GameStore.Tests.Controllers
 
             var res = _sut.New(fakePublisherViewModel);
 
-            Assert.Equal(typeof(ViewResult), res.GetType());
+            Assert.IsType<ViewResult>(res);
         }
 
         [Fact]
-        public void Get_PublisherName_Verifiable()
+        public void Get_PublisherName_GetByNameCalled()
         {
-            _publisherService.Setup(service => service.GetByName(_fakePublisherName)).Verifiable();
+            _publisherService.Setup(service => service.GetByName(_fakePublisherName));
 
             _sut.Get(_fakePublisherName);
 
@@ -66,13 +66,13 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
-        public void Update_ValidUpdatePublisher_Verifiable()
+        public void Update_ValidUpdatePublisher_UpdateCalled()
         {
             var fakePublisherViewModel = new PublisherViewModel() { Name = "test" };
             var fakePublisherDTO = _mapper.Map<ExtendPublisherDTO>(fakePublisherViewModel);
 
             _publisherService.Setup(service => service.IsUniqueName(It.IsAny<ExtendPublisherDTO>())).Returns(true);
-            _publisherService.Setup(service => service.Update(fakePublisherDTO)).Verifiable();
+            _publisherService.Setup(service => service.Update(fakePublisherDTO));
 
             _sut.Update(fakePublisherViewModel);
 
@@ -88,7 +88,7 @@ namespace GameStore.Tests.Controllers
 
             var res = _sut.Update(fakePublisherViewModel);
 
-            Assert.Equal(typeof(ViewResult), res.GetType());
+            Assert.IsType<ViewResult>(res);
         }
 
         [Fact]
@@ -96,11 +96,11 @@ namespace GameStore.Tests.Controllers
         {
             var res = _sut.Update(_fakePublisherName);
 
-            Assert.Equal(typeof(ViewResult), res.GetType());
+            Assert.IsType<ViewResult>(res);
         }
 
         [Fact]
-        public void Remove_PublisherId_Verifiable()
+        public void Remove_PublisherId_DeleteCalled()
         {
             var fakePublisherId = Guid.NewGuid();
             _publisherService.Setup(service => service.Delete(fakePublisherId));
@@ -123,7 +123,7 @@ namespace GameStore.Tests.Controllers
 
             var res = _sut.GetAll();
 
-            Assert.Equal(typeof(ViewResult), res.GetType());
+            Assert.IsType<ViewResult>(res);
         }
 
         [Fact]
@@ -131,7 +131,7 @@ namespace GameStore.Tests.Controllers
         {
             var res = _sut.New();
 
-            Assert.Equal(typeof(ViewResult), res.GetType());
+            Assert.IsType<ViewResult>(res);
         }
     }
 }

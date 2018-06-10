@@ -10,8 +10,6 @@ using GameStore.Web.ViewModels;
 
 namespace GameStore.Web.Controllers
 {
-    [TrackRequestIp]
-    [ExceptionFilter]
     public class PlatformTypeController : BaseController
     {
         private readonly IPlatformTypeService _platformTypeService;

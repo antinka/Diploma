@@ -37,11 +37,20 @@ namespace GameStore.Tests.Service
             _fakeUserId = Guid.NewGuid();
             _fakeGameId = Guid.NewGuid();
 
-             _fakeOrderDetails = new List<OrderDetail>()
+            _fakeGame = new Game()
+            {
+                Id = _fakeGameId,
+                Key = "123",
+                UnitsInStock = 10
+            };
+
+            _fakeOrderDetails = new List<OrderDetail>()
             {
                 new OrderDetail()
                 {
-                    GameId = _fakeGameId
+                    GameId = _fakeGameId,
+                    Quantity = 1,
+                    Game = _fakeGame
                 }
             };
 
@@ -54,12 +63,6 @@ namespace GameStore.Tests.Service
             _fakeOrders = new List<Order>()
             {
                 _fakeOrder
-            };
-
-            _fakeGame = new Game()
-            {
-                Id = _fakeGameId,
-                Key = "123"
             };
         }
 
@@ -91,14 +94,14 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void AddNewOrderDetails_NotExistedOrder_Verifiable()
+        public void AddNewOrderDetails_NotExistedOrder_CreateCalled()
         {
             var fakeOrderDetailsDto = new OrderDetailDTO() { Id = Guid.NewGuid(), Game = _mapper.Map<GameDTO>(_fakeGame), GameId = _fakeGameId };
             var fakeOrderDetail = _mapper.Map<OrderDetail>(fakeOrderDetailsDto);
 
             _uow.Setup(uow => uow.Games.GetById(_fakeGameId)).Returns(_fakeGame);
             _uow.Setup(uow => uow.Orders.Get(It.IsAny<Func<Order, bool>>())).Returns(new List<Order>());
-            _uow.Setup(uow => uow.OrderDetails.Create(fakeOrderDetail)).Verifiable();
+            _uow.Setup(uow => uow.OrderDetails.Create(fakeOrderDetail));
 
             _sut.AddNewOrderDetails(_fakeUserId, _fakeGameId);
 
@@ -121,13 +124,13 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void UpdateShipper_OrderDTO_Verifiable()
+        public void UpdateShipper_OrderDTO_UpdateCalled()
         {
             var fakeOrderDTO = _mapper.Map<OrderDTO>(_fakeOrder);
 
             _uow.Setup(uow => uow.Orders.Get(It.IsAny<Func<Order, bool>>())).Returns(_fakeOrders);
 
-            _uow.Setup(uow => uow.Orders.Update(_fakeOrder)).Verifiable();
+            _uow.Setup(uow => uow.Orders.Update(_fakeOrder));
 
             _sut.UpdateShipper(fakeOrderDTO);
 
@@ -138,6 +141,7 @@ namespace GameStore.Tests.Service
         public void GetOrdersBetweenDates_ReturnedOrders()
         {
             _uow.Setup(uow => uow.Orders.GetAll()).Returns(_fakeOrders);
+            _uow.Setup(uow => uow.Shippers.GetAll()).Returns(new List<Shipper>());
 
             var res = _sut.GetOrdersBetweenDates(null, null);
 
@@ -162,6 +166,7 @@ namespace GameStore.Tests.Service
                 }
             };
             _uow.Setup(uow => uow.Orders.GetAll()).Returns(fakeOrders);
+            _uow.Setup(uow => uow.Shippers.GetAll()).Returns(new List<Shipper>());
 
             var res = _sut.GetOrdersBetweenDates(DateTime.Today.AddMonths(-1), null);
 
@@ -186,6 +191,7 @@ namespace GameStore.Tests.Service
                 }
             };
             _uow.Setup(uow => uow.Orders.GetAll()).Returns(fakeOrders);
+            _uow.Setup(uow => uow.Shippers.GetAll()).Returns(new List<Shipper>());
 
             var res = _sut.GetOrdersBetweenDates(null, DateTime.Today.AddMonths(-1));
 
@@ -216,6 +222,7 @@ namespace GameStore.Tests.Service
                 }
             };
             _uow.Setup(uow => uow.Orders.GetAll()).Returns(fakeOrders);
+            _uow.Setup(uow => uow.Shippers.GetAll()).Returns(new List<Shipper>());
 
             var res = _sut.GetOrdersBetweenDates(DateTime.Today.AddMonths(-3), DateTime.Today);
 
@@ -223,7 +230,7 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void AddNewOrderDetails_ExistedOrder_Verifiable()
+        public void AddNewOrderDetails_ExistedOrder_GetCalled()
         {
             var fakeOrderDetailsDto = new OrderDetailDTO() { Id = Guid.NewGuid(), Game = _mapper.Map<GameDTO>(_fakeGame), GameId = _fakeGameId };
             var fakeOrderDetail = _mapper.Map<OrderDetail>(fakeOrderDetailsDto);
@@ -231,7 +238,7 @@ namespace GameStore.Tests.Service
             var orders = new List<Order>() { order };
 
             _uow.Setup(uow => uow.Games.GetById(_fakeGameId)).Returns(_fakeGame);
-            _uow.Setup(uow => uow.Orders.Get(It.IsAny<Func<Order, bool>>())).Returns(orders).Verifiable();
+            _uow.Setup(uow => uow.Orders.Get(It.IsAny<Func<Order, bool>>())).Returns(orders);
 
             _sut.AddNewOrderDetails(_fakeUserId, _fakeGameId);
 
@@ -247,12 +254,12 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void DeleteGameFromOrder_ExistedOrderIdAndUserId_Verifiable()
+        public void DeleteGameFromOrder_ExistedOrderIdAndUserId_UpdateCalled()
         {
             _uow.Setup(uow => uow.Games.GetById(_fakeGameId)).Returns(_fakeGame);
             _uow.Setup(uow => uow.OrderDetails.Get(It.IsAny<Func<OrderDetail, bool>>())).Returns(_fakeOrderDetails);
-            _uow.Setup(uow => uow.Games.Update(_fakeGame)).Verifiable();
-            _uow.Setup(uow => uow.OrderDetails.Update(_fakeOrderDetails.FirstOrDefault())).Verifiable();
+            _uow.Setup(uow => uow.Games.Update(_fakeGame));
+            _uow.Setup(uow => uow.OrderDetails.Update(_fakeOrderDetails.FirstOrDefault()));
 
             _sut.DeleteGameFromOrder(_fakeUserId, _fakeGameId);
 
@@ -278,6 +285,23 @@ namespace GameStore.Tests.Service
             var res = _sut.CountGamesInOrder(_fakeUserId);
 
             Assert.Equal(expect, res);
+        }
+
+        [Fact]
+        public void Pay_orderId_UpdateCalled()
+        {
+            var fakeShippers = new List<Shipper>()
+            {
+                new Shipper()
+            };
+            _uow.Setup(uow => uow.Orders.Get(It.IsAny<Func<Order, bool>>())).Returns(_fakeOrders);
+            _uow.Setup(uow => uow.Shippers.Get(It.IsAny<Func<Shipper, bool>>())).Returns(fakeShippers);
+            _uow.Setup(uow => uow.Games.Update(_fakeGame));
+            _uow.Setup(uow => uow.Orders.Update(_fakeOrder));
+
+            _sut.Pay(_fakeOrder.Id);
+
+            _uow.Verify(uow => uow.Orders.Update(It.IsAny<Order>()), Times.Once);
         }
     }
 }

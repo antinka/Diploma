@@ -95,7 +95,7 @@
     <Compile Include="Entities\PlatformType.cs" />
     <Compile Include="Entities\Publisher.cs" />
     <Compile Include="Enums\ActionInRepository.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Infrastructure\DALModule.cs" />
     <Compile Include="Interfaces\IBaseEntity.cs" />
     <Compile Include="Interfaces\IDbContext.cs" />
     <Compile Include="Interfaces\IGenericRepository.cs" />

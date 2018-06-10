@@ -9,13 +9,12 @@ using GameStore.Web.App_LocalResources;
 using GameStore.Web.Filters;
 using GameStore.Web.Payments;
 using GameStore.Web.Payments.Enums;
+using GameStore.Web.Payments.ViewModels;
 using GameStore.Web.ViewModels;
 using GameStore.Web.ViewModels.Games;
 
 namespace GameStore.Web.Controllers
 {
-    [TrackRequestIp]
-    [ExceptionFilter]
     public class OrderController : BaseController
     {
         private readonly IOrdersService _ordersService;
@@ -98,6 +97,27 @@ namespace GameStore.Web.Controllers
             };
 
             return _paymentStrategy.GetPaymentStrategy(paymentType, orderPay);
+        }
+
+        [HttpGet]
+        public ActionResult Box(Guid orderId)
+        {
+            _ordersService.Pay(orderId);
+
+            return RedirectToAction("FilteredGames", "Game");
+        }
+
+        [HttpGet]
+        public ActionResult Visa(VisaViewModel visaViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                _ordersService.Pay(visaViewModel.OrderId);
+
+                return RedirectToAction("FilteredGames", "Game");
+            }
+
+            return View("~/Views/Payments/Visa.cshtml", visaViewModel);
         }
 
         [HttpGet]

@@ -10,8 +10,6 @@ using GameStore.Web.ViewModels;
 
 namespace GameStore.Web.Controllers
 {
-    [TrackRequestIp]
-    [ExceptionFilter]
     public class PublisherController : BaseController
     {
         private readonly IPublisherService _publisherService;

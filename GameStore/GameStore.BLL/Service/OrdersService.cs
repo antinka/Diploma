@@ -26,7 +26,7 @@ namespace GameStore.BLL.Service
 
         public OrderDTO GetOrder(Guid userId)
         {
-            var order = _unitOfWork.Orders.Get(x => x.UserId == userId).FirstOrDefault();
+            var order = _unitOfWork.Orders.Get(x => x.UserId == userId && x.IsPaid == false).FirstOrDefault();
 
             if (order == null)
             {
@@ -113,9 +113,34 @@ namespace GameStore.BLL.Service
             }
         }
 
+        public void Pay(Guid orderId)
+        {
+            var order = _unitOfWork.Orders.Get(x => x.Id == orderId).FirstOrDefault();
+
+            if (order == null)
+            {
+                throw new EntityNotFound($"{nameof(OrdersService)} - Orders with such id {orderId} did not exist");
+            }
+
+            order.IsPaid = true;
+            order.Date = DateTime.UtcNow;
+            order.ShipVia = _unitOfWork.Shippers.Get(s => s.Id == order.ShipperId).FirstOrDefault().ShipperID;
+
+            foreach (var orderDetail in order.OrderDetails)
+            {
+                var game = orderDetail.Game;
+                game.UnitsInStock -= orderDetail.Quantity;
+
+                _unitOfWork.Games.Update(game);
+            }
+
+            _unitOfWork.Orders.Update(order);
+            _unitOfWork.Save();
+        }
+
         public int CountGamesInOrder(Guid userId)
         {
-            var order = _unitOfWork.Orders.Get(o => o.UserId == userId).FirstOrDefault();
+            var order = _unitOfWork.Orders.Get(o => o.UserId == userId && o.IsPaid == false).FirstOrDefault();
 
             if (order != null)
             {
@@ -147,9 +172,15 @@ namespace GameStore.BLL.Service
             }
 
             var ordersDTO = _mapper.Map<IEnumerable<Order>, IEnumerable<OrderDTO>>(orders);
+            var shippers = _unitOfWork.Shippers.GetAll();
 
             foreach (var orderDTO in ordersDTO)
             {
+                if (orderDTO.ShipVia != null)
+                {
+                    orderDTO.ShipViaName = shippers.Single(s => s.ShipperID == orderDTO.ShipVia).CompanyName;
+                }
+
                 foreach (var i in orderDTO.OrderDetails)
                 {
                     orderDTO.Cost += i.Price;

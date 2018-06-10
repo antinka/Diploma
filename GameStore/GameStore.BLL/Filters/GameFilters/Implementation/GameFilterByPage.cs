@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using GameStore.BLL.Enums;
 using GameStore.BLL.Filters.Interfaces;
@@ -19,27 +20,9 @@ namespace GameStore.BLL.Filters.GameFilters.Implementation
 
         public IEnumerable<Game> Execute(IEnumerable<Game> input)
         {
-            var size = 0;
-
-            switch (_pageSize)
+            if ((int)_pageSize != int.MaxValue)
             {
-                case PageSize.OneHundred:
-                    size = 100;
-                    break;
-                case PageSize.Fifty:
-                    size = 50;
-                    break;
-                case PageSize.Twenty:
-                    size = 20;
-                    break;
-                case PageSize.Ten:
-                    size = 10;
-                    break;
-            }
-
-            if (size != 0)
-            {
-                return input.Skip((_page - 1) * size).Take(size);
+                return input.Skip((_page - 1) * (int)_pageSize).Take((int)_pageSize);
             }
 
             return input;
