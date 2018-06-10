@@ -1,9 +1,10 @@
-﻿using AutoMapper;
+﻿using System.Web.Mvc;
+using AutoMapper;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Interfaces;
 using GameStore.Web.Authorization.Interfaces;
+using GameStore.Web.ViewModels;
 using GameStore.Web.ViewModels.Account;
-using System.Web.Mvc;
 
 namespace GameStore.Web.Controllers
 {
@@ -12,12 +13,12 @@ namespace GameStore.Web.Controllers
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
 
-        public AccountController(IUserService userService, IMapper mapper, IAuthentication authentication) : base(authentication)
+        public AccountController(IUserService userService, IMapper mapper, IAuthentication authentication) : base(
+            authentication)
         {
             _mapper = mapper;
             _userService = userService;
         }
-
 
         [HttpGet]
         public ViewResult Register()
@@ -37,7 +38,6 @@ namespace GameStore.Web.Controllers
 
             if (ModelState.IsValid)
             {
-
                 _userService.AddNew(userDto);
 
                 return RedirectToAction("Login");
@@ -49,14 +49,12 @@ namespace GameStore.Web.Controllers
         [HttpGet]
         public ViewResult Login()
         {
-
             return View();
         }
 
         [HttpPost]
         public ActionResult Login(LoginViewModel model)
         {
-
             if (ModelState.IsValid)
             {
                 var isLogin = Authentication.Login(model.Name, model.Password, model.IsPersistent);
@@ -72,6 +70,23 @@ namespace GameStore.Web.Controllers
             }
 
             return View(model);
+        }
+
+        [Authorize]
+        public ActionResult LogOut()
+        {
+            Authentication.LogOut();
+
+            return RedirectToAction("FilteredGames", "Game");
+        }
+
+        [Authorize]
+        public ActionResult PersonalArea()
+        {
+            var user = _userService.GetByName(CurrentUser.Name);
+            var userViewModel = _mapper.Map<UserViewModel>(user);
+
+            return View(userViewModel);
         }
     }
 }

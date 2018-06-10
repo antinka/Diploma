@@ -1,4 +1,5 @@
-﻿@using GameStore.Web.App_LocalResources
+﻿@using System.Threading
+@using GameStore.Web.App_LocalResources
 @model GameStore.Web.ViewModels.FilterViewModel
 @using (Html.BeginForm("FilteredGames", "Game", FormMethod.Get, new { id = "filteredGames" }))
 {
@@ -18,9 +19,12 @@
             <br />
             <br />
             <br />
+        @if (User != null && User.IsInRole("Manager"))
+        {
             <p>
                 @Html.ActionLink(GlobalRes.Create, "New", "Game")
             </p>
+        }
             <table class="table" id="notDisabled">
                 <tr>
                     <th>
@@ -80,10 +84,24 @@
                                 @Html.DisplayFor(modelItem => item.Publisher.Name)
                             </td>
                             <td>
-                                @foreach (var i in item.Genres)
+                                @if (item.Genres.Any())
                                 {
-                                    @i.Name
-                                    <br />
+                                    foreach (var i in item.Genres)
+                                    {
+                                        @i.Name
+                                        <br />
+                                    }
+                                }
+                                else
+                                {
+                                    if (Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToUpperInvariant() == "EN")
+                                    {
+                                        <span>Other</span>
+                                    }
+                                    else
+                                    {
+                                        <span>Другие</span>
+                                    }
                                 }
                             </td>
                             <td>
@@ -95,9 +113,13 @@
                             </td>
                             <td>
                                 @Html.ActionLink(GlobalRes.Details, "GetGame", new { gamekey = item.Key })
-                                @Html.ActionLink(GlobalRes.Update, "Update", new { gamekey = item.Key })
-                                @Ajax.ActionLink(GlobalRes.Remove, "Remove", new { gameId = item.Id }, new AjaxOptions { HttpMethod = "POST" , UpdateTargetId = @item.Key })
 
+                            @if (User != null && User.IsInRole("Manager"))
+                            {
+                                @Html.ActionLink(GlobalRes.Update, "Update", new {gamekey = item.Key})
+                                <br />
+                                @Ajax.ActionLink(GlobalRes.Remove, "Remove", new {gameId = item.Id}, new AjaxOptions {HttpMethod = "POST", UpdateTargetId = @item.Key})
+                            }
                             </td>
                         </tr>
                     }

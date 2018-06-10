@@ -90,7 +90,9 @@ namespace GameStore.BLL.Service
             var role = _unitOfWork.Roles.Get(x => x.Name == name).FirstOrDefault();
 
             if (role == null)
+            {
                 throw new EntityNotFound($"{nameof(RoleService)} - role with such name {name} did not exist");
+            }
 
             return _mapper.Map<RoleDTO>(role);
         }

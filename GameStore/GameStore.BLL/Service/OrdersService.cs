@@ -24,9 +24,27 @@ namespace GameStore.BLL.Service
             _log = log;
         }
 
+        public OrderDTO GetOrderByOrderId(Guid orderId)
+        {
+            var order = _unitOfWork.Orders.Get(x => x.Id == orderId).FirstOrDefault();
+
+            if (order == null)
+            {
+                _log.Info($"{nameof(OrdersService)} - Orders with such id order {orderId} did not exist");
+
+                return null;
+            }
+
+            var orderDTO = _mapper.Map<OrderDTO>(order);
+
+            orderDTO.Cost = orderDTO.OrderDetails.Sum(i => i.Price);
+
+            return orderDTO;
+        }
+
         public OrderDTO GetOrderByUserId(Guid userId)
         {
-            var order = _unitOfWork.Orders.Get(x => x.UserId == userId && x.IsPaid == false).FirstOrDefault();
+            var order = _unitOfWork.Orders.Get(x => x.UserId == userId).FirstOrDefault();
 
             if (order == null)
             {
@@ -237,6 +255,7 @@ namespace GameStore.BLL.Service
 
             return ordersDTO;
         }
+
         public IEnumerable<ShipperDTO> GetAllShippers()
         {
             var shippers = _unitOfWork.Shippers.GetAll();

@@ -6,6 +6,8 @@ namespace GameStore.BLL.Interfaces
 {
     public interface IOrdersService
     {
+        OrderDTO GetOrderByOrderId(Guid orderId);
+
         OrderDTO GetOrderByUserId(Guid userId);
 
         IEnumerable<OrderDTO> GetOrdersWithUnpaidBetweenDates(DateTime? from, DateTime? to);

@@ -1,5 +1,5 @@
-﻿using GameStore.Web.App_LocalResources;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using GameStore.Web.App_LocalResources;
 
 namespace GameStore.Web.ViewModels.Account
 {

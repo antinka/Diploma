@@ -7,6 +7,8 @@ namespace GameStore.BLL.Interfaces
 {
     public interface IGameService : IGameCrudService
     {
+        IEnumerable<GameDTO> GetDeleteGames();
+
         IEnumerable<GameDTO> GetGamesByGenre(Guid genreId);
 
         IEnumerable<GameDTO> GetGamesByPlatformType(Guid platformTypeId);
@@ -14,6 +16,8 @@ namespace GameStore.BLL.Interfaces
         int GetCountGame();
 
         bool IsUniqueKey(ExtendGameDTO gameExtendGameDto);
+
+        void Renew(string gameKey);
 
         IEnumerable<GameDTO> GetGamesByFilter(FilterDTO filter, int page, PageSize pageSize, out int totalItemsByFilter);
     }

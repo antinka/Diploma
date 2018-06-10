@@ -1,0 +1,83 @@
+﻿@using GameStore.Web.App_LocalResources
+@model GameStore.Web.ViewModels.UserViewModel
+
+@{
+    ViewBag.Title = "PersonalArea";
+}
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Password)
+        </dt>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsBaned)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsBaned)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartDateBaned)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartDateBaned)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndDateBaned)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndDateBaned)
+        </dd>
+        <dt>
+            @Html.DisplayName(GlobalRes.Roles)
+        </dt>
+        <dd>
+            <ul>
+                @foreach (var i in Model.Roles)
+                {
+                    <li>
+                        @i.Name
+                    </li>
+                }
+            </ul>
+        </dd>
+    </dl>
+</div>

@@ -29,8 +29,7 @@ namespace GameStore.Web.Authorization.Implementation
                 return false;
             }
 
-            var rolesArray = roles.Split(new[] { "," },
-                StringSplitOptions.RemoveEmptyEntries);
+            var rolesArray = roles.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
             foreach (var role in rolesArray)
             {
                 var hasRole = userRoles.Any(p => p.Name.Contains(role));
@@ -40,6 +39,7 @@ namespace GameStore.Web.Authorization.Implementation
                     return true;
                 }
             }
+
             return false;
         }
     }

@@ -1,11 +1,8 @@
 ﻿@model IEnumerable<GameStore.Web.ViewModels.Games.DetailsGameViewModel>
 @using GameStore.Web.App_LocalResources
 @{
-    ViewBag.Title = "GetAllGames";
+    ViewBag.Title = "GetAllDeleteGames";
 }
-<p>
-    @Html.ActionLink(GlobalRes.Create, "New", "Game")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -57,15 +54,7 @@
                 @Html.DisplayFor(modelItem => item.Publisher.Name)
             </td>
             <td>
-                @Html.ActionLink(GlobalRes.Details, "GetGame", new { gamekey = item.Key })
-                @Html.ActionLink(GlobalRes.Update, "Update", new { gamekey = item.Key })
-
-                @using (Html.BeginForm("Remove", "Game", FormMethod.Post))
-                {
-                    <input type="hidden" name="gameId" value="@item.Id" />
-                    <button type="submit" class="btn btn-link">GlobalRes.Remove</button>
-                }
-
+                @Html.ActionLink(GlobalRes.Renew, "Renew", new { gamekey = item.Key })
             </td>
         </tr>
     }

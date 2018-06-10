@@ -411,7 +411,7 @@
     <value>Пароль не может быть длиннее 40 символов и менее 3 символов.</value>
   </data>
   <data name="UserName" xml:space="preserve">
-    <value>Логин</value>
+    <value>Имя</value>
   </data>
   <data name="UserNameExpression3_40" xml:space="preserve">
     <value>Логин не может быть длиннее 40 символов и менее 3 символов.</value>
@@ -480,13 +480,25 @@
   <data name="Existent" xml:space="preserve">
     <value>Значение поля не может быть пустым</value>
   </data>
-  <data name="UserName" xml:space="preserve">
-    <value>Имя</value>
-  </data>
   <data name="addSucces" xml:space="preserve">
     <value>добавлена успешно</value>
   </data>
   <data name="Game" xml:space="preserve">
     <value>Игра</value>
+  </data>
+  <data name="LogOut" xml:space="preserve">
+    <value>Выйти</value>
+  </data>
+  <data name="PersonalArea" xml:space="preserve">
+    <value>Личный кабинет</value>
+  </data>
+  <data name="Renew" xml:space="preserve">
+    <value>Возобновить</value>
+  </data>
+  <data name="GetAllDeleteGames" xml:space="preserve">
+    <value>Удаленные игры</value>
+  </data>
+  <data name="HistoryOrders" xml:space="preserve">
+    <value>История заказов</value>
   </data>
 </root>

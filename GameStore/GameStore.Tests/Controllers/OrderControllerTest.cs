@@ -49,11 +49,11 @@ namespace GameStore.Tests.Controllers
         public void BasketInfo_ReturnedViewResult()
         {
             var fakeUserId = Guid.Empty;
-            _ordersService.Setup(service => service.GetOrder(fakeUserId));
+            _ordersService.Setup(service => service.GetOrderByOrderId(fakeUserId));
             ControllerContext();
             var fakeOrder = new OrderDTO() { Id = Guid.NewGuid(), UserId = fakeUserId };
 
-            _ordersService.Setup(service => service.GetOrderByUserId(fakeUserId)).Returns(fakeOrder);
+            _ordersService.Setup(service => service.GetOrderByOrderId(fakeUserId)).Returns(fakeOrder);
             _ordersService.Setup(service => service.GetAllShippers()).Returns(new List<ShipperDTO>());
 
             var res = _sut.BasketInfo();
@@ -117,7 +117,7 @@ namespace GameStore.Tests.Controllers
         public void Pay_PaymentTypesBank_ReturnViewAsPdf()
         {
             ControllerContext();
-            _ordersService.Setup(service => service.GetOrder(It.IsAny<Guid>())).Returns(new OrderDTO());
+            _ordersService.Setup(service => service.GetOrderByOrderId(It.IsAny<Guid>())).Returns(new OrderDTO());
 
             var res = _sut.Pay(PaymentTypes.Bank);
 
@@ -128,7 +128,7 @@ namespace GameStore.Tests.Controllers
         public void Pay_PaymentTypesBox_ReturnViewResult()
         {
             ControllerContext();
-            _ordersService.Setup(service => service.GetOrder(It.IsAny<Guid>())).Returns(new OrderDTO());
+            _ordersService.Setup(service => service.GetOrderByOrderId(It.IsAny<Guid>())).Returns(new OrderDTO());
 
             var res = _sut.Pay(PaymentTypes.Box);
 
@@ -139,7 +139,7 @@ namespace GameStore.Tests.Controllers
         public void Pay_PaymentTypesVisa_ReturnViewResult()
         {
             ControllerContext();
-            _ordersService.Setup(service => service.GetOrder(It.IsAny<Guid>())).Returns(new OrderDTO());
+            _ordersService.Setup(service => service.GetOrderByOrderId(It.IsAny<Guid>())).Returns(new OrderDTO());
 
             var res = _sut.Pay(PaymentTypes.Visa);
 
@@ -160,7 +160,7 @@ namespace GameStore.Tests.Controllers
         public void Order_ReturnViewResult()
         {
             ControllerContext();
-            _ordersService.Setup(service => service.GetOrder(It.IsAny<Guid>())).Returns(new OrderDTO());
+            _ordersService.Setup(service => service.GetOrderByOrderId(It.IsAny<Guid>())).Returns(new OrderDTO());
 
             var res = _sut.Order();
 

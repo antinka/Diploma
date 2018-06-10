@@ -67,7 +67,7 @@ namespace GameStore.DAL.Repositories
 
         public virtual IEnumerable<TEntity> Get(Func<TEntity, bool> predicate)
         {
-			return _dbSet.Where(predicate).ToList();
+            return _dbSet.Where(predicate).ToList();
         }
 
         public int Count()

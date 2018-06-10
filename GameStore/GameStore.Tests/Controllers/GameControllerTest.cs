@@ -37,7 +37,7 @@ namespace GameStore.Tests.Controllers
             _platformTypeService = new Mock<IPlatformTypeService>();
             _publisherService = new Mock<IPublisherService>();
             _filterViewModelBuilder = new FilterViewModelBuilder(_genreService.Object, _platformTypeService.Object, _mapper, _publisherService.Object);
-            _sut = new GameController(_gameService.Object, _genreService.Object, _platformTypeService.Object, _mapper, _publisherService.Object, _filterViewModelBuilder);
+            _sut = new GameController(_gameService.Object, _genreService.Object, _platformTypeService.Object, _mapper, _publisherService.Object, _filterViewModelBuilder, null);
 
             var fakeCommentId = Guid.NewGuid();
             _fakeGameId = Guid.NewGuid();
@@ -149,7 +149,7 @@ namespace GameStore.Tests.Controllers
         {
             _gameService.Setup(service => service.GetAll()).Returns(_fakeGames);
 
-            var res = _sut.GetAllGames();
+            var res = _sut.GetAllDeleteGames();
 
            Assert.IsType<ViewResult>(res);
         }

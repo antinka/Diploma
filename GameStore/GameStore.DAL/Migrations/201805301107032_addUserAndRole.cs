@@ -3,7 +3,7 @@ namespace GameStore.DAL.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class addUserAndRole : DbMigration
+    public partial class AddUserAndRole : DbMigration
     {
         public override void Up()
         {
@@ -46,7 +46,6 @@ namespace GameStore.DAL.Migrations
                 .ForeignKey("dbo.Roles", t => t.Role_Id, cascadeDelete: true)
                 .Index(t => t.User_Id)
                 .Index(t => t.Role_Id);
-            
         }
         
         public override void Down()

@@ -12,7 +12,11 @@ namespace GameStore.Web.Authorization.Implementation
             context.AuthenticateRequest += new EventHandler(this.Authenticate);
         }
 
-        private void Authenticate(Object source, EventArgs e)
+        public void Dispose()
+        {
+        }
+
+        private void Authenticate(object source, EventArgs e)
         {
             var app = (HttpApplication)source;
             var context = app.Context;
@@ -20,7 +24,5 @@ namespace GameStore.Web.Authorization.Implementation
             auth.HttpContext = context;
             context.User = auth.CurrentUser;
         }
-
-        public void Dispose() { }
     }
 }

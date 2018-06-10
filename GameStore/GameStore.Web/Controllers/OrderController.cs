@@ -34,7 +34,7 @@ namespace GameStore.Web.Controllers
         [HttpGet]
         public ActionResult BasketInfo()
         {
-            var userId = GetUserId();
+            var userId = CurrentUser.Id;
 
             var order = _ordersService.GetOrderByUserId(userId);
 
@@ -53,7 +53,7 @@ namespace GameStore.Web.Controllers
         [HttpGet]
         public ActionResult AddGameToOrder(string gameKey)
         {
-            var userId = GetUserId();
+            var userId = CurrentUser.Id;
 
             var gameDTO = _gameService.GetByKey(gameKey);
             var game = _mapper.Map<DetailsGameViewModel>(gameDTO);
@@ -77,7 +77,7 @@ namespace GameStore.Web.Controllers
         [HttpGet]
         public ActionResult DeleteGameFromOrder(Guid gameId)
         {
-            var userId = GetUserId();
+            var userId = CurrentUser.Id;
 
             _ordersService.DeleteGameFromOrder(userId, gameId);
 
@@ -87,8 +87,8 @@ namespace GameStore.Web.Controllers
         [HttpGet]
         public ActionResult Pay(PaymentTypes paymentType)
         {
-            var userId = GetUserId();
-            var order = _ordersService.GetOrderByUserId(userId);
+            var userId = CurrentUser.Id;
+            var order = _ordersService.GetOrderByOrderId(userId);
 
             var orderPay = new OrderPayment()
             {
@@ -124,8 +124,8 @@ namespace GameStore.Web.Controllers
         [HttpGet]
         public ActionResult Order()
         {
-            var userId = GetUserId();
-            var order = _ordersService.GetOrderByUserId(userId);
+            var userId = CurrentUser.Id;
+            var order = _ordersService.GetOrderByOrderId(userId);
             var orderDetailsViewModel = _mapper.Map<IEnumerable<OrderDetailViewModel>>(order.OrderDetails);
 
             return View(orderDetailsViewModel);
@@ -159,7 +159,7 @@ namespace GameStore.Web.Controllers
 
         public ActionResult CountGamesInOrder()
         {
-            var userId = GetUserId();
+            var userId = CurrentUser.Id;
 
             var gameCount = _ordersService.CountGamesInOrder(userId);
 
@@ -173,7 +173,6 @@ namespace GameStore.Web.Controllers
 
         public ActionResult Orders(FilterOrder filterOrder)
         {
-
             if (filterOrder.DateTimeFrom != null && filterOrder.DateTimeTo != null && filterOrder.DateTimeFrom > filterOrder.DateTimeTo)
             {
                 ModelState.AddModelError("", "Date Time From could not be bigger than Date Time To, please choose another one");
@@ -192,9 +191,9 @@ namespace GameStore.Web.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Manager")]
-        public ActionResult EditOrder(Guid userId)
+        public ActionResult EditOrder(Guid orderId)
         {
-            var orderDto = _ordersService.GetOrderByUserId(userId);
+            var orderDto = _ordersService.GetOrderByOrderId(orderId);
             var orderViewModel = _mapper.Map<OrderViewModel>(orderDto);
 
             return View(orderViewModel);
@@ -220,7 +219,6 @@ namespace GameStore.Web.Controllers
 
                 return RedirectToAction("Orders");
             }
-
 
             return View(orderView);
         }

@@ -15,7 +15,9 @@ namespace GameStore.Web.Infrastructure.Mapper
 
             CreateMap<UserDTO, UserViewModel>();
 
-            CreateMap<UserDTO, User>().ForMember(dest => dest.Roles ,opt => opt.MapFrom(src => src.Roles));
+            CreateMap<UserDTO, User>().ForMember(
+                dest => dest.Roles,
+                opt => opt.MapFrom(src => src.Roles));
 
             CreateMap<RoleDTO, RoleViewModel>();
 

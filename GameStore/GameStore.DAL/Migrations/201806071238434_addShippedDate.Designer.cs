@@ -7,9 +7,9 @@ namespace GameStore.DAL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class addShippedDate : IMigrationMetadata
+    public sealed partial class AddShippedDate : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(addShippedDate));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddShippedDate));
         
         string IMigrationMetadata.Id
         {

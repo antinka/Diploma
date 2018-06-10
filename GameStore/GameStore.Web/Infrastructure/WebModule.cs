@@ -1,10 +1,10 @@
-﻿using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Autofac;
-using GameStore.BLL.Interfaces;
-using GameStore.BLL.Service;
+using Autofac.Integration.Mvc;
 using GameStore.Web.Authorization.Implementation;
 using GameStore.Web.Authorization.Interfaces;
+using GameStore.Web.Builder.Implementation;
+using GameStore.Web.Filters;
 using GameStore.Web.Infrastructure.Mapper;
 using GameStore.Web.Payments;
 using log4net;

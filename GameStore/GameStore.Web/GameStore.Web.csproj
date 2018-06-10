@@ -239,7 +239,7 @@
     </None>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Game\GetAllGames.cshtml" />
+    <Content Include="Views\Game\GetAllDeleteGames.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Publisher\New.cshtml" />
     <Content Include="Views\Publisher\Get.cshtml" />
@@ -292,6 +292,7 @@
     <Content Include="Views\Order\Orders.cshtml" />
     <Content Include="Views\Order\EditOrder.cshtml" />
     <Content Include="Views\Payments\Bank.cshtml" />
+    <Content Include="Views\Account\PersonalArea.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

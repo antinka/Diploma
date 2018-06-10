@@ -137,7 +137,7 @@ namespace GameStore.Tests.Service
         [Fact]
         public void IsUniqueName_UniqueName_True()
         {
-            var role = new RoleDTO(){ Id = Guid.NewGuid(), Name = "name" };
+            var role = new RoleDTO() { Id = Guid.NewGuid(), Name = "name" };
             _uow.Setup(uow => uow.Roles.Get(It.IsAny<Func<Role, bool>>())).Returns(new List<Role>());
 
             var res = _sut.IsUniqueName(role);

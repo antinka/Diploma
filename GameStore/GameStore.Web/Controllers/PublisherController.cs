@@ -6,11 +6,11 @@ using GameStore.BLL.DTO;
 using GameStore.BLL.Interfaces;
 using GameStore.Web.App_LocalResources;
 using GameStore.Web.Authorization.Interfaces;
-using GameStore.Web.Filters;
 using GameStore.Web.ViewModels;
 
 namespace GameStore.Web.Controllers
 {
+    [Authorize(Roles = "Manager")]
     public class PublisherController : BaseController
     {
         private readonly IPublisherService _publisherService;

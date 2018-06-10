@@ -5,7 +5,6 @@ using GameStore.BLL.Interfaces;
 using GameStore.Web.App_LocalResources;
 using GameStore.Web.Builder.Implementation;
 using GameStore.Web.Authorization.Interfaces;
-using GameStore.Web.Filters;
 using GameStore.Web.ViewModels;
 using GameStore.Web.ViewModels.Games;
 using System;
@@ -31,7 +30,7 @@ namespace GameStore.Web.Controllers
             IPlatformTypeService platformTypeService,
             IMapper mapper,
             IPublisherService publisherService,
-            FilterViewModelBuilder filterViewModelBuilder)
+            FilterViewModelBuilder filterViewModelBuilder,
             IAuthentication authentication) : base(authentication)
         {
             _gameService = gameService;
@@ -42,12 +41,14 @@ namespace GameStore.Web.Controllers
             _filterViewModelBuilder = filterViewModelBuilder;
         }
 
+        [Authorize(Roles = "Manager")]
         [HttpGet]
         public ActionResult New()
         {
             return View(GetGameViewModelForCreate(new GameViewModel()));
         }
 
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult New(GameViewModel game)
@@ -66,20 +67,26 @@ namespace GameStore.Web.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Administrator, Manager")]
+        [Authorize(Roles = "Manager")]
         public ActionResult Update(string gamekey)
         {
             var gameDTO = _gameService.GetByKey(gamekey);
-            var gameForView = _mapper.Map<GameViewModel>(gameDTO);
 
-            gameForView = GetGameViewModelForUpdate(gameForView);
+            if (!gameDTO.IsDelete)
+            {
+                var gameForView = _mapper.Map<GameViewModel>(gameDTO);
 
-            return View(gameForView);
+                gameForView = GetGameViewModelForUpdate(gameForView);
+
+                return View(gameForView);
+            }
+
+            return RedirectToAction("FilteredGames");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrator, Manager")]
+        [Authorize(Roles = "Manager")]
         public ActionResult Update(GameViewModel game)
         {
             game = CheckValidationGameViewModel(game);
@@ -169,15 +176,25 @@ namespace GameStore.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetAllGames()
+        public ActionResult GetAllDeleteGames()
         {
-            var gamesDTO = _gameService.GetAll();
+            var gamesDTO = _gameService.GetDeleteGames();
             var gamesForView = _mapper.Map<IEnumerable<DetailsGameViewModel>>(gamesDTO);
 
             return View(gamesForView);
         }
 
+        [HttpGet]
+        [Authorize(Roles = "Manager")]
+        public ActionResult Renew(string gamekey)
+        {
+            _gameService.Renew(gamekey);
+
+            return RedirectToAction("FilteredGames");
+        }
+
         [HttpPost]
+        [Authorize(Roles = "Manager")]
         public ActionResult Remove(Guid gameId)
         {
             _gameService.Delete(gameId);

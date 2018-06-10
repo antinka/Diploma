@@ -1,14 +1,14 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
+using System.Web.UI.WebControls;
+using AutoMapper;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Interfaces;
 using GameStore.Web.App_LocalResources;
 using GameStore.Web.Authorization.Interfaces;
 using GameStore.Web.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using System.Web.UI.WebControls;
 
 namespace GameStore.Web.Controllers
 {
@@ -153,6 +153,7 @@ namespace GameStore.Web.Controllers
             {
                 gameViewModel.SelectedRoles = gameViewModel.ListRoles.Where(x => gameViewModel.Roles.Any(g => g.Name.Contains(x.Text)));
             }
+
             return gameViewModel;
         }
     }

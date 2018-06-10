@@ -28,7 +28,9 @@ namespace GameStore.DAL.EF
         public DbSet<Order> Orders { get; set; }
 
         public DbSet<Publisher> Publishers { get; set; }
+
         public DbSet<User> Users { get; set; }
+
         public DbSet<Role> Roles { get; set; }
 
         public new IDbSet<TEntity> Set<TEntity>() where TEntity : class

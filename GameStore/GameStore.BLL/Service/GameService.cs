@@ -91,12 +91,6 @@ namespace GameStore.BLL.Service
         {
             var games = _unitOfWork.Games.GetAll().ToList();
 
-            for (int i = 0; i < games.Count(); i++)
-            {
-                if (!games[i].Genres.Any())
-                    games[i] = AddDefaultGenre(games[i]);
-            }
-
             return _mapper.Map<IEnumerable<GameDTO>>(games);
         }
 
@@ -109,9 +103,6 @@ namespace GameStore.BLL.Service
                 throw new EntityNotFound($"{nameof(GameService)} - game with such gamekey {gamekey} did not exist");
             }
 
-            if (!game.Genres.Any())
-                game = AddDefaultGenre(game);
-
             return _mapper.Map<ExtendGameDTO>(game);
         }
 
@@ -120,10 +111,14 @@ namespace GameStore.BLL.Service
             var game = GetGameById(id);
             IncreaseGameView(game);
 
-            if (!game.Genres.Any())
-                game = AddDefaultGenre(game);
-
             return _mapper.Map<GameDTO>(game);
+        }
+
+        public IEnumerable<GameDTO> GetDeleteGames()
+        {
+            var deleteGames = _unitOfWork.Games.Get(g => g.IsDelete == true);
+
+            return _mapper.Map<IEnumerable<GameDTO>>(deleteGames);
         }
 
         public IEnumerable<GameDTO> GetGamesByGenre(Guid genreId)
@@ -167,6 +162,20 @@ namespace GameStore.BLL.Service
             return _unitOfWork.Games.Count();
         }
 
+        public void Renew(string gameKey)
+        {
+            var game = _unitOfWork.Games.Get(g => g.Key == gameKey).FirstOrDefault();
+
+            if (game == null)
+            {
+                throw new EntityNotFound($"{nameof(GameService)} - game with such gamekey {gameKey} did not exist");
+            }
+
+            game.IsDelete = false;
+            _unitOfWork.Games.Update(game);
+            _unitOfWork.Save();
+        }
+
         public IEnumerable<GameDTO> GetGamesByFilter(FilterDTO filter, int page, PageSize pageSize, out int totalItemsByFilter)
         {
             var games = _unitOfWork.Games.GetAll();
@@ -175,11 +184,6 @@ namespace GameStore.BLL.Service
             RegisterFilter(filterGamePipeline, filter, page, pageSize);
 
             var filterGames = filterGamePipeline.Process(games).ToList();
-            for (int i = 0; i < filterGames.Count(); i++)
-            {
-                if (!filterGames[i].Genres.Any())
-                    filterGames[i] = AddDefaultGenre(filterGames[i]);
-            }
 
             var totalItemsByFilteripeline = new GamePipeline();
             RegisterFilter(totalItemsByFilteripeline, filter, 1, PageSize.All);
@@ -265,19 +269,5 @@ namespace GameStore.BLL.Service
 
             return game;
         }
-
-        private Game AddDefaultGenre(Game game)
-        {
-            var genreDefault = new Genre()
-            {
-                NameRu = "Другие",
-                NameEn = "Other"
-            };
-
-            game.Genres.Add(genreDefault);
-
-            return game;
-        }
-
     }
 }

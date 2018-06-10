@@ -469,20 +469,20 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Значение поля не может быть пустым.
-        /// </summary>
-        public static string Existent {
-            get {
-                return ResourceManager.GetString("Existent", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Дата окончания бана.
         /// </summary>
         public static string EndDateBaned {
             get {
                 return ResourceManager.GetString("EndDateBaned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Значение поля не может быть пустым.
+        /// </summary>
+        public static string Existent {
+            get {
+                return ResourceManager.GetString("Existent", resourceCulture);
             }
         }
         
@@ -595,6 +595,24 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Удаленные игры.
+        /// </summary>
+        public static string GetAllDeleteGames {
+            get {
+                return ResourceManager.GetString("GetAllDeleteGames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to История заказов.
+        /// </summary>
+        public static string HistoryOrders {
+            get {
+                return ResourceManager.GetString("HistoryOrders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Сайт издателя.
         /// </summary>
         public static string HomePage {
@@ -663,6 +681,15 @@ namespace GameStore.Web.App_LocalResources {
         public static string Login {
             get {
                 return ResourceManager.GetString("Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выйти.
+        /// </summary>
+        public static string LogOut {
+            get {
+                return ResourceManager.GetString("LogOut", resourceCulture);
             }
         }
         
@@ -847,6 +874,15 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Личный кабинет.
+        /// </summary>
+        public static string PersonalArea {
+            get {
+                return ResourceManager.GetString("PersonalArea", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Номер.
         /// </summary>
         public static string Phone {
@@ -933,6 +969,15 @@ namespace GameStore.Web.App_LocalResources {
         public static string Remove {
             get {
                 return ResourceManager.GetString("Remove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Возобновить.
+        /// </summary>
+        public static string Renew {
+            get {
+                return ResourceManager.GetString("Renew", resourceCulture);
             }
         }
         
@@ -1126,7 +1171,7 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Логин.
+        ///   Looks up a localized string similar to Имя.
         /// </summary>
         public static string UserName {
             get {
@@ -1149,15 +1194,6 @@ namespace GameStore.Web.App_LocalResources {
         public static string Users {
             get {
                 return ResourceManager.GetString("Users", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Имя.
-        /// </summary>
-        public static string UserName {
-            get {
-                return ResourceManager.GetString("UserName", resourceCulture);
             }
         }
         

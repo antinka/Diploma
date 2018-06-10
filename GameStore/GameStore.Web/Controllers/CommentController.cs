@@ -76,7 +76,6 @@ namespace GameStore.Web.Controllers
             return PartialView(comment);
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Guest, User, Moderator, Publisher")]

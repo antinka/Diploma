@@ -1,23 +1,23 @@
-﻿using AutoMapper;
-using GameStore.BLL.Interfaces;
-using GameStore.Web.Authorization.Interfaces;
-using log4net;
-using System;
+﻿using System;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Security;
+using AutoMapper;
+using GameStore.BLL.Interfaces;
+using GameStore.Web.Authorization.Interfaces;
+using log4net;
 
 namespace GameStore.Web.Authorization.Implementation
 {
     public class CustomAuthentication : IAuthentication
     {
-        public HttpContext HttpContext { get; set; }
-
-        private const string cookieName = "__AUTH_COOKIE";
         private IPrincipal _currentUser;
+        private const string cookieName = "__AUTH_COOKIE";
         private readonly ILog _log;
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
+       
+        public HttpContext HttpContext { get; set; }
 
         public CustomAuthentication(ILog log, IUserService userService, IMapper mapper)
         {
@@ -54,6 +54,7 @@ namespace GameStore.Web.Authorization.Implementation
                         _currentUser = new UserProvider();
                     }
                 }
+
                 return _currentUser;
             }
         }
@@ -74,14 +75,14 @@ namespace GameStore.Web.Authorization.Implementation
 
         public void LogOut()
         {
-            var httpCookie = HttpContext.Response.Cookies[FormsAuthentication.FormsCookieName];
+            var httpCookie = HttpContext.Response.Cookies.Get(cookieName);
 
             if (httpCookie != null)
             {
                 httpCookie.Value = string.Empty;
             }
 
-            HttpContext.Request.Cookies.Remove(FormsAuthentication.FormsCookieName);
+            HttpContext.Request.Cookies.Remove(cookieName);
         }
 
         private void CreateCookie(string userName, bool isPersistent = false)

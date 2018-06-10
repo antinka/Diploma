@@ -22,6 +22,18 @@ namespace GameStore.Web
                 constraints: new { lang = @"ru|en" });
 
             routes.MapRoute(
+                name: "renewGame",
+                url: "{lang}/renew/game",
+                defaults: new { controller = "Game", action = "Renew", lang = "en" },
+                constraints: new { lang = @"ru|en" });
+
+            routes.MapRoute(
+                name: "deleteGames",
+                url: "{lang}/deleteGames",
+                defaults: new { controller = "Game", action = "GetAllDeleteGames", lang = "en" },
+                constraints: new { lang = @"ru|en" });
+
+            routes.MapRoute(
                 name: "createGame",
                 url: "{lang}/games/new",
                 defaults: new { controller = "Game", action = "New", lang = "en" },
@@ -174,7 +186,7 @@ namespace GameStore.Web
             routes.MapRoute(
                 name: "OrdersHistory",
                 url: "{lang}/Orders/history",
-                defaults: new { controller = "Order", action = "FilterOrders", id = UrlParameter.Optional, lang = "en" },
+                defaults: new { controller = "Order", action = "HistoryOrders", id = UrlParameter.Optional, lang = "en" },
                 constraints: new { lang = @"ru|en" });
 
             routes.MapRoute(

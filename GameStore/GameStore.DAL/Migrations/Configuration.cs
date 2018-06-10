@@ -76,7 +76,22 @@ namespace GameStore.DAL.Migrations
                         Name = "User"
                     },
                 }
-            }};
+            },
+                new User
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "blizzard",
+                    Password = "321321".GetHashCode().ToString(),
+                    Roles = new List<Role>
+                    {
+                        new Role()
+                        {
+                            Id = Guid.NewGuid(),
+                            Name = "Publisher",
+                        },
+                    }
+                }
+            };
 
             context.Users.AddOrUpdate(users.ToArray());
 

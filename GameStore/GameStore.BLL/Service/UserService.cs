@@ -40,11 +40,10 @@ namespace GameStore.BLL.Service
 
         public void Update(UserDTO userDto)
         {
-
             var user = GetUserById(userDto.Id);
+
             if (user != null)
             {
-              
                 user.Roles.Clear();
                 user.Roles = _unitOfWork.Roles.Get(role => userDto.SelectedRolesName.Contains(role.Name)).ToList();
 
@@ -111,7 +110,9 @@ namespace GameStore.BLL.Service
             var user = _unitOfWork.Users.Get(x => x.Name == userDto.Name).FirstOrDefault();
 
             if (user == null || user.Id == userDto.Id)
+            {
                 return true;
+            }
 
             return false;
         }

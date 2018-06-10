@@ -3,7 +3,7 @@ namespace GameStore.DAL.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class addShippedDate : DbMigration
+    public partial class AddShippedDate : DbMigration
     {
         public override void Up()
         {

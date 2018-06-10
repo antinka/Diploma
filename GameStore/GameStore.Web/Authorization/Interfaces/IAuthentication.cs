@@ -5,12 +5,12 @@ namespace GameStore.Web.Authorization.Interfaces
 {
     public interface IAuthentication
     {
+        IPrincipal CurrentUser { get; }
+
         HttpContext HttpContext { get; set; }
 
         bool Login(string login, string password, bool isPersistent);
 
         void LogOut();
-
-        IPrincipal CurrentUser { get; }
     }
 }

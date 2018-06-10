@@ -49,8 +49,10 @@ namespace GameStore.BLL.Infrastructure.Mapper
 
                     return current == "EN" ? src.DescriptionEn : src.DescriptionRu;
                 }))
-                .ForMember(dest => dest.Publisher,
-                    opt => opt.ResolveUsing(src => src.Publisher ?? new Publisher() {Name = "unknown"}));
+                .ForMember(
+                    dest => dest.Publisher,
+                    opt => opt.ResolveUsing(src =>
+                        src.Publisher ?? new Publisher() { Name = "unknown" }));
 
             CreateMap<Game, ExtendGameDTO>();
 

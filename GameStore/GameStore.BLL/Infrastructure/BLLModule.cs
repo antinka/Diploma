@@ -18,6 +18,8 @@ namespace GameStore.BLL.Infrastructure
 
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<UserService>().As<IUserService>().InstancePerLifetimeScope();
+            builder.RegisterType<RoleService>().As<IRoleService>().InstancePerLifetimeScope();
             builder.RegisterType<GameService>().As<IGameService>().InstancePerLifetimeScope();
             builder.RegisterType<CommentService>().As<ICommentService>().InstancePerLifetimeScope();
             builder.RegisterType<PublisherService>().As<IPublisherService>().InstancePerLifetimeScope();

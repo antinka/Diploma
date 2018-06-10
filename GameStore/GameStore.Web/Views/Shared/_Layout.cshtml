@@ -28,34 +28,52 @@
                 <ul class="nav navbar-nav">
                     <li style="color: aliceblue">@Html.Action("CountGames", "Game") </li>
 
-                    <li> @Html.ActionLink(GlobalRes.Basket, "BasketInfo", "Order")</li>
-                    <li style="color: aliceblue">@Html.Action("CountGamesInOrder", "Order") </li>
-                    <li> @Html.ActionLink(GlobalRes.Publishers, "GetAll", "Publisher")</li>
-                    <li> @Html.ActionLink(GlobalRes.PlatformTypes, "GetAll", "PlatformType")</li>
-                    <li> @Html.ActionLink(GlobalRes.Genres, "GetAll", "Genre")</li>
-                    <li> @Html.ActionLink(GlobalRes.Orders, "AllOrders", "Order")</li>
+                    @if (User != null && User.Identity.IsAuthenticated)
+                    {
+                        <li> @Html.ActionLink(GlobalRes.Basket, "BasketInfo", "Order")</li>
+                        <li style="color: aliceblue">@Html.Action("CountGamesInOrder", "Order") </li>
+                    }
+
+                    @if (User != null && User.IsInRole("Manager"))
+                    {
+                        <li> @Html.ActionLink(GlobalRes.Publishers, "GetAll", "Publisher")</li>
+                        <li> @Html.ActionLink(GlobalRes.PlatformTypes, "GetAll", "PlatformType")</li>
+                        <li> @Html.ActionLink(GlobalRes.Genres, "GetAll", "Genre")</li>
+                        <li>@Html.ActionLink(GlobalRes.GetAllDeleteGames, "GetAllDeleteGames", "Game")</li>
+                        <li> @Html.ActionLink(GlobalRes.Orders, "AllOrders", "Order")</li>
+
+                    }
+                        
                     <li> @Html.ActionLink(GlobalRes.Shipper, "GetAll", "Shipper")</li>
 
-                @if (User != null && User.IsInRole("Admin"))
-                {
-                    <li> @Html.ActionLink(GlobalRes.Users, "GetAll", "User")</li>
-                    <li> @Html.ActionLink(GlobalRes.Roles, "GetAll", "Role")</li>
-                }
+                    @if (User != null && User.IsInRole("Administrator"))
+                    {
+                        <li> @Html.ActionLink(GlobalRes.Users, "GetAll", "User")</li>
+                        <li> @Html.ActionLink(GlobalRes.Roles, "GetAll", "Role")</li>
+                    }
 
                 </ul>
                 
-               <ul class="nav navbar-nav navbar-right">
-                   <li>@Html.ActionLink("ru", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["lang"] = "ru"))</li>
-                   <li> @Html.ActionLink( "en",  ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["lang"] = "en"))</li>
-                   
-                   <li> @Html.ActionLink(GlobalRes.Login, "Login", "Account")</li>
-                   <li> @Html.ActionLink(GlobalRes.Register, "Register", "Account")</li>
-               </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>@Html.ActionLink("ru", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["lang"] = "ru")</li>
+                    <li> @Html.ActionLink("en", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["lang"] = "en")</li>
+
+                    @if (User != null && User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink(GlobalRes.PersonalArea, "PersonalArea", "Account")</li>
+                        <li>@Html.ActionLink(GlobalRes.LogOut, "LogOut", "Account")</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink(GlobalRes.Register, "Register", "Account")</li>
+                        <li> @Html.ActionLink(GlobalRes.Login, "Login", "Account")</li>
+                    }
+                </ul>
 
             </div>
         </div>
     </div>
-    <br/>
+    <br/><br /><br />
     <div class="container body-content">
         @RenderBody()
         <hr />
