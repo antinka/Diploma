@@ -1,7 +1,9 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using AutoMapper;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Interfaces;
+using GameStore.Web.App_LocalResources;
 using GameStore.Web.Authorization.Interfaces;
 using GameStore.Web.ViewModels;
 using GameStore.Web.ViewModels.Account;
@@ -64,7 +66,7 @@ namespace GameStore.Web.Controllers
                     return RedirectToAction("FilteredGames", "Game");
                 }
 
-                ModelState.AddModelError("", "");
+                ModelState.AddModelError(string.Empty, GlobalRes.ErrorLogin);
 
                 return View(model);
             }

@@ -177,7 +177,7 @@ namespace GameStore.Web.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Publisher")]
+        [Authorize(Roles = "Manager")]
         public ActionResult GetAllDeleteGames()
         {
             var gamesDTO = _gameService.GetDeleteGames();

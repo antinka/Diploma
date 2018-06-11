@@ -27,6 +27,7 @@ namespace GameStore.Web.ViewModels
         [Display(ResourceType = typeof(GlobalRes), Name = "LastName")]
         public string LastName { get; set; }
 
+        [Display(ResourceType = typeof(GlobalRes), Name = "IsBaned")]
         public bool IsBaned { get; set; }
 
         [Display(ResourceType = typeof(GlobalRes), Name = "StartDateBaned")]
@@ -35,6 +36,7 @@ namespace GameStore.Web.ViewModels
         [Display(ResourceType = typeof(GlobalRes), Name = "EndDateBaned")]
         public DateTime? EndDateBaned { get; set; }
 
+        [Display(ResourceType = typeof(GlobalRes), Name = "Roles")]
         public ICollection<RoleViewModel> Roles { get; set; }
     }
 }

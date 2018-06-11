@@ -7,7 +7,7 @@ namespace GameStore.DAL.EF
 {
     public class GameStoreDBContext : DbContext, IDbContext
     {
-        public GameStoreDBContext():base("DefaultConnection")
+        public GameStoreDBContext() : base("DefaultConnection")
         {
         }
 

@@ -11,11 +11,11 @@ namespace GameStore.Web.Authorization.Implementation
 {
     public class CustomAuthentication : IAuthentication
     {
-        private IPrincipal _currentUser;
-        private const string cookieName = "__AUTH_COOKIE";
+        private const string cookieName = "__AUTH_COOKIE"; 
         private readonly ILog _log;
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
+        private IPrincipal _currentUser;
        
         public CustomAuthentication(ILog log, IUserService userService, IMapper mapper)
         {

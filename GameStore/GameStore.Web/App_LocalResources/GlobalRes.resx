@@ -504,4 +504,10 @@
   <data name="ChooseShippedDate" xml:space="preserve">
     <value>заказ не может быть доставлен без оплаты его</value>
   </data>
+  <data name="ErrorLogin" xml:space="preserve">
+    <value>Wrong login or password</value>
+  </data>
+  <data name="IsBaned" xml:space="preserve">
+    <value>Забанен</value>
+  </data>
 </root>

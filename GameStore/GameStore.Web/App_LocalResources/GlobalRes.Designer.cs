@@ -487,6 +487,15 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wrong login or password.
+        /// </summary>
+        public static string ErrorLogin {
+            get {
+                return ResourceManager.GetString("ErrorLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Значение поля не может быть пустым.
         /// </summary>
         public static string Existent {
@@ -636,6 +645,15 @@ namespace GameStore.Web.App_LocalResources {
         public static string Hour {
             get {
                 return ResourceManager.GetString("Hour", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Забанен.
+        /// </summary>
+        public static string IsBaned {
+            get {
+                return ResourceManager.GetString("IsBaned", resourceCulture);
             }
         }
         

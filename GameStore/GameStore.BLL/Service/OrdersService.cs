@@ -228,7 +228,7 @@ namespace GameStore.BLL.Service
 
             if (from != null && to != null)
             {
-                orders = _unitOfWork.Orders.GetAll().Where(x => x.Date >= from && x.Date <= to || x.Date == null);
+                orders = _unitOfWork.Orders.GetAll().Where(x => (x.Date >= from && x.Date <= to) || x.Date == null);
             }
             else if (from != null)
             {

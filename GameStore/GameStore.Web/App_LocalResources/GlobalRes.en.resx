@@ -501,4 +501,10 @@
   <data name="ChooseShippedDate" xml:space="preserve">
     <value>order could not be delivered without paying</value>
   </data>
+  <data name="ErrorLogin" xml:space="preserve">
+    <value>Wrong login or password</value>
+  </data>
+  <data name="IsBaned" xml:space="preserve">
+    <value>Is Baned</value>
+  </data>
 </root>

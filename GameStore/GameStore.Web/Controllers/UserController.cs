@@ -48,6 +48,11 @@ namespace GameStore.Web.Controllers
                 ModelState.AddModelError("Roles", GlobalRes.ChooseRoles);
             }
 
+            if (userViewModel.StartDateBaned > userViewModel.EndDateBaned)
+            {
+                ModelState.AddModelError("StartDateBaned", GlobalRes.DataTimeFromTo);
+            }
+
             if (ModelState.IsValid)
             {
                 var userDTO = _mapper.Map<UserDTO>(userViewModel);
@@ -100,6 +105,11 @@ namespace GameStore.Web.Controllers
             if (userViewModel.SelectedRolesName == null)
             {
                 ModelState.AddModelError("Roles", GlobalRes.ChooseRoles);
+            }
+
+            if (userViewModel.StartDateBaned > userViewModel.EndDateBaned)
+            {
+                ModelState.AddModelError("StartDateBaned", GlobalRes.DataTimeFromTo);
             }
 
             if (ModelState.IsValid)
