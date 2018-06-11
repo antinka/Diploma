@@ -121,6 +121,14 @@ namespace GameStore.BLL.Service
             return _mapper.Map<IEnumerable<GameDTO>>(deleteGames);
         }
 
+        public IEnumerable<GameDTO> GetGamesByPublisher(string name)
+        {
+            var games = _unitOfWork.Games.Get(game =>
+                game.Publisher != null && name.Contains(game.Publisher.Name));
+
+            return _mapper.Map<IEnumerable<GameDTO>>(games);
+        }
+
         public IEnumerable<GameDTO> GetGamesByGenre(Guid genreId)
         {
             IEnumerable<Game> gamesListByGenre;

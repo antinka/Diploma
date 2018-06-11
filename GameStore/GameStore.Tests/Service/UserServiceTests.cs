@@ -1,4 +1,7 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
 using GameStore.BLL.CustomExeption;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Service;
@@ -7,9 +10,6 @@ using GameStore.DAL.Interfaces;
 using GameStore.Web.Infrastructure.Mapper;
 using log4net;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Xunit;
 
 namespace GameStore.Tests.Service
@@ -76,7 +76,7 @@ namespace GameStore.Tests.Service
         [Fact]
         public void AddNewUser_UserWithUniqueName_CreateCalled()
         {
-            var fakeUserDTO = new UserDTO() { Id = Guid.NewGuid(), Name = "test", Password = "123"};
+            var fakeUserDTO = new UserDTO() { Id = Guid.NewGuid(), Name = "test", Password = "123" };
             var fakeUser = _mapper.Map<User>(fakeUserDTO);
 
             _uow.Setup(uow => uow.Roles.Get(It.IsAny<Func<Role, bool>>())).Returns(new List<Role>());

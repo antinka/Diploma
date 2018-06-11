@@ -82,6 +82,12 @@ namespace GameStore.Web
                 constraints: new { lang = @"ru|en" });
 
             routes.MapRoute(
+                name: "GetGameByPublisher",
+                url: "{lang}/{name}/games",
+                defaults: new { controller = "Game", action = "GetGameByPublisher", name = UrlParameter.Optional, lang = "en" },
+                constraints: new { lang = @"ru|en" });
+
+            routes.MapRoute(
                 name: "buyGame",
                 url: "{lang}/game/{gamekey}/buy",
                 defaults: new { controller = "Order", action = "AddGameToOrder", gamekey = UrlParameter.Optional, lang = "en" },

@@ -10,7 +10,6 @@ using GameStore.Web.ViewModels;
 
 namespace GameStore.Web.Controllers
 {
-    [Authorize(Roles = "Manager")]
     public class PublisherController : BaseController
     {
         private readonly IPublisherService _publisherService;
@@ -23,6 +22,7 @@ namespace GameStore.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Manager")]
         public ActionResult New()
         {
             return View();
@@ -30,6 +30,7 @@ namespace GameStore.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Manager")]
         public ActionResult New(PublisherViewModel publisher)
         {
             if (ModelState.IsValid)
@@ -52,6 +53,7 @@ namespace GameStore.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Manager,Publisher")]
         public ActionResult Get(string companyName)
         {
             var publisherDTO = _publisherService.GetByName(companyName);
@@ -61,6 +63,7 @@ namespace GameStore.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Manager")]
         public ActionResult GetAll()
         {
             var publishersDTO = _publisherService.GetAll();
@@ -70,6 +73,7 @@ namespace GameStore.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Manager")]
         public ActionResult Remove(Guid publisherId)
         {
             _publisherService.Delete(publisherId);
@@ -78,6 +82,7 @@ namespace GameStore.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Manager,Publisher")]
         public ActionResult Update(string companyName)
         {
             var publisherDTO = _publisherService.GetByName(companyName);
@@ -88,6 +93,7 @@ namespace GameStore.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Manager,Publisher")]
         public ActionResult Update(PublisherViewModel publisherViewModel)
         {
             if (ModelState.IsValid)
@@ -102,6 +108,11 @@ namespace GameStore.Web.Controllers
                 if (ModelState.IsValid)
                 {
                     _publisherService.Update(publisherDTO);
+
+                    if (User.IsInRole("Publisher"))
+                    {
+                        return RedirectToAction("PersonalArea","Account");
+                    }
 
                     return RedirectToAction("GetAll");
                 }

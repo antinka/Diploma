@@ -10,6 +10,7 @@ using GameStore.Web.ViewModels.Games;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 
@@ -67,7 +68,7 @@ namespace GameStore.Web.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Manager,Publisher")]
         public ActionResult Update(string gamekey)
         {
             var gameDTO = _gameService.GetByKey(gamekey);
@@ -86,7 +87,7 @@ namespace GameStore.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Manager,Publisher")]
         public ActionResult Update(GameViewModel game)
         {
             game = CheckValidationGameViewModel(game);
@@ -176,6 +177,7 @@ namespace GameStore.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Publisher")]
         public ActionResult GetAllDeleteGames()
         {
             var gamesDTO = _gameService.GetDeleteGames();
@@ -218,6 +220,15 @@ namespace GameStore.Web.Controllers
             var gameCount = _gameService.GetCountGame();
 
             return PartialView("CountGames", gameCount);
+        }
+
+        [HttpGet]
+        public ActionResult GetGameByPublisher(string name)
+        {
+            var gameDTO = _gameService.GetGamesByPublisher(name);
+            var gameForView = _mapper.Map<IEnumerable<DetailsGameViewModel>>(gameDTO);
+
+            return View(gameForView);
         }
 
         private GameViewModel CheckValidationGameViewModel(GameViewModel game)

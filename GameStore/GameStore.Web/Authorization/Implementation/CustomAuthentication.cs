@@ -17,14 +17,14 @@ namespace GameStore.Web.Authorization.Implementation
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
        
-        public HttpContext HttpContext { get; set; }
-
         public CustomAuthentication(ILog log, IUserService userService, IMapper mapper)
         {
             _log = log;
             _mapper = mapper;
             _userService = userService;
         }
+
+        public HttpContext HttpContext { get; set; }
 
         public IPrincipal CurrentUser
         {

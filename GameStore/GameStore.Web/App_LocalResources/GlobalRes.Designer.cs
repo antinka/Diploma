@@ -253,6 +253,15 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to заказ не может быть доставлен без оплаты его.
+        /// </summary>
+        public static string ChooseShippedDate {
+            get {
+                return ResourceManager.GetString("ChooseShippedDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Комментарии.
         /// </summary>
         public static string Comment {

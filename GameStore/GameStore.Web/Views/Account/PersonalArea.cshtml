@@ -1,4 +1,5 @@
 ﻿@using GameStore.Web.App_LocalResources
+@using GameStore.Web.Controllers
 @model GameStore.Web.ViewModels.UserViewModel
 
 @{
@@ -72,12 +73,18 @@
         <dd>
             <ul>
                 @foreach (var i in Model.Roles)
-                {
-                    <li>
-                        @i.Name
-                    </li>
-                }
+            {
+                <li>
+                    @i.Name
+                </li>
+        }
             </ul>
         </dd>
+        @if (User != null && User.IsInRole("Publisher"))
+    {
+        @Html.ActionLink(GlobalRes.Update, "Update", "Publisher", new { companyName = Model.Name }, null)
+        @Html.ActionLink(GlobalRes.Games, "GetGameByPublisher", "Game", new { name = Model.Name }, null)
+}
+
     </dl>
 </div>

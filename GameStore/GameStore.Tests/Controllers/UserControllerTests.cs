@@ -37,7 +37,7 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void New_ValidUserViewModel_AddNewCalled()
         {
-            var fakeUserViewModel = new UserViewModel() { Name = "test", SelectedRolesName = new List<string>()};
+            var fakeUserViewModel = new UserViewModel() { Name = "test", SelectedRolesName = new List<string>() };
             var fakeUserDTO = _mapper.Map<UserDTO>(fakeUserViewModel);
 
             _userService.Setup(service => service.IsUniqueName(It.IsAny<UserDTO>())).Returns(true);

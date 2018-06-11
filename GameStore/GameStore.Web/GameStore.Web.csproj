@@ -293,6 +293,7 @@
     <Content Include="Views\Order\EditOrder.cshtml" />
     <Content Include="Views\Payments\Bank.cshtml" />
     <Content Include="Views\Account\PersonalArea.cshtml" />
+    <Content Include="Views\Game\GetGameByPublisher.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

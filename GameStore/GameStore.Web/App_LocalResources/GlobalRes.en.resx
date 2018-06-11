@@ -498,4 +498,7 @@
   <data name="HistoryOrders" xml:space="preserve">
     <value>History orders</value>
   </data>
+  <data name="ChooseShippedDate" xml:space="preserve">
+    <value>order could not be delivered without paying</value>
+  </data>
 </root>

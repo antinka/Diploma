@@ -9,6 +9,8 @@ namespace GameStore.BLL.Interfaces
     {
         IEnumerable<GameDTO> GetDeleteGames();
 
+        IEnumerable<GameDTO> GetGamesByPublisher(string name);
+
         IEnumerable<GameDTO> GetGamesByGenre(Guid genreId);
 
         IEnumerable<GameDTO> GetGamesByPlatformType(Guid platformTypeId);

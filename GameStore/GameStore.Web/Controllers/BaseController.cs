@@ -14,16 +14,15 @@ namespace GameStore.Web.Controllers
 
         public IAuthentication Authentication { get; }
 
-        public User CurrentUser
-        {
-            get { return ((UserIdentity)Authentication.CurrentUser.Identity).User; }
-        }
-
         public BaseController(IAuthentication authentication)
         {
             Authentication = authentication;
         }
 
+        public User CurrentUser
+        {
+            get { return ((UserIdentity)Authentication.CurrentUser.Identity).User; }
+        }
         protected override void Initialize(RequestContext requestContext)
         {
             if (requestContext.RouteData.Values["lang"] != null &&

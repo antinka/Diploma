@@ -175,7 +175,7 @@ namespace GameStore.Web.Controllers
         {
             if (filterOrder.DateTimeFrom != null && filterOrder.DateTimeTo != null && filterOrder.DateTimeFrom > filterOrder.DateTimeTo)
             {
-                ModelState.AddModelError("", "Date Time From could not be bigger than Date Time To, please choose another one");
+                ModelState.AddModelError(string.Empty, GlobalRes.DataTimeFromTo);
             }
 
             if (filterOrder.DateTimeFrom == null)
@@ -205,7 +205,7 @@ namespace GameStore.Web.Controllers
         {
             if (orderView.IsPaid == false && orderView.ShippedDate != null)
             {
-                ModelState.AddModelError("ShippedDate", "order could not be delivered without paying");
+                ModelState.AddModelError("ShippedDate", GlobalRes.ChooseShippedDate);
             }
 
             if (orderView.IsPaid && orderView.Date == null)
@@ -221,23 +221,6 @@ namespace GameStore.Web.Controllers
             }
 
             return View(orderView);
-        }
-
-        private Guid GetUserId()
-        {
-            Guid userId;
-
-            if (HttpContext.Request.Cookies["userId"] != null)
-            {
-                userId = Guid.Parse(HttpContext.Request.Cookies["userId"].Value);
-            }
-            else
-            {
-                userId = Guid.NewGuid();
-                HttpContext.Response.Cookies["userId"].Value = userId.ToString();
-            }
-
-            return userId;
         }
     }
 }
