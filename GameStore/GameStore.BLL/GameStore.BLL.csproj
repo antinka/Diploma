@@ -57,6 +57,9 @@
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
+    <Reference Include="MongoDB.Bson, Version=2.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Bson.2.7.0-beta0001\lib\net45\MongoDB.Bson.dll</HintPath>
+    </Reference>
     <Reference Include="StyleCop, Version=5.0.0.0, Culture=neutral, PublicKeyToken=f904653c63bc2738, processorArchitecture=MSIL">
       <HintPath>..\packages\StyleCop.5.0.0\lib\net40\StyleCop.dll</HintPath>
     </Reference>
@@ -91,10 +94,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\ExtendGameDTO.cs" />
+    <Compile Include="DTO\ExtendGenreDTO.cs" />
+    <Compile Include="DTO\ExtendPlatformTypeDTO.cs" />
+    <Compile Include="DTO\ExtendPublisherDTO.cs" />
     <Compile Include="DTO\FilterDTO.cs" />
     <Compile Include="DTO\OrderDetailDTO.cs" />
     <Compile Include="DTO\OrderDTO.cs" />
     <Compile Include="DTO\PublisherDTO.cs" />
+    <Compile Include="DTO\ShipperDTO.cs" />
     <Compile Include="Enums\BanPeriod.cs" />
     <Compile Include="Enums\PageSize.cs" />
     <Compile Include="Enums\FilterDate.cs" />
@@ -111,7 +119,6 @@
     <Compile Include="Filters\GameFilters\Implementation\GameSortFilter.cs" />
     <Compile Include="Filters\Interfaces\IPipeLine.cs" />
     <Compile Include="CustomExeption\EntityNotFound.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Infrastructure\BLLModule.cs" />
     <Compile Include="Infrastructure\Mapper\DTOToEntity.cs" />
     <Compile Include="Infrastructure\Mapper\EntityToDTO.cs" />
@@ -119,6 +126,7 @@
     <Compile Include="DTO\GameDTO.cs" />
     <Compile Include="DTO\GenreDTO.cs" />
     <Compile Include="DTO\PlatformTypeDTO.cs" />
+    <Compile Include="Infrastructure\Mapper\MongoEntityToSqlEntity.cs" />
     <Compile Include="Interfaces\ICommentService.cs" />
     <Compile Include="Interfaces\IGameCRUDService.cs" />
     <Compile Include="Interfaces\IGameService.cs" />
@@ -127,6 +135,16 @@
     <Compile Include="Interfaces\IPlatformTypeService.cs" />
     <Compile Include="Interfaces\IPublisherService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\EnumRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EnumRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\EnumRes.en.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EnumRes.en.resx</DependentUpon>
+    </Compile>
     <Compile Include="Service\CommentService.cs" />
     <Compile Include="Service\GameService.cs" />
     <Compile Include="Service\GenreService.cs" />
@@ -143,6 +161,16 @@
       <Project>{36F7A06D-95A3-4D75-8FE1-284806F45845}</Project>
       <Name>GameStore.DAL</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\EnumRes.en.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EnumRes.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\EnumRes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EnumRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

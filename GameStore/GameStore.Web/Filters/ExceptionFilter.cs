@@ -5,7 +5,12 @@ namespace GameStore.Web.Filters
 {
     public class ExceptionFilter : FilterAttribute, IExceptionFilter
     {
-        private static readonly ILog _log = DependencyResolver.Current.GetService<ILog>();
+        private readonly ILog _log;
+
+        public ExceptionFilter(ILog log)
+        {
+            _log = log;
+        }
 
         public void OnException(ExceptionContext filterContext)
         {

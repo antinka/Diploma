@@ -1,8 +1,9 @@
-﻿
+﻿@using GameStore.Web.App_LocalResources
+
 @{
     ViewBag.Title = "NotEnoughGame";
 }
 
-<h2>Not Enough Game in stock</h2>
+<h2>@GlobalRes.NotEnoughtGame</h2>
 <br />
 @Html.ActionLink("Back to games", "GetAllGames", "Game")

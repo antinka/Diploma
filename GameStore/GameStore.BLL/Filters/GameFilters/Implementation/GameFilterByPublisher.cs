@@ -25,4 +25,3 @@ namespace GameStore.BLL.Filters.GameFilters.Implementation
         }
     }
 }
-

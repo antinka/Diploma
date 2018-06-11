@@ -1,11 +1,12 @@
-﻿@model IEnumerable<GameStore.Web.ViewModels.PublisherViewModel>
+﻿@using GameStore.Web.App_LocalResources
+@model IEnumerable<GameStore.Web.ViewModels.DetailsPublisherViewModel>
 
 @{
     ViewBag.Title = "GetAll";
 }
 
 <p>
-    @Html.ActionLink("Create New", "New")
+    @Html.ActionLink(GlobalRes.Create, "New")
 </p>
 <table class="table">
     <tr>
@@ -21,27 +22,28 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HomePage)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Update", new { companyName = item.Name }) |
-            @Html.ActionLink("Details", "Get", new { companyName = item.Name }) |  
-            @using (Html.BeginForm("Remove", "Publisher", FormMethod.Post))
-            {
-                <input type="hidden" name="publisherId" value="@item.Id"/>
-                <button type="submit" class="btn btn-link">Remove</button>
-            }
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HomePage)
+            </td>
+            <td>
+                @Html.ActionLink(GlobalRes.Update, "Update", new { companyName = item.Name }) |
+                @Html.ActionLink(GlobalRes.Details, "Get", new { companyName = item.Name }) |
 
+                @using (Html.BeginForm("Remove", "Publisher", FormMethod.Post))
+                {
+                    <input type="hidden" name="publisherId" value="@item.Id" />
+                    <button type="submit" class="btn btn-link">@GlobalRes.Remove</button>
+                }
+            </td>
+        </tr>
+    }
 </table>

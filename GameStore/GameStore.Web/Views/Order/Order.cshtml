@@ -1,4 +1,5 @@
-﻿@using GameStore.Web.Payments.Enums
+﻿@using GameStore.Web.App_LocalResources
+@using GameStore.Web.Payments.Enums
 @model IEnumerable<GameStore.Web.ViewModels.OrderDetailViewModel>
 
 @{
@@ -9,9 +10,6 @@
 
     <table class="table">
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Game.Name)
             </th>
@@ -31,9 +29,6 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Game.Name)
                 </td>
@@ -58,11 +53,11 @@
                 Bank
             </th>
             <th>
-                Description Bank
+                @GlobalRes.DescriptionBank
             </th>
             <th>
                 <a href='@Url.Action("Pay","Order", new { paymentType = PaymentTypes.Bank })' %>
-                    Pay
+                    @GlobalRes.Pay
                 </a>
             </th>
         </tr>
@@ -77,11 +72,11 @@
                 IBox
             </th>
             <th>
-                Description IBox
+                @GlobalRes.DescriptionIBox
             </th>
             <th>
                 <a href='@Url.Action("Pay","Order", new { paymentType = PaymentTypes.Box })' %>
-                    Pay
+                    @GlobalRes.Pay
                 </a>
             </th>
         </tr>
@@ -96,11 +91,11 @@
                 Visa
             </th>
             <th>
-                Description Visa
+                @GlobalRes.DescriptionVisa
             </th>
             <th>
                 <a href='@Url.Action("Pay","Order", new { paymentType = PaymentTypes.Visa })' %>
-                    Pay
+                    @GlobalRes.Pay
                 </a>
             </th>
         </tr>

@@ -11,19 +11,27 @@ namespace GameStore.Web.Infrastructure.Mapper
         {
             CreateMap<CommentViewModel, CommentDTO>();
 
-            CreateMap<PublisherViewModel, PublisherDTO>();
+            CreateMap<PublisherViewModel, ExtendPublisherDTO>();
 
             CreateMap<OrderViewModel, OrderDTO>();
 
             CreateMap<OrderDetailViewModel, OrderDetailDTO>();
 
-            CreateMap<GameViewModel, GameDTO>();
+            CreateMap<DetailsGameViewModel, GameDTO>();
 
-            CreateMap<GenreViewModel, GenreDTO>();
+            CreateMap<FilterGameViewModel, GameDTO>();
 
-            CreateMap<PlatformTypeViewModel, PlatformTypeDTO>();
+            CreateMap<GameViewModel, ExtendGameDTO>();
+
+            CreateMap<GenreViewModel, ExtendGenreDTO>();
+
+            CreateMap<DetailsPlatformTypeViewModel, PlatformTypeDTO>();
+
+            CreateMap<PlatformTypeViewModel, ExtendPlatformTypeDTO>();
 
             CreateMap<FilterViewModel, FilterDTO>();
+
+            CreateMap<ShipperViewModel, ShipperDTO>();
         }
     }
 }

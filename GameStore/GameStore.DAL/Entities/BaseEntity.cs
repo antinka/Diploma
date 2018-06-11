@@ -1,6 +1,6 @@
 ﻿using System;
-using GameStore.DAL.Interfaces;
 using System.ComponentModel.DataAnnotations;
+using GameStore.DAL.Interfaces;
 
 namespace GameStore.DAL.Entities
 {

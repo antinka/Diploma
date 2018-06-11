@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Web.UI.WebControls;
 using GameStore.BLL.Enums;
+using GameStore.Web.App_LocalResources;
 using GameStore.Web.ViewModels.Games;
 
 namespace GameStore.Web.ViewModels
@@ -12,25 +13,23 @@ namespace GameStore.Web.ViewModels
 
         public PagingInfo PagingInfo { get; set; }
 
-        [Display(Name = "Filter by Date")]
+        [Display(Name = "FilterDate", ResourceType = typeof(GlobalRes))]
         public FilterDate FilterDate { get; set; }
 
-        [Display(Name = "Sort Type")]
+        [Display(Name = "SortType", ResourceType = typeof(GlobalRes))]
         public SortType SortType { get; set; }
 
-        [Display(Name = "Games per page")]
+        [Display(Name = "PageSize", ResourceType = typeof(GlobalRes))]
         public PageSize PageSize { get; set; }
 
-        [Display(Name = "Search Game Name")]
-        [RegularExpression(@"^[A-Za-z0-9_-]{3,200}", ErrorMessage = "Key cannot be longer than 200 characters and less than 3 characters and could contains only A-Za-z0-9")]
+        [Display(Name = "SearchGameName", ResourceType = typeof(GlobalRes))]
+        [MinLength(3)]
         public string SearchGameName { get; set; }
 
-        [Display(Name = "Min Price")]
-        [Range(0, 10000)]
+        [Display(Name = "MinPrice", ResourceType = typeof(GlobalRes))]
         public decimal? MinPrice { get; set; }
 
-        [Display(Name = "Max Price")]
-        [Range(0, 10000)]
+        [Display(Name = "MaxPrice", ResourceType = typeof(GlobalRes))]
         public decimal? MaxPrice { get; set; }
 
         public IEnumerable<CheckBox> ListGenres { get; set; }

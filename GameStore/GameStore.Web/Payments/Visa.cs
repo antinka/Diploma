@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using GameStore.Web.Payments.Enums;
+using GameStore.Web.Payments.ViewModels;
 using GameStore.Web.ViewModels;
 
 namespace GameStore.Web.Payments
@@ -13,7 +14,8 @@ namespace GameStore.Web.Payments
             return new ViewResult()
             {
                 ViewName = "~/Views/Payments/Visa.cshtml",
-                ViewData = new ViewDataDictionary(),
+
+                ViewData = new ViewDataDictionary(new VisaViewModel { OrderId = order.Id })
             };
         }
     }

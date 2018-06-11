@@ -1,7 +1,8 @@
-﻿using GameStore.Web.Payments.Enums;
-using GameStore.Web.ViewModels;
-using System.IO;
+﻿using System.IO;
 using System.Web.Mvc;
+using GameStore.Web.Payments.Enums;
+using GameStore.Web.ViewModels;
+using Rotativa;
 
 namespace GameStore.Web.Payments
 {
@@ -11,10 +12,10 @@ namespace GameStore.Web.Payments
 
         public ActionResult Pay(OrderPayment order)
         {
-            using (Stream stream = new MemoryStream())
+            return new ViewAsPdf(order)
             {
-                return new FileStreamResult(stream, "application/txt");
-            }
+                ViewName = "~/Views/Payments/Bank.cshtml",
+            };
         }
     }
 }

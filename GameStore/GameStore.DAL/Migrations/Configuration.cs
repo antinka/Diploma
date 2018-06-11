@@ -1,5 +1,5 @@
+﻿using System.Collections.Generic;
 using GameStore.DAL.Entities;
-using System.Collections.Generic;
 using GameStore.DAL.EF;
 
 namespace GameStore.DAL.Migrations
@@ -16,26 +16,26 @@ namespace GameStore.DAL.Migrations
 
         protected override void Seed(GameStoreDBContext context)
         {
-            context.Database.Delete();
-            context.Database.Create();
-
             var strategy = new Genre
             {
                 Id = Guid.NewGuid(),
-                Name = "Strategy"
+                NameEn = "Strategy",
+                NameRu = "Стратегия"
             };
 
             var rts = new Genre
             {
                 Id = Guid.NewGuid(),
-                Name = "RTS",
+                NameEn = "RTS",
+                NameRu = "Стратегия в реальном времени",
                 ParentGenreId = strategy.Id
             };
 
             var tbs = new Genre
             {
                 Id = Guid.NewGuid(),
-                Name = "TBS",
+                NameEn = "TBS",
+                NameRu = "Пошаговая стратегия",
                 ParentGenreId = strategy.Id
             };
 
@@ -46,31 +46,36 @@ namespace GameStore.DAL.Migrations
             var races = new Genre
             {
                 Id = Guid.NewGuid(),
-                Name = "Races",
+                NameEn = "Races",
+                NameRu = "Гонки"
             };
 
             var rally = new Genre
             {
                 Id = Guid.NewGuid(),
-                Name = "rally",
+                NameEn = "rally",
+                NameRu = "Ралли",
                 ParentGenreId = races.Id
             };
             var arcade = new Genre
             {
                 Id = Guid.NewGuid(),
-                Name = "arcade",
+                NameEn = "arcade",
+                NameRu = "Аркада",
                 ParentGenreId = races.Id
             };
             var formula = new Genre
             {
                 Id = Guid.NewGuid(),
-                Name = "formula",
+                NameEn = "formula",
+                NameRu = "Формула",
                 ParentGenreId = races.Id
             };
             var offRoad = new Genre
             {
                 Id = Guid.NewGuid(),
-                Name = "off-road",
+                NameEn = "off-road",
+                NameRu = "Внедорожние",
                 ParentGenreId = races.Id
             };
 
@@ -83,24 +88,28 @@ namespace GameStore.DAL.Migrations
             var action = new Genre
             {
                 Id = Guid.NewGuid(),
-                Name = "Action"
+                NameEn = "Action",
+                NameRu = "Экшн"
             };
             var fps = new Genre
             {
                 Id = Guid.NewGuid(),
-                Name = "FPS",
+                NameEn = "FPS",
+                NameRu = "Шутер от первого лица",
                 ParentGenreId = action.Id
             };
             var tps = new Genre
             {
                 Id = Guid.NewGuid(),
-                Name = "TPS",
+                NameEn = "TPS",
+                NameRu = "Шутер от третьего лица",
                 ParentGenreId = action.Id
             };
             var subMisc = new Genre
             {
                 Id = Guid.NewGuid(),
-                Name = "Misc",
+                NameEn = "Misc",
+                NameRu = "Разное",
                 ParentGenreId = action.Id
             };
 
@@ -109,26 +118,29 @@ namespace GameStore.DAL.Migrations
             context.Genres.AddOrUpdate(subMisc);
             context.Genres.AddOrUpdate(action);
 
-
             var rpg = new Genre
             {
                 Id = Guid.NewGuid(),
-                Name = "RPG"
+                NameEn = "RPG",
+                NameRu = "Ролевая игра"
             };
             var sports = new Genre
             {
                 Id = Guid.NewGuid(),
-                Name = "Sports"
+                NameEn = "Sports",
+                NameRu = "Спорт"
             };
             var adventure = new Genre
             {
                 Id = Guid.NewGuid(),
-                Name = "Adventure"
+                NameEn = "Adventure",
+                NameRu = "Приключение"
             };
             var puzzleSkill = new Genre
             {
                 Id = Guid.NewGuid(),
-                Name = "Puzzle&Skill"
+                NameEn = "PuzzleAndSkill",
+                NameRu = "Головоломки"
             };
 
             context.Genres.AddOrUpdate(rpg);
@@ -139,26 +151,27 @@ namespace GameStore.DAL.Migrations
             var windows = new PlatformType
             {
                 Id = Guid.NewGuid(),
-                Name = "windows"
+                NameEn = "windows",
             };
 
             var android = new PlatformType
             {
                 Id = Guid.NewGuid(),
-                Name = "android"
+                NameEn = "android",
             };
 
             var ios = new PlatformType
             {
                 Id = Guid.NewGuid(),
-                Name = "ios"
+                NameEn = "ios"
             };
 
             var wow = new Game
             {
                 Id = Guid.NewGuid(),
-                Name = "wow",
-                Description = "smth",
+                NameEn = "wow",
+                NameRu = "вов",
+                DescriptionEn = "smth",
                 Key = "wo223w",
                 PublishDate = DateTime.UtcNow.AddYears(-1),
                 Views = 140,
@@ -170,22 +183,40 @@ namespace GameStore.DAL.Migrations
             var hero = new Game
             {
                 Id = Guid.NewGuid(),
-                Name = "hero",
-                Description = "smth",
+                NameEn = "hero",
+                NameRu = "герой",
+                DescriptionEn = "smth",
                 Key = "hero232",
                 PublishDate = DateTime.UtcNow.AddYears(-1),
                 Views = 140,
                 Genres = new List<Genre>() { puzzleSkill, adventure, subMisc },
                 PlatformTypes = new List<PlatformType>() { windows, android, ios }
-
             };
 
             context.Games.AddOrUpdate(hero);
 
-            var mobile = new PlatformType { Id = Guid.NewGuid(), Name = "Mobile" };
-            var browser = new PlatformType { Id = Guid.NewGuid(), Name = "Browser" };
-            var desktop = new PlatformType { Id = Guid.NewGuid(), Name = "Desktop" };
-            var console = new PlatformType { Id = Guid.NewGuid(), Name = "Console" };
+            var mobile = new PlatformType
+            {
+                Id = Guid.NewGuid(),
+                NameEn = "Mobile",
+                NameRu = "Мобильные"
+            };
+            var browser = new PlatformType
+            {
+                Id = Guid.NewGuid(),
+                NameEn = "Browser",
+                NameRu = "Браузерные"
+            };
+            var desktop = new PlatformType
+            {
+                Id = Guid.NewGuid(),
+                NameEn = "Desktop"
+            };
+            var console = new PlatformType
+            {
+                Id = Guid.NewGuid(),
+                NameEn = "Console"
+            };
 
             context.PlatformTypes.AddOrUpdate(mobile);
             context.PlatformTypes.AddOrUpdate(browser);
@@ -195,15 +226,24 @@ namespace GameStore.DAL.Migrations
             var p1 = new Publisher()
             {
                 Id = Guid.NewGuid(),
-                Name = "test"
+                Name = "blizzard"
             };
+
+            var p2 = new Publisher()
+            {
+                Id = Guid.NewGuid(),
+                Name = "Electronic Arts"
+            };
+
             context.Publishers.AddOrUpdate(p1);
+            context.Publishers.AddOrUpdate(p2);
 
             var left4Dead = new Game
             {
                 Id = Guid.NewGuid(),
                 Key = "Key-Left4Dead232",
-                Name = "Left 4 Dead",
+                NameEn = "Left 4 Dead",
+                NameRu = "Оставленные для мертвых",
                 Price = 6,
                 UnitsInStock = 0,
                 PublishDate = DateTime.UtcNow.AddYears(-2),
@@ -223,7 +263,8 @@ namespace GameStore.DAL.Migrations
             {
                 Id = Guid.NewGuid(),
                 Key = "Key-CoD232",
-                Name = "Call of Duty",
+                NameEn = "Call of Duty",
+                NameRu = "Чувство долга",
                 Price = 12,
                 UnitsInStock = 13,
                 Publisher = p1,
@@ -245,7 +286,8 @@ namespace GameStore.DAL.Migrations
             {
                 Id = Guid.NewGuid(),
                 Key = "Key-FIFA232",
-                Name = "FIFA",
+                NameEn = "FIFA",
+                NameRu = "ФИФА",
                 Price = 20,
                 UnitsInStock = 5,
                 PublishDate = DateTime.UtcNow.AddYears(-1),
@@ -267,7 +309,8 @@ namespace GameStore.DAL.Migrations
             {
                 Id = Guid.NewGuid(),
                 Key = "Key-NFS232",
-                Name = "Need for Speed",
+                NameEn = "Need for Speed 2",
+                NameRu = "Жажда Скорости 2",
                 Price = 15,
                 UnitsInStock = 17,
                 PublishDate = DateTime.UtcNow.AddYears(-3),
@@ -285,7 +328,8 @@ namespace GameStore.DAL.Migrations
             {
                 Id = Guid.NewGuid(),
                 Key = "Key-WorldOfWarcraft",
-                Name = "World of Warcraft",
+                NameEn = "World of Warcraft",
+                NameRu = "Мир Warcraft",
                 Price = 7,
                 UnitsInStock = 56,
                 PublishDate = DateTime.UtcNow.AddYears(-1),
@@ -306,7 +350,8 @@ namespace GameStore.DAL.Migrations
             {
                 Id = Guid.NewGuid(),
                 Key = "2Key-Left4Dead232",
-                Name = "Left 4 Dead",
+                NameEn = "Left 4 Dead 2",
+                NameRu = "Оставленные для мертвых 2",
                 Price = 6,
                 UnitsInStock = 0,
                 PublishDate = DateTime.UtcNow.AddMonths(-1),
@@ -318,7 +363,6 @@ namespace GameStore.DAL.Migrations
                 PlatformTypes = new List<PlatformType>
                 {
                     desktop
-
                 },
             };
 
@@ -326,7 +370,8 @@ namespace GameStore.DAL.Migrations
             {
                 Id = Guid.NewGuid(),
                 Key = "2Key-CoD232",
-                Name = "Call of Duty",
+                NameEn = "Call of Duty 2",
+                NameRu = "Чувство долга 2",
                 Price = 12,
                 UnitsInStock = 13,
                 PublishDate = DateTime.UtcNow.AddMonths(-1),
@@ -341,7 +386,8 @@ namespace GameStore.DAL.Migrations
             {
                 Id = Guid.NewGuid(),
                 Key = "2Key-FIFA232",
-                Name = "FIFA",
+                NameEn = "FIFA 2",
+                NameRu = "ФИФА 2",
                 Price = 20,
                 UnitsInStock = 5,
                 PublishDate = DateTime.UtcNow.AddMonths(-1),
@@ -363,7 +409,8 @@ namespace GameStore.DAL.Migrations
             {
                 Id = Guid.NewGuid(),
                 Key = "2Key-NFS232",
-                Name = "Need for Speed",
+                NameEn = "Need for Speed",
+                NameRu = "Жажда Скорости",
                 Price = 15,
                 UnitsInStock = 17,
                 PublishDate = DateTime.UtcNow.AddMonths(-2),
@@ -388,7 +435,8 @@ namespace GameStore.DAL.Migrations
             {
                 Id = Guid.NewGuid(),
                 Key = "2Key-WorldOfWarcraft",
-                Name = "World of Warcraft",
+                NameEn = "World of Warcraft 2",
+                NameRu = "Мир Warcraft 2",
                 Price = 7,
                 UnitsInStock = 56,
                 PublishDate = DateTime.UtcNow.AddMonths(-1),
@@ -418,7 +466,6 @@ namespace GameStore.DAL.Migrations
 
             context.SaveChanges();
             base.Seed(context);
-
         }
     }
 }

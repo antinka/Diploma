@@ -5,7 +5,7 @@ using GameStore.BLL.Enums;
 
 namespace GameStore.BLL.Interfaces
 {
-    public interface IGameService: IGameCrudService
+    public interface IGameService : IGameCrudService
     {
         IEnumerable<GameDTO> GetGamesByGenre(Guid genreId);
 
@@ -13,7 +13,7 @@ namespace GameStore.BLL.Interfaces
 
         int GetCountGame();
 
-        bool IsUniqueKey(GameDTO gameDTO);
+        bool IsUniqueKey(ExtendGameDTO gameExtendGameDto);
 
         IEnumerable<GameDTO> GetGamesByFilter(FilterDTO filter, int page, PageSize pageSize, out int totalItemsByFilter);
     }

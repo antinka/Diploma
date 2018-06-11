@@ -1,4 +1,5 @@
-﻿@using GameStore.BLL.Enums
+﻿@using GameStore.Web.App_LocalResources
+@using GameStore.BLL.Enums
 @using MvcCheckBoxList.Model
 
 @model GameStore.Web.ViewModels.FilterViewModel
@@ -23,12 +24,12 @@
     <div class="form-group">
         @Html.LabelFor(model => model.FilterDate, htmlAttributes: new { @class = "control-label col-md-6" })<br />
         <div class="col-md-10">
-            <label> @Html.RadioButtonFor(m => m.FilterDate, FilterDate.week, new {required = "required"})week </label><br/>
-            <label> @Html.RadioButtonFor(m => m.FilterDate, FilterDate.month, new {required = "required"})month </label><br/>
-            <label> @Html.RadioButtonFor(m => m.FilterDate, FilterDate.oneYear, new {required = "required"})one year </label><br/>
-            <label> @Html.RadioButtonFor(m => m.FilterDate, FilterDate.twoYear, new {required = "required"})two year </label><br/>
-            <label> @Html.RadioButtonFor(m => m.FilterDate, FilterDate.threeYear, new {required = "required"})three year </label><br/>
-            <label> @Html.RadioButtonFor(m => m.FilterDate, FilterDate.all, new {required = "required"})All </label><br/>
+            <label> @Html.RadioButtonFor(m => m.FilterDate, FilterDate.week, new {required = "required"})@GlobalRes.week </label><br/>
+            <label> @Html.RadioButtonFor(m => m.FilterDate, FilterDate.month, new {required = "required"})@GlobalRes.month </label><br/>
+            <label> @Html.RadioButtonFor(m => m.FilterDate, FilterDate.oneYear, new {required = "required"})@GlobalRes.oneYear </label><br/>
+            <label> @Html.RadioButtonFor(m => m.FilterDate, FilterDate.twoYear, new {required = "required"})@GlobalRes.twoYear </label><br/>
+            <label> @Html.RadioButtonFor(m => m.FilterDate, FilterDate.threeYear, new {required = "required"})@GlobalRes.threeYear</label><br/>
+            <label> @Html.RadioButtonFor(m => m.FilterDate, FilterDate.all, new {required = "required"})@GlobalRes.All </label><br/>
         </div>
     </div>
     <div class="form-group">
@@ -56,21 +57,21 @@
     </div>
 
     <div class="form-group">
-        @Html.Label("Platform types", htmlAttributes: new { @class = "control-label col-md-6" })
+        @Html.Label(GlobalRes.PlatformTypes, htmlAttributes: new { @class = "control-label col-md-6" })
         <div class="col-md-10" style="border-width: 1px; border-style: dashed;">
             @Html.CheckBoxListFor(model => model.SelectedPlatformTypesName, model => model.ListPlatformTypes, model => model.Text, model => model.Text, model => model.SelectedPlatformTypes, Position.Vertical)
         </div>
     </div>
 
     <div class="form-group">
-        @Html.Label("Genres", htmlAttributes: new { @class = "control-label col-md-6" })
+        @Html.Label(GlobalRes.Genres, htmlAttributes: new { @class = "control-label col-md-6" })
         <div class="col-md-10" style="border-width: 1px; border-style: dashed;">
             @Html.CheckBoxListFor(model => model.SelectedGenresName, model => model.ListGenres, model => model.Text, model => model.Text, model => model.SelectedGenres, Position.Vertical)
         </div>
     </div>
 
     <div class="form-group">
-        @Html.Label("Publishers", htmlAttributes: new { @class = "control-label col-md-6" })
+        @Html.Label(GlobalRes.Publishers, htmlAttributes: new { @class = "control-label col-md-6" })
         <div class="col-md-10" style="border-width: 1px; border-style: dashed;">
             @Html.CheckBoxListFor(model => model.SelectedPublishersName, model => model.ListPublishers, model => model.Text, model => model.Text, model => model.SelectedPublishers, Position.Vertical)
         </div>
@@ -79,7 +80,7 @@
 </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Filter" id ="filter"class="btn btn-default" />
+            <input type="submit" value=@GlobalRes.Filter  id ="filter" class="btn btn-default" />
         </div>
     </div>
 

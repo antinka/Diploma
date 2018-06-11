@@ -1,4 +1,7 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Service;
 using GameStore.DAL.Entities;
@@ -6,9 +9,6 @@ using GameStore.DAL.Interfaces;
 using GameStore.Web.Infrastructure.Mapper;
 using log4net;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using GameStore.BLL.CustomExeption;
 using Xunit;
 
@@ -76,13 +76,13 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void AddNewPublisher_PublisherWithUniqueName_Verifiable()
+        public void AddNewPublisher_PublisherWithUniqueName_CreateCalled()
         {
-            var fakePublisherDTO = new PublisherDTO() { Id = Guid.NewGuid(), Name = "publisherUniqueName" };
+            var fakePublisherDTO = new ExtendPublisherDTO() { Id = Guid.NewGuid(), Name = "publisherUniqueName" };
             var fakePublisher = _mapper.Map<Publisher>(fakePublisherDTO);
 
             _uow.Setup(uow => uow.Publishers.Get(It.IsAny<Func<Publisher, bool>>())).Returns(new List<Publisher>());
-            _uow.Setup(uow => uow.Publishers.Create(fakePublisher)).Verifiable();
+            _uow.Setup(uow => uow.Publishers.Create(fakePublisher));
 
             _sut.AddNew(fakePublisherDTO);
 
@@ -90,14 +90,14 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void UpdatePublisher_Publisher_Verifiable()
+        public void UpdatePublisher_Publisher_UpdateCalled()
         {
-            var fakePublisherDTO = new PublisherDTO() { Id = _fakePublisherId, Name = "test" };
+            var fakePublisherDTO = new ExtendPublisherDTO() { Id = _fakePublisherId, Name = "test" };
             var fakePublisher = _mapper.Map<Publisher>(fakePublisherDTO);
 
             _uow.Setup(uow => uow.Publishers.GetById(_fakePublisherId)).Returns(fakePublisher);
 
-            _uow.Setup(uow => uow.Publishers.Update(fakePublisher)).Verifiable();
+            _uow.Setup(uow => uow.Publishers.Update(fakePublisher));
 
             _sut.Update(fakePublisherDTO);
 
@@ -109,7 +109,7 @@ namespace GameStore.Tests.Service
         {
             _uow.Setup(uow => uow.Publishers.GetById(_fakePublisherId)).Returns(null as Publisher);
 
-            Assert.Throws<EntityNotFound>(() => _sut.Update(new PublisherDTO()));
+            Assert.Throws<EntityNotFound>(() => _sut.Update(new ExtendPublisherDTO()));
         }
 
         [Fact]
@@ -124,10 +124,10 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void DeletePublisher_ExistedPublisherName__Verifiable()
+        public void DeletePublisher_ExistedPublisherName_DeleteCalled()
         {
             _uow.Setup(uow => uow.Publishers.GetById(_fakePublisherId)).Returns(_fakePublisher);
-            _uow.Setup(uow => uow.Publishers.Delete(_fakePublisherId)).Verifiable();
+            _uow.Setup(uow => uow.Publishers.Delete(_fakePublisherId));
 
             _sut.Delete(_fakePublisherId);
 
@@ -137,7 +137,7 @@ namespace GameStore.Tests.Service
         [Fact]
         public void IsUniqueName_UniqueName_True()
         {
-            var publisher = new PublisherDTO() { Id = Guid.NewGuid(), Name = _fakePublisherName };
+            var publisher = new ExtendPublisherDTO() { Id = Guid.NewGuid(), Name = _fakePublisherName };
             _uow.Setup(uow => uow.Publishers.Get(It.IsAny<Func<Publisher, bool>>())).Returns(new List<Publisher>());
 
             var res = _sut.IsUniqueName(publisher);
@@ -148,7 +148,7 @@ namespace GameStore.Tests.Service
         [Fact]
         public void IsUniqueName_NotUniqueName_False()
         {
-            var publisher = new PublisherDTO() { Id = Guid.NewGuid(), Name = _fakePublisherName };
+            var publisher = new ExtendPublisherDTO() { Id = Guid.NewGuid(), Name = _fakePublisherName };
             _uow.Setup(uow => uow.Publishers.Get(It.IsAny<Func<Publisher, bool>>())).Returns(_fakePublishers);
 
             var res = _sut.IsUniqueName(publisher);

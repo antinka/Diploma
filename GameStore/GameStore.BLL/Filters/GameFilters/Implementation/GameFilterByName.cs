@@ -16,7 +16,7 @@ namespace GameStore.BLL.Filters.GameFilters.Implementation
 
         public IEnumerable<Game> Execute(IEnumerable<Game> input)
         {
-            return input.Where(game => game.Name.ToLower().Contains(_gameName.ToLower()));
+            return input.Where(game => game.NameEn.ToLower().Contains(_gameName.ToLower()) || game.NameRu.ToLower().Contains(_gameName.ToLower()));
         }
     }
 }

@@ -1,18 +1,19 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using GameStore.BLL.Resources;
 
 namespace GameStore.BLL.Enums
 {
     public enum SortType
     {
-        [Display(Name = "Most Popular")]
+        [Display(Name = "MostPopular", ResourceType = typeof(EnumRes))]
         MostPopular,
-        [Display(Name = "Most Commented")]
+        [Display(Name = "MostCommented", ResourceType = typeof(EnumRes))]
         MostCommented,
-        [Display(Name = "Price Asc")]
+        [Display(Name = "PriceAsc", ResourceType = typeof(EnumRes))]
         PriceAsc,
-        [Display(Name = "Price Desc")]
+        [Display(Name = "PriceDesc", ResourceType = typeof(EnumRes))]
         PriceDesc,
-        [Display(Name = "New By Date")]
+        [Display(Name = "NewByDate", ResourceType = typeof(EnumRes))]
         NewByDate
     }
 }

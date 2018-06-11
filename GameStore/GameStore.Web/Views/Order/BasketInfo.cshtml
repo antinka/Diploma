@@ -1,4 +1,5 @@
-﻿@model GameStore.Web.ViewModels.OrderViewModel
+﻿@using GameStore.Web.App_LocalResources
+@model GameStore.Web.ViewModels.OrderViewModel
 
 @{
     ViewBag.Title = "BasketInfo";
@@ -9,11 +10,21 @@
     <dl class="dl-horizontal">
         @Html.HiddenFor(model => model.UserId)
     </dl>
+
+    @using (Html.BeginForm("UpdateShipper", "Order", FormMethod.Get, null))
+    {
+        @Html.HiddenFor(model => model.Id)
+        <div class="form-group">
+            @Html.LabelFor(model => model.ShipperId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ShipperId, Model.ShipperList as SelectList, "", new { @class = "form-control", onchange = "this.form.submit();" })
+            </div>
+        </div>
+
+    }
+
     <table class="table">
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.OrderDetails.First().Id)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.OrderDetails.First().Game.Name)
             </th>
@@ -34,9 +45,6 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.Game.Name)
                 </td>
                 <td>
@@ -49,11 +57,15 @@
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
-                    @Html.ActionLink("delete", "DeleteGameFromOrder", new { gameId = item.GameId })
+                    @Html.ActionLink(GlobalRes.Remove, "DeleteGameFromOrder", new { gameId = item.GameId })
                 </td>
             </tr>
         }
 
     </table>
-    @Html.ActionLink("Make Order", "Order", "Order", null, new { @class = "btn btn-primary btn-large" })
+    @if (Model.ShipperId != null)
+    {
+        @Html.ActionLink(GlobalRes.MakeOrder, "Order", "Order", null, new { @class = "btn btn-primary btn-large" })
+    }
+
 </div>

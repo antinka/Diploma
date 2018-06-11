@@ -5,22 +5,31 @@ namespace GameStore.Web.Filters
 {
     public class TrackRequestIp : FilterAttribute, IActionFilter
     {
-        private static readonly ILog _log = DependencyResolver.Current.GetService<ILog>();
+        private readonly ILog _log;
+
+        public TrackRequestIp(ILog log)
+        {
+            _log = log;
+        }
 
         public void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var userIp = filterContext.HttpContext.Request.UserHostAddress;
             if (filterContext.HttpContext.Request.Url != null)
+            {
                 _log.Info("Path: " + filterContext.HttpContext.Request.Url.PathAndQuery + " IP: " + userIp + " " +
-                          "Attempted");
+                         "Attempted");
+            }
         }
 
         public void OnActionExecuted(ActionExecutedContext filterContext)
         {
             var userIp = filterContext.HttpContext.Request.UserHostAddress;
             if (filterContext.HttpContext.Request.Url != null)
+            {
                 _log.Info("Path: " + filterContext.HttpContext.Request.Url.PathAndQuery + " IP: " + userIp + " " +
-                          "Completed");
+                         "Completed");
+            }
         }
     }
 }

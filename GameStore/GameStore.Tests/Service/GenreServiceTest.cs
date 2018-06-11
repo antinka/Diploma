@@ -1,4 +1,7 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Service;
 using GameStore.DAL.Entities;
@@ -6,9 +9,6 @@ using GameStore.DAL.Interfaces;
 using GameStore.Web.Infrastructure.Mapper;
 using log4net;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using GameStore.BLL.CustomExeption;
 using Xunit;
 
@@ -38,7 +38,7 @@ namespace GameStore.Tests.Service
             _fakeGenre = new Genre
             {
                 Id = _fakeGenreId,
-                Name = _fakeGenreName
+                NameEn = _fakeGenreName
             };
 
             _fakeGenres = new List<Genre>()
@@ -48,7 +48,7 @@ namespace GameStore.Tests.Service
                 new Genre()
                 {
                     Id = new Guid(),
-                    Name ="genre2"
+                    NameEn = "genre2"
                 }
             };
         }
@@ -93,7 +93,7 @@ namespace GameStore.Tests.Service
 
             var result = _sut.GetByName(_fakeGenreName);
 
-            Assert.True(result.Name == _fakeGenreName);
+            Assert.True(result.NameEn == _fakeGenreName);
         }
 
         [Fact]
@@ -105,13 +105,13 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void AddNewGenre_GenreWithUniqueName_Verifiable()
+        public void AddNewGenre_GenreWithUniqueName_CreateCalled()
         {
-            var fakeGenreDTO = new GenreDTO() { Id = Guid.NewGuid(), Name = "uniqueName" };
+            var fakeGenreDTO = new ExtendGenreDTO() { Id = Guid.NewGuid(), NameEn = "uniqueName" };
             var fakeGenre = _mapper.Map<Genre>(fakeGenreDTO);
 
             _uow.Setup(uow => uow.Genres.Get(It.IsAny<Func<Genre, bool>>())).Returns(new List<Genre>());
-            _uow.Setup(uow => uow.Genres.Create(fakeGenre)).Verifiable();
+            _uow.Setup(uow => uow.Genres.Create(fakeGenre));
 
             _sut.AddNew(fakeGenreDTO);
 
@@ -119,12 +119,12 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void UpdateGenre_Genre_GenreUpdated()
+        public void UpdateGenre_Genre_UpdateCalled()
         {
-            var fakeGenreDTO = _mapper.Map<GenreDTO>(_fakeGenre);
+            var fakeGenreDTO = _mapper.Map<ExtendGenreDTO>(_fakeGenre);
 
             _uow.Setup(uow => uow.Genres.GetById(_fakeGenreId)).Returns(_fakeGenre);
-            _uow.Setup(uow => uow.Genres.Update(_fakeGenre)).Verifiable();
+            _uow.Setup(uow => uow.Genres.Update(_fakeGenre));
 
             _sut.Update(fakeGenreDTO);
 
@@ -138,11 +138,11 @@ namespace GameStore.Tests.Service
 
             _uow.Setup(uow => uow.Genres.GetById(fakeGenreId)).Returns(null as Genre);
 
-            Assert.Throws<EntityNotFound>(() => _sut.Update(new GenreDTO()));
+            Assert.Throws<EntityNotFound>(() => _sut.Update(new ExtendGenreDTO()));
         }
 
         [Fact]
-        public void DeleteGenre_NotExistedGenreName__ExeptionEntityNotFound()
+        public void DeleteGenre_NotExistedGenreName_ExeptionEntityNotFound()
         {
             var notExistGenreId = Guid.NewGuid();
 
@@ -153,10 +153,10 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void DeleteGenre_ExistedGenreName__Verifiable()
+        public void DeleteGenre_ExistedGenreName_DeleteCalled()
         {
             _uow.Setup(uow => uow.Genres.GetById(_fakeGenreId)).Returns(_fakeGenre);
-            _uow.Setup(uow => uow.Genres.Delete(_fakeGenreId)).Verifiable();
+            _uow.Setup(uow => uow.Genres.Delete(_fakeGenreId));
 
             _sut.Delete(_fakeGenreId);
 
@@ -164,23 +164,45 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void IsUniqueName_UniqueName_True()
+        public void IsUniqueEnName_UniqueName_True()
         {
-            var genre = new GenreDTO() { Id = Guid.NewGuid(), Name = _fakeGenreName };
+            var genre = new ExtendGenreDTO() { Id = Guid.NewGuid(), NameEn = _fakeGenreName };
             _uow.Setup(uow => uow.Genres.Get(It.IsAny<Func<Genre, bool>>())).Returns(new List<Genre>());
 
-            var res = _sut.IsUniqueName(genre);
+            var res = _sut.IsUniqueEnName(genre);
 
             Assert.True(res);
         }
 
         [Fact]
-        public void IsUniqueName_NotUniqueName_False()
+        public void IsUniqueEnName_NotUniqueName_False()
         {
-            var genre = new GenreDTO() { Id = Guid.NewGuid(), Name = _fakeGenreName };
+            var genre = new ExtendGenreDTO() { Id = Guid.NewGuid(), NameEn = _fakeGenreName };
             _uow.Setup(uow => uow.Genres.Get(It.IsAny<Func<Genre, bool>>())).Returns(new List<Genre>() { _fakeGenre });
 
-            var res = _sut.IsUniqueName(genre);
+            var res = _sut.IsUniqueEnName(genre);
+
+            Assert.False(res);
+        }
+
+        [Fact]
+        public void IsUniqueRuName_UniqueName_True()
+        {
+            var genre = new ExtendGenreDTO() { Id = Guid.NewGuid(), NameRu = _fakeGenreName };
+            _uow.Setup(uow => uow.Genres.Get(It.IsAny<Func<Genre, bool>>())).Returns(new List<Genre>());
+
+            var res = _sut.IsUniqueRuName(genre);
+
+            Assert.True(res);
+        }
+
+        [Fact]
+        public void IsUniqueRuName_NotUniqueName_False()
+        {
+            var genre = new ExtendGenreDTO() { Id = Guid.NewGuid(), NameRu = _fakeGenreName };
+            _uow.Setup(uow => uow.Genres.Get(It.IsAny<Func<Genre, bool>>())).Returns(new List<Genre>() { _fakeGenre });
+
+            var res = _sut.IsUniqueRuName(genre);
 
             Assert.False(res);
         }
@@ -189,7 +211,7 @@ namespace GameStore.Tests.Service
         public void IsPossibleRelation_GenreDTOWithPossibleRelation_True()
         {
             Guid firstFakeId = Guid.NewGuid();
-            var newGenre = new GenreDTO() { Id = Guid.NewGuid(), Name = _fakeGenreName, ParentGenreId = firstFakeId };
+            var newGenre = new ExtendGenreDTO() { Id = Guid.NewGuid(), NameEn = _fakeGenreName, ParentGenreId = firstFakeId };
             _uow.Setup(uow => uow.Genres.Get(It.IsAny<Func<Genre, bool>>())).Returns(new List<Genre>());
 
             var res = _sut.IsPossibleRelation(newGenre);
@@ -201,8 +223,8 @@ namespace GameStore.Tests.Service
         public void IsPossibleRelation_GenreDTOWithoutPossibleRelation_False()
         {
             Guid firstFakeId = Guid.NewGuid(), secondFakeId = Guid.NewGuid();
-            var newGenre = new GenreDTO() { Id = firstFakeId, Name = _fakeGenreName, ParentGenreId = secondFakeId };
-            var existGenre = new Genre() { Id = secondFakeId, Name = _fakeGenreName, ParentGenreId = firstFakeId };
+            var newGenre = new ExtendGenreDTO() { Id = firstFakeId, NameEn = _fakeGenreName, ParentGenreId = secondFakeId };
+            var existGenre = new Genre() { Id = secondFakeId, NameEn = _fakeGenreName, ParentGenreId = firstFakeId };
             _uow.Setup(uow => uow.Genres.Get(It.IsAny<Func<Genre, bool>>())).Returns(new List<Genre>() { existGenre });
 
             var res = _sut.IsPossibleRelation(newGenre);

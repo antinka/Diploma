@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using GameStore.Web.App_LocalResources;
 
 namespace GameStore.Web.ViewModels.Games
 {
@@ -8,41 +9,36 @@ namespace GameStore.Web.ViewModels.Games
     {
         public Guid Id { get; set; }
 
-        [Required]
-        [RegularExpression(@"^[A-Za-z0-9_-]{3,200}", ErrorMessage =
-            "Key cannot be longer than 200 characters and less than 3 characters and could contains only A-Za-z0-9")]
+        [Display(Name = "Key", ResourceType = typeof(GlobalRes))]
         public string Key { get; set; }
 
-        [Required]
-        [StringLength(200, MinimumLength = 3,
-            ErrorMessage = "Name cannot be longer than 200 characters and less than 3 characters")]
+        [Display(Name = "Name", ResourceType = typeof(GlobalRes))]
         public string Name { get; set; }
 
-        [Required]
+        [Display(Name = "Description", ResourceType = typeof(GlobalRes))]
         public string Description { get; set; }
 
-        [Required]
-        [Range(0, 100000)]
+        [Display(Name = "Price", ResourceType = typeof(GlobalRes))]
         public decimal Price { get; set; }
 
-        [Required]
-        [Display(Name = "Units in stock")]
-        [Range(0, 100000)]
+        [Display(Name = "UnitsInStock", ResourceType = typeof(GlobalRes))]
         public short UnitsInStock { get; set; }
 
+        [Display(Name = "Discountinues", ResourceType = typeof(GlobalRes))]
         public bool Discountinues { get; set; }
 
         public Guid? PublisherId { get; set; }
 
-        [Display(Name = "Publisher")]
-        public PublisherViewModel Publisher { get; set; }
+        [Display(Name = "Publisher", ResourceType = typeof(GlobalRes))]
+        public DetailsPublisherViewModel Publisher { get; set; }
 
+        [Display(Name = "Comments", ResourceType = typeof(GlobalRes))]
         public ICollection<CommentViewModel> Comments { get; set; }
 
-        [Display(Name = "Genres")]
-        public ICollection<GenreViewModel> Genres { get; set; }
+        [Display(Name = "Genres", ResourceType = typeof(GlobalRes))]
+        public ICollection<DelailsGenreViewModel> Genres { get; set; }
 
-        [Display(Name = "Platform types")]
-        public ICollection<PlatformTypeViewModel> PlatformTypes { get; set; }
+        [Display(Name = "PlatformTypes", ResourceType = typeof(GlobalRes))]
+        public ICollection<DetailsPlatformTypeViewModel> PlatformTypes { get; set; }
     }
 }

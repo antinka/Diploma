@@ -13,6 +13,7 @@ namespace GameStore.Web.Infrastructure.Mapper
                 cfg.AddProfile(new ViewModelToDto());
                 cfg.AddProfile(new EntityToDto());
                 cfg.AddProfile(new DtoToEntity());
+                cfg.AddProfile(new MongoEntityToSqlEntity());
             });
 
             return mapperConfiguration;

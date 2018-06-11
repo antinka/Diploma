@@ -1,0 +1,437 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Add" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="AddGameToOrder" xml:space="preserve">
+    <value>Добавить игру к заказу</value>
+  </data>
+  <data name="BackToGames" xml:space="preserve">
+    <value>Назад к играм</value>
+  </data>
+  <data name="basketIsEmpty" xml:space="preserve">
+    <value>Корзина пуста</value>
+  </data>
+  <data name="Buy" xml:space="preserve">
+    <value>Купить</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Выбрать</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Комментарии</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Создать</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Детально</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Скачать</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Фильтровать</value>
+  </data>
+  <data name="Publisher" xml:space="preserve">
+    <value>Издатель</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Редактировать</value>
+  </data>
+  <data name="Basket" xml:space="preserve">
+    <value>Корзина</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Комментарии</value>
+  </data>
+  <data name="Cost" xml:space="preserve">
+    <value>Стоимость</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Дата</value>
+  </data>
+  <data name="DateTimeFrom" xml:space="preserve">
+    <value>от</value>
+  </data>
+  <data name="DateTimeTo" xml:space="preserve">
+    <value>до</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="Discount" xml:space="preserve">
+    <value>Скидка</value>
+  </data>
+  <data name="Discountinues" xml:space="preserve">
+    <value>Скидка</value>
+  </data>
+  <data name="Games" xml:space="preserve">
+    <value>Игры</value>
+  </data>
+  <data name="Genres" xml:space="preserve">
+    <value>Жанры</value>
+  </data>
+  <data name="HomePage" xml:space="preserve">
+    <value>Сайт издателя</value>
+  </data>
+  <data name="Key" xml:space="preserve">
+    <value>Ключ</value>
+  </data>
+  <data name="MaxPrice" xml:space="preserve">
+    <value>Максимальная стоимость</value>
+  </data>
+  <data name="MinPrice" xml:space="preserve">
+    <value>Минимальная Стоимость</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Название</value>
+  </data>
+  <data name="Orders" xml:space="preserve">
+    <value>Заказы</value>
+  </data>
+  <data name="PageSize" xml:space="preserve">
+    <value>Количество элементов на странице</value>
+  </data>
+  <data name="ParentGenreName" xml:space="preserve">
+    <value>Название родительского жанра</value>
+  </data>
+  <data name="PlatformTypes" xml:space="preserve">
+    <value>Типы платформ</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Стоимость</value>
+  </data>
+  <data name="Publishers" xml:space="preserve">
+    <value>Издатели</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Количество</value>
+  </data>
+  <data name="SearchGameName" xml:space="preserve">
+    <value>Поиск игры по названию</value>
+  </data>
+  <data name="Shipper" xml:space="preserve">
+    <value>Поставщик</value>
+  </data>
+  <data name="FilterDate" xml:space="preserve">
+    <value>Фильтрация по периоду</value>
+  </data>
+  <data name="SortType" xml:space="preserve">
+    <value>Тип сортировки</value>
+  </data>
+  <data name="TakeOrderBetween" xml:space="preserve">
+    <value>Выбрать заказы за период</value>
+  </data>
+  <data name="UnitsInStock" xml:space="preserve">
+    <value>В наличии</value>
+  </data>
+  <data name="UserId" xml:space="preserve">
+    <value>Id пользователя</value>
+  </data>
+  <data name="threeYear" xml:space="preserve">
+    <value>Три года</value>
+  </data>
+  <data name="Twenty" xml:space="preserve">
+    <value>Двадцать</value>
+  </data>
+  <data name="twoYear" xml:space="preserve">
+    <value>Два года</value>
+  </data>
+  <data name="week" xml:space="preserve">
+    <value>Неделя</value>
+  </data>
+  <data name="month" xml:space="preserve">
+    <value>Месяц</value>
+  </data>
+  <data name="pneYear" xml:space="preserve">
+    <value>Год</value>
+  </data>
+  <data name="MakeOrder" xml:space="preserve">
+    <value>Оформить заказ</value>
+  </data>
+  <data name="oneYear" xml:space="preserve">
+    <value>Год</value>
+  </data>
+  <data name="ChooseGenres" xml:space="preserve">
+    <value>Пожалуйста
+ выберите один или несколько жанров</value>
+  </data>
+  <data name="ChoosePlatformTypes" xml:space="preserve">
+    <value>Пожалуйста
+выберите один или несколько типов платформ</value>
+  </data>
+  <data name="DescriptionBank" xml:space="preserve">
+    <value>Описание Bank</value>
+  </data>
+  <data name="DescriptionEn" xml:space="preserve">
+    <value>Описание на английском языке</value>
+  </data>
+  <data name="DescriptionIBox" xml:space="preserve">
+    <value>Описание IBox</value>
+  </data>
+  <data name="DescriptionRu" xml:space="preserve">
+    <value>Описание на русском языке</value>
+  </data>
+  <data name="DescriptionVisa" xml:space="preserve">
+    <value>Описание Visa</value>
+  </data>
+  <data name="ExistGenreName" xml:space="preserve">
+    <value>Жанр с таким именем уже существует, пожалуйста введите другое имя</value>
+  </data>
+  <data name="ExistGenreRelation" xml:space="preserve">
+    <value>Такая связь не может существовать</value>
+  </data>
+  <data name="ExistKey" xml:space="preserve">
+    <value>Игра с таким ключом уже существует, пожалуйста введите другое имя</value>
+  </data>
+  <data name="ExistPlatformTypeName" xml:space="preserve">
+    <value>Платформа с таким именем уже существует, пожалуйста введите другое имя</value>
+  </data>
+  <data name="ExistPublisherName" xml:space="preserve">
+    <value>Издатель с таким именем уже существует, введите другое имя</value>
+  </data>
+  <data name="KeyRegexExpression" xml:space="preserve">
+    <value>Ключ не может быть длиннее 200 символов и менее 3 символов и может содержать только A-Za-z0-9</value>
+  </data>
+  <data name="NameEn" xml:space="preserve">
+    <value>Название на английском языке</value>
+  </data>
+  <data name="NameExpression3_200" xml:space="preserve">
+    <value>Название не может быть длиннее 200 символов и менее 3 символов.</value>
+  </data>
+  <data name="NameExpression3_40" xml:space="preserve">
+    <value>Название не может быть длиннее 40 символов и менее 3 символов.</value>
+  </data>
+  <data name="NameRu" xml:space="preserve">
+    <value>Название на русском языке</value>
+  </data>
+  <data name="NotEnoughtGame" xml:space="preserve">
+    <value>Не хватает игр на складе</value>
+  </data>
+  <data name="Pay" xml:space="preserve">
+    <value>Оплатить</value>
+  </data>
+  <data name="CardHoldersName" xml:space="preserve">
+    <value>Имя владельца карты</value>
+  </data>
+  <data name="CardHoldersNameExpression" xml:space="preserve">
+    <value>Имя держателя карты может состоять только из символов, не менее 3</value>
+  </data>
+  <data name="CardNumber" xml:space="preserve">
+    <value>Номер карты</value>
+  </data>
+  <data name="CardNumberExpression" xml:space="preserve">
+    <value>Номер карты может состоять только из цифр, не менее 3</value>
+  </data>
+  <data name="CardVerificationExpression" xml:space="preserve">
+    <value>Значение верификации карты может состоять только из чисел, не менее 4, не более 6</value>
+  </data>
+  <data name="CardVerificationValue" xml:space="preserve">
+    <value>Значение Проверки Карты</value>
+  </data>
+  <data name="DateOfExpity" xml:space="preserve">
+    <value>Дата истечения срока действия</value>
+  </data>
+  <data name="OrderId" xml:space="preserve">
+    <value>Id заказа</value>
+  </data>
+  <data name="Freight" xml:space="preserve">
+    <value>Груз</value>
+  </data>
+  <data name="ShipAddress" xml:space="preserve">
+    <value>Адрес Доставки</value>
+  </data>
+  <data name="ShipCity" xml:space="preserve">
+    <value>Город доставки</value>
+  </data>
+  <data name="ShipCountry" xml:space="preserve">
+    <value>Страна доставки</value>
+  </data>
+  <data name="ShipName" xml:space="preserve">
+    <value>Название поставщика</value>
+  </data>
+  <data name="ShipPostalCode" xml:space="preserve">
+    <value>Почтовый Индекс</value>
+  </data>
+  <data name="ShipRegion" xml:space="preserve">
+    <value>Регион</value>
+  </data>
+  <data name="ShipViaName" xml:space="preserve">
+    <value>Доставить через</value>
+  </data>
+  <data name="CompanyName" xml:space="preserve">
+    <value>Название компании</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Номер</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Все</value>
+  </data>
+  <data name="Answer" xml:space="preserve">
+    <value>Ответить</value>
+  </data>
+  <data name="Ban" xml:space="preserve">
+    <value>Забанить</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="Quote" xml:space="preserve">
+    <value>Цитировать</value>
+  </data>
+  <data name="Body" xml:space="preserve">
+    <value>Сообщение</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>День</value>
+  </data>
+  <data name="Hour" xml:space="preserve">
+    <value>Час</value>
+  </data>
+  <data name="Permanent" xml:space="preserve">
+    <value>Навсегда</value>
+  </data>
+  <data name="DataTimeFromTo" xml:space="preserve">
+    <value>Дата от не может быть больше, чем дата до, выберите другую</value>
+  </data>
+  <data name="MinMaxPrice" xml:space="preserve">
+    <value>Минимальная цена должна быть меньше максимальной</value>
+  </data>
+  <data name="Existent" xml:space="preserve">
+    <value>Значение поля не может быть пустым</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="addSucces" xml:space="preserve">
+    <value>добавлена успешно</value>
+  </data>
+  <data name="Game" xml:space="preserve">
+    <value>Игра</value>
+  </data>
+</root>

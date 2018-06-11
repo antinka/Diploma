@@ -11,170 +11,176 @@ namespace GameStore.Web
 
             routes.MapRoute(
                 name: "order",
-                url: "order",
-                defaults: new { controller = "Order", action = "Order" }
-            );
+                url: "{lang}/order",
+                defaults: new { controller = "Order", action = "Order", lang = "en" },
+                constraints: new { lang = @"ru|en" });
 
             routes.MapRoute(
                 name: "games",
-                url: "games",
-                defaults: new { controller = "Game", action = "FilteredGames" }
-            );
+                url: "{lang}/games",
+                defaults: new { controller = "Game", action = "FilteredGames", lang = "en" },
+                constraints: new { lang = @"ru|en" });
 
             routes.MapRoute(
                 name: "createGame",
-                url: "games/new",
-                defaults: new { controller = "Game", action = "New" }
-            );
+                url: "{lang}/games/new",
+                defaults: new { controller = "Game", action = "New", lang = "en" },
+                constraints: new { lang = @"ru|en" });
+
             routes.MapRoute(
                 name: "GameGames",
-                url: "Game/Games",
-                defaults: new { controller = "Game", action = "Games" }
-            );
+                url: "{lang}/Game/Games",
+                defaults: new { controller = "Game", action = "Games", lang = "en" },
+                constraints: new { lang = @"ru|en" });
 
             routes.MapRoute(
                 name: "getGame",
-                url: "game/{gamekey}",
-                defaults: new { controller = "Game", action = "GetGame", gamekey = UrlParameter.Optional }
-            );
+                url: "{lang}/game/{gamekey}",
+                defaults: new { controller = "Game", action = "GetGame", gamekey = UrlParameter.Optional, lang = "en" },
+                constraints: new { lang = @"ru|en" });
 
             routes.MapRoute(
                 name: "editGame",
-                url: "games/update/{gamekey}",
-                defaults: new { controller = "Game", action = "Update", gamekey = UrlParameter.Optional }
-            );
+                url: "{lang}/games/update/{gamekey}",
+                defaults: new { controller = "Game", action = "Update", gamekey = UrlParameter.Optional, lang = "en" },
+                constraints: new { lang = @"ru|en" });
 
             routes.MapRoute(
                 name: "gamesRemove",
-                url: "games/remove",
-                defaults: new { controller = "Game", action = "Remove"}
-            );
+                url: "{lang}/games/remove",
+                defaults: new { controller = "Game", action = "Remove", lang = "en" },
+                constraints: new { lang = @"ru|en" });
 
             routes.MapRoute(
                 name: "PublisherRemove",
-                url: "publishers/remove",
-                defaults: new { controller = "Publisher", action = "Remove" }
-            );
+                url: "{lang}/publishers/remove",
+                defaults: new { controller = "Publisher", action = "Remove", lang = "en" },
+                constraints: new { lang = @"ru|en" });
 
             routes.MapRoute(
                 name: "GenreRemove",
-                url: "genres/remove",
-                defaults: new { controller = "Genre", action = "Remove" }
-            );
+                url: "{lang}/genres/remove",
+                defaults: new { controller = "Genre", action = "Remove", lang = "en" },
+                constraints: new { lang = @"ru|en" });
 
             routes.MapRoute(
                 name: "PlatformTypeRemove",
-                url: "platformTypes/remove",
-                defaults: new { controller = "PlatformType", action = "Remove" }
-            );
+                url: "{lang}/platformTypes/remove",
+                defaults: new { controller = "PlatformType", action = "Remove", lang = "en" },
+                constraints: new { lang = @"ru|en" });
 
             routes.MapRoute(
                 name: "buyGame",
-                url: "game/{gamekey}/buy",
-                defaults: new { controller = "Order", action = "AddGameToOrder", gamekey = UrlParameter.Optional }
-            );
+                url: "{lang}/game/{gamekey}/buy",
+                defaults: new { controller = "Order", action = "AddGameToOrder", gamekey = UrlParameter.Optional, lang = "en" },
+                constraints: new { lang = @"ru|en" });
 
             routes.MapRoute(
                 name: "commentForGame",
-                url: "game/{gamekey}/newcomment",
-                defaults: new { controller = "Comment", action = "CommentToGame", gamekey = UrlParameter.Optional }
-            );
+                url: "{lang}/game/{gamekey}/newcomment",
+                defaults: new { controller = "Comment", action = "CommentToGame", gamekey = UrlParameter.Optional, lang = "en" },
+                constraints: new { lang = @"ru|en" });
 
             routes.MapRoute(
                 name: "getAllComment",
-                url: "game/{gamekey}/comments",
-                defaults: new { controller = "Comment", action = "GetAllCommentToGame", gamekey = UrlParameter.Optional }
-            );
+                url: "{lang}/game/{gamekey}/comments",
+                defaults: new { controller = "Comment", action = "GetAllCommentToGame", gamekey = UrlParameter.Optional, lang = "en" },
+                constraints: new { lang = @"ru|en" });
 
             routes.MapRoute(
                 name: "Download",
-                url: "game/{gamekey}/download",
-                defaults: new { controller = "Game", action = "Download", gamekey = UrlParameter.Optional }
-            );
+                url: "{lang}/game/{gamekey}/download",
+                defaults: new { controller = "Game", action = "Download", gamekey = UrlParameter.Optional, lang = "en" },
+                constraints: new { lang = @"ru|en" });
 
             routes.MapRoute(
                name: "publishers",
-               url: "publishers",
-               defaults: new { controller = "Publisher", action = "GetAll"}
-           );
+               url: "{lang}/publishers",
+               defaults: new { controller = "Publisher", action = "GetAll", lang = "en" },
+               constraints: new { lang = @"ru|en" });
 
             routes.MapRoute(
                 name: "publishersNew",
-                url: "publishers/new",
-                defaults: new { controller = "Publisher", action = "New" }
-                );
+                url: "{lang}/publishers/new",
+                defaults: new { controller = "Publisher", action = "New", lang = "en" },
+                constraints: new { lang = @"ru|en" });
 
             routes.MapRoute(
                 name: "editPublisher",
-                url: "publishers/update/{companyName}",
-                defaults: new { controller = "Publisher", action = "Update", companyName = UrlParameter.Optional}
-            );
+                url: "{lang}/publishers/update/{companyName}",
+                defaults: new { controller = "Publisher", action = "Update", companyName = UrlParameter.Optional, lang = "en" },
+                constraints: new { lang = @"ru|en" });
 
             routes.MapRoute(
                 name: "getPublisher",
-                url: "publisher/{companyName}",
-                defaults: new { controller = "Publisher", action = "Get", companyName = UrlParameter.Optional}
-            );
+                url: "{lang}/publisher/{companyName}",
+                defaults: new { controller = "Publisher", action = "Get", companyName = UrlParameter.Optional, lang = "en" },
+                constraints: new { lang = @"ru|en" });
 
             routes.MapRoute(
                 name: "platformTypes",
-                url: "platformTypes",
-                defaults: new { controller = "PlatformType", action = "GetAll"}
-            );
+                url: "{lang}/platformTypes",
+                defaults: new { controller = "PlatformType", action = "GetAll", lang = "en" },
+                constraints: new { lang = @"ru|en" });
 
             routes.MapRoute(
                 name: "newPlatformType",
-                url: "platformTypes/new",
-                defaults: new { controller = "PlatformType", action = "New" }
-            );
+                url: "{lang}/platformTypes/new",
+                defaults: new { controller = "PlatformType", action = "New", lang = "en" },
+                constraints: new { lang = @"ru|en" });
 
             routes.MapRoute(
                 name: "editPlatformType",
-                url: "platformType/update/{platformTypeName}",
-                defaults: new { controller = "PlatformType", action = "Update", platformTypeName = UrlParameter.Optional}
-            );
+                url: "{lang}/platformType/update/{platformTypeName}",
+                defaults: new { controller = "PlatformType", action = "Update", platformTypeName = UrlParameter.Optional, lang = "en" },
+                constraints: new { lang = @"ru|en" });
 
             routes.MapRoute(
                 name: "getPlatformType",
-                url: "platformType/{platformTypeName}",
-                defaults: new { controller = "PlatformType", action = "Get", platformTypeName = UrlParameter.Optional }
-            );
+                url: "{lang}/platformType/{platformTypeName}",
+                defaults: new { controller = "PlatformType", action = "Get", platformTypeName = UrlParameter.Optional, lang = "en" },
+                constraints: new { lang = @"ru|en" });
 
             routes.MapRoute(
                 name: "genres",
-                url: "genres",
-                defaults: new { controller = "Genre", action = "GetAll"}
-            );
+                url: "{lang}/genres",
+                defaults: new { controller = "Genre", action = "GetAll", lang = "en" },
+                constraints: new { lang = @"ru|en" });
 
             routes.MapRoute(
                 name: "newGenre",
-                url: "genre/new",
-                defaults: new { controller = "Genre", action = "New" }
-            );
+                url: "{lang}/genre/new",
+                defaults: new { controller = "Genre", action = "New", lang = "en" },
+                constraints: new { lang = @"ru|en" });
 
             routes.MapRoute(
                 name: "editGenre",
-                url: "genre/update/{genreName}",
-                defaults: new { controller = "Genre", action = "Update", genreName = UrlParameter.Optional}
-            );
+                url: "{lang}/genre/update/{genreName}",
+                defaults: new { controller = "Genre", action = "Update", genreName = UrlParameter.Optional, lang = "en" },
+                constraints: new { lang = @"ru|en" });
 
             routes.MapRoute(
                 name: "getGenre",
-                url: "genre/{genreName}",
-                defaults: new { controller = "Genre", action = "Get", genreName = UrlParameter.Optional }
-            );
+                url: "{lang}/genre/{genreName}",
+                defaults: new { controller = "Genre", action = "Get", genreName = UrlParameter.Optional, lang = "en" },
+                constraints: new { lang = @"ru|en" });
 
             routes.MapRoute(
                 name: "BasketInfo",
-                url: "basket",
-                defaults: new { controller = "Order", action = "BasketInfo", id = UrlParameter.Optional }
-            );
+                url: "{lang}/basket",
+                defaults: new { controller = "Order", action = "BasketInfo", id = UrlParameter.Optional, lang = "en" },
+                constraints: new { lang = @"ru|en" });
+
+            routes.MapRoute(
+                name: "OrdersHistory",
+                url: "{lang}/Orders/history",
+                defaults: new { controller = "Order", action = "FilterOrders", id = UrlParameter.Optional, lang = "en" },
+                constraints: new { lang = @"ru|en" });
 
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Game", action = "FilteredGames", id = UrlParameter.Optional }
-            );
+                url: "{lang}/{controller}/{action}/{id}",
+                defaults: new { controller = "Game", action = "FilteredGames", id = UrlParameter.Optional, lang = "en" });
         }
     }
 }

@@ -8,7 +8,7 @@ namespace GameStore.BLL.Filters.GameFilters.Implementation
     {
         public override IEnumerable<Game> Process(IEnumerable<Game> input)
         {
-            foreach (var filter in filters)
+            foreach (var filter in Filters)
             {
                 input = filter.Execute(input);
             }

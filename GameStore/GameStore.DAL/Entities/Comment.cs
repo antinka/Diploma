@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using GameStore.DAL.Mongo.MongoSerializer;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace GameStore.DAL.Entities
 {
@@ -18,6 +20,7 @@ namespace GameStore.DAL.Entities
         [ForeignKey("Game")]
         public Guid GameId { get; set; }
 
+        [BsonIgnore]
         public virtual Game Game { get; set; }
     }
 }
