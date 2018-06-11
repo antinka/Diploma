@@ -77,7 +77,7 @@
  
 @if (Model.First().FilterGame.IsDelete == false)
 {
-    if (User != null && User.IsInRole("Guest, User, Moderator, Publisher"))
+    if (User != null && User.IsInRole("Guest,User,Moderator,Publisher"))
      {
          <div id="commentForm">
              @Html.Partial("CommentToGame", new GameStore.Web.ViewModels.CommentViewModel() {GameId = Model.First().GameId, GameKey = Model.First().GameKey})

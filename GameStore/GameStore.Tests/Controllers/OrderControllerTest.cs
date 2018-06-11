@@ -7,6 +7,8 @@ using System.Web.Routing;
 using AutoMapper;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Interfaces;
+using GameStore.Web.Authorization.Implementation;
+using GameStore.Web.Authorization.Interfaces;
 using GameStore.Web.Controllers;
 using GameStore.Web.Infrastructure.Mapper;
 using GameStore.Web.Payments;
@@ -23,6 +25,7 @@ namespace GameStore.Tests.Controllers
     {
         private readonly Mock<IOrdersService> _ordersService;
         private readonly Mock<IGameService> _gameService;
+        private readonly Mock<IAuthentication> _authentication;
         private readonly IPaymentStrategy _paymentStrategy;
         private readonly IMapper _mapper;
         private readonly OrderController _sut;
@@ -42,7 +45,8 @@ namespace GameStore.Tests.Controllers
             _mapper = MapperConfigUi.GetMapper().CreateMapper();
             _ordersService = new Mock<IOrdersService>();
             _gameService = new Mock<IGameService>();
-            _sut = new OrderController(_ordersService.Object, _gameService.Object, _mapper, _paymentStrategy, null);
+            _authentication = new Mock<IAuthentication>();
+            _sut = new OrderController(_ordersService.Object, _gameService.Object, _mapper, _paymentStrategy, _authentication.Object);
         }
 
         [Fact]
@@ -50,7 +54,7 @@ namespace GameStore.Tests.Controllers
         {
             var fakeUserId = Guid.Empty;
             _ordersService.Setup(service => service.GetOrderByOrderId(fakeUserId));
-            ControllerContext();
+            CurrentUser();
             var fakeOrder = new OrderDTO() { Id = Guid.NewGuid(), UserId = fakeUserId };
 
             _ordersService.Setup(service => service.GetOrderByOrderId(fakeUserId)).Returns(fakeOrder);
@@ -75,7 +79,7 @@ namespace GameStore.Tests.Controllers
             };
             _gameService.Setup(service => service.GetByKey(fakeGameKey)).Returns(fakeGame);
             _ordersService.Setup(service => service.AddNewOrderDetails(fakeUserId, fakeGameId));
-            ControllerContext();
+            CurrentUser();
 
             _sut.AddGameToOrder(fakeGameKey);
 
@@ -93,7 +97,7 @@ namespace GameStore.Tests.Controllers
                 UnitsInStock = 0
             };
             _gameService.Setup(service => service.GetByKey(fakeGameKey)).Returns(fakeGame);
-            ControllerContext();
+            CurrentUser();
 
             var res = _sut.AddGameToOrder(fakeGameKey);
 
@@ -106,7 +110,7 @@ namespace GameStore.Tests.Controllers
             var fakeUserId = Guid.NewGuid();
             var fakeGameId = Guid.NewGuid();
             _ordersService.Setup(service => service.DeleteGameFromOrder(fakeUserId, fakeGameId));
-            ControllerContext();
+            CurrentUser();
 
             _sut.DeleteGameFromOrder(fakeGameId);
 
@@ -116,7 +120,7 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void Pay_PaymentTypesBank_ReturnViewAsPdf()
         {
-            ControllerContext();
+            CurrentUser();
             _ordersService.Setup(service => service.GetOrderByOrderId(It.IsAny<Guid>())).Returns(new OrderDTO());
 
             var res = _sut.Pay(PaymentTypes.Bank);
@@ -127,7 +131,7 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void Pay_PaymentTypesBox_ReturnViewResult()
         {
-            ControllerContext();
+            CurrentUser();
             _ordersService.Setup(service => service.GetOrderByOrderId(It.IsAny<Guid>())).Returns(new OrderDTO());
 
             var res = _sut.Pay(PaymentTypes.Box);
@@ -138,7 +142,7 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void Pay_PaymentTypesVisa_ReturnViewResult()
         {
-            ControllerContext();
+            CurrentUser();
             _ordersService.Setup(service => service.GetOrderByOrderId(It.IsAny<Guid>())).Returns(new OrderDTO());
 
             var res = _sut.Pay(PaymentTypes.Visa);
@@ -149,7 +153,7 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void CountGamesInOrder_ReturnPartialViewResult()
         {
-            ControllerContext();
+            CurrentUser();
 
             var res = _sut.CountGamesInOrder();
 
@@ -159,7 +163,7 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void Order_ReturnViewResult()
         {
-            ControllerContext();
+            CurrentUser();
             _ordersService.Setup(service => service.GetOrderByOrderId(It.IsAny<Guid>())).Returns(new OrderDTO());
 
             var res = _sut.Order();
@@ -221,12 +225,10 @@ namespace GameStore.Tests.Controllers
             Assert.IsType<ViewResult>(res);
         }
 
-        private void ControllerContext()
+        private void CurrentUser()
         {
-            var httpRequest = new HttpRequest(string.Empty, "http://mySomething", string.Empty);
-            var httpResponse = new HttpResponse(new StringWriter());
-            var httpContextMock = new HttpContext(httpRequest, httpResponse);
-            _sut.ControllerContext = new ControllerContext(new HttpContextWrapper(httpContextMock), new RouteData(), _sut);
+            var userProvider = new UserProvider();
+            _authentication.Setup(user => user.CurrentUser).Returns(userProvider);
         }
     }
 }
