@@ -76,13 +76,13 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void AddNewRole_RoleWithUniqueName_Verifiable()
+        public void AddNewRole_RoleWithUniqueName_CreateCalled()
         {
             var fakeRoleDTO = new RoleDTO() { Id = Guid.NewGuid(), Name = "role" };
             var fakeRole = _mapper.Map<Role>(fakeRoleDTO);
 
             _uow.Setup(uow => uow.Roles.Get(It.IsAny<Func<Role, bool>>())).Returns(new List<Role>());
-            _uow.Setup(uow => uow.Roles.Create(fakeRole)).Verifiable();
+            _uow.Setup(uow => uow.Roles.Create(fakeRole));
 
             _sut.AddNew(fakeRoleDTO);
 
@@ -90,14 +90,14 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void UpdateRole_Role_Verifiable()
+        public void UpdateRole_Role_UpdateCalled()
         {
             var fakeRoleDTO = new RoleDTO() { Id = _fakeRoleId, Name = "role" };
             var fakeRole = _mapper.Map<Role>(fakeRoleDTO);
 
             _uow.Setup(uow => uow.Roles.GetById(_fakeRoleId)).Returns(fakeRole);
 
-            _uow.Setup(uow => uow.Roles.Update(fakeRole)).Verifiable();
+            _uow.Setup(uow => uow.Roles.Update(fakeRole));
 
             _sut.Update(fakeRoleDTO);
 
@@ -124,10 +124,10 @@ namespace GameStore.Tests.Service
         }
 
         [Fact]
-        public void DeleteRole_ExistedRoleName__Verifiable()
+        public void DeleteRole_ExistedRoleName_DeleteCalled()
         {
             _uow.Setup(uow => uow.Roles.GetById(_fakeRoleId)).Returns(_fakeRole);
-            _uow.Setup(uow => uow.Roles.Delete(_fakeRoleId)).Verifiable();
+            _uow.Setup(uow => uow.Roles.Delete(_fakeRoleId));
 
             _sut.Delete(_fakeRoleId);
 

@@ -90,7 +90,7 @@ namespace GameStore.Web.Controllers
             var userDTO = _userService.GetByName(name);
             var userViewModel = _mapper.Map<UserViewModel>(userDTO);
 
-            return View(GetGameViewModelForUpdate(userViewModel));
+            return View(GetUserViewModelForUpdate(userViewModel));
         }
 
         [HttpPost]
@@ -118,18 +118,18 @@ namespace GameStore.Web.Controllers
                 ModelState.AddModelError("Name", GlobalRes.ExistPublisherName);
             }
 
-            return View(GetGameViewModelForUpdate(userViewModel));
+            return View(GetUserViewModelForUpdate(userViewModel));
         }
 
-        private UserViewModel CreateCheckBoxForUserViewModel(UserViewModel gameViewModel)
+        private UserViewModel CreateCheckBoxForUserViewModel(UserViewModel userViewModel)
         {
             var rolelist = _mapper.Map<IEnumerable<RoleViewModel>>(_roleService.GetAll());
  
-            var listPlatformBoxes = new List<CheckBox>();
-            rolelist.Select(platform => { listPlatformBoxes.Add(new CheckBox() { Text = platform.Name }); return platform; }).ToList();
-            gameViewModel.ListRoles = listPlatformBoxes;
+            var listRoles = new List<CheckBox>();
+            rolelist.Select(role => { listRoles.Add(new CheckBox() { Text = role.Name }); return role; }).ToList();
+            userViewModel.ListRoles = listRoles;
 
-            return gameViewModel;
+            return userViewModel;
         }
 
         private UserViewModel GetUserViewModelForCreate(UserViewModel gameViewModel)
@@ -144,7 +144,7 @@ namespace GameStore.Web.Controllers
             return gameViewModel;
         }
 
-        private UserViewModel GetGameViewModelForUpdate(UserViewModel gameViewModel)
+        private UserViewModel GetUserViewModelForUpdate(UserViewModel gameViewModel)
         {
             gameViewModel = CreateCheckBoxForUserViewModel(gameViewModel);
             gameViewModel = GetUserViewModelForCreate(gameViewModel);
