@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using AutoMapper;
@@ -184,10 +185,14 @@ namespace GameStore.Web.Controllers
         [HttpGet]
         public ActionResult Download(string gamekey)
         {
-            var path = Server.MapPath("~/Files/test.pdf");
-            var mas = System.IO.File.ReadAllBytes(path);
+            //var path = Server.MapPath("~/Files/test.pdf");
+            //var mas = System.IO.File.ReadAllBytes(path);
 
-            return new FileContentResult(mas, "application/pdf");
+            //return new FileContentResult(mas, "application/pdf");
+            var fileBytes = Encoding.ASCII.GetBytes(gamekey);
+
+            return File(fileBytes, "text/plain", "test.txt");
+
         }
 
         [OutputCache(Duration = 60)]

@@ -16,9 +16,6 @@ namespace GameStore.DAL.Migrations
 
         protected override void Seed(GameStoreDBContext context)
         {
-            context.Database.Delete();
-            context.Database.Create();
-
             var strategy = new Genre
             {
                 Id = Guid.NewGuid(),
