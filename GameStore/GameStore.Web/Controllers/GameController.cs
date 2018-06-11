@@ -1,4 +1,10 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Web.Mvc;
+using System.Web.UI.WebControls;
+using AutoMapper;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Enums;
 using GameStore.BLL.Interfaces;
@@ -7,12 +13,6 @@ using GameStore.Web.Builder.Implementation;
 using GameStore.Web.Authorization.Interfaces;
 using GameStore.Web.ViewModels;
 using GameStore.Web.ViewModels.Games;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Policy;
-using System.Web.Mvc;
-using System.Web.UI.WebControls;
 
 namespace GameStore.Web.Controllers
 {
@@ -208,10 +208,9 @@ namespace GameStore.Web.Controllers
         [HttpGet]
         public ActionResult Download(string gamekey)
         {
-            var path = Server.MapPath("~/Files/test.pdf");
-            var mas = System.IO.File.ReadAllBytes(path);
+            var fileBytes = Encoding.ASCII.GetBytes(gamekey);
 
-            return new FileContentResult(mas, "application/pdf");
+            return File(fileBytes, "text/plain", "test.txt");
         }
 
         [OutputCache(Duration = 60)]
