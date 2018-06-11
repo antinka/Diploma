@@ -185,14 +185,9 @@ namespace GameStore.Web.Controllers
         [HttpGet]
         public ActionResult Download(string gamekey)
         {
-            //var path = Server.MapPath("~/Files/test.pdf");
-            //var mas = System.IO.File.ReadAllBytes(path);
-
-            //return new FileContentResult(mas, "application/pdf");
             var fileBytes = Encoding.ASCII.GetBytes(gamekey);
 
             return File(fileBytes, "text/plain", "test.txt");
-
         }
 
         [OutputCache(Duration = 60)]
