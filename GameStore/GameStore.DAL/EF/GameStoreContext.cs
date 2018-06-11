@@ -1,12 +1,13 @@
 ﻿using System.Data.Entity;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Interfaces;
+using GameStore.DAL.Migrations;
 
 namespace GameStore.DAL.EF
 {
     public class GameStoreDBContext : DbContext, IDbContext
     {
-        public GameStoreDBContext()
+        public GameStoreDBContext():base("DefaultConnection")
         {
         }
 

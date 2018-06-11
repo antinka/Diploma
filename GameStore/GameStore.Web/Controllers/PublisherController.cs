@@ -109,12 +109,7 @@ namespace GameStore.Web.Controllers
                 {
                     _publisherService.Update(publisherDTO);
 
-                    if (User.IsInRole("Publisher"))
-                    {
-                        return RedirectToAction("PersonalArea","Account");
-                    }
-
-                    return RedirectToAction("GetAll");
+                    return RedirectToAction("FilteredGames", "Game");
                 }
             }
 

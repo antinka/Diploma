@@ -4,6 +4,8 @@ using System.Web.Mvc;
 using AutoMapper;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Interfaces;
+using GameStore.Web.Authorization.Implementation;
+using GameStore.Web.Authorization.Interfaces;
 using GameStore.Web.Controllers;
 using GameStore.Web.Infrastructure.Mapper;
 using GameStore.Web.ViewModels;
@@ -73,7 +75,7 @@ namespace GameStore.Tests.Controllers
 
             _publisherService.Setup(service => service.IsUniqueName(It.IsAny<ExtendPublisherDTO>())).Returns(true);
             _publisherService.Setup(service => service.Update(fakePublisherDTO));
-
+ 
             _sut.Update(fakePublisherViewModel);
 
             _publisherService.Verify(s => s.Update(It.IsAny<ExtendPublisherDTO>()), Times.Once);
