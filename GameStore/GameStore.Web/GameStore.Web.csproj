@@ -122,7 +122,6 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="App_Browsers\qt.browser" />
-    <None Include="Files\test.pdf" />
     <Content Include="Content\Images\Bank.png" />
     <Content Include="Content\Images\Visa.png" />
     <Content Include="Content\Images\IBox.png" />
