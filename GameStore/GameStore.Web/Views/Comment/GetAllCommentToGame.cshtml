@@ -58,13 +58,16 @@
             {
                 <tr>
                     <td>
-                        @Ajax.ActionLink(GlobalRes.Quote, "CommentToGame", "Comment", new { gameId = comment.GameId, gamekey = comment.GameKey, quote = comment.Body }, new AjaxOptions { UpdateTargetId = "commentForm" })
-                        @Ajax.ActionLink(GlobalRes.Answer, "CommentToGame", "Comment", new { gameId = comment.GameId, gamekey = comment.GameKey, parentsCommentId = comment.Id }, new AjaxOptions { UpdateTargetId = "commentForm" })
+                    @if (User != null && User.IsInRole("Guest,User,Moderator,Publisher"))
+                    {
+                        @Ajax.ActionLink(GlobalRes.Quote, "CommentToGame", "Comment", new {gameId = comment.GameId, gamekey = comment.GameKey, quote = comment.Body}, new AjaxOptions {UpdateTargetId = "commentForm"})
+                        @Ajax.ActionLink(GlobalRes.Answer, "CommentToGame", "Comment", new {gameId = comment.GameId, gamekey = comment.GameKey, parentsCommentId = comment.Id}, new AjaxOptions {UpdateTargetId = "commentForm"})
 
+                    }
                         @if (User != null && User.IsInRole("Moderator"))
                         {
-                        @Ajax.ActionLink(GlobalRes.Delete, "Delete", "Comment", new {commentId = comment.Id, comment = comment}, new AjaxOptions {UpdateTargetId = comment.Id.ToString(), HttpMethod = "POST"})
-                        @Ajax.ActionLink(GlobalRes.Ban, "Ban", "Comment", new { gamekey = comment.GameKey}, new AjaxOptions {UpdateTargetId = comment.Id.ToString()})
+                            @Ajax.ActionLink(GlobalRes.Delete, "Delete", "Comment", new {commentId = comment.Id, comment = comment}, new AjaxOptions {UpdateTargetId = comment.Id.ToString(), HttpMethod = "POST"})
+                            @Ajax.ActionLink(GlobalRes.Ban, "Ban", "Comment", new {gamekey = comment.GameKey}, new AjaxOptions {UpdateTargetId = comment.Id.ToString()})
                         }
                     </td>
                 </tr>
