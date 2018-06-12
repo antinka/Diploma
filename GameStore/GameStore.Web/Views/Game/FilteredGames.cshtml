@@ -3,188 +3,189 @@
 @model GameStore.Web.ViewModels.FilterViewModel
 @using (Html.BeginForm("FilteredGames", "Game", FormMethod.Get, new { id = "filteredGames" }))
 {
-    <div class="row">
-        <div class="col-sm-3">
-            @Html.Partial("GamesFilters", Model)
+    @*<div class="row">
+        <div class="col-sm-9">*@
+    <div class="form-group">
+        @Html.LabelFor(model => model.PageSize, htmlAttributes: new { @class = "control-label col-sm-3" })
+
+        <div class="col-sm-2">
+            @Html.EnumDropDownListFor(model => model.PageSize, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.PageSize, "", new { @class = "text-danger" })
         </div>
-        <div class="col-sm-9">
-            <div class="form-group">
-                @Html.LabelFor(model => model.PageSize, htmlAttributes: new { @class = "control-label col-sm-3" })
-
-                <div class="col-sm-2">
-                    @Html.EnumDropDownListFor(model => model.PageSize, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.PageSize, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <br />
-            <br />
-            <br />
-        @if (User != null && User.IsInRole("Manager"))
+    </div>
+    <br />
+    <br />
+    <br />
+    if (User != null && User.IsInRole("Manager"))
+    {
+        <p>
+            @Html.ActionLink(GlobalRes.Create, "New", "Game")
+        </p>
+    }
+    <table class="table" id="notDisabled">
+        <tr>
+            <th>
+                @Html.HiddenFor(model => model.Games.First().Key)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Games.First().Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Games.First().Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Games.First().Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Games.First().UnitsInStock)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Games.First().Discountinues)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Games.First().Publisher)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Games.First().Genres)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Games.First().PlatformTypes)
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+        @if (Model.Games.First().Key != null)
         {
-            <p>
-                @Html.ActionLink(GlobalRes.Create, "New", "Game")
-            </p>
-        }
-            <table class="table" id="notDisabled">
+            foreach (var item in Model.Games)
+            {
                 <tr>
-                    <th>
-                        @Html.HiddenFor(model => model.Games.First().Key)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Games.First().Name)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Games.First().Description)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Games.First().Price)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Games.First().UnitsInStock)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Games.First().Discountinues)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Games.First().Publisher)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Games.First().Genres)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Games.First().PlatformTypes)
-                    </th>
-                    <th></th>
-                    <th></th>
-                </tr>
-                @if (Model.Games.First().Key != null)
-                {
-                    foreach (var item in Model.Games)
-                    {
-                        <tr>
-                            <td id="@item.Key">
-                                @Html.HiddenFor(modelItem => item.Key)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Description)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Price)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.UnitsInStock)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Discountinues)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Publisher.Name)
-                            </td>
-                            <td>
-                                @if (item.Genres.Any())
-                                {
-                                    foreach (var i in item.Genres)
-                                    {
-                                        @i.Name
-                                        <br />
-                                    }
-                                }
-                                else
-                                {
-                                    if (Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToUpperInvariant() == "EN")
-                                    {
-                                        <span>Other</span>
-                                    }
-                                    else
-                                    {
-                                        <span>Другие</span>
-                                    }
-                                }
-                            </td>
-                            <td>
-                                @foreach (var i in item.PlatformTypes)
-                                {
-                                    @i.Name
-                                    <br />
-                                }
-                            </td>
-                            <td>
-                                @Html.ActionLink(GlobalRes.Details, "GetGame", new { gamekey = item.Key })
-
-                            @if (User != null && User.IsInRole("Manager"))
-                            {
-                                @Html.ActionLink(GlobalRes.Update, "Update", new {gamekey = item.Key})
-                                <br />
-                                @Ajax.ActionLink(GlobalRes.Remove, "Remove", new {gameId = item.Id}, new AjaxOptions {HttpMethod = "POST", UpdateTargetId = @item.Key})
-                            }
-                            </td>
-                        </tr>
-                    }
-                }
-            </table>
-
-            <div style="text-align: center">
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        @if (Model.PagingInfo.TotalPages > 9)
+                    <td id="@item.Key">
+                        @Html.HiddenFor(modelItem => item.Key)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UnitsInStock)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Discountinues)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Publisher.Name)
+                    </td>
+                    <td>
+                        @if (item.Genres.Any())
                         {
-                            int s = 1, e = 9;
-                            if (Model.PagingInfo.CurrentPage > 5)
+                            foreach (var i in item.Genres)
                             {
-                                s = Model.PagingInfo.CurrentPage - 4;
-
-                                if (Model.PagingInfo.CurrentPage + 4 < Model.PagingInfo.TotalPages)
-                                {
-                                    e = Model.PagingInfo.CurrentPage + 4;
-                                }
-                                else
-                                {
-                                    e = Model.PagingInfo.TotalPages;
-                                    s = e - 8;
-                                }
-
-                                <input id="page" type="submit" value=1 name="page" class="btn btn-default" />
-                                <span>....</span>
-                            }
-
-                            for (int i = s; i <= e; i++)
-                            {
-                                if (Model.PagingInfo.CurrentPage == i)
-                                {
-                                    <input disabled="disabled" type="button" value=@i class="btn btn-default" style="background-color: #A9A9A9" />
-                                }
-                                else
-                                {
-                                    <input id="page" type="submit" value=@i name="page" class="btn btn-default" />
-                                }
-                            }
-
-                            if (s + 4 < Model.PagingInfo.TotalPages - 4)
-                            {
-                                <span>....</span>
-                                <input id="page" type="submit" value=@Model.PagingInfo.TotalPages name="page" class="btn btn-default" />
+                                @i.Name
+                                <br />
                             }
                         }
                         else
                         {
-                            for (int i = 1; i <= Model.PagingInfo.TotalPages; i++)
+                            if (Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToUpperInvariant() == "EN")
                             {
-                                if (Model.PagingInfo.CurrentPage != i)
-                                {
-                                    <input id="page" type="submit" value=@i name="page" class="btn btn-default" />
-                                }
-                                else
-                                {
-                                    <input disabled="disabled" type="button" value=@i class="btn btn-default" style="background-color: #A9A9A9" />
-                                }
+                                <span>Other</span>
+                            }
+                            else
+                            {
+                                <span>Другие</span>
                             }
                         }
-                    </div>
-                </div>
+                    </td>
+                    <td>
+                        @foreach (var i in item.PlatformTypes)
+                        {
+                            @i.Name
+                            <br />
+                        }
+                    </td>
+                    <td>
+                        @Html.ActionLink(GlobalRes.Details, "GetGame", new { gamekey = item.Key })
+
+                        @if (User != null && User.IsInRole("Manager"))
+                        {
+                            @Html.ActionLink(GlobalRes.Update, "Update", new { gamekey = item.Key })
+                            <br />
+                            @Ajax.ActionLink(GlobalRes.Remove, "Remove", new { gameId = item.Id }, new AjaxOptions { HttpMethod = "POST", UpdateTargetId = @item.Key })
+                        }
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+
+    <div style="text-align: center">
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @if (Model.PagingInfo.TotalPages > 9)
+                {
+                    int s = 1, e = 9;
+                    if (Model.PagingInfo.CurrentPage > 5)
+                    {
+                        s = Model.PagingInfo.CurrentPage - 4;
+
+                        if (Model.PagingInfo.CurrentPage + 4 < Model.PagingInfo.TotalPages)
+                        {
+                            e = Model.PagingInfo.CurrentPage + 4;
+                        }
+                        else
+                        {
+                            e = Model.PagingInfo.TotalPages;
+                            s = e - 8;
+                        }
+
+                        <input id="page" type="submit" value=1 name="page" class="btn btn-default" />
+                        <span>....</span>
+                    }
+
+                    for (int i = s; i <= e; i++)
+                    {
+                        if (Model.PagingInfo.CurrentPage == i)
+                        {
+                            <input disabled="disabled" type="button" value=@i class="btn btn-default" style="background-color: #A9A9A9" />
+                        }
+                        else
+                        {
+                            <input id="page" type="submit" value=@i name="page" class="btn btn-default" />
+                        }
+                    }
+
+                    if (s + 4 < Model.PagingInfo.TotalPages - 4)
+                    {
+                        <span>....</span>
+                        <input id="page" type="submit" value=@Model.PagingInfo.TotalPages name="page" class="btn btn-default" />
+                    }
+                }
+                else
+                {
+                    for (int i = 1; i <= Model.PagingInfo.TotalPages; i++)
+                    {
+                        if (Model.PagingInfo.CurrentPage != i)
+                        {
+                            <input id="page" type="submit" value=@i name="page" class="btn btn-default" />
+                        }
+                        else
+                        {
+                            <input disabled="disabled" type="button" value=@i class="btn btn-default" style="background-color: #A9A9A9" />
+                        }
+                    }
+                }
             </div>
         </div>
     </div>
+
+    @section rightSidebar
+        {
+        @Html.Partial("GamesFilters", Model)
+    }
+
 }

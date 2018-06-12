@@ -1,4 +1,11 @@
-﻿body {
+﻿
+.footer-heading {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 22px;
+}
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
@@ -15,4 +22,10 @@ select,
 textarea {
     max-width: 280px;
 }
+footer hr {
+    border-top: 1px dashed #544E4C;
+}
 
+footer a {
+    color:black
+}
