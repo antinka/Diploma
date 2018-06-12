@@ -1,0 +1,145 @@
+﻿@using GameStore.Web.App_LocalResources
+@model GameStore.Web.ViewModels.FilterOrder
+
+<div>
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <hr />
+
+    @using (Html.BeginForm("Orders", "Order", FormMethod.Get, null))
+    {
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.DateTimeFrom)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.DateTimeFrom, new { @type = "date" })
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DateTimeTo)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.DateTimeTo, new { @type = "date" })
+            </dd>
+        </dl>
+        <input type="submit" value="@GlobalRes.Filter" class="btn btn-default" />
+    }
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.OrdersViewModel.First().Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OrdersViewModel.First().Cost)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OrdersViewModel.First().Freight)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OrdersViewModel.First().ShipAddress)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OrdersViewModel.First().ShipCity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OrdersViewModel.First().ShipCountry)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OrdersViewModel.First().ShipName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OrdersViewModel.First().ShipPostalCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OrdersViewModel.First().ShipRegion)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OrdersViewModel.First().ShipViaName)
+                </th>
+            </tr>
+            @foreach (var item in Model.OrdersViewModel)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Freight)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipCity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipCountry)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipPostalCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipRegion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipViaName)
+            </td>
+        </tr>
+        if (item.OrderDetails.Any())
+        {
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <th>
+                    @Html.DisplayNameFor(model => item.OrderDetails.FirstOrDefault().Game.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => item.OrderDetails.FirstOrDefault().Game.Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => item.OrderDetails.FirstOrDefault().Quantity)
+                </th>
+            </tr>
+            foreach (var orderDetail in item.OrderDetails)
+            {
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    @Html.DisplayFor(modelItem => orderDetail.Game.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => orderDetail.Game.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => orderDetail.Quantity)
+                </td>
+
+
+                <td>
+                    @if (item.UserId != Guid.Empty && User.IsInRole("Manager"))
+        {
+            @Html.ActionLink(GlobalRes.Update, "EditOrder", "Order", new { orderId = item.Id }, null)
+}
+
+                </td>
+            </tr>
+            }
+        }
+    }
+        </table>
+</div>
