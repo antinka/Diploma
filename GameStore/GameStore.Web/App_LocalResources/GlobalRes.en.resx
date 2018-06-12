@@ -507,4 +507,7 @@
   <data name="IsBaned" xml:space="preserve">
     <value>Is Baned</value>
   </data>
+  <data name="GetInTouch" xml:space="preserve">
+    <value>Get in touch</value>
+  </data>
 </root>
