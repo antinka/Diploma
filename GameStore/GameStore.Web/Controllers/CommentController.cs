@@ -57,7 +57,6 @@ namespace GameStore.Web.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Guest, User, Moderator, Publisher")]
         public ActionResult CommentToGame(string gamekey, Guid gameId, Guid? parentsCommentId, string quote)
         {
             var comment = new CommentViewModel { GameId = gameId, GameKey = gamekey };
@@ -78,7 +77,6 @@ namespace GameStore.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Guest, User, Moderator, Publisher")]
         public ActionResult CommentToGame(CommentViewModel comment)
         {
             if (ModelState.IsValid)
