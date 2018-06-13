@@ -130,8 +130,12 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\BLOG-Logo-1.png" />
+    <Content Include="Content\Images\Game-Zone.png" />
     <Content Include="Content\Images\GameOn_logo_red.png" />
     <Content Include="Content\Images\games.jpg" />
+    <Content Include="Content\Images\konvert.png" />
+    <Content Include="Content\Images\tweet.png" />
     <Content Include="Content\Site.css" />
     <Content Include="App_Browsers\qt.browser" />
     <Content Include="Content\Images\Bank.png" />

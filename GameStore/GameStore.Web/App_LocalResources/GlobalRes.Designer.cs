@@ -586,11 +586,29 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Подписывайтесь на нас.
+        /// </summary>
+        public static string FollowUs {
+            get {
+                return ResourceManager.GetString("FollowUs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Груз.
         /// </summary>
         public static string Freight {
             get {
                 return ResourceManager.GetString("Freight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Из блога.
+        /// </summary>
+        public static string FromBlog {
+            get {
+                return ResourceManager.GetString("FromBlog", resourceCulture);
             }
         }
         
@@ -1153,6 +1171,15 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Отправить.
+        /// </summary>
+        public static string Submit {
+            get {
+                return ResourceManager.GetString("Submit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Выбрать заказы за период.
         /// </summary>
         public static string TakeOrderBetween {
@@ -1207,6 +1234,15 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to обновления.
+        /// </summary>
+        public static string updates {
+            get {
+                return ResourceManager.GetString("updates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Id пользователя.
         /// </summary>
         public static string UserId {
@@ -1239,6 +1275,15 @@ namespace GameStore.Web.App_LocalResources {
         public static string Users {
             get {
                 return ResourceManager.GetString("Users", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Посетить блог.
+        /// </summary>
+        public static string VisitBlog {
+            get {
+                return ResourceManager.GetString("VisitBlog", resourceCulture);
             }
         }
         

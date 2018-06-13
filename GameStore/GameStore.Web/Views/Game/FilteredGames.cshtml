@@ -3,8 +3,7 @@
 @model GameStore.Web.ViewModels.FilterViewModel
 @using (Html.BeginForm("FilteredGames", "Game", FormMethod.Get, new { id = "filteredGames" }))
 {
-    @*<div class="row">
-        <div class="col-sm-9">*@
+
     <div class="form-group">
         @Html.LabelFor(model => model.PageSize, htmlAttributes: new { @class = "control-label col-sm-3" })
 
@@ -22,107 +21,77 @@
             @Html.ActionLink(GlobalRes.Create, "New", "Game")
         </p>
     }
-    <table class="table " id="notDisabled" style="table-layout: fixed;">
-        <tr>
-            <th>
-                @Html.HiddenFor(model => model.Games.First().Key)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Games.First().Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Games.First().Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Games.First().Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Games.First().UnitsInStock)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Games.First().Discountinues)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Games.First().Publisher)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Games.First().Genres)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Games.First().PlatformTypes)
-            </th>
-            <th></th>
-            <th></th>
-        </tr>
-        @if (Model.Games.First().Key != null)
+    <div class="row">
+        @foreach (var item in Model.Games)
         {
-            foreach (var item in Model.Games)
-            {
-                <tr>
-                    <td id="@item.Key">
-                        @Html.HiddenFor(modelItem => item.Key)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Price)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UnitsInStock)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Discountinues)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Publisher.Name)
-                    </td>
-                    <td>
-                        @if (item.Genres.Any())
-                        {
-                            foreach (var i in item.Genres)
+            <div class="col-md-6">
+                <div id="image">
+                    <a href=@Url.Action("GetGame", "Game", new {gamekey = item.Key})>
+                        <h3>@item.Name</h3>
+                    </a>
+                    <p class="price">@GlobalRes.Price: @item.Price</p>
+
+                    <img src="~/Content/Images/Game-Zone.png" alt="Games" height="250px" />
+                </div>
+                <div id="hover">
+                    <p>
+                        <ul>
+                            @GlobalRes.Genres:
+                            @if (item.Genres.Any())
                             {
-                                @i.Name
-                                <br />
-                            }
-                        }
-                        else
-                        {
-                            if (Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToUpperInvariant() == "EN")
-                            {
-                                <span>Other</span>
+                                foreach (var i in item.Genres)
+                                {
+                                    <li>
+                                        @i.Name
+                                    </li>
+                                }
                             }
                             else
                             {
-                                <span>Другие</span>
+                                if (Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToUpperInvariant() == "EN")
+                                {
+                                    <li>Other</li>
+                                }
+                                else
+                                {
+                                    <li>Другие</li>
+                                }
                             }
-                        }
-                    </td>
-                    <td>
-                        @foreach (var i in item.PlatformTypes)
-                        {
-                            @i.Name
-                            <br />
-                        }
-                    </td>
-                    <td>
-                        @Html.ActionLink(GlobalRes.Details, "GetGame", new { gamekey = item.Key })
+                        </ul>
+                    </p>
 
-                        @if (User != null && User.IsInRole("Manager"))
-                        {
-                            @Html.ActionLink(GlobalRes.Update, "Update", new { gamekey = item.Key })
-                            <br />
-                            @Ajax.ActionLink(GlobalRes.Remove, "Remove", new { gameId = item.Id }, new AjaxOptions { HttpMethod = "POST", UpdateTargetId = @item.Key })
-                        }
-                    </td>
-                </tr>
-            }
+                    <p>
+                        <ul>
+                            @GlobalRes.PlatformTypes:
+
+                            @foreach (var i in item.PlatformTypes)
+                            {
+                                <li>
+                                    @i.Name
+                                </li>
+                            }
+                        </ul>
+                    </p>
+
+                    <p>
+
+                        @GlobalRes.Publisher:
+                        @Html.DisplayFor(modelItem => item.Publisher.Name)
+                    </p>
+                </div>
+                <p>
+                    @if (User != null && User.IsInRole("Manager"))
+                    {
+                        @Html.ActionLink(GlobalRes.Update, "Update", new { gamekey = item.Key })
+                        <br />
+                        @Ajax.ActionLink(GlobalRes.Remove, "Remove", new { gameId = item.Id }, new AjaxOptions { HttpMethod = "POST", UpdateTargetId = @item.Key })
+                    }
+                </p>
+            </div>
         }
-    </table>
-
+    </div>
+    <br />
+    <br />
     <div style="text-align: center">
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

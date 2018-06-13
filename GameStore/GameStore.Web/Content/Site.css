@@ -29,3 +29,31 @@ footer hr {
 footer a {
     color:black
 }
+#hover {
+    display: none;
+    position: relative;
+}
+
+#image:hover {
+    opacity: .3;
+}
+    #image:hover + #hover {
+        position: absolute;
+        display: block;
+        top:70px
+    }
+
+#hover :hover {
+    position: absolute;
+    display: block;
+    top:70px
+}
+.FooterHeader img {
+    float: left;
+}
+
+.FooterHeader h1 {
+    position: relative;
+    top: 18px;
+    left: 10px;
+}

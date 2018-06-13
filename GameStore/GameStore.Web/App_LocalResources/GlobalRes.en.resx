@@ -513,4 +513,19 @@
   <data name="ExistUserName" xml:space="preserve">
     <value>User with such name already exist</value>
   </data>
+  <data name="FollowUs" xml:space="preserve">
+    <value>Follow us</value>
+  </data>
+  <data name="FromBlog" xml:space="preserve">
+    <value>From the blog</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="updates" xml:space="preserve">
+    <value>updates</value>
+  </data>
+  <data name="VisitBlog" xml:space="preserve">
+    <value>Visit blog</value>
+  </data>
 </root>
