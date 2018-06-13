@@ -9,7 +9,7 @@ namespace GameStore.Web.Authorization.Implementation
     {
         public void Init(HttpApplication context)
         {
-            context.AuthenticateRequest += new EventHandler(this.Authenticate);
+            context.AuthenticateRequest += Authenticate;
         }
 
         public void Dispose()

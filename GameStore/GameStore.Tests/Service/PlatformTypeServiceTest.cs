@@ -162,7 +162,8 @@ namespace GameStore.Tests.Service
         public void IsUniqueEnName_UniqueName_True()
         {
             var platformTypes = new ExtendPlatformTypeDTO() { Id = Guid.NewGuid(), NameEn = _fakePlatformTypeName };
-            _uow.Setup(uow => uow.PlatformTypes.Get(It.IsAny<Func<PlatformType, bool>>())).Returns(new List<PlatformType>());
+            _uow.Setup(uow => uow.PlatformTypes.Get(It.IsAny<Func<PlatformType, bool>>()))
+                .Returns(new List<PlatformType>());
 
             var res = _sut.IsUniqueEnName(platformTypes);
 
@@ -173,7 +174,8 @@ namespace GameStore.Tests.Service
         public void IsUniqueEnName_NotUniqueName_False()
         {
             var platformTypes = new ExtendPlatformTypeDTO() { Id = Guid.NewGuid(), NameEn = _fakePlatformTypeName };
-            _uow.Setup(uow => uow.PlatformTypes.Get(It.IsAny<Func<PlatformType, bool>>())).Returns(new List<PlatformType>() { _fakePlatformType });
+            _uow.Setup(uow => uow.PlatformTypes.Get(It.IsAny<Func<PlatformType, bool>>()))
+                .Returns(new List<PlatformType>() { _fakePlatformType });
 
             var res = _sut.IsUniqueEnName(platformTypes);
 
@@ -184,7 +186,8 @@ namespace GameStore.Tests.Service
         public void IsUniqueRuName_NotUniqueName_False()
         {
             var platformTypes = new ExtendPlatformTypeDTO() { Id = Guid.NewGuid(), NameRu = _fakePlatformTypeName };
-            _uow.Setup(uow => uow.PlatformTypes.Get(It.IsAny<Func<PlatformType, bool>>())).Returns(new List<PlatformType>());
+            _uow.Setup(uow => uow.PlatformTypes.Get(It.IsAny<Func<PlatformType, bool>>()))
+                .Returns(new List<PlatformType>());
 
             var res = _sut.IsUniqueRuName(platformTypes);
 
@@ -195,7 +198,8 @@ namespace GameStore.Tests.Service
         public void IsUniqueRuName_UniqueName_True()
         {
             var platformTypes = new ExtendPlatformTypeDTO() { Id = Guid.NewGuid(), NameRu = _fakePlatformTypeName };
-            _uow.Setup(uow => uow.PlatformTypes.Get(It.IsAny<Func<PlatformType, bool>>())).Returns(new List<PlatformType>() { _fakePlatformType });
+            _uow.Setup(uow => uow.PlatformTypes.Get(It.IsAny<Func<PlatformType, bool>>()))
+                .Returns(new List<PlatformType>() { _fakePlatformType });
 
             var res = _sut.IsUniqueRuName(platformTypes);
 

@@ -507,4 +507,7 @@
   <data name="IsBaned" xml:space="preserve">
     <value>Is Baned</value>
   </data>
+  <data name="ExistUserName" xml:space="preserve">
+    <value>User with such name already exist</value>
+  </data>
 </root>

@@ -33,9 +33,11 @@ namespace GameStore.BLL.Service
         {
             gameDto.Id = Guid.NewGuid();
             var newGame = _mapper.Map<Game>(gameDto);
-            newGame.Genres = _unitOfWork.Genres.Get(genre => gameDto.SelectedGenresName.Contains(genre.NameEn) || gameDto.SelectedGenresName.Contains(genre.NameRu)).ToList();
+            newGame.Genres = _unitOfWork.Genres.Get(genre => gameDto.SelectedGenresName.Contains(genre.NameEn)
+            || gameDto.SelectedGenresName.Contains(genre.NameRu)).ToList();
             newGame.PlatformTypes = _unitOfWork.PlatformTypes
-                .Get(platformType => gameDto.SelectedPlatformTypesName.Contains(platformType.NameEn) || gameDto.SelectedPlatformTypesName.Contains(platformType.NameRu)).ToList();
+                .Get(platformType => gameDto.SelectedPlatformTypesName.Contains(platformType.NameEn) 
+                || gameDto.SelectedPlatformTypesName.Contains(platformType.NameRu)).ToList();
             newGame.PublishDate = DateTime.UtcNow;
 
             _unitOfWork.Games.Create(newGame);
@@ -74,9 +76,11 @@ namespace GameStore.BLL.Service
                 game.Genres.Clear();
                 game.PlatformTypes.Clear();
 
-                game.Genres = _unitOfWork.Genres.Get(genre => gameDto.SelectedGenresName.Contains(genre.NameEn) || gameDto.SelectedGenresName.Contains(genre.NameRu)).ToList();
+                game.Genres = _unitOfWork.Genres.Get(genre => gameDto.SelectedGenresName.Contains(genre.NameEn)
+                || gameDto.SelectedGenresName.Contains(genre.NameRu)).ToList();
                 game.PlatformTypes = _unitOfWork.PlatformTypes
-                    .Get(platformType => gameDto.SelectedPlatformTypesName.Contains(platformType.NameEn) || gameDto.SelectedPlatformTypesName.Contains(platformType.NameRu)).ToList();
+                    .Get(platformType => gameDto.SelectedPlatformTypesName.Contains(platformType.NameEn)
+                    || gameDto.SelectedPlatformTypesName.Contains(platformType.NameRu)).ToList();
 
                 _unitOfWork.Games.Update(game);
                 game = _mapper.Map<Game>(gameDto);

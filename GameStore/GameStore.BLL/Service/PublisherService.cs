@@ -39,7 +39,8 @@ namespace GameStore.BLL.Service
 
             if (publisher == null)
             {
-                throw new EntityNotFound($"{nameof(PublisherService)} - publisher with such company name {companyName} did not exist");
+                throw new EntityNotFound($"{nameof(PublisherService)} -" +
+                                         $" publisher with such company name {companyName} did not exist");
             }
 
             return _mapper.Map<ExtendPublisherDTO>(publisher);

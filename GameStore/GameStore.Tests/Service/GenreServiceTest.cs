@@ -211,7 +211,12 @@ namespace GameStore.Tests.Service
         public void IsPossibleRelation_GenreDTOWithPossibleRelation_True()
         {
             Guid firstFakeId = Guid.NewGuid();
-            var newGenre = new ExtendGenreDTO() { Id = Guid.NewGuid(), NameEn = _fakeGenreName, ParentGenreId = firstFakeId };
+            var newGenre = new ExtendGenreDTO()
+            {
+                Id = Guid.NewGuid(),
+                NameEn = _fakeGenreName,
+                ParentGenreId = firstFakeId
+            };
             _uow.Setup(uow => uow.Genres.Get(It.IsAny<Func<Genre, bool>>())).Returns(new List<Genre>());
 
             var res = _sut.IsPossibleRelation(newGenre);

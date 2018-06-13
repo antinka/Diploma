@@ -8,11 +8,9 @@ namespace GameStore.Web.Authorization.Implementation
 {
     public class UserIdentity : IIdentity
     {
-        private readonly User _user;
-
         public UserIdentity()
         {
-            _user = new User
+            User = new User
             {
                 Name = "Guest",
                 Roles = new List<RoleViewModel> { new RoleViewModel() { Name = "Guest" } }
@@ -21,10 +19,10 @@ namespace GameStore.Web.Authorization.Implementation
 
         public UserIdentity(User user)
         {
-            _user = user;
+            User = user;
         }
 
-        public User User => _user;
+        public User User { get; }
 
         public virtual string Name => User.Name;
 

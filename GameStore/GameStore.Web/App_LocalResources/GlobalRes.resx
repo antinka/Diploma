@@ -510,4 +510,7 @@
   <data name="IsBaned" xml:space="preserve">
     <value>Забанен</value>
   </data>
+  <data name="ExistUserName" xml:space="preserve">
+    <value>Пользователь с таким именем уже существует</value>
+  </data>
 </root>

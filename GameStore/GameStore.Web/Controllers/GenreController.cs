@@ -16,7 +16,10 @@ namespace GameStore.Web.Controllers
         private readonly IGenreService _genreService;
         private readonly IMapper _mapper;
 
-        public GenreController(IGenreService genreService, IMapper mapper, IAuthentication authentication) : base(authentication)
+        public GenreController(
+            IGenreService genreService,
+            IMapper mapper,
+            IAuthentication authentication) : base(authentication)
         {
             _mapper = mapper;
             _genreService = genreService;

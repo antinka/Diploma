@@ -16,7 +16,10 @@ namespace GameStore.Web.Controllers
         private readonly IPlatformTypeService _platformTypeService;
         private readonly IMapper _mapper;
 
-        public PlatformTypeController(IPlatformTypeService platformTypeService, IMapper mapper, IAuthentication authentication) : base(authentication)
+        public PlatformTypeController(
+            IPlatformTypeService platformTypeService,
+            IMapper mapper,
+            IAuthentication authentication) : base(authentication)
         {
             _mapper = mapper;
             _platformTypeService = platformTypeService;

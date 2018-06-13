@@ -550,6 +550,15 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Пользователь с таким именем уже существует.
+        /// </summary>
+        public static string ExistUserName {
+            get {
+                return ResourceManager.GetString("ExistUserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Фильтровать.
         /// </summary>
         public static string Filter {

@@ -124,7 +124,8 @@ namespace GameStore.Web.Controllers
                 filterViewModel.PageSize = PageSize.Ten;
             }
 
-            var gamesByFilter = _gameService.GetGamesByFilter(_mapper.Map<FilterDTO>(filterViewModel), page, filterViewModel.PageSize, out var totalItemsByFilter);
+            var filter = _mapper.Map<FilterDTO>(filterViewModel);
+            var filteredGames = _gameService.GetGamesByFilter(filter, page, filterViewModel.PageSize, out var itemsByFilter);
 
             int totalItem = 0;
 
@@ -141,7 +142,7 @@ namespace GameStore.Web.Controllers
             {
                 CurrentPage = page,
                 ItemsPerPage = totalItem,
-                TotalItemsByFilter = totalItemsByFilter
+                TotalItemsByFilter = itemsByFilter
             };
 
             filterViewModel.PagingInfo = pagingInfo;
@@ -153,7 +154,7 @@ namespace GameStore.Web.Controllers
                 filterViewModel.PageSize = PageSize.Ten;
             }
 
-            var gameViewModel = _mapper.Map<IEnumerable<DetailsGameViewModel>>(gamesByFilter);
+            var gameViewModel = _mapper.Map<IEnumerable<DetailsGameViewModel>>(filteredGames);
 
             if (gameViewModel.Any())
             {
@@ -256,11 +257,17 @@ namespace GameStore.Web.Controllers
             gameViewModel.PublisherList = new SelectList(publishers, "Id", "Name");
 
             var listGenreBoxes = new List<CheckBox>();
-            genrelist.Select(genre => { listGenreBoxes.Add(new CheckBox() { Text = genre.Name }); return genre; }).ToList();
+            genrelist.Select(genre =>
+            {
+                listGenreBoxes.Add(new CheckBox() { Text = genre.Name }); return genre;
+            }).ToList();
             gameViewModel.ListGenres = listGenreBoxes;
 
             var listPlatformBoxes = new List<CheckBox>();
-            platformlist.Select(platform => { listPlatformBoxes.Add(new CheckBox() { Text = platform.Name }); return platform; }).ToList();
+            platformlist.Select(platform =>
+            {
+                listPlatformBoxes.Add(new CheckBox() { Text = platform.Name }); return platform;
+            }).ToList();
             gameViewModel.ListPlatformTypes = listPlatformBoxes;
 
             return gameViewModel;
@@ -272,12 +279,14 @@ namespace GameStore.Web.Controllers
 
             if (gameViewModel.SelectedPlatformTypesName != null)
             {
-                gameViewModel.SelectedPlatformTypes = gameViewModel.ListPlatformTypes.Where(x => gameViewModel.SelectedPlatformTypesName.Contains(x.Text));
+                gameViewModel.SelectedPlatformTypes = gameViewModel.ListPlatformTypes
+                    .Where(x => gameViewModel.SelectedPlatformTypesName.Contains(x.Text));
             }
 
             if (gameViewModel.SelectedGenresName != null)
             {
-                gameViewModel.SelectedGenres = gameViewModel.ListGenres.Where(x => gameViewModel.SelectedGenresName.Contains(x.Text));
+                gameViewModel.SelectedGenres = gameViewModel.ListGenres
+                    .Where(x => gameViewModel.SelectedGenresName.Contains(x.Text));
             }
 
             return gameViewModel;
@@ -290,12 +299,14 @@ namespace GameStore.Web.Controllers
 
             if (gameViewModel.PlatformTypes != null)
             {
-                gameViewModel.SelectedPlatformTypes = gameViewModel.ListPlatformTypes.Where(x => gameViewModel.PlatformTypes.Any(g => g.Name.Contains(x.Text)));
+                gameViewModel.SelectedPlatformTypes = gameViewModel.ListPlatformTypes
+                    .Where(x => gameViewModel.PlatformTypes.Any(g => g.Name.Contains(x.Text)));
             }
 
             if (gameViewModel.Genres != null)
             {
-                gameViewModel.SelectedGenres = gameViewModel.ListGenres.Where(x => gameViewModel.Genres.Any(g => g.Name.Contains(x.Text)));
+                gameViewModel.SelectedGenres = gameViewModel.ListGenres
+                    .Where(x => gameViewModel.Genres.Any(g => g.Name.Contains(x.Text)));
             }
 
             return gameViewModel;

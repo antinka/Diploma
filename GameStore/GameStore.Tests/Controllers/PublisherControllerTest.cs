@@ -34,7 +34,12 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void New_ValidPublisherViewModel_AddNewCalled()
         {
-            var fakePublisherViewModel = new PublisherViewModel() { Name = "test", DescriptionEn = "test", HomePage = "test" };
+            var fakePublisherViewModel = new PublisherViewModel()
+            {
+                Name = "test",
+                DescriptionEn = "test",
+                HomePage = "test"
+            };
             var fakePublisherDTO = _mapper.Map<ExtendPublisherDTO>(fakePublisherViewModel);
 
             _publisherService.Setup(service => service.IsUniqueName(It.IsAny<ExtendPublisherDTO>())).Returns(true);

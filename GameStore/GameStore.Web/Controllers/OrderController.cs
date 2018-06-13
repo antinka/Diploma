@@ -7,7 +7,6 @@ using GameStore.BLL.DTO;
 using GameStore.BLL.Interfaces;
 using GameStore.Web.App_LocalResources;
 using GameStore.Web.Authorization.Interfaces;
-using GameStore.Web.Filters;
 using GameStore.Web.Payments;
 using GameStore.Web.Payments.Enums;
 using GameStore.Web.Payments.ViewModels;
@@ -23,7 +22,12 @@ namespace GameStore.Web.Controllers
         private readonly IMapper _mapper;
         private readonly IPaymentStrategy _paymentStrategy;
 
-        public OrderController(IOrdersService ordersService, IGameService gameService, IMapper mapper, IPaymentStrategy paymentStrategy, IAuthentication authentication) : base(authentication)
+        public OrderController(
+            IOrdersService ordersService,
+            IGameService gameService, 
+            IMapper mapper,
+            IPaymentStrategy paymentStrategy,
+            IAuthentication authentication) : base(authentication)
         {
             _ordersService = ordersService;
             _gameService = gameService;
@@ -133,7 +137,9 @@ namespace GameStore.Web.Controllers
 
         public ActionResult HistoryOrders(FilterOrder filterOrder)
         {
-            if (filterOrder.DateTimeFrom != null && filterOrder.DateTimeTo != null && filterOrder.DateTimeFrom > filterOrder.DateTimeTo)
+            if (filterOrder.DateTimeFrom != null 
+                && filterOrder.DateTimeTo != null
+                && filterOrder.DateTimeFrom > filterOrder.DateTimeTo)
             {
                 ModelState.AddModelError(string.Empty, GlobalRes.DataTimeFromTo);
             }
@@ -173,7 +179,9 @@ namespace GameStore.Web.Controllers
 
         public ActionResult Orders(FilterOrder filterOrder)
         {
-            if (filterOrder.DateTimeFrom != null && filterOrder.DateTimeTo != null && filterOrder.DateTimeFrom > filterOrder.DateTimeTo)
+            if (filterOrder.DateTimeFrom != null 
+                && filterOrder.DateTimeTo != null 
+                && filterOrder.DateTimeFrom > filterOrder.DateTimeTo)
             {
                 ModelState.AddModelError(string.Empty, GlobalRes.DataTimeFromTo);
             }

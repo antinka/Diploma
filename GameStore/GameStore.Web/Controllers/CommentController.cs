@@ -7,7 +7,6 @@ using GameStore.BLL.DTO;
 using GameStore.BLL.Enums;
 using GameStore.BLL.Interfaces;
 using GameStore.Web.Authorization.Interfaces;
-using GameStore.Web.Filters;
 using GameStore.Web.ViewModels;
 using GameStore.Web.ViewModels.Games;
 
@@ -19,7 +18,11 @@ namespace GameStore.Web.Controllers
         private readonly IGameService _gameService;
         private readonly IMapper _mapper;
 
-        public CommentController(ICommentService commentService, IGameService gameService, IMapper mapper, IAuthentication authentication) : base(authentication)
+        public CommentController(
+            ICommentService commentService,
+            IGameService gameService,
+            IMapper mapper,
+            IAuthentication authentication) : base(authentication)
         {
             _commentService = commentService;
             _gameService = gameService;
@@ -116,10 +119,11 @@ namespace GameStore.Web.Controllers
             {
                 _commentService.Ban(period.Value, userId);
 
-                return RedirectToAction("GetAllCommentToGame", "Comment", new { gamekey = gamekey });
+                return RedirectToAction("GetAllCommentToGame", "Comment", new { gamekey });
             }
 
             ViewBag.gamekey = gamekey;
+
             return PartialView();
         }
     }
