@@ -191,7 +191,9 @@ namespace GameStore.Web.Controllers
                 filterOrder.DateTimeFrom = DateTime.UtcNow.AddDays(-30);
             }
 
-            var ordersDTO = _ordersService.GetOrdersWithUnpaidBetweenDates(filterOrder.DateTimeFrom, filterOrder.DateTimeTo);
+            var ordersDTO = _ordersService.GetOrdersWithUnpaidBetweenDates(
+                filterOrder.DateTimeFrom, 
+                filterOrder.DateTimeTo);
             filterOrder.OrdersViewModel = _mapper.Map<IEnumerable<OrderViewModel>>(ordersDTO);
 
             return View(filterOrder);

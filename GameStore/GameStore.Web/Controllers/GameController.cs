@@ -112,30 +112,30 @@ namespace GameStore.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult FilteredGames(FilterViewModel filterViewModel, int page = 1)
+        public ActionResult FilteredGames(FilterViewModel filter, int page = 1)
         {
-            if (filterViewModel.MinPrice > filterViewModel.MaxPrice)
+            if (filter.MinPrice > filter.MaxPrice)
             {
                 ModelState.AddModelError("MinPrice", GlobalRes.MinMaxPrice);
             }
 
-            if (filterViewModel.PageSize == 0)
+            if (filter.PageSize == 0)
             {
-                filterViewModel.PageSize = PageSize.Ten;
+                filter.PageSize = PageSize.Ten;
             }
 
-            var filter = _mapper.Map<FilterDTO>(filterViewModel);
-            var filteredGames = _gameService.GetGamesByFilter(filter, page, filterViewModel.PageSize, out var itemsByFilter);
+            var filterDto = _mapper.Map<FilterDTO>(filter);
+            var filteredGames = _gameService.GetGamesByFilter(filterDto, page, filter.PageSize, out var itemsByFilter);
 
             int totalItem = 0;
 
-            if (filterViewModel.PageSize == PageSize.All)
+            if (filter.PageSize == PageSize.All)
             {
                 totalItem = _gameService.GetCountGame();
             }
             else
             {
-                totalItem = (int)filterViewModel.PageSize;
+                totalItem = (int)filter.PageSize;
             }
 
             var pagingInfo = new PagingInfo()
@@ -145,27 +145,27 @@ namespace GameStore.Web.Controllers
                 TotalItemsByFilter = itemsByFilter
             };
 
-            filterViewModel.PagingInfo = pagingInfo;
+            filter.PagingInfo = pagingInfo;
 
-            filterViewModel = _filterViewModelBuilder.Rebuild(filterViewModel);
+            filter = _filterViewModelBuilder.Rebuild(filter);
 
-            if (filterViewModel.PageSize == 0)
+            if (filter.PageSize == 0)
             {
-                filterViewModel.PageSize = PageSize.Ten;
+                filter.PageSize = PageSize.Ten;
             }
 
             var gameViewModel = _mapper.Map<IEnumerable<DetailsGameViewModel>>(filteredGames);
 
             if (gameViewModel.Any())
             {
-                filterViewModel.Games = gameViewModel;
+                filter.Games = gameViewModel;
             }
             else
             {
-                filterViewModel.Games = new List<DetailsGameViewModel>() { new DetailsGameViewModel() };
+                filter.Games = new List<DetailsGameViewModel>() { new DetailsGameViewModel() };
             }
 
-            return View(filterViewModel);
+            return View(filter);
         }
 
         [HttpGet]

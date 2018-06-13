@@ -77,7 +77,8 @@ namespace GameStore.BLL.Service
             if (game == null)
             {
                 throw new EntityNotFound(
-                    $"{nameof(CommentService)}- exception in returning all comment to gameKey {gameKey} such game key did not exist");
+                    $"{nameof(CommentService)}- exception in returning all comment to gameKey " +
+                    $"{gameKey} such game key did not exist");
             }
 
             var listCommentToGame = _unitOfWork.Comments.Get(g => g.GameId == game.Id);

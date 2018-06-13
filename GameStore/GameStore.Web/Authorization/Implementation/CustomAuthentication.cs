@@ -11,7 +11,7 @@ namespace GameStore.Web.Authorization.Implementation
 {
     public class CustomAuthentication : IAuthentication
     {
-        private const string cookieName = "__AUTH_COOKIE"; 
+        private const string CookieName = "__AUTH_COOKIE"; 
         private readonly ILog _log;
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
@@ -34,7 +34,7 @@ namespace GameStore.Web.Authorization.Implementation
                 {
                     try
                     {
-                        HttpCookie authCookie = HttpContext.Request.Cookies.Get(cookieName);
+                        HttpCookie authCookie = HttpContext.Request.Cookies.Get(CookieName);
                         if (authCookie != null && !string.IsNullOrEmpty(authCookie.Value))
                         {
                             var ticket = FormsAuthentication.Decrypt(authCookie.Value);
@@ -75,14 +75,14 @@ namespace GameStore.Web.Authorization.Implementation
 
         public void LogOut()
         {
-            var httpCookie = HttpContext.Response.Cookies.Get(cookieName);
+            var httpCookie = HttpContext.Response.Cookies.Get(CookieName);
 
             if (httpCookie != null)
             {
                 httpCookie.Value = string.Empty;
             }
 
-            HttpContext.Request.Cookies.Remove(cookieName);
+            HttpContext.Request.Cookies.Remove(CookieName);
         }
 
         private void CreateCookie(string userName, bool isPersistent = false)
@@ -97,7 +97,7 @@ namespace GameStore.Web.Authorization.Implementation
                 FormsAuthentication.FormsCookiePath);
 
             var encTicket = FormsAuthentication.Encrypt(ticket);
-            var authCookie = new HttpCookie(cookieName)
+            var authCookie = new HttpCookie(CookieName)
             {         
                 Value = encTicket,
                 Expires = DateTime.Now.Add(FormsAuthentication.Timeout)
