@@ -141,7 +141,7 @@
     {
         <p>
             @Html.ActionLink(GlobalRes.Download, "Download", new { gamekey = Model.Key }, new { target = "_blank" })
-            @if (Model.UnitsInStock > 0)
+            @if (Model.UnitsInStock > 0 && User != null && User.Identity.IsAuthenticated)
             {
                 @:|
                 @Html.ActionLink(GlobalRes.Buy, "AddGameToOrder", "Order", new { gamekey = Model.Key }, null)
