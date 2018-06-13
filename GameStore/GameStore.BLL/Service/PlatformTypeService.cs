@@ -77,7 +77,8 @@ namespace GameStore.BLL.Service
 
             if (platformType == null)
             {
-                throw new EntityNotFound($"{nameof(PlatformTypeService)} - platformType with such name {name} did not exist");
+                throw new EntityNotFound($"{nameof(PlatformTypeService)} - platformType with such name " +
+                                         $"{name} did not exist");
             }
 
             return _mapper.Map<ExtendPlatformTypeDTO>(platformType);

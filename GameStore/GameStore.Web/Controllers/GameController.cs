@@ -112,59 +112,60 @@ namespace GameStore.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult FilteredGames(FilterViewModel filterViewModel, int page = 1)
+        public ActionResult FilteredGames(FilterViewModel filter, int page = 1)
         {
-            if (filterViewModel.MinPrice > filterViewModel.MaxPrice)
+            if (filter.MinPrice > filter.MaxPrice)
             {
                 ModelState.AddModelError("MinPrice", GlobalRes.MinMaxPrice);
             }
 
-            if (filterViewModel.PageSize == 0)
+            if (filter.PageSize == 0)
             {
-                filterViewModel.PageSize = PageSize.Ten;
+                filter.PageSize = PageSize.Ten;
             }
 
-            var gamesByFilter = _gameService.GetGamesByFilter(_mapper.Map<FilterDTO>(filterViewModel), page, filterViewModel.PageSize, out var totalItemsByFilter);
+            var filterDto = _mapper.Map<FilterDTO>(filter);
+            var filteredGames = _gameService.GetGamesByFilter(filterDto, page, filter.PageSize, out var itemsByFilter);
 
             int totalItem = 0;
 
-            if (filterViewModel.PageSize == PageSize.All)
+            if (filter.PageSize == PageSize.All)
             {
                 totalItem = _gameService.GetCountGame();
             }
             else
             {
-                totalItem = (int)filterViewModel.PageSize;
+                totalItem = (int)filter.PageSize;
             }
 
             var pagingInfo = new PagingInfo()
             {
                 CurrentPage = page,
                 ItemsPerPage = totalItem,
-                TotalItemsByFilter = totalItemsByFilter
+                TotalItemsByFilter = itemsByFilter
             };
 
-            filterViewModel.PagingInfo = pagingInfo;
+            filter.PagingInfo = pagingInfo;
 
-            filterViewModel = _filterViewModelBuilder.Rebuild(filterViewModel);
+            filter = _filterViewModelBuilder.Rebuild(filter);
 
-            if (filterViewModel.PageSize == 0)
+            if (filter.PageSize == 0)
             {
-                filterViewModel.PageSize = PageSize.Ten;
+                filter.PageSize = PageSize.Ten;
             }
 
-            var gameViewModel = _mapper.Map<IEnumerable<DetailsGameViewModel>>(gamesByFilter);
+            var gameViewModel = _mapper.Map<IEnumerable<DetailsGameViewModel>>(filteredGames);
 
             if (gameViewModel.Any())
             {
-                filterViewModel.Games = gameViewModel;
+                filter.Games = gameViewModel;
             }
             else
             {
-                filterViewModel.Games = new List<DetailsGameViewModel>() { new DetailsGameViewModel() };
+                filter.Games = new List<DetailsGameViewModel>() { new DetailsGameViewModel() };
             }
 
-            return View(filterViewModel);
+            return View(filter);
         }
 
         [HttpGet]
@@ -256,11 +257,17 @@ namespace GameStore.Web.Controllers
             gameViewModel.PublisherList = new SelectList(publishers, "Id", "Name");
 
             var listGenreBoxes = new List<CheckBox>();
-            genrelist.Select(genre => { listGenreBoxes.Add(new CheckBox() { Text = genre.Name }); return genre; }).ToList();
+            genrelist.Select(genre =>
+            {
+                listGenreBoxes.Add(new CheckBox() { Text = genre.Name }); return genre;
+            }).ToList();
             gameViewModel.ListGenres = listGenreBoxes;
 
             var listPlatformBoxes = new List<CheckBox>();
-            platformlist.Select(platform => { listPlatformBoxes.Add(new CheckBox() { Text = platform.Name }); return platform; }).ToList();
+            platformlist.Select(platform =>
+            {
+                listPlatformBoxes.Add(new CheckBox() { Text = platform.Name }); return platform;
+            }).ToList();
             gameViewModel.ListPlatformTypes = listPlatformBoxes;
 
             return gameViewModel;
@@ -272,12 +279,14 @@ namespace GameStore.Web.Controllers
 
             if (gameViewModel.SelectedPlatformTypesName != null)
             {
-                gameViewModel.SelectedPlatformTypes = gameViewModel.ListPlatformTypes.Where(x => gameViewModel.SelectedPlatformTypesName.Contains(x.Text));
+                gameViewModel.SelectedPlatformTypes = gameViewModel.ListPlatformTypes
+                    .Where(x => gameViewModel.SelectedPlatformTypesName.Contains(x.Text));
             }
 
             if (gameViewModel.SelectedGenresName != null)
             {
-                gameViewModel.SelectedGenres = gameViewModel.ListGenres.Where(x => gameViewModel.SelectedGenresName.Contains(x.Text));
+                gameViewModel.SelectedGenres = gameViewModel.ListGenres
+                    .Where(x => gameViewModel.SelectedGenresName.Contains(x.Text));
             }
 
             return gameViewModel;
@@ -290,12 +299,14 @@ namespace GameStore.Web.Controllers
 
             if (gameViewModel.PlatformTypes != null)
             {
-                gameViewModel.SelectedPlatformTypes = gameViewModel.ListPlatformTypes.Where(x => gameViewModel.PlatformTypes.Any(g => g.Name.Contains(x.Text)));
+                gameViewModel.SelectedPlatformTypes = gameViewModel.ListPlatformTypes
+                    .Where(x => gameViewModel.PlatformTypes.Any(g => g.Name.Contains(x.Text)));
             }
 
             if (gameViewModel.Genres != null)
             {
-                gameViewModel.SelectedGenres = gameViewModel.ListGenres.Where(x => gameViewModel.Genres.Any(g => g.Name.Contains(x.Text)));
+                gameViewModel.SelectedGenres = gameViewModel.ListGenres
+                    .Where(x => gameViewModel.Genres.Any(g => g.Name.Contains(x.Text)));
             }
 
             return gameViewModel;

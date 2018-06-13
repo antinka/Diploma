@@ -12,7 +12,10 @@ namespace GameStore.Web.Controllers
         private readonly IOrdersService _ordersService;
         private readonly IMapper _mapper;
 
-        public ShipperController(IOrdersService ordersService, IMapper mapper, IAuthentication authentication) : base(authentication)
+        public ShipperController(
+            IOrdersService ordersService,
+            IMapper mapper,
+            IAuthentication authentication) : base(authentication)
         {
             _ordersService = ordersService;
             _mapper = mapper;

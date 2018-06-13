@@ -15,8 +15,10 @@ namespace GameStore.Web.Controllers
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
 
-        public AccountController(IUserService userService, IMapper mapper, IAuthentication authentication) : base(
-            authentication)
+        public AccountController(
+            IUserService userService, 
+            IMapper mapper,
+            IAuthentication authentication) : base(authentication)
         {
             _mapper = mapper;
             _userService = userService;
@@ -35,7 +37,7 @@ namespace GameStore.Web.Controllers
 
             if (!_userService.IsUniqueName(userDto))
             {
-                ModelState.AddModelError("Name", "exist name");
+                ModelState.AddModelError("Name", GlobalRes.ExistUserName);
             }
 
             if (ModelState.IsValid)

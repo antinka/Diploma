@@ -63,12 +63,14 @@ namespace GameStore.Web.Builder.Implementation
 
             if (filterViewModel.SelectedPlatformTypesName != null)
             {
-                model.SelectedPlatformTypes = model.ListPlatformTypes.Where(x => filterViewModel.SelectedPlatformTypesName.Contains(x.Text));
+                model.SelectedPlatformTypes = model.ListPlatformTypes
+                    .Where(x => filterViewModel.SelectedPlatformTypesName.Contains(x.Text));
             }
 
             if (filterViewModel.SelectedPublishersName != null)
             {
-                model.SelectedPublishers = model.ListPublishers.Where(x => filterViewModel.SelectedPublishersName.Contains(x.Text));
+                model.SelectedPublishers = model.ListPublishers
+                    .Where(x => filterViewModel.SelectedPublishersName.Contains(x.Text));
             }
 
             model.PagingInfo = filterViewModel.PagingInfo;

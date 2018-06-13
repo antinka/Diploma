@@ -189,8 +189,10 @@ namespace GameStore.Tests.Service
 
             _uow.Setup(uow => uow.Games.GetById(_fakeGameId)).Returns(oldFakeGame);
             _uow.Setup(uow => uow.Genres.Get(It.IsAny<Func<Genre, bool>>())).Returns(new List<Genre>());
-            _uow.Setup(uow => uow.PlatformTypes.Get(It.IsAny<Func<PlatformType, bool>>())).Returns(new List<PlatformType>());
-            _uow.Setup(uow => uow.OrderDetails.Get(It.IsAny<Func<OrderDetail, bool>>())).Returns(new List<OrderDetail>() { fakeOrderDetail });
+            _uow.Setup(uow => uow.PlatformTypes.Get(It.IsAny<Func<PlatformType, bool>>()))
+                .Returns(new List<PlatformType>());
+            _uow.Setup(uow => uow.OrderDetails.Get(It.IsAny<Func<OrderDetail, bool>>()))
+                .Returns(new List<OrderDetail>() { fakeOrderDetail });
             _uow.Setup(uow => uow.OrderDetails.Update(fakeOrderDetail));
             _uow.Setup(uow => uow.Games.Update(newFakeGame));
 
@@ -264,7 +266,10 @@ namespace GameStore.Tests.Service
 
             var getGamesByPlatformTypeId = _sut.GetGamesByPlatformType(_fakePlatformTypeId);
 
-            Assert.Equal(_fakeGames.Count, getGamesByPlatformTypeId.Count(g => g.PlatformTypes.Any(x => x.Id == _fakePlatformTypeId)));
+            Assert.Equal(
+                _fakeGames.Count,
+                getGamesByPlatformTypeId
+                .Count(g => g.PlatformTypes.Any(x => x.Id == _fakePlatformTypeId)));
         }
 
         [Fact]

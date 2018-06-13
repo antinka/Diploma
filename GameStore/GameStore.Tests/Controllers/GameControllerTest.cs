@@ -36,8 +36,19 @@ namespace GameStore.Tests.Controllers
             _genreService = new Mock<IGenreService>();
             _platformTypeService = new Mock<IPlatformTypeService>();
             _publisherService = new Mock<IPublisherService>();
-            _filterViewModelBuilder = new FilterViewModelBuilder(_genreService.Object, _platformTypeService.Object, _mapper, _publisherService.Object);
-            _sut = new GameController(_gameService.Object, _genreService.Object, _platformTypeService.Object, _mapper, _publisherService.Object, _filterViewModelBuilder, null);
+            _filterViewModelBuilder = new FilterViewModelBuilder(
+                _genreService.Object,
+                _platformTypeService.Object,
+                _mapper,
+                _publisherService.Object);
+            _sut = new GameController(
+                _gameService.Object,
+                _genreService.Object,
+                _platformTypeService.Object,
+                _mapper, 
+                _publisherService.Object,
+                _filterViewModelBuilder,
+                null);
 
             var fakeCommentId = Guid.NewGuid();
             _fakeGameId = Guid.NewGuid();
@@ -61,7 +72,13 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void New_ValidGame_AddNewCalled()
         {
-            var fakeGameViewModel = new GameViewModel() { NameEn = "test", Key = "test", SelectedGenresName = new List<string>(), SelectedPlatformTypesName = new List<string>() };
+            var fakeGameViewModel = new GameViewModel()
+            {
+                NameEn = "test",
+                Key = "test",
+                SelectedGenresName = new List<string>(),
+                SelectedPlatformTypesName = new List<string>()
+            };
             var fakeGameDTO = _mapper.Map<ExtendGameDTO>(fakeGameViewModel);
 
             _gameService.Setup(service => service.IsUniqueKey(It.IsAny<ExtendGameDTO>())).Returns(true);
@@ -87,7 +104,13 @@ namespace GameStore.Tests.Controllers
         [Fact]
         public void Update_ValidGame_UpdateCalled()
         {
-            var fakeGameViewModel = new GameViewModel() { NameEn = "test", Key = "test", SelectedGenresName = new List<string>(), SelectedPlatformTypesName = new List<string>() };
+            var fakeGameViewModel = new GameViewModel()
+            {
+                NameEn = "test",
+                Key = "test",
+                SelectedGenresName = new List<string>(),
+                SelectedPlatformTypesName = new List<string>()
+            };
             var fakeGameDTO = _mapper.Map<ExtendGameDTO>(fakeGameViewModel);
 
             _gameService.Setup(service => service.IsUniqueKey(It.IsAny<ExtendGameDTO>())).Returns(true);

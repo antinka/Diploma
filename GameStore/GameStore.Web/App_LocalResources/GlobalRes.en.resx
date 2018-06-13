@@ -510,4 +510,7 @@
   <data name="GetInTouch" xml:space="preserve">
     <value>Get in touch</value>
   </data>
+  <data name="ExistUserName" xml:space="preserve">
+    <value>User with such name already exist</value>
+  </data>
 </root>

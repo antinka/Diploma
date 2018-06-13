@@ -19,7 +19,11 @@ namespace GameStore.Web.Controllers
         private readonly IRoleService _roleService;
         private readonly IMapper _mapper;
 
-        public UserController(IUserService userService, IRoleService roleService, IMapper mapper, IAuthentication authentication) : base(authentication)
+        public UserController(
+            IUserService userService,
+            IRoleService roleService,
+            IMapper mapper, 
+            IAuthentication authentication) : base(authentication)
         {
             _userService = userService;
             _roleService = roleService;
@@ -148,7 +152,8 @@ namespace GameStore.Web.Controllers
 
             if (gameViewModel.SelectedRolesName != null)
             {
-                gameViewModel.SelectedRoles = gameViewModel.ListRoles.Where(x => gameViewModel.SelectedRolesName.Contains(x.Text));
+                gameViewModel.SelectedRoles = gameViewModel.ListRoles
+                    .Where(x => gameViewModel.SelectedRolesName.Contains(x.Text));
             }
 
             return gameViewModel;
@@ -161,7 +166,8 @@ namespace GameStore.Web.Controllers
 
             if (gameViewModel.Roles != null)
             {
-                gameViewModel.SelectedRoles = gameViewModel.ListRoles.Where(x => gameViewModel.Roles.Any(g => g.Name.Contains(x.Text)));
+                gameViewModel.SelectedRoles = gameViewModel.ListRoles
+                    .Where(x => gameViewModel.Roles.Any(g => g.Name.Contains(x.Text)));
             }
 
             return gameViewModel;

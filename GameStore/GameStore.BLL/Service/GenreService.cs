@@ -88,7 +88,8 @@ namespace GameStore.BLL.Service
 
         public bool IsPossibleRelation(ExtendGenreDTO genreDto)
         {
-            var reverseGenreDto = _unitOfWork.Genres.Get(g => g.Id == genreDto.ParentGenreId && g.ParentGenreId == genreDto.Id).FirstOrDefault();
+            var reverseGenreDto = _unitOfWork.Genres.Get(g => g.Id == genreDto.ParentGenreId 
+            && g.ParentGenreId == genreDto.Id).FirstOrDefault();
 
             if (reverseGenreDto == null)
             {

@@ -46,7 +46,12 @@ namespace GameStore.Tests.Controllers
             _ordersService = new Mock<IOrdersService>();
             _gameService = new Mock<IGameService>();
             _authentication = new Mock<IAuthentication>();
-            _sut = new OrderController(_ordersService.Object, _gameService.Object, _mapper, _paymentStrategy, _authentication.Object);
+            _sut = new OrderController(
+                _ordersService.Object,
+                _gameService.Object,
+                _mapper,
+                _paymentStrategy,
+                _authentication.Object);
         }
 
         [Fact]

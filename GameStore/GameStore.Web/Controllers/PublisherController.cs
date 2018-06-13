@@ -15,7 +15,10 @@ namespace GameStore.Web.Controllers
         private readonly IPublisherService _publisherService;
         private readonly IMapper _mapper;
 
-        public PublisherController(IPublisherService publisherService, IMapper mapper, IAuthentication authentication) : base(authentication)
+        public PublisherController(
+            IPublisherService publisherService, 
+            IMapper mapper,
+            IAuthentication authentication) : base(authentication)
         {
             _publisherService = publisherService;
             _mapper = mapper;
