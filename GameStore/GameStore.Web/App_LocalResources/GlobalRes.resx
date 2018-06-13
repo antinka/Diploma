@@ -510,4 +510,7 @@
   <data name="IsBaned" xml:space="preserve">
     <value>Забанен</value>
   </data>
+  <data name="GetInTouch" xml:space="preserve">
+    <value>Связаться</value>
+  </data>
 </root>

@@ -22,7 +22,7 @@
             @Html.ActionLink(GlobalRes.Create, "New", "Game")
         </p>
     }
-    <table class="table" id="notDisabled">
+    <table class="table " id="notDisabled" style="table-layout: fixed;">
         <tr>
             <th>
                 @Html.HiddenFor(model => model.Games.First().Key)
