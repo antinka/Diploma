@@ -517,10 +517,10 @@
     <value>Выберите роль как издателя, если вы хотите предоставить доступ для редактирования этого объекта</value>
   </data>
   <data name="NothingToDisplay" xml:space="preserve">
-    <value>Нечего показать</value>
+    <value>У вас нет игр, созданных вами</value>
   </data>
   <data name="NothingToEdit" xml:space="preserve">
-    <value>Нечего редактировать</value>
+    <value>У вас нет объекта издателя</value>
   </data>
   <data name="NothingWasFound" xml:space="preserve">
     <value>Ничего не найдено</value>

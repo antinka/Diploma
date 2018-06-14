@@ -514,10 +514,10 @@
     <value>Please choose role as publisher, if you want to give access to edit this entity</value>
   </data>
   <data name="NothingToDisplay" xml:space="preserve">
-    <value>Nothing to display</value>
+    <value>You do not have any games produced by yourself</value>
   </data>
   <data name="NothingToEdit" xml:space="preserve">
-    <value>Nothing to edit</value>
+    <value>You do not have publisher entity</value>
   </data>
   <data name="NothingWasFound" xml:space="preserve">
     <value>Nothing was found</value>

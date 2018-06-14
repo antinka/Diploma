@@ -838,7 +838,7 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Нечего показать.
+        ///   Looks up a localized string similar to У вас нет игр, созданных вами.
         /// </summary>
         public static string NothingToDisplay {
             get {
@@ -847,7 +847,7 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Нечего редактировать.
+        ///   Looks up a localized string similar to У вас нет объекта издателя.
         /// </summary>
         public static string NothingToEdit {
             get {
