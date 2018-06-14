@@ -16,16 +16,19 @@ namespace GameStore.Web.Controllers
     public class UserController : BaseController
     {
         private readonly IUserService _userService;
+        private readonly IPublisherService _publisherService;
         private readonly IRoleService _roleService;
         private readonly IMapper _mapper;
 
         public UserController(
             IUserService userService,
+            IPublisherService publisherService,
             IRoleService roleService,
-            IMapper mapper, 
+            IMapper mapper,
             IAuthentication authentication) : base(authentication)
         {
             _userService = userService;
+            _publisherService = publisherService;
             _roleService = roleService;
             _mapper = mapper;
         }
@@ -40,7 +43,13 @@ namespace GameStore.Web.Controllers
         [HttpGet]
         public ActionResult New()
         {
-            return View(GetUserViewModelForCreate(new UserViewModel()));
+            var publishers = _mapper.Map<IEnumerable<DetailsPublisherViewModel>>(_publisherService.GetAll());
+            var userViewModel = new UserViewModel()
+            {
+                PublisherList = new SelectList(publishers, "Id", "Name")
+            };
+
+            return View(GetUserViewModelForCreate(userViewModel));
         }
 
         [HttpPost]
@@ -55,6 +64,13 @@ namespace GameStore.Web.Controllers
             if (userViewModel.StartDateBaned > userViewModel.EndDateBaned)
             {
                 ModelState.AddModelError("StartDateBaned", GlobalRes.DataTimeFromTo);
+            }
+
+            if (userViewModel.PublisherId != null
+                && userViewModel.SelectedRolesName != null
+                && !userViewModel.SelectedRolesName.Contains("Publisher"))
+            {
+                ModelState.AddModelError("Publisher", GlobalRes.ChoosePablisherRole);
             }
 
             if (ModelState.IsValid)
@@ -116,6 +132,13 @@ namespace GameStore.Web.Controllers
                 ModelState.AddModelError("StartDateBaned", GlobalRes.DataTimeFromTo);
             }
 
+            if (userViewModel.PublisherId != null
+                && userViewModel.SelectedRolesName != null
+                && !userViewModel.SelectedRolesName.Contains("Publisher"))
+            {
+                ModelState.AddModelError("Publisher", GlobalRes.ChoosePablisherRole);
+            }
+
             if (ModelState.IsValid)
             {
                 var userDTO = _mapper.Map<UserDTO>(userViewModel);
@@ -138,7 +161,7 @@ namespace GameStore.Web.Controllers
         private UserViewModel CreateCheckBoxForUserViewModel(UserViewModel userViewModel)
         {
             var rolelist = _mapper.Map<IEnumerable<RoleViewModel>>(_roleService.GetAll());
- 
+
             var listRoles = new List<CheckBox>();
             rolelist.Select(role => { listRoles.Add(new CheckBox() { Text = role.Name }); return role; }).ToList();
             userViewModel.ListRoles = listRoles;
@@ -146,17 +169,20 @@ namespace GameStore.Web.Controllers
             return userViewModel;
         }
 
-        private UserViewModel GetUserViewModelForCreate(UserViewModel gameViewModel)
+        private UserViewModel GetUserViewModelForCreate(UserViewModel userViewModel)
         {
-            gameViewModel = CreateCheckBoxForUserViewModel(gameViewModel);
+            userViewModel = CreateCheckBoxForUserViewModel(userViewModel);
 
-            if (gameViewModel.SelectedRolesName != null)
+            if (userViewModel.SelectedRolesName != null)
             {
-                gameViewModel.SelectedRoles = gameViewModel.ListRoles
-                    .Where(x => gameViewModel.SelectedRolesName.Contains(x.Text));
+                userViewModel.SelectedRoles = userViewModel.ListRoles
+                    .Where(x => userViewModel.SelectedRolesName.Contains(x.Text));
             }
 
-            return gameViewModel;
+            var publishers = _mapper.Map<IEnumerable<DetailsPublisherViewModel>>(_publisherService.GetAll());
+            userViewModel.PublisherList = new SelectList(publishers, "Id", "Name");
+
+            return userViewModel;
         }
 
         private UserViewModel GetUserViewModelForUpdate(UserViewModel gameViewModel)

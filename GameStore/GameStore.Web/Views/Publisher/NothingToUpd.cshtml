@@ -1,5 +1,10 @@
 ﻿@using GameStore.Web.App_LocalResources
-<h2>@GlobalRes.NothingWasFound</h2>
+
+@{
+    ViewBag.Title = "NothingToUpd";
+}
+
+<h2>@GlobalRes.NothingToEdit</h2>
 <p>
     @Html.ActionLink(GlobalRes.BackToGames, "FilteredGames", "Game")
 </p>

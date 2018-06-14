@@ -12,7 +12,7 @@
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 </head>
 <body>
-    
+
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -43,7 +43,7 @@
                         <li> @Html.ActionLink(GlobalRes.Orders, "AllOrders", "Order")</li>
 
                     }
-                        
+
                     <li> @Html.ActionLink(GlobalRes.Shipper, "GetAll", "Shipper")</li>
 
                     @if (User != null && User.IsInRole("Administrator"))
@@ -53,11 +53,8 @@
                     }
 
                 </ul>
-                
-                <ul class="nav navbar-nav navbar-right">
-                    <li>@Html.ActionLink("ru", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["lang"] = "ru")</li>
-                    <li> @Html.ActionLink("en", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["lang"] = "en")</li>
 
+                <ul class="nav navbar-nav navbar-right">
                     @if (User != null && User.Identity.IsAuthenticated)
                     {
                         <li>@Html.ActionLink(GlobalRes.PersonalArea, "PersonalArea", "Account")</li>
@@ -68,12 +65,14 @@
                         <li>@Html.ActionLink(GlobalRes.Register, "Register", "Account")</li>
                         <li> @Html.ActionLink(GlobalRes.Login, "Login", "Account")</li>
                     }
-                </ul>
 
+                    <li>@Html.ActionLink("ru", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["lang"] = "ru")</li>
+                    <li> @Html.ActionLink("en", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["lang"] = "en")</li>
+                </ul>
             </div>
         </div>
     </div>
-    <br/><br /><br />
+    <br /><br /><br />
     <div class="container body-content">
         @RenderBody()
         <hr />

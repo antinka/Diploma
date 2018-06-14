@@ -92,7 +92,7 @@ namespace GameStore.Web.Controllers
         public ActionResult Pay(PaymentTypes paymentType)
         {
             var userId = CurrentUser.Id;
-            var order = _ordersService.GetOrderByOrderId(userId);
+            var order = _ordersService.GetOrderByUserId(userId);
 
             var orderPay = new OrderPayment()
             {
@@ -129,7 +129,7 @@ namespace GameStore.Web.Controllers
         public ActionResult Order()
         {
             var userId = CurrentUser.Id;
-            var order = _ordersService.GetOrderByOrderId(userId);
+            var order = _ordersService.GetOrderByUserId(userId);
             var orderDetailsViewModel = _mapper.Map<IEnumerable<OrderDetailViewModel>>(order.OrderDetails);
 
             return View(orderDetailsViewModel);

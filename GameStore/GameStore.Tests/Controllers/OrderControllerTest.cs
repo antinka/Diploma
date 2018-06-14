@@ -126,7 +126,7 @@ namespace GameStore.Tests.Controllers
         public void Pay_PaymentTypesBank_ReturnViewAsPdf()
         {
             CurrentUser();
-            _ordersService.Setup(service => service.GetOrderByOrderId(It.IsAny<Guid>())).Returns(new OrderDTO());
+            _ordersService.Setup(service => service.GetOrderByUserId(It.IsAny<Guid>())).Returns(new OrderDTO());
 
             var res = _sut.Pay(PaymentTypes.Bank);
 
@@ -137,7 +137,7 @@ namespace GameStore.Tests.Controllers
         public void Pay_PaymentTypesBox_ReturnViewResult()
         {
             CurrentUser();
-            _ordersService.Setup(service => service.GetOrderByOrderId(It.IsAny<Guid>())).Returns(new OrderDTO());
+            _ordersService.Setup(service => service.GetOrderByUserId(It.IsAny<Guid>())).Returns(new OrderDTO());
 
             var res = _sut.Pay(PaymentTypes.Box);
 
@@ -148,7 +148,7 @@ namespace GameStore.Tests.Controllers
         public void Pay_PaymentTypesVisa_ReturnViewResult()
         {
             CurrentUser();
-            _ordersService.Setup(service => service.GetOrderByOrderId(It.IsAny<Guid>())).Returns(new OrderDTO());
+            _ordersService.Setup(service => service.GetOrderByUserId(It.IsAny<Guid>())).Returns(new OrderDTO());
 
             var res = _sut.Pay(PaymentTypes.Visa);
 
@@ -169,7 +169,7 @@ namespace GameStore.Tests.Controllers
         public void Order_ReturnViewResult()
         {
             CurrentUser();
-            _ordersService.Setup(service => service.GetOrderByOrderId(It.IsAny<Guid>())).Returns(new OrderDTO());
+            _ordersService.Setup(service => service.GetOrderByUserId(It.IsAny<Guid>())).Returns(new OrderDTO());
 
             var res = _sut.Order();
 

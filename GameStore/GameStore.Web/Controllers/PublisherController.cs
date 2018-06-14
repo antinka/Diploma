@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using GameStore.BLL.DTO;
@@ -16,7 +17,8 @@ namespace GameStore.Web.Controllers
         private readonly IMapper _mapper;
 
         public PublisherController(
-            IPublisherService publisherService, 
+            IPublisherService publisherService,
+            IUserService userService,
             IMapper mapper,
             IAuthentication authentication) : base(authentication)
         {
@@ -43,7 +45,7 @@ namespace GameStore.Web.Controllers
                 var isUniqueName = _publisherService.IsUniqueName(publisherDTO);
 
                 if (isUniqueName)
-                { 
+                {
                     _publisherService.AddNew(publisherDTO);
 
                     return RedirectToAction("GetAll");
@@ -56,7 +58,6 @@ namespace GameStore.Web.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Manager,Publisher")]
         public ActionResult Get(string companyName)
         {
             var publisherDTO = _publisherService.GetByName(companyName);
@@ -85,13 +86,29 @@ namespace GameStore.Web.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Manager,Publisher")]
+        [Authorize(Roles = "Manager")]
         public ActionResult Update(string companyName)
         {
             var publisherDTO = _publisherService.GetByName(companyName);
             var publisherViewModel = _mapper.Map<PublisherViewModel>(publisherDTO);
 
             return View(publisherViewModel);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Publisher")]
+        public ActionResult EditProfile()
+        {
+            var publisherDTO = _publisherService.GetByUserId(CurrentUser.Id);
+
+            if (publisherDTO != null)
+            {
+                var publisherViewModel = _mapper.Map<PublisherViewModel>(publisherDTO);
+
+                return View("Update", publisherViewModel);
+            }
+
+            return View("NothingToUpd");
         }
 
         [HttpPost]
@@ -112,7 +129,7 @@ namespace GameStore.Web.Controllers
                 {
                     _publisherService.Update(publisherDTO);
 
-                    return RedirectToAction("FilteredGames", "Game");
+                    return RedirectToAction("Get", new { companyName = publisherViewModel.Name });
                 }
             }
 

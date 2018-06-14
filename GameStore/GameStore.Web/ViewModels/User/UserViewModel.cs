@@ -11,6 +11,7 @@ namespace GameStore.Web.ViewModels
     {
         public Guid Id { get; set; }
 
+        [Required(ErrorMessageResourceType = typeof(GlobalRes), ErrorMessageResourceName = "Existent")]
         [StringLength(40, MinimumLength = 3, ErrorMessageResourceType = typeof(GlobalRes), ErrorMessageResourceName = "UserNameExpression3_40")]
         [Display(ResourceType = typeof(GlobalRes), Name = "UserName")]
         public string Name { get; set; }
@@ -18,6 +19,7 @@ namespace GameStore.Web.ViewModels
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
+        [Required(ErrorMessageResourceType = typeof(GlobalRes), ErrorMessageResourceName = "Existent")]
         [StringLength(40, MinimumLength = 3, ErrorMessageResourceType = typeof(GlobalRes), ErrorMessageResourceName = "PasswordExpression3_40")]
         [DataType(DataType.Password)]
         [Display(ResourceType = typeof(GlobalRes), Name = "Password")]
@@ -37,6 +39,11 @@ namespace GameStore.Web.ViewModels
         [Display(ResourceType = typeof(GlobalRes), Name = "EndDateBaned")]
         public DateTime? EndDateBaned { get; set; }
 
+        public Guid? PublisherId { get; set; }
+
+        [Display(Name = "Publisher", ResourceType = typeof(GlobalRes))]
+        public DetailsPublisherViewModel Publisher { get; set; }
+
         public ICollection<RoleViewModel> Roles { get; set; }
 
         public IEnumerable<CheckBox> ListRoles { get; set; }
@@ -44,5 +51,7 @@ namespace GameStore.Web.ViewModels
         public IEnumerable<CheckBox> SelectedRoles { get; set; }
 
         public ICollection<string> SelectedRolesName { get; set; }
+
+        public SelectList PublisherList { get; set; }
     }
 }

@@ -17,6 +17,7 @@ namespace GameStore.Tests.Controllers
     public class PublisherControllerTest
     {
         private readonly Mock<IPublisherService> _publisherService;
+        private readonly Mock<IUserService> _userService;
         private readonly IMapper _mapper;
         private readonly PublisherController _sut;
 
@@ -26,7 +27,8 @@ namespace GameStore.Tests.Controllers
         {
             _mapper = MapperConfigUi.GetMapper().CreateMapper();
             _publisherService = new Mock<IPublisherService>();
-            _sut = new PublisherController(_publisherService.Object, _mapper, null);
+            _userService = new Mock<IUserService>();
+            _sut = new PublisherController(_publisherService.Object, _userService.Object, _mapper, null);
 
             _fakePublisherName = "test";
         }

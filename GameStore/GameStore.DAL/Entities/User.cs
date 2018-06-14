@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace GameStore.DAL.Entities
@@ -24,5 +25,11 @@ namespace GameStore.DAL.Entities
 
         [BsonIgnore]
         public virtual ICollection<Role> Roles { get; set; }
+
+        [ForeignKey("Publisher")]
+        public Guid? PublisherId { get; set; }
+
+        [BsonIgnore]
+        public virtual Publisher Publisher { get; set; }
     }
 }

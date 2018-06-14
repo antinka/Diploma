@@ -513,4 +513,16 @@
   <data name="ExistUserName" xml:space="preserve">
     <value>Пользователь с таким именем уже существует</value>
   </data>
+  <data name="ChoosePablisherRole" xml:space="preserve">
+    <value>Выберите роль как издателя, если вы хотите предоставить доступ для редактирования этого объекта</value>
+  </data>
+  <data name="NothingToDisplay" xml:space="preserve">
+    <value>Нечего показать</value>
+  </data>
+  <data name="NothingToEdit" xml:space="preserve">
+    <value>Нечего редактировать</value>
+  </data>
+  <data name="NothingWasFound" xml:space="preserve">
+    <value>Ничего не найдено</value>
+  </data>
 </root>

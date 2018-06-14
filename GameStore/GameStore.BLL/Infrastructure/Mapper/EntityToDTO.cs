@@ -52,7 +52,7 @@ namespace GameStore.BLL.Infrastructure.Mapper
                 .ForMember(
                     dest => dest.Publisher,
                     opt => opt.ResolveUsing(src =>
-                        src.Publisher ?? new Publisher() { Name = "unknown" }));
+                        src.Publisher ?? new Publisher() { Name = "Unknown" }));
 
             CreateMap<Game, ExtendGameDTO>();
 

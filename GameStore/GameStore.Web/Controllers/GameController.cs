@@ -68,7 +68,7 @@ namespace GameStore.Web.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Manager,Publisher")]
+        [Authorize(Roles = "Manager")]
         public ActionResult Update(string gamekey)
         {
             var gameDTO = _gameService.GetByKey(gamekey);
@@ -80,6 +80,24 @@ namespace GameStore.Web.Controllers
                 gameForView = GetGameViewModelForUpdate(gameForView);
 
                 return View(gameForView);
+            }
+
+            return RedirectToAction("FilteredGames");
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Publisher")]
+        public ActionResult UpdateByPublisher(string gamekey)
+        {
+            var gameDTO = _gameService.GetGameByPublisherIdAndGameKey(CurrentUser.Id, gamekey);
+
+            if (!gameDTO.IsDelete)
+            {
+                var gameForView = _mapper.Map<GameViewModel>(gameDTO);
+
+                gameForView = GetGameViewModelForUpdate(gameForView);
+
+                return View("Update", gameForView);
             }
 
             return RedirectToAction("FilteredGames");
@@ -223,12 +241,18 @@ namespace GameStore.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetGameByPublisher(string name)
+        public ActionResult GetGameByPublisher()
         {
-            var gameDTO = _gameService.GetGamesByPublisher(name);
-            var gameForView = _mapper.Map<IEnumerable<DetailsGameViewModel>>(gameDTO);
+            var gameDTO = _gameService.GetGamesByPublisherId(CurrentUser.Id);
 
-            return View(gameForView);
+            if (gameDTO != null)
+            {
+                var gameForView = _mapper.Map<IEnumerable<DetailsGameViewModel>>(gameDTO);
+
+                return View(gameForView);
+            }
+
+            return View("NothingToDisplay");
         }
 
         private GameViewModel CheckValidationGameViewModel(GameViewModel game)

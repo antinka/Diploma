@@ -385,7 +385,7 @@
     <value>Phone</value>
   </data>
   <data name="ConfirmePassword" xml:space="preserve">
-    <value>ConfirmePassword</value>
+    <value>Confirme password</value>
   </data>
   <data name="ConfirmePasswordError" xml:space="preserve">
     <value>Passwords did not match</value>
@@ -509,5 +509,17 @@
   </data>
   <data name="ExistUserName" xml:space="preserve">
     <value>User with such name already exist</value>
+  </data>
+  <data name="ChoosePablisherRole" xml:space="preserve">
+    <value>Please choose role as publisher, if you want to give access to edit this entity</value>
+  </data>
+  <data name="NothingToDisplay" xml:space="preserve">
+    <value>Nothing to display</value>
+  </data>
+  <data name="NothingToEdit" xml:space="preserve">
+    <value>Nothing to edit</value>
+  </data>
+  <data name="NothingWasFound" xml:space="preserve">
+    <value>Nothing was found</value>
   </data>
 </root>
