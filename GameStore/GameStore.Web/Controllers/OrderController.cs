@@ -40,6 +40,11 @@ namespace GameStore.Web.Controllers
         {
             var userId = CurrentUser.Id;
 
+            if (userId == Guid.Empty)
+            {
+                userId = GetUserId();
+            }
+
             var order = _ordersService.GetOrderByUserId(userId);
 
             if (order == null || !order.OrderDetails.Any())
@@ -58,6 +63,11 @@ namespace GameStore.Web.Controllers
         public ActionResult AddGameToOrder(string gameKey)
         {
             var userId = CurrentUser.Id;
+
+            if (userId == Guid.Empty)
+            {
+                userId = GetUserId();
+            }
 
             var gameDTO = _gameService.GetByKey(gameKey);
             var game = _mapper.Map<DetailsGameViewModel>(gameDTO);
@@ -83,6 +93,11 @@ namespace GameStore.Web.Controllers
         {
             var userId = CurrentUser.Id;
 
+            if (userId == Guid.Empty)
+            {
+                userId = GetUserId();
+            }
+
             _ordersService.DeleteGameFromOrder(userId, gameId);
 
             return RedirectToAction("BasketInfo");
@@ -92,6 +107,12 @@ namespace GameStore.Web.Controllers
         public ActionResult Pay(PaymentTypes paymentType)
         {
             var userId = CurrentUser.Id;
+
+            if (userId == Guid.Empty)
+            {
+                userId = GetUserId();
+            }
+
             var order = _ordersService.GetOrderByUserId(userId);
 
             var orderPay = new OrderPayment()
@@ -129,6 +150,12 @@ namespace GameStore.Web.Controllers
         public ActionResult Order()
         {
             var userId = CurrentUser.Id;
+
+            if (userId == Guid.Empty)
+            {
+                userId = GetUserId();
+            }
+
             var order = _ordersService.GetOrderByUserId(userId);
             var orderDetailsViewModel = _mapper.Map<IEnumerable<OrderDetailViewModel>>(order.OrderDetails);
 
@@ -166,6 +193,11 @@ namespace GameStore.Web.Controllers
         public ActionResult CountGamesInOrder()
         {
             var userId = CurrentUser.Id;
+
+            if (userId == Guid.Empty)
+            {
+                userId = GetUserId();
+            }
 
             var gameCount = _ordersService.CountGamesInOrder(userId);
 
@@ -231,6 +263,23 @@ namespace GameStore.Web.Controllers
             }
 
             return View(orderView);
+        }
+
+        private Guid GetUserId()
+        {
+            Guid userId;
+
+            if (HttpContext.Request.Cookies["userId"] != null)
+            {
+                userId = Guid.Parse(HttpContext.Request.Cookies["userId"].Value);
+            }
+            else
+            {
+                userId = Guid.NewGuid();
+                HttpContext.Response.Cookies["userId"].Value = userId.ToString();
+            }
+
+            return userId;
         }
     }
 }

@@ -28,11 +28,9 @@
                 <ul class="nav navbar-nav">
                     <li style="color: aliceblue">@Html.Action("CountGames", "Game") </li>
 
-                    @if (User != null && User.Identity.IsAuthenticated)
-                    {
                         <li> @Html.ActionLink(GlobalRes.Basket, "BasketInfo", "Order")</li>
                         <li style="color: aliceblue">@Html.Action("CountGamesInOrder", "Order") </li>
-                    }
+                    
 
                     @if (User != null && User.IsInRole("Manager"))
                     {

@@ -234,6 +234,11 @@ namespace GameStore.Tests.Controllers
         {
             var userProvider = new UserProvider();
             _authentication.Setup(user => user.CurrentUser).Returns(userProvider);
+
+            var httpRequest = new HttpRequest(string.Empty, "http://mySomething", string.Empty);
+            var httpResponse = new HttpResponse(new StringWriter());
+            var httpContextMock = new HttpContext(httpRequest, httpResponse);
+            _sut.ControllerContext = new ControllerContext(new HttpContextWrapper(httpContextMock), new RouteData(), _sut);
         }
     }
 }
