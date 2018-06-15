@@ -23,6 +23,10 @@ namespace GameStore.BLL.DTO
 
         public DateTime? EndDateBaned { get; set; }
 
+        public Guid? PublisherId { get; set; }
+
+        public PublisherDTO Publisher { get; set; }
+
         public ICollection<RoleDTO> Roles { get; set; }
 
         public ICollection<string> SelectedRolesName { get; set; }

@@ -63,13 +63,13 @@ namespace GameStore.Tests.Controllers
         }
 
         [Fact]
-        public void DeleteComment_CommentId_ReturnViewResult()
+        public void DeleteComment_CommentId_ReturnPartialViewResult()
         {
             var fakeCommentId = Guid.NewGuid();
 
             var res = _sut.Delete(fakeCommentId, null);
 
-            Assert.Equal(typeof(ViewResult), res.GetType());
+            Assert.Equal(typeof(PartialViewResult), res.GetType());
         }
 
         [Fact]

@@ -309,6 +309,9 @@
     <Content Include="Views\Payments\Bank.cshtml" />
     <Content Include="Views\Account\PersonalArea.cshtml" />
     <Content Include="Views\Game\GetGameByPublisher.cshtml" />
+    <Content Include="Views\Publisher\EditProfile.cshtml" />
+    <Content Include="Views\Publisher\NothingToUpd.cshtml" />
+    <Content Include="Views\Game\NothingToDisplay.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

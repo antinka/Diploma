@@ -233,6 +233,15 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Выберите роль как издателя, если вы хотите предоставить доступ для редактирования этого объекта.
+        /// </summary>
+        public static string ChoosePablisherRole {
+            get {
+                return ResourceManager.GetString("ChoosePablisherRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Пожалуйста
         ///выберите один или несколько типов платформ.
         /// </summary>
@@ -852,6 +861,33 @@ namespace GameStore.Web.App_LocalResources {
         public static string NotEnoughtGame {
             get {
                 return ResourceManager.GetString("NotEnoughtGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to У вас нет игр, созданных вами.
+        /// </summary>
+        public static string NothingToDisplay {
+            get {
+                return ResourceManager.GetString("NothingToDisplay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to У вас нет объекта издателя.
+        /// </summary>
+        public static string NothingToEdit {
+            get {
+                return ResourceManager.GetString("NothingToEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ничего не найдено.
+        /// </summary>
+        public static string NothingWasFound {
+            get {
+                return ResourceManager.GetString("NothingWasFound", resourceCulture);
             }
         }
         

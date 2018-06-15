@@ -10,6 +10,8 @@ namespace GameStore.BLL.Interfaces
 
         ExtendPublisherDTO GetByName(string companyName);
 
+        ExtendPublisherDTO GetByUserId(Guid id);
+
         IEnumerable<PublisherDTO> GetAll();
 
         void Update(ExtendPublisherDTO publisherDTO);

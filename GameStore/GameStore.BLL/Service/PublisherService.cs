@@ -46,6 +46,19 @@ namespace GameStore.BLL.Service
             return _mapper.Map<ExtendPublisherDTO>(publisher);
         }
 
+        public ExtendPublisherDTO GetByUserId(Guid id)
+        {
+            var publisher = _unitOfWork.Publishers.Get(x => x.Id == _unitOfWork.Users.GetById(id).PublisherId)
+                .FirstOrDefault();
+
+            if (publisher == null)
+            {
+               return null;
+            }
+
+            return _mapper.Map<ExtendPublisherDTO>(publisher);
+        }
+
         public IEnumerable<PublisherDTO> GetAll()
         {
             var publishers = _unitOfWork.Publishers.GetAll();

@@ -18,6 +18,7 @@ namespace GameStore.Tests.Controllers
     public class UserControllerTests
     {
         private readonly Mock<IUserService> _userService;
+        private readonly Mock<IPublisherService> _publisherService;
         private readonly Mock<IRoleService> _roleService;
         private readonly IMapper _mapper;
         private readonly UserController _sut;
@@ -28,8 +29,9 @@ namespace GameStore.Tests.Controllers
         {
             _mapper = MapperConfigUi.GetMapper().CreateMapper();
             _userService = new Mock<IUserService>();
+            _publisherService = new Mock<IPublisherService>();
             _roleService = new Mock<IRoleService>();
-            _sut = new UserController(_userService.Object, _roleService.Object, _mapper, null);
+            _sut = new UserController(_userService.Object, _publisherService.Object, _roleService.Object, _mapper, null);
 
             _fakeUserName = "test";
         }

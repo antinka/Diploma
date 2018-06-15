@@ -28,9 +28,6 @@
         <th>
             @Html.DisplayNameFor(model => model.Discountinues)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PublisherId)
-        </th>
         <th></th>
     </tr>
 
@@ -59,12 +56,9 @@
                 @Html.DisplayFor(modelItem => item.Discountinues)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PublisherId)
-            </td>
-            <td>
                 @Html.ActionLink(GlobalRes.Details, "GetGame", new { gamekey = item.Key })
 
-                @Html.ActionLink(GlobalRes.Update, "Update", new { gamekey = item.Key })
+                @Html.ActionLink(GlobalRes.Update, "UpdateByPublisher", new { gamekey = item.Key })
             </td>
         </tr>
     }

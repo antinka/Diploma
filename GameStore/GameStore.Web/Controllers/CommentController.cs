@@ -101,7 +101,7 @@ namespace GameStore.Web.Controllers
                 var commentDTO = _commentService.GetById(commentId.Value);
                 var commentViewModel = _mapper.Map<CommentViewModel>(commentDTO);
 
-                return View(commentViewModel);
+                return PartialView(commentViewModel);
             }
 
             _commentService.Delete(comment.Id);

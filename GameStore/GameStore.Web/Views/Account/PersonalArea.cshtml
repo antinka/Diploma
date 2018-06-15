@@ -82,9 +82,8 @@
         </dd>
         @if (User != null && User.IsInRole("Publisher"))
     {
-        @Html.ActionLink(GlobalRes.Update, "Update", "Publisher", new { companyName = Model.Name }, null)
+        @Html.ActionLink(GlobalRes.Update, "EditProfile", "Publisher", null, null)@:
         @Html.ActionLink(GlobalRes.Games, "GetGameByPublisher", "Game", new { name = Model.Name }, null)
-}
-
+    }
     </dl>
 </div>

@@ -28,8 +28,16 @@ namespace GameStore.BLL.Service
         {
             userDto.Id = Guid.NewGuid();
             var newUser = _mapper.Map<User>(userDto);
-      
-            newUser.Roles = _unitOfWork.Roles.Get(role => userDto.SelectedRolesName.Contains(role.Name)).ToList();
+
+            if (userDto.SelectedRolesName != null)
+            {
+                newUser.Roles = _unitOfWork.Roles.Get(role => userDto.SelectedRolesName.Contains(role.Name)).ToList();
+            }
+            else
+            {
+                newUser.Roles = _unitOfWork.Roles.Get(role => role.Name == "User").ToList();
+            }
+
             newUser.Password = userDto.Password.GetHashCode().ToString();
 
             _unitOfWork.Users.Create(newUser);

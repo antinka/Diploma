@@ -88,6 +88,14 @@
             </div>
         </div>
 
+        <div class="form-group clearfix">
+            @Html.LabelFor(model => model.Publisher, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.PublisherId, new SelectList(Model.PublisherList, "Value", "Text", Model.PublisherId), "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Publisher, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="@GlobalRes.Add" class="btn btn-default" />

@@ -126,6 +126,10 @@
     <Compile Include="Migrations\201806071238434_addShippedDate.Designer.cs">
       <DependentUpon>201806071238434_addShippedDate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806141127163_AddPubliserIdToUser.cs" />
+    <Compile Include="Migrations\201806141127163_AddPubliserIdToUser.Designer.cs">
+      <DependentUpon>201806141127163_AddPubliserIdToUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mongo\CollectionName.cs" />
     <Compile Include="Mongo\MongoContext.cs" />
@@ -164,6 +168,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806071238434_addShippedDate.resx">
       <DependentUpon>201806071238434_addShippedDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806141127163_AddPubliserIdToUser.resx">
+      <DependentUpon>201806141127163_AddPubliserIdToUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

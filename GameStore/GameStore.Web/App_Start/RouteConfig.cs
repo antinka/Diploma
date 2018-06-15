@@ -58,6 +58,12 @@ namespace GameStore.Web
                 constraints: new { lang = @"ru|en" });
 
             routes.MapRoute(
+                name: "updateByPublisher",
+                url: "{lang}/games/updateByPublisher/{gamekey}",
+                defaults: new { controller = "Game", action = "UpdateByPublisher", gamekey = UrlParameter.Optional, lang = "en" },
+                constraints: new { lang = @"ru|en" });
+
+            routes.MapRoute(
                 name: "gamesRemove",
                 url: "{lang}/games/remove",
                 defaults: new { controller = "Game", action = "Remove", lang = "en" },
@@ -127,6 +133,18 @@ namespace GameStore.Web
                 name: "editPublisher",
                 url: "{lang}/publishers/update/{companyName}",
                 defaults: new { controller = "Publisher", action = "Update", companyName = UrlParameter.Optional, lang = "en" },
+                constraints: new { lang = @"ru|en" });
+
+            routes.MapRoute(
+                name: "EditProfile",
+                url: "{lang}/publisher/profile",
+                defaults: new { controller = "Publisher", action = "EditProfile", lang = "en" },
+                constraints: new { lang = @"ru|en" });
+
+            routes.MapRoute(
+                name: "NothingToUpd",
+                url: "{lang}/publisher/nothingToUpdate",
+                defaults: new { controller = "Publisher", action = "NothingToUpd", lang = "en" },
                 constraints: new { lang = @"ru|en" });
 
             routes.MapRoute(
