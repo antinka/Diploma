@@ -31,6 +31,7 @@ namespace GameStore.Web.ViewModels
         [Display(ResourceType = typeof(GlobalRes), Name = "LastName")]
         public string LastName { get; set; }
 
+        [Display(ResourceType = typeof(GlobalRes), Name = "IsBaned")]
         public bool IsBaned { get; set; }
 
         [Display(ResourceType = typeof(GlobalRes), Name = "StartDateBaned")]
