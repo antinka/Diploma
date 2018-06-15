@@ -134,6 +134,7 @@
     <Content Include="Content\Images\Game-Zone.png" />
     <Content Include="Content\Images\GameOn_logo_red.png" />
     <Content Include="Content\Images\games.jpg" />
+    <Content Include="Content\Images\insta.png" />
     <Content Include="Content\Images\konvert.png" />
     <Content Include="Content\Images\tweet.png" />
     <Content Include="Content\Site.css" />
@@ -175,6 +176,11 @@
       <DependentUpon>GlobalRes.resx</DependentUpon>
     </Compile>
     <Compile Include="App_LocalResources\GlobalRes.en.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GlobalRes.en.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_LocalResources\GlobalRes.en1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>GlobalRes.en.resx</DependentUpon>
@@ -339,7 +345,7 @@
   <ItemGroup>
     <EmbeddedResource Include="App_LocalResources\GlobalRes.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>GlobalRes.en.Designer.cs</LastGenOutput>
+      <LastGenOutput>GlobalRes.en1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

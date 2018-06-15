@@ -6,7 +6,7 @@
 }
 
 body {
-    padding-top: 50px;
+    /*padding-top: 50px;*/
     padding-bottom: 20px;
 }
 
@@ -22,7 +22,7 @@ select,
 textarea {
     max-width: 280px;
 }
-footer hr {
+.footerHr{
     border-top: 1px dashed #544E4C;
 }
 
@@ -56,4 +56,11 @@ footer a {
     position: relative;
     top: 18px;
     left: 10px;
+}
+
+.ForForm8024 {
+    width: 80%;
+    height: 24%;
+    margin-left: auto;
+    margin-right: auto;
 }
