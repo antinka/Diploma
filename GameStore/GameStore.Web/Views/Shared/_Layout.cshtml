@@ -7,147 +7,103 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
 
+
+    @*<link href="~/Content/Site.csst=<%= DateTime.Now.Ticks %>" rel="stylesheet" type="text/css" />*@
+    @*<link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />*@
+    @*@Styles.Render("~/Content/css")*@
+
+    @*<script src="~/Scripts/jquery-1.10.2.js"></script>*@
+    @*<script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
+        <script src="~/Scripts/modernizr-2.6.2.js"></script>
+        <script src="~/Scripts/bootstrap.js"></script>*@
+
+    @*<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+        <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+        <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />*@
+
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/Site.csst=<%= DateTime.Now.Ticks %>" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
     @Styles.Render("~/Content/css")
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 </head>
 <body>
-    <header>
-        @*<div class="grey navbar custom-navbar navbar-inverse navbar-fixed-top">
-                <div class="container">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-
-                        @Html.ActionLink(GlobalRes.Games, "FilteredGames", "Game", new { area = "" }, new { @class = "navbar-brand" })
-                    </div>
-                    <div class="navbar-collapse collapse">
-                        @*<ul class="nav navbar-nav">
-                            <li style="color: aliceblue">@Html.Action("CountGames", "Game") </li>
-                                <li> @Html.ActionLink(GlobalRes.Basket, "BasketInfo", "Order")</li>
-                                <li style="color: aliceblue">@Html.Action("CountGamesInOrder", "Order") </li>
-
-                            @if (User != null && User.IsInRole("Manager"))
-                            {
-                                <li> @Html.ActionLink(GlobalRes.Publishers, "GetAll", "Publisher")</li>
-                                <li> @Html.ActionLink(GlobalRes.PlatformTypes, "GetAll", "PlatformType")</li>
-                                <li> @Html.ActionLink(GlobalRes.Genres, "GetAll", "Genre")</li>
-                                <li> @Html.ActionLink(GlobalRes.GetAllDeleteGames, "GetAllDeleteGames", "Game")</li>
-                                <li> @Html.ActionLink(GlobalRes.Orders, "AllOrders", "Order")</li>
-                            }
-
-                            <li> @Html.ActionLink(GlobalRes.Shipper, "GetAll", "Shipper")</li>
-
-                            @if (User != null && User.IsInRole("Administrator"))
-                            {
-                                <li> @Html.ActionLink(GlobalRes.Users, "GetAll", "User")</li>
-                                <li> @Html.ActionLink(GlobalRes.Roles, "GetAll", "Role")</li>
-                            }
-                        </ul>
-
-                        <ul class="nav navbar-nav navbar-right">
-                            @if (User != null && User.Identity.IsAuthenticated)
-                            {
-                                <li>@Html.ActionLink(GlobalRes.PersonalArea, "PersonalArea", "Account")</li>
-                                <li>@Html.ActionLink(GlobalRes.LogOut, "LogOut", "Account")</li>
-                            }
-                            else
-                            {
-                                <li>@Html.ActionLink(GlobalRes.Register, "Register", "Account")</li>
-                                <li> @Html.ActionLink(GlobalRes.Login, "Login", "Account")</li>
-                            }
-
-                            <li>@Html.ActionLink("ru", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["lang"] = "ru")</li>
-                            <li> @Html.ActionLink("en", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["lang"] = "en")</li>
-                        </ul>
-                    </div>
+<header>
+    <div class="row">
+        <div class="col-md-1 hidden-xs hidden-sm"></div>
+        <div class="col-md-10 col-sm-12 col-xs-12">
+            <div class="navbar navbar-default" role="navigation">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink(GlobalRes.Games, "FilteredGames", "Game", new {area = ""}, new {@class = "navbar-brand"})
                 </div>
-            </div>*@
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li style="color: aliceblue">@Html.Action("CountGames", "Game") </li>
+                        <li> @Html.ActionLink(GlobalRes.Basket, "BasketInfo", "Order")</li>
+                        <li style="color: aliceblue">@Html.Action("CountGamesInOrder", "Order") </li>
+                        @if (User != null && User.IsInRole("Manager"))
+                        {
+                            <li> @Html.ActionLink(GlobalRes.Publishers, "GetAll", "Publisher")</li>
+                            <li> @Html.ActionLink(GlobalRes.PlatformTypes, "GetAll", "PlatformType")</li>
+                            <li> @Html.ActionLink(GlobalRes.Genres, "GetAll", "Genre")</li>
+                            <li> @Html.ActionLink(GlobalRes.GetAllDeleteGames, "GetAllDeleteGames", "Game")</li>
+                            <li> @Html.ActionLink(GlobalRes.Orders, "AllOrders", "Order")</li>
+                        }
+                        <li> @Html.ActionLink(GlobalRes.Shipper, "GetAll", "Shipper")</li>
+                        @if (User != null && User.IsInRole("Administrator"))
+                        {
+                            <li> @Html.ActionLink(GlobalRes.Users, "GetAll", "User")</li>
+                            <li> @Html.ActionLink(GlobalRes.Roles, "GetAll", "Role")</li>
+                        }
+                    </ul>
 
-        <div id="top-menu" class="row">
-            <div class="col-md-2 hidden-xs hidden-sm"></div>
-            <div class="col-md-7 col-xs-12 col-sm-12">
-                <b>@Html.ActionLink("PROFILE", "FilteredGames", new { Controller = "Game" })</b>
-                @if (User.IsInRole("User"))
-                {
-                    <div id="basket" class="btn btn-default">
-                        <i class='glyphicon glyphicon-shopping-cart'></i>
-                        <span></span>
-                    </div>
-                }
+                    <ul class="nav navbar-nav navbar-right">
+                        @if (User != null && User.Identity.IsAuthenticated)
+                        {
+                            <li>@Html.ActionLink(GlobalRes.PersonalArea, "PersonalArea", "Account")</li>
+                            <li>@Html.ActionLink(GlobalRes.LogOut, "LogOut", "Account")</li>
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink(GlobalRes.Register, "Register", "Account")</li>
+                            <li> @Html.ActionLink(GlobalRes.Login, "Login", "Account")</li>
+                        }
+                    </ul>
+                </div>
             </div>
-            <div class="col-md-3 hidden-xs hidden-sm">
-                <a href="https://www.instagram.com" target="_blank"><img src="~/Content/Images/insta.png" height="30px" alt="Instagram" />Instagram</a>
-                <a href="https://twitter.com" target="_blank"><img src="~/Content/Images/tweet.png" height="50px" alt="Twitter" />Twitter</a>
+            @*<div class="navbar-collapse ">
+            <div class="nav navbar-nav navbar-right">
+                @Html.ActionLink("ru", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["lang"] = "ru", new {@class = "btn btn-default"})
+                @Html.ActionLink("en", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["lang"] = "en", new {@class = "btn btn-default"})
             </div>
+        </div>*@
         </div>
+    </div>
+    @*<div class="row">
 
-        <div id="bottom-menu" class="row">
-            <div class="col-md-2 hidden-xs hidden-sm"></div>
-            <div class="col-md-10 col-sm-12 col-xs-12">
-                <nav role="navigation" class="navbar navbar-default">
-                    <div class="navbar-header">
-                        <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        @Html.ActionLink("ToHomePage", "FilteredGames", new { Controller = "Game" }, new { @class = "navbar-brand home-page" })
-                    </div>
-                    <div id="navbarCollapse" class="collapse navbar-collapse">
-                        <ul class="nav navbar-nav">
-                            @if (User.IsInRole("Manager"))
-                            {
-                                <li> @Html.ActionLink(GlobalRes.Publishers, "GetAll", "Publisher")</li>
-                                <li> @Html.ActionLink(GlobalRes.PlatformTypes, "GetAll", "PlatformType")</li>
-                                <li> @Html.ActionLink(GlobalRes.Genres, "GetAll", "Genre")</li>
-                                <li> @Html.ActionLink(GlobalRes.GetAllDeleteGames, "GetAllDeleteGames", "Game")</li>
-                                <li> @Html.ActionLink(GlobalRes.Orders, "AllOrders", "Order")</li>
-                            }
+        <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+            <li> <a href="https://www.instagram.com" target="_blank"><img src="~/Content/Images/insta.png" height="30px" alt="Instagram" />Instagram</a></li>
+            <li> <a href="https://twitter.com" target="_blank"><img src="~/Content/Images/tweet.png" height="30px" alt="Twitter" />Twitter</a></li>
+        </ul>
+                </div>
+    </div>*@
 
-                            @if (User.IsInRole("Administrator"))
-                            {
-
-                                <li> @Html.ActionLink(GlobalRes.Users, "GetAll", "User")</li>
-                                <li> @Html.ActionLink(GlobalRes.Roles, "GetAll", "Role")</li>
-                            }
-                        </ul>
-                        <ul class="nav navbar-nav navbar-right">
-
-                            @if (User != null && User.Identity.IsAuthenticated)
-                            {
-                                <li>@Html.ActionLink(GlobalRes.PersonalArea, "PersonalArea", "Account")</li>
-                                <li>@Html.ActionLink(GlobalRes.LogOut, "LogOut", "Account")</li>
-                            }
-                            else
-                            {
-                                <li>@Html.ActionLink(GlobalRes.Register, "Register", "Account")</li>
-                                <li> @Html.ActionLink(GlobalRes.Login, "Login", "Account")</li>
-                            }
-                        </ul>
-                    </div>
-                </nav>
-            </div>
-        </div>
-
-        <div style="background-color: #222; height: 200px; border-radius: 10px; width: 100%">
-
+    @*<div style="background-color: #222; height: 200px; border-radius: 10px; width: 100%">
             <div style="float: left; margin-left: 20%">
-                <p style="color: aliceblue; font-family: Trattatello; font-size: 100px" ;>Pay attention</p>
+                <p style="color: aliceblue; font-family: Trattatello; font-size: 70px" ;>Pay attention</p>
             </div>
-            <div style="float: right; margin-right: 20%">
-                <img src="~/Content/Images/GameOn_logo_red.png" alt="Games" height="200px" />
+            <div style="float: right; margin-right: 20%;">
+                <img src="~/Content/Images/GameOn_logo_red.png" alt="Games" height="150" />
             </div>
-        </div>
-    </header>
+        </div>*@
+</header>
     <br />
     <div class="container body-content">
         <div class="row">
