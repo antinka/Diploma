@@ -8,9 +8,6 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.IsDelete)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Key)
         </th>
         <th>
@@ -34,9 +31,6 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsDelete)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Key)
             </td>
