@@ -36,9 +36,9 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li style="color: aliceblue">@Html.Action("CountGames", "Game") </li>
+                        <li style="color: #A9A19E">@Html.Action("CountGames", "Game") </li>
                         <li> @Html.ActionLink(GlobalRes.Basket, "BasketInfo", "Order")</li>
-                        <li style="color: aliceblue">@Html.Action("CountGamesInOrder", "Order") </li>
+                        <li style="color: #A9A19E">@Html.Action("CountGamesInOrder", "Order") </li>
                         @if (User != null && User.IsInRole("Manager"))
                         {
                             <li> @Html.ActionLink(GlobalRes.Publishers, "GetAll", "Publisher")</li>
