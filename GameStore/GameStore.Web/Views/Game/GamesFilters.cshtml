@@ -8,7 +8,7 @@
     ViewBag.Title = "GamesFilters";
 }
 
-@using (Html.BeginForm("FilteredGames","Game", FormMethod.Get, null))
+@using (Html.BeginForm("FilteredGames","Game", FormMethod.Get, new{ id = "filteredGames" }))
 {
 <div class="form-horizontal">
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })

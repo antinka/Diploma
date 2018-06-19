@@ -64,3 +64,19 @@ footer a {
     margin-left: auto;
     margin-right: auto;
 }
+
+.Mylist-group-item {
+    overflow: hidden;
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+.ForForm80MarginRightLeft {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}

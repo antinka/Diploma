@@ -1,7 +1,7 @@
 ﻿@using System.Threading
 @using GameStore.Web.App_LocalResources
 @model GameStore.Web.ViewModels.FilterViewModel
-@using (Html.BeginForm("FilteredGames", "Game", FormMethod.Get, new { id = "filteredGames" }))
+@using (Html.BeginForm("FilteredGames", "Game", FormMethod.Get, null))
 {
 
     <div class="form-group">
