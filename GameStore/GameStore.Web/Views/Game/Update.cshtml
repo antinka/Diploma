@@ -15,7 +15,11 @@
     
 <div class="form-horizontal">
 
-    <hr />
+    <hr /> 
+    <img class="img-thumbnail" width="150" height="150"
+                src="@Url.Action("GetImage", "Game",
+                  new { gamekey = Model.Key })" />
+
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.Id)
     @Html.HiddenFor(model => model.PublishDate)
@@ -108,6 +112,19 @@
         @Html.LabelFor(model => model.Publisher, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.DropDownListFor(model => model.PublisherId, new SelectList(Model.PublisherList, "Value", "Text", Model.PublisherId), "", new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-12">
+            @Html.LabelFor(model => model.ImageName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <a class='btn' href='javascript:;'>
+                @GlobalRes.ChoosePicture...
+                <input type="file" name="Image" size="40"
+                       class="ForAddPictereToGame" onchange='$("#upload-file-info").html($(this).val());'>
+            </a>
+            <span class='label label-info' id="upload-file-info"></span>
+            @Html.ValidationMessageFor(model => model.ImageName, "", new { @class = "text-danger" })
         </div>
     </div>
 

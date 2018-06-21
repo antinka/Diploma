@@ -36,6 +36,11 @@ namespace GameStore.Web.ViewModels.Games
 
         public int Views { get; set; }
 
+        [Display(Name = "Picture", ResourceType = typeof(GlobalRes))]
+        public string ImageName { get; set; }
+
+        public string ImageMimeType { get; set; }
+
         public Guid? PublisherId { get; set; }
 
         [Display(Name = "Publisher", ResourceType = typeof(GlobalRes))]

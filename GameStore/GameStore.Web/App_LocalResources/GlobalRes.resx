@@ -549,4 +549,10 @@
   <data name="Links" xml:space="preserve">
     <value>Cсылки</value>
   </data>
+  <data name="ChoosePicture" xml:space="preserve">
+    <value>Выберите картинку</value>
+  </data>
+  <data name="Picture" xml:space="preserve">
+    <value>Картинка</value>
+  </data>
 </root>

@@ -32,6 +32,10 @@ namespace GameStore.DAL.Entities
 
         public int Views { get; set; }
 
+        public string ImageName { get; set; }
+
+        public string ImageMimeType { get; set; }
+
         [ForeignKey("Publisher")]
         public Guid? PublisherId { get; set; }
 

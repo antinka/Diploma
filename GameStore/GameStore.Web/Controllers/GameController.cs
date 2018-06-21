@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using AutoMapper;
@@ -52,13 +55,26 @@ namespace GameStore.Web.Controllers
         [Authorize(Roles = "Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult New(GameViewModel game)
+        public ActionResult New(GameViewModel game, HttpPostedFileBase image)
         {
             game = CheckValidationGameViewModel(game);
 
             if (ModelState.IsValid)
             {
                 var gameDTO = _mapper.Map<ExtendGameDTO>(game);
+
+                if (image != null)
+                {
+                    var pictureName = game.Key + "_" + image.FileName;
+                    image.SaveAs(Server.MapPath($"~/Content/Images/Games/{pictureName}"));
+                    gameDTO.ImageName = pictureName;
+                    gameDTO.ImageMimeType = image.ContentType;
+                }
+                else
+                {
+                    gameDTO.ImageName = "Game-Zone.png";
+                }
+
                 _gameService.AddNew(gameDTO);
 
                 return RedirectToAction("FilteredGames");
@@ -106,19 +122,49 @@ namespace GameStore.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Manager,Publisher")]
-        public ActionResult Update(GameViewModel game)
+        public ActionResult Update(GameViewModel game, HttpPostedFileBase image)
         {
             game = CheckValidationGameViewModel(game);
 
             if (ModelState.IsValid)
             {
                 var gameExtendGameDto = _mapper.Map<ExtendGameDTO>(game);
+
+
+                if (image != null)
+                {
+                    var pictureName = game.Key + "_" + image.FileName;
+                    image.SaveAs(Server.MapPath($"~/Content/Images/Games/{pictureName}"));
+                    gameExtendGameDto.ImageName = pictureName;
+                    gameExtendGameDto.ImageMimeType = image.ContentType;
+                }
+                else
+                {
+                    gameExtendGameDto.ImageName = "Game-Zone.png";
+                }
+
                 _gameService.Update(gameExtendGameDto);
 
                 return RedirectToAction("FilteredGames");
             }
 
             return View(GetGameViewModelForUpdate(game));
+        }
+
+        public ActionResult GetImage(string gamekey)
+        {
+            var game = _gameService.GetByKey(gamekey);
+            var imagePath = Server.MapPath($"~/Content/Images/Games/{game.ImageName}");
+
+            return File(imagePath, game.ImageMimeType);
+        }
+
+        public async Task<ActionResult> AsyncGetImage(string gamekey)
+        {
+            var game = await Task.Run(() => _gameService.GetByKey(gamekey));
+            var imagePath = Server.MapPath($"~/Content/Images/Games/{game.ImageName}");
+
+            return File(imagePath, game.ImageMimeType);
         }
 
         [HttpGet]

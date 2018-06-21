@@ -1,7 +1,7 @@
 ﻿@model GameStore.Web.ViewModels.Games.GameViewModel
 @using MvcCheckBoxList.Model
 @using GameStore.Web.App_LocalResources
-@using (Html.BeginForm())
+@using (Html.BeginForm("New", "Game", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -97,7 +97,20 @@
                 @Html.DropDownListFor(model => model.PublisherId, new SelectList(Model.PublisherList, "Value", "Text", Model.PublisherId), "", new { @class = "form-control" })
             </div>
         </div>
-
+        
+        <div class="form-group">
+            <div class="col-md-12">
+                @Html.LabelFor(model => model.ImageName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <a class='btn'>
+                    @GlobalRes.ChoosePicture...
+                    <input type="file" name="Image" size="40"
+                           class="ForAddPictereToGame" onchange='$("#upload-file-info").html($(this).val());'>
+                </a>
+                <span class='label label-info' id="upload-file-info"></span>
+                @Html.ValidationMessageFor(model => model.ImageName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value=@GlobalRes.Add class="btn btn-default" />

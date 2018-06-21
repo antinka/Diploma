@@ -133,6 +133,7 @@
     <Content Include="Content\Images\BLOG-Logo-1.png" />
     <Content Include="Content\Images\Game-Zone.png" />
     <Content Include="Content\Images\games.jpg" />
+    <Content Include="Content\Images\Games\Game-Zone.png" />
     <Content Include="Content\Images\icon-facebook-light.png" />
     <Content Include="Content\Images\insta.png" />
     <Content Include="Content\Images\InstagramSecondary.png" />
@@ -201,6 +202,7 @@
     <Compile Include="Controllers\ShipperController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Infrastructure\AutofacConfig.cs" />
+    <Compile Include="Infrastructure\CustomHttpHandler.cs" />
     <Compile Include="Infrastructure\Mapper\DTOToViewModel.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />

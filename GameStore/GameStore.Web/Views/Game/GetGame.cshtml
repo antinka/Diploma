@@ -7,9 +7,11 @@
     ViewBag.Title = "GetGame";
 }
 <div>
-    <hr />
-    <dl class="dl-horizontal">
-
+    <hr /> 
+    <div style="float: left;">
+        <img class="img-thumbnail" width="300"src="@Url.Action("GetImage", "Game", new { gamekey = Model.Key })" alt="@Model.Name"/>
+    </div>
+    <dl class="dl-horizontal" style="float: left;">
         <dt>
             @Html.DisplayNameFor(model => model.Key)
         </dt>
@@ -63,11 +65,11 @@
         <dd>
             <ul>
                 @foreach (var i in Model.PlatformTypes)
-                {
-                    <li>
-                        @i.Name
-                    </li>
-                }
+            {
+                <li>
+                    @i.Name
+                </li>
+        }
             </ul>
         </dd>
 
@@ -78,70 +80,72 @@
 
             <ul>
                 @if (Model.Genres.Any())
+            {
+                foreach (var i in Model.Genres)
                 {
-                    foreach (var i in Model.Genres)
-                    {
-                        <li>
-                             @i.Name
-                        </li>
-                    }
-                }
-                else
-                {
-                    if (Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToUpperInvariant() == "EN")
-                    {
-                        <li>Other</li>
-                    }
-                    else
-                    {
-                        <li>Другие</li>
-                    }
-                }
+                    <li>
+                        @i.Name
+                    </li>
+            }
+        }
+        else
+        {
+            if (Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToUpperInvariant() == "EN")
+            {
+                <li>Other</li>
+        }
+        else
+        {
+            <li>Другие</li>
+    }
+}
             </ul>
         </dd>
         @{if (Model.PublisherId != null)
-            {
-                <dt>
-                    @Html.DisplayNameFor(model => model.Publisher)
-                </dt>
-                <dd>
-                    <ul>
-                        <li>
-                            @Html.ActionLink(Model.Publisher.Name, "Get", "Publisher", new { companyName = Model.Publisher.Name }, null)
-                        </li>
-                    </ul>
-                </dd>
-            }
-            else
-            {
-                <dt>
-                    @Html.DisplayNameFor(model => model.Publisher)
-                </dt>
-                <dd>
-                    <ul>
-                        <li>
-                            unknown
-                        </li>
-                    </ul>
-                </dd>
-            }
-        }
-    </dl>
-</div>
-
-@{
-    if (Model.IsDelete == false)
-    {
-        <p>
-            @Html.ActionLink(GlobalRes.Download, "Download", new { gamekey = Model.Key }, new { target = "_blank" })
-
-            | @Html.ActionLink(GlobalRes.Buy, "AddGameToOrder", "Order", new { gamekey = Model.Key }, null)
-            
-            |@Html.ActionLink(GlobalRes.Comment, "GetAllCommentToGame", "Comment", new { gamekey = Model.Key }, null)
-        </p>
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Publisher)
+            </dt>
+            <dd>
+                <ul>
+                    <li>
+                        @Html.ActionLink(Model.Publisher.Name, "Get", "Publisher", new { companyName = Model.Publisher.Name }, null)
+                    </li>
+                </ul>
+            </dd>
     }
     else
     {
-        @Html.ActionLink(GlobalRes.Comment, "GetAllCommentToGame", "Comment", new { gamekey = Model.Key }, null)
-    }
+        <dt>
+            @Html.DisplayNameFor(model => model.Publisher)
+        </dt>
+        <dd>
+            <ul>
+                <li>
+                    unknown
+                </li>
+            </ul>
+        </dd>
 }
+        }
+
+        <dd>
+            @{
+        if (Model.IsDelete == false)
+        {
+            <p>
+                @Html.ActionLink(GlobalRes.Download, "Download", new { gamekey = Model.Key }, new { target = "_blank" })
+
+                | @Html.ActionLink(GlobalRes.Buy, "AddGameToOrder", "Order", new { gamekey = Model.Key }, null)
+
+                |@Html.ActionLink(GlobalRes.Comment, "GetAllCommentToGame", "Comment", new { gamekey = Model.Key }, null)
+            </p>
+}
+else
+{
+        @Html.ActionLink(GlobalRes.Comment, "GetAllCommentToGame", "Comment", new { gamekey = Model.Key }, null)
+}
+            }
+        </dd>
+    </dl>
+</div>

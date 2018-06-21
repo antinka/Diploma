@@ -39,10 +39,16 @@ namespace GameStore.Web
                 defaults: new { controller = "Game", action = "New", lang = "en" },
                 constraints: new { lang = @"ru|en" });
 
+            //routes.MapRoute(
+            //    name: "GameGames",
+            //    url: "{lang}/Game/Games",
+            //    defaults: new { controller = "Game", action = "Games", lang = "en" },
+            //    constraints: new { lang = @"ru|en" });
+
             routes.MapRoute(
-                name: "GameGames",
-                url: "{lang}/Game/Games",
-                defaults: new { controller = "Game", action = "Games", lang = "en" },
+                name: "GamePictures",
+                url: "{lang}/Game/pictures/{gamekey}",
+                defaults: new { controller = "Game", action = "GetImage", gamekey = UrlParameter.Optional, lang = "en" },
                 constraints: new { lang = @"ru|en" });
 
             routes.MapRoute(

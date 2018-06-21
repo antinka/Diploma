@@ -130,6 +130,14 @@
     <Compile Include="Migrations\201806141127163_AddPubliserIdToUser.Designer.cs">
       <DependentUpon>201806141127163_AddPubliserIdToUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806200751494_AddGamePicturePath.cs" />
+    <Compile Include="Migrations\201806200751494_AddGamePicturePath.Designer.cs">
+      <DependentUpon>201806200751494_AddGamePicturePath.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806201331566_AddImageToGame.cs" />
+    <Compile Include="Migrations\201806201331566_AddImageToGame.Designer.cs">
+      <DependentUpon>201806201331566_AddImageToGame.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mongo\CollectionName.cs" />
     <Compile Include="Mongo\MongoContext.cs" />
@@ -171,6 +179,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806141127163_AddPubliserIdToUser.resx">
       <DependentUpon>201806141127163_AddPubliserIdToUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806200751494_AddGamePicturePath.resx">
+      <DependentUpon>201806200751494_AddGamePicturePath.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806201331566_AddImageToGame.resx">
+      <DependentUpon>201806201331566_AddImageToGame.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

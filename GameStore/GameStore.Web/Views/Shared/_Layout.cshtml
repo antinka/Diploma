@@ -69,11 +69,11 @@
                     </ul>
                 </div>
             </div>
-            <div class="navbar"  role="navigation">
+            <div class="navbar" role="navigation">
                 <div class="navbar-collapse collapse">
                     <div class="nav navbar-nav navbar-right">
-                        @Html.ActionLink("ru", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["lang"] = "ru", new {@class = "btn btn-default"})
-                        @Html.ActionLink("en", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["lang"] = "en", new {@class = "btn btn-default"})
+                        @Html.ActionLink("ru", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["lang"] = "ru", new { @class = "btn btn-default" })
+                        @Html.ActionLink("en", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["lang"] = "en", new { @class = "btn btn-default" })
                     </div>
                 </div>
             </div>
@@ -81,9 +81,13 @@
     </div>
     <div class="row">
         <div style="position: relative">
-            <div class="col-md-1"></div>
+            <div class="col-md-1"></div> 
+            <div style="position: absolute; top: -85px; left: 12%; ">
+                <p style="color:dimgrey; font-family: Trattatello; font-size: 30px">GAME
+               <br/>STORE</p>
+            </div>
             <div class="col-md-10 col-sm-12 col-xs-12">
-                <div style="position: absolute; top: -25px; width:92%">
+                <div style="position: absolute; top: -25px; width: 92%">
                     <div style="display: flex; justify-content: flex-end; flex-direction: row;" class="list-group">
                         <a href="https://www.instagram.com" target="_blank" class="Mylist-group-item" style="border-radius: 15px 0 0 15px"><img src="~/Content/Images/insta.png" height="30px" alt="Instagram" />Instagram</a>
                         <a href="https://twitter.com" target="_blank" class="Mylist-group-item"><img src="~/Content/Images/tweet.png" height="30px" alt="Twitter" />Twitter</a>
@@ -94,7 +98,7 @@
                     <div style="float: left; margin-left: 20%">
                         <p style="color: aliceblue; font-family: Trattatello; font-size: 70px" ;>Pay attention</p>
                     </div>
-                    <div style="margin-right: 20%;">
+                    <div style="margin-right:20%;">
                         <img src="~/Content/Images/tik-logo-uzrasas-1.png" alt="Games" height="200" />
                     </div>
                 </div>

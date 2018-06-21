@@ -29,6 +29,11 @@ namespace GameStore.Web.ViewModels.Games
         [Display(Name = "Discountinues", ResourceType = typeof(GlobalRes))]
         public bool Discountinues { get; set; }
 
+        [Display(Name = "Picture", ResourceType = typeof(GlobalRes))]
+        public string ImageName { get; set; }
+
+        public string ImageMimeType { get; set; }
+
         public Guid? PublisherId { get; set; }
 
         [Display(Name = "Publisher", ResourceType = typeof(GlobalRes))]

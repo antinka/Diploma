@@ -25,6 +25,10 @@ namespace GameStore.BLL.DTO
 
         public int Views { get; set; }
 
+        public string ImageName { get; set; }
+
+        public string ImageMimeType { get; set; }
+
         public Guid? PublisherId { get; set; }
 
         public PublisherDTO Publisher { get; set; }

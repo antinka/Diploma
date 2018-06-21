@@ -242,6 +242,15 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Выберите картинку.
+        /// </summary>
+        public static string ChoosePicture {
+            get {
+                return ResourceManager.GetString("ChoosePicture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Пожалуйста
         ///выберите один или несколько типов платформ.
         /// </summary>
@@ -1005,6 +1014,15 @@ namespace GameStore.Web.App_LocalResources {
         public static string Phone {
             get {
                 return ResourceManager.GetString("Phone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Картинка.
+        /// </summary>
+        public static string Picture {
+            get {
+                return ResourceManager.GetString("Picture", resourceCulture);
             }
         }
         
