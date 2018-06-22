@@ -1,5 +1,7 @@
-﻿using System.Web.Mvc;
+﻿using System.Web;
+using System.Web.Mvc;
 using System.Web.Routing;
+using GameStore.Web.Infrastructure;
 
 namespace GameStore.Web
 {
@@ -8,6 +10,7 @@ namespace GameStore.Web
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.Add("Image", new Route("GamePicture/{key}", new CustomRouteHandler()));
 
             routes.MapRoute(
                 name: "order",
@@ -38,12 +41,6 @@ namespace GameStore.Web
                 url: "{lang}/games/new",
                 defaults: new { controller = "Game", action = "New", lang = "en" },
                 constraints: new { lang = @"ru|en" });
-
-            //routes.MapRoute(
-            //    name: "GameGames",
-            //    url: "{lang}/Game/Games",
-            //    defaults: new { controller = "Game", action = "Games", lang = "en" },
-            //    constraints: new { lang = @"ru|en" });
 
             routes.MapRoute(
                 name: "GamePictures",
@@ -223,6 +220,14 @@ namespace GameStore.Web
                 name: "Default",
                 url: "{lang}/{controller}/{action}/{id}",
                 defaults: new { controller = "Game", action = "FilteredGames", id = UrlParameter.Optional, lang = "en" });
+        }
+
+        class CustomRouteHandler : IRouteHandler
+        {
+            public IHttpHandler GetHttpHandler(RequestContext requestContext)
+            {
+                return new CustomHttpHandler();
+            }
         }
     }
 }

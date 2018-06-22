@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -11,15 +11,14 @@ namespace GameStore.Web.Infrastructure
     {
         public override async Task ProcessRequestAsync(HttpContext context)
         {
-            var gameService = DependencyResolver.Current.GetServices<IGameService>();
+            var key = context.Request.Url.Segments.Last();
+            var gameService = DependencyResolver.Current.GetService<IGameService>();
+            var game = await Task.Run(() => gameService.GetByKey(key));
+            var imagePath = context.Server.MapPath($"~/Content/Images/Games/{game.ImageName}");
+            var imageByteData = File.ReadAllBytes(imagePath);
 
-            string url = context.Request.Url.Segments.Last();
-           // var game = await Task.Run(() => gameService.GetByKey(url.));
-
-            //var imagePath = Server.MapPath($"~/Content/Images/Games/{game.ImageName}");
-
-            //return File(imagePath, game.ImageMimeType);
-            throw new NotImplementedException();
+            context.Response.BinaryWrite(imageByteData);
+            context.Response.ContentType = game.ImageMimeType;
         }
     }
 }

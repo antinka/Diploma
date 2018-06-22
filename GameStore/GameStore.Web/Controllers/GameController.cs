@@ -130,7 +130,6 @@ namespace GameStore.Web.Controllers
             {
                 var gameExtendGameDto = _mapper.Map<ExtendGameDTO>(game);
 
-
                 if (image != null)
                 {
                     var pictureName = game.Key + "_" + image.FileName;
