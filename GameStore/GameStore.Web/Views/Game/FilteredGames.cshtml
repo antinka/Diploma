@@ -30,54 +30,54 @@
                         <h3>@item.Name</h3>
                     </a>
                     <p class="price">@GlobalRes.Price: @item.Price</p>
-
                     <img src="~/Content/Images/Game-Zone.png" alt="Games" height="250px" />
-                </div>
-                <div id="hover">
-                    <p>
-                        <ul>
-                            @GlobalRes.Genres:
-                            @if (item.Genres.Any())
-                            {
-                                foreach (var i in item.Genres)
+
+                    <div id="hover">
+                        <p>
+                            <ul>
+                                @GlobalRes.Genres:
+                                @if (item.Genres.Any())
+                                {
+                                    foreach (var i in item.Genres)
+                                    {
+                                        <li>
+                                            @i.Name
+                                        </li>
+                                    }
+                                }
+                                else
+                                {
+                                    if (Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToUpperInvariant() == "EN")
+                                    {
+                                        <li>Other</li>
+                                    }
+                                    else
+                                    {
+                                        <li>Другие</li>
+                                    }
+                                }
+                            </ul>
+                        </p>
+
+                        <p>
+                            <ul>
+                                @GlobalRes.PlatformTypes:
+
+                                @foreach (var i in item.PlatformTypes)
                                 {
                                     <li>
                                         @i.Name
                                     </li>
                                 }
-                            }
-                            else
-                            {
-                                if (Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToUpperInvariant() == "EN")
-                                {
-                                    <li>Other</li>
-                                }
-                                else
-                                {
-                                    <li>Другие</li>
-                                }
-                            }
-                        </ul>
-                    </p>
+                            </ul>
+                        </p>
 
-                    <p>
-                        <ul>
-                            @GlobalRes.PlatformTypes:
+                        <p>
 
-                            @foreach (var i in item.PlatformTypes)
-                            {
-                                <li>
-                                    @i.Name
-                                </li>
-                            }
-                        </ul>
-                    </p>
-
-                    <p>
-
-                        @GlobalRes.Publisher:
-                        @Html.DisplayFor(modelItem => item.Publisher.Name)
-                    </p>
+                            @GlobalRes.Publisher:
+                            @Html.DisplayFor(modelItem => item.Publisher.Name)
+                        </p>
+                    </div>
                 </div>
                 <p>
                     @if (User != null && User.IsInRole("Manager"))

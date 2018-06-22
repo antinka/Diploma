@@ -21,87 +21,95 @@
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 </head>
 <body>
-<header>
-    <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-10 col-sm-12 col-xs-12">
-            <div class="navbar navbar-default" role="navigation">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    @Html.ActionLink(GlobalRes.Games, "FilteredGames", "Game", new { area = "" }, new { @class = "navbar-brand" })
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li style="color: #A9A19E">@Html.Action("CountGames", "Game") </li>
-                        <li> @Html.ActionLink(GlobalRes.Basket, "BasketInfo", "Order")</li>
-                        <li style="color: #A9A19E">@Html.Action("CountGamesInOrder", "Order") </li>
-                        @if (User != null && User.IsInRole("Manager"))
-                        {
-                            <li> @Html.ActionLink(GlobalRes.Publishers, "GetAll", "Publisher")</li>
-                            <li> @Html.ActionLink(GlobalRes.PlatformTypes, "GetAll", "PlatformType")</li>
-                            <li> @Html.ActionLink(GlobalRes.Genres, "GetAll", "Genre")</li>
-                            <li> @Html.ActionLink(GlobalRes.GetAllDeleteGames, "GetAllDeleteGames", "Game")</li>
-                            <li> @Html.ActionLink(GlobalRes.Orders, "AllOrders", "Order")</li>
-                        }
-                        <li> @Html.ActionLink(GlobalRes.Shipper, "GetAll", "Shipper")</li>
-                        @if (User != null && User.IsInRole("Administrator"))
-                        {
-                            <li> @Html.ActionLink(GlobalRes.Users, "GetAll", "User")</li>
-                            <li> @Html.ActionLink(GlobalRes.Roles, "GetAll", "Role")</li>
-                        }
-                    </ul>
-
-                    <ul class="nav navbar-nav navbar-right">
-                        @if (User != null && User.Identity.IsAuthenticated)
-                        {
-                            <li>@Html.ActionLink(GlobalRes.PersonalArea, "PersonalArea", "Account")</li>
-                            <li>@Html.ActionLink(GlobalRes.LogOut, "LogOut", "Account")</li>
-                        }
-                        else
-                        {
-                            <li>@Html.ActionLink(GlobalRes.Register, "Register", "Account")</li>
-                            <li> @Html.ActionLink(GlobalRes.Login, "Login", "Account")</li>
-                        }
-                    </ul>
-                </div>
-            </div>
-            <div class="navbar"  role="navigation">
-                <div class="navbar-collapse collapse">
-                    <div class="nav navbar-nav navbar-right">
-                        @Html.ActionLink("ru", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["lang"] = "ru", new {@class = "btn btn-default"})
-                        @Html.ActionLink("en", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["lang"] = "en", new {@class = "btn btn-default"})
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div style="position: relative">
+    <header>
+        <div class="row">
             <div class="col-md-1"></div>
             <div class="col-md-10 col-sm-12 col-xs-12">
-                <div style="position: absolute; top: -25px; width:92%">
-                    <div style="display: flex; justify-content: flex-end; flex-direction: row;" class="list-group">
-                        <a href="https://www.instagram.com" target="_blank" class="Mylist-group-item" style="border-radius: 15px 0 0 15px"><img src="~/Content/Images/insta.png" height="30px" alt="Instagram" />Instagram</a>
-                        <a href="https://twitter.com" target="_blank" class="Mylist-group-item"><img src="~/Content/Images/tweet.png" height="30px" alt="Twitter" />Twitter</a>
-                        <a href="https://www.facebook.com/" target="_blank" class="Mylist-group-item" style="border-radius: 0 15px 15px 0"><img src="~/Content/Images/icon-facebook-light.png" height="30px" alt="Twitter" />Facebook</a>
+                <div class="navbar navbar-default" role="navigation">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        @Html.ActionLink(GlobalRes.Games, "FilteredGames", "Game", new { area = "" }, new { @class = "navbar-brand" })
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li style="color: #A9A19E">@Html.Action("CountGames", "Game") </li>
+                            <li> @Html.ActionLink(GlobalRes.Basket, "BasketInfo", "Order")</li>
+                            <li style="color: #A9A19E">@Html.Action("CountGamesInOrder", "Order") </li>
+                            @if (User != null && User.IsInRole("Manager"))
+                            {
+                                <li> @Html.ActionLink(GlobalRes.Publishers, "GetAll", "Publisher")</li>
+                                <li> @Html.ActionLink(GlobalRes.PlatformTypes, "GetAll", "PlatformType")</li>
+                                <li> @Html.ActionLink(GlobalRes.Genres, "GetAll", "Genre")</li>
+                                <li> @Html.ActionLink(GlobalRes.GetAllDeleteGames, "GetAllDeleteGames", "Game")</li>
+                                <li> @Html.ActionLink(GlobalRes.Orders, "AllOrders", "Order")</li>
+                            }
+                            <li> @Html.ActionLink(GlobalRes.Shipper, "GetAll", "Shipper")</li>
+                            @if (User != null && User.IsInRole("Administrator"))
+                            {
+                                <li> @Html.ActionLink(GlobalRes.Users, "GetAll", "User")</li>
+                                <li> @Html.ActionLink(GlobalRes.Roles, "GetAll", "Role")</li>
+                            }
+                        </ul>
+
+                        <ul class="nav navbar-nav navbar-right">
+                            @if (User != null && User.Identity.IsAuthenticated)
+                            {
+                                <li>@Html.ActionLink(GlobalRes.PersonalArea, "PersonalArea", "Account")</li>
+                                <li>@Html.ActionLink(GlobalRes.LogOut, "LogOut", "Account")</li>
+                            }
+                            else
+                            {
+                                <li>@Html.ActionLink(GlobalRes.Register, "Register", "Account")</li>
+                                <li> @Html.ActionLink(GlobalRes.Login, "Login", "Account")</li>
+                            }
+                        </ul>
                     </div>
                 </div>
-                <div style="background-color: #222; height: 200px; border-radius: 10px; width: 100%;">
-                    <div style="float: left; margin-left: 20%">
-                        <p style="color: aliceblue; font-family: Trattatello; font-size: 70px" ;>Pay attention</p>
-                    </div>
-                    <div style="margin-right: 20%;">
-                        <img src="~/Content/Images/tik-logo-uzrasas-1.png" alt="Games" height="200" />
+                <div class="navbar" role="navigation">
+                    <div class="navbar-collapse collapse">
+                        <div class="nav navbar-nav navbar-right">
+                            @Html.ActionLink("ru", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["lang"] = "ru", new { @class = "btn btn-default" })
+                            @Html.ActionLink("en", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["lang"] = "en", new { @class = "btn btn-default" })
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</header>
+        <div class="row">
+            <div style="position: relative">
+                <div class="col-md-1"></div>
+                <div style="position: absolute; top: -85px; left: 12%; ">
+                    <p style="color: dimgrey; font-family: Trattatello; font-size: 30px;">
+                        GAME
+                        <br />STORE
+                    </p>
+                </div>
+                <div class="col-md-10 col-sm-12 col-xs-12">
+                    <div style="position: absolute; top: -25px; width:92%">
+                        <div style="display: flex; justify-content: flex-end; flex-direction: row;" class="list-group">
+                            <a href="https://www.instagram.com" target="_blank" class="Mylist-group-item" style="border-radius: 15px 0 0 15px"><img src="~/Content/Images/insta.png" height="30px" alt="Instagram" />Instagram</a>
+                            <a href="https://twitter.com" target="_blank" class="Mylist-group-item"><img src="~/Content/Images/tweet.png" height="30px" alt="Twitter" />Twitter</a>
+                            <a href="https://www.facebook.com/" target="_blank" class="Mylist-group-item" style="border-radius: 0 15px 15px 0"><img src="~/Content/Images/icon-facebook-light.png" height="30px" alt="Twitter" />Facebook</a>
+                        </div>
+                    </div>
+
+                    <div style="background-color: #222; height: 200px; border-radius: 10px; width: 100%;">
+                        <div class="col-md-1 hidden-sm hidden-xs"></div>
+                        <div style="float: left; margin: 0" class="col-md-6 col-sm-6 col-xs-6">
+                            <p style="color: aliceblue; font-family: Trattatello; font-size: 70px;" ;>Pay attention</p>
+                        </div>
+                        <div class="displayHead  col-md-5 col-sm-5 col-xs-5" style="float: left;">
+                            <img src="~/Content/Images/tik-logo-uzrasas-1.png" alt="Games"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
 
     <br />
     <div class="container body-content">
@@ -134,7 +142,7 @@
                                 <label for="exampleInputName1">@GlobalRes.UserName</label>
                                 <input type="text" class="form-control" id="exampleInputName1" aria-describedby="emailHelp">
                             </div>
-                            <div class="form-group ForForm80MarginRightLeft" >
+                            <div class="form-group ForForm80MarginRightLeft">
                                 <label for="exampleInputEmail1">Email</label>
                                 <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                             </div>
@@ -193,7 +201,7 @@
                             </div>
                             <div class="form-group ForForm8024">
                                 <br />
-                                <p align="justify" >
+                                <p align="justify">
                                     text text text text text text text text text text text text
                                 </p>
                                 <hr class="footerHr" />

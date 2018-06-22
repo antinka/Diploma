@@ -8,6 +8,8 @@
 body {
     /*padding-top: 50px;*/
     padding-bottom: 20px;
+    min-width: 500px;
+    max-width: 2000px
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -29,25 +31,26 @@ textarea {
 footer a {
     color:black
 }
-#hover {
-    display: none;
+
+#image {
     position: relative;
 }
 
-#image:hover {
-    opacity: .3;
-}
-    #image:hover + #hover {
-        position: absolute;
-        display: block;
-        top:70px
-    }
-
-#hover :hover {
+#hover {
     position: absolute;
-    display: block;
-    top:70px
+    left: 0;
+    bottom: 0;
+    right: 0;
+    top: 40px;
+    background: rgba(255,255,255, 0.7);
+    padding: 5px;
+    display: none;
 }
+
+#image:hover #hover {
+    display: block;
+}
+
 .FooterHeader img {
     float: left;
 }
@@ -79,4 +82,19 @@ footer a {
     width: 80%;
     margin-left: auto;
     margin-right: auto;
+}
+
+.displayHead {
+    height: 2vw;
+}
+
+@media (max-width: 1000px) {
+    .displayHead {
+    }
+}
+
+@media (max-width: 475px) {
+    .displayHead {
+        display: none;
+    }
 }
