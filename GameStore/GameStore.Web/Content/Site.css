@@ -88,11 +88,6 @@ footer a {
     height: 2vw;
 }
 
-@media (max-width: 1000px) {
-    .displayHead {
-    }
-}
-
 @media (max-width: 475px) {
     .displayHead {
         display: none;
