@@ -8,6 +8,8 @@
 body {
     /*padding-top: 50px;*/
     padding-bottom: 20px;
+    min-width: 500px;
+    max-width: 2000px
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -29,14 +31,11 @@ textarea {
 footer a {
     color:black
 }
-#hover {
-    display: none;
-    position: relative;
-}
 
 #image {
     position: relative;
 }
+
 #hover {
     position: absolute;
     left: 0;
@@ -47,9 +46,11 @@ footer a {
     padding: 5px;
     display: none;
 }
+
 #image:hover #hover {
-    display: block; 
+    display: block;
 }
+
 .FooterHeader img {
     float: left;
 }
@@ -92,4 +93,15 @@ footer a {
     opacity:0;
     background-color:transparent;
     color:transparent;
+}
+}
+
+.displayHead {
+    height: 2vw;
+}
+
+@media (max-width: 475px) {
+    .displayHead {
+        display: none;
+    }
 }
