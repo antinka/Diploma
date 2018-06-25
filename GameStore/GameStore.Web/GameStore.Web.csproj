@@ -133,10 +133,8 @@
     <Content Include="Content\Images\BLOG-Logo-1.png" />
     <Content Include="Content\Images\Game-Zone.png" />
     <Content Include="Content\Images\games.jpg" />
-    <Content Include="Content\Images\Games\Game-Zone.png" />
     <Content Include="Content\Images\icon-facebook-light.png" />
     <Content Include="Content\Images\insta.png" />
-    <Content Include="Content\Images\InstagramSecondary.png" />
     <Content Include="Content\Images\konvert.png" />
     <Content Include="Content\Images\tik-logo-uzrasas-1.png" />
     <Content Include="Content\Images\tweet.png" />
@@ -332,6 +330,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Images\Games\" />
     <Folder Include="Views\Shared\DisplayTemplates\" />
   </ItemGroup>
   <ItemGroup>

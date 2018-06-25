@@ -104,7 +104,7 @@
                 <a class='btn'>
                     @GlobalRes.ChoosePicture...
                     <input type="file" name="Image" size="40"
-                           class="ForAddPictereToGame" onchange='$("#upload-file-info").html($(this).val());'>
+                           class="form-for-adding-pictures" onchange='$("#upload-file-info").html($(this).val());'>
                 </a>
                 <span class='label label-info' id="upload-file-info"></span>
                 @Html.ValidationMessageFor(model => model.ImageName, "", new { @class = "text-danger" })

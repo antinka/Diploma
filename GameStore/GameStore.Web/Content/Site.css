@@ -85,7 +85,7 @@ footer a {
     margin-right: auto;
 }
 
-.ForAddPictereToGame {
+.form-for-adding-pictures {
     position:absolute;
     z-index:2;
     top:0;
@@ -95,9 +95,7 @@ footer a {
     background-color:transparent;
     color:transparent;
 }
-}
 
-.displayHead {
 .footer-forms-buttons {
     display: block;
     margin-left: 66%;
