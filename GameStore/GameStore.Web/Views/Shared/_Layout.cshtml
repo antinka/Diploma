@@ -36,9 +36,9 @@
                     </div>
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
-                            <li style="color: #A9A19E">@Html.Action("CountGames", "Game") </li>
+                            <li style="color: #A9A19E;border-left:0">@Html.Action("CountGames", "Game") </li>
                             <li> @Html.ActionLink(GlobalRes.Basket, "BasketInfo", "Order")</li>
-                            <li style="color: #A9A19E">@Html.Action("CountGamesInOrder", "Order") </li>
+                            <li style="color: #A9A19E; border-left:0">@Html.Action("CountGamesInOrder", "Order") </li>
                             @if (User != null && User.IsInRole("Manager"))
                             {
                                 <li> @Html.ActionLink(GlobalRes.Publishers, "GetAll", "Publisher")</li>
@@ -58,12 +58,12 @@
                         <ul class="nav navbar-nav navbar-right">
                             @if (User != null && User.Identity.IsAuthenticated)
                             {
-                                <li>@Html.ActionLink(GlobalRes.PersonalArea, "PersonalArea", "Account")</li>
+                                <li style="border-left:0">@Html.ActionLink(GlobalRes.PersonalArea, "PersonalArea", "Account")</li>
                                 <li>@Html.ActionLink(GlobalRes.LogOut, "LogOut", "Account")</li>
                             }
                             else
                             {
-                                <li>@Html.ActionLink(GlobalRes.Register, "Register", "Account")</li>
+                                <li style="border-left:0">@Html.ActionLink(GlobalRes.Register, "Register", "Account")</li>
                                 <li> @Html.ActionLink(GlobalRes.Login, "Login", "Account")</li>
                             }
                         </ul>
@@ -82,8 +82,8 @@
         <div class="row">
             <div style="position: relative">
                 <div class="col-md-1"></div>
-                <div style="position: absolute; top: -85px; left: 12%; ">
-                    <p style="color: dimgrey; font-family: Trattatello; font-size: 30px;">
+                <div class="logo-header-text">
+                    <p>
                         GAME
                         <br />STORE
                     </p>
@@ -91,9 +91,9 @@
                 <div class="col-md-10 col-sm-12 col-xs-12">
                     <div style="position: absolute; top: -25px; width:92%">
                         <div style="display: flex; justify-content: flex-end; flex-direction: row;" class="list-group">
-                            <a href="https://www.instagram.com" target="_blank" class="Mylist-group-item" style="border-radius: 15px 0 0 15px"><img src="~/Content/Images/insta.png" height="30px" alt="Instagram" />Instagram</a>
-                            <a href="https://twitter.com" target="_blank" class="Mylist-group-item"><img src="~/Content/Images/tweet.png" height="30px" alt="Twitter" />Twitter</a>
-                            <a href="https://www.facebook.com/" target="_blank" class="Mylist-group-item" style="border-radius: 0 15px 15px 0"><img src="~/Content/Images/icon-facebook-light.png" height="30px" alt="Twitter" />Facebook</a>
+                            <a href="https://www.instagram.com" target="_blank" class="my-list-group-item" style="border-radius: 15px 0 0 15px"><img src="~/Content/Images/insta.png" height="30px" alt="Instagram" />Instagram</a>
+                            <a href="https://twitter.com" target="_blank" class="my-list-group-item"><img src="~/Content/Images/tweet.png" height="30px" alt="Twitter" />Twitter</a>
+                            <a href="https://www.facebook.com/" target="_blank" class="my-list-group-item" style="border-radius: 0 15px 15px 0"><img src="~/Content/Images/icon-facebook-light.png" height="30px" alt="Twitter" />Facebook</a>
                         </div>
                     </div>
 
@@ -102,7 +102,7 @@
                         <div style="float: left;" class="col-md-5 col-sm-6 col-xs-6">
                             <p style="color: aliceblue; font-family: Trattatello; font-size: 70px;" ;>Pay attention</p>
                         </div>
-                        <div class="displayHead  col-md-4 col-sm-4 col-xs-4" style="float: left;">
+                        <div class="image-menu  col-md-4 col-sm-4 col-xs-4">
                             <img src="~/Content/Images/tik-logo-uzrasas-1.png" alt="Games"/>
                         </div>
                     </div>
@@ -134,86 +134,86 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 col-sm-4">
-                        <div class="FooterHeader">
+                        <div class="footer-header">
                             <img src="~/Content/Images/konvert.png" alt="GetInTouch" height="50px" /> <h6 class="footer-heading">@GlobalRes.GetInTouch</h6>
                         </div>
                         <form style="background: #E1F5A9; height: 300px">
-                            <div class="form-group ForForm80MarginRightLeft">
+                            <div class="form-group footer-left-form ">
                                 <label for="exampleInputName1">@GlobalRes.UserName</label>
                                 <input type="text" class="form-control" id="exampleInputName1" aria-describedby="emailHelp">
                             </div>
-                            <div class="form-group ForForm80MarginRightLeft">
+                            <div class="form-group footer-left-form ">
                                 <label for="exampleInputEmail1">Email</label>
                                 <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                             </div>
-                            <div class="form-group ForForm80MarginRightLeft">
+                            <div class="form-group footer-left-form ">
                                 <label for="exampleFormControlTextarea1">@GlobalRes.Body</label>
                                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                             </div>
-                            <button style="display: block; margin-left: 55%;" type="submit" class="btn btn-default ">@GlobalRes.Submit</button>
+                            <button style="margin-left: 70%;" type="submit" class="btn btn-default footer-forms-buttons">@GlobalRes.Submit</button>
                         </form>
                     </div>
 
                     <div class="col-md-4 col-sm-4">
-                        <div class="FooterHeader">
+                        <div class="footer-header">
                             <img src="~/Content/Images/tweet.png" alt="GetInTouch" height="50px" />  <h6 class="footer-heading"> Twitter @GlobalRes.updates </h6>
                         </div>
                         <div style="background: #CEF6F5; height: 300px">
-                            <div class="form-group ForForm8024">
+                            <div class="form-group footer-forms-center-and-right">
                                 <br />
                                 <p align="justify">
                                     text text text text text text text text text text text text
                                     <a href="#"> http//text/text</a>
                                 </p>
-                                <hr class="footerHr" />
+                                <hr class="footer-hr" />
                             </div>
-                            <div class="form-group ForForm8024">
+                            <div class="form-group footer-forms-center-and-right">
                                 <br />
                                 <p align="justify">
                                     text text text text text text text text text text text text
                                     <a href="#"> http//text/text</a>
                                 </p>
-                                <hr class="footerHr" />
+                                <hr class="footer-hr" />
                             </div>
-                            <div class="form-group ForForm8024">
+                            <div class="form-group footer-forms-center-and-right">
                                 <br />
                                 <p align="justify">
                                     text text text text text text text text text text text text
                                     <a href="#"> http//text/text</a>
                                 </p>
-                                <hr class="footerHr" />
+                                <hr class="footer-hr" />
                             </div>
-                            <button style="display: block; margin-left: 45%;" type="submit" class="btn btn-default ">@GlobalRes.FollowUs</button>
+                            <button type="submit" class="btn btn-default footer-forms-buttons">@GlobalRes.FollowUs</button>
                         </div>
                     </div>
 
                     <div class="col-md-4 col-sm-4">
-                        <div class="FooterHeader">
+                        <div class="footer-header">
                             <img src="~/Content/Images/BLOG-Logo-1.png" alt="FromBlog" height="50px" />  <h6 class="footer-heading"> @GlobalRes.FromBlog </h6>
                         </div>
                         <div style="background: #F2F5A9; height: 300px">
-                            <div class="form-group ForForm8024">
+                            <div class="form-group footer-forms-center-and-right">
                                 <br />
                                 <p align="justify">
                                     text text text text text text text text text text text text
                                 </p>
-                                <hr class="footerHr" />
+                                <hr class="footer-hr" />
                             </div>
-                            <div class="form-group ForForm8024">
+                            <div class="form-group footer-forms-center-and-right">
                                 <br />
                                 <p align="justify">
                                     text text text text text text text text text text text text
                                 </p>
-                                <hr class="footerHr" />
+                                <hr class="footer-hr" />
                             </div>
-                            <div class="form-group ForForm8024">
+                            <div class="form-group footer-forms-center-and-right">
                                 <br />
                                 <p align="justify">
                                     text text text text text text text text text text text text
                                 </p>
-                                <hr class="footerHr" />
+                                <hr class="footer-hr" />
                             </div>
-                            <button style="display: block; margin-left: 55%;" type="submit" class="btn btn-default ">@GlobalRes.VisitBlog</button>
+                            <button type="submit" class="btn btn-default footer-forms-buttons">@GlobalRes.VisitBlog</button>
                         </div>
                     </div>
                 </div>
