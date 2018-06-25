@@ -155,7 +155,8 @@ namespace GameStore.Web.Controllers
             var game = _gameService.GetByKey(gamekey);
             var imagePath = Server.MapPath($"~/Content/Images/Games/{game.ImageName}");
 
-            return File(imagePath, game.ImageMimeType);
+            return game.ImageMimeType != null ? File(imagePath, game.ImageMimeType)
+                : File("~/Content/Images/Game-Zone.png", "image/png");
         }
 
         public async Task<ActionResult> AsyncGetImage(string gamekey)
@@ -163,7 +164,8 @@ namespace GameStore.Web.Controllers
             var game = await Task.Run(() => _gameService.GetByKey(gamekey));
             var imagePath = Server.MapPath($"~/Content/Images/Games/{game.ImageName}");
 
-            return File(imagePath, game.ImageMimeType);
+            return game.ImageMimeType != null ? File(imagePath, game.ImageMimeType)
+                : File("~/Content/Images/Game-Zone.png", "image/png");
         }
 
         [HttpGet]
@@ -190,7 +192,7 @@ namespace GameStore.Web.Controllers
             var filterDto = _mapper.Map<FilterDTO>(filter);
             var filteredGames = _gameService.GetGamesByFilter(filterDto, page, filter.PageSize, out var itemsByFilter);
 
-            int totalItem = 0;
+            var totalItem = 0;
 
             if (filter.PageSize == PageSize.All)
             {

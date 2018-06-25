@@ -31,8 +31,7 @@
                     </a>
 
                     <p class="price">@GlobalRes.Price: @item.Price</p>
-                    <img src="~/Content/Images/Game-Zone.png" alt="Games" height="250px" />
-
+                    <img class="img-thumbnail" src="@Url.Action("AsyncGetImage", "Game", new { gamekey = item.Key })" alt="@item.Name"/>
                     <div id="hover">
                         <p>
                             <ul>

@@ -183,6 +183,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GlobalRes.en.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_LocalResources\GlobalRes.en1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GlobalRes.en.resx</DependentUpon>
+    </Compile>
     <Compile Include="Authorization\Implementation\AuthHttpModule.cs" />
     <Compile Include="Authorization\Implementation\CustomAuthentication.cs" />
     <Compile Include="Authorization\Interfaces\IAuthentication.cs" />

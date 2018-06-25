@@ -84,7 +84,7 @@ namespace GameStore.Tests.Controllers
             _gameService.Setup(service => service.IsUniqueKey(It.IsAny<ExtendGameDTO>())).Returns(true);
             _gameService.Setup(service => service.AddNew(fakeGameDTO));
 
-            _sut.New(fakeGameViewModel);
+            _sut.New(fakeGameViewModel, null);
 
             _gameService.Verify(s => s.AddNew(It.IsAny<ExtendGameDTO>()), Times.Once);
         }
@@ -96,7 +96,7 @@ namespace GameStore.Tests.Controllers
             _sut.ModelState.Add("testError", new ModelState());
             _sut.ModelState.AddModelError("testError", "test");
 
-            var res = _sut.New(fakeGameViewModel);
+            var res = _sut.New(fakeGameViewModel, null);
 
             Assert.IsType<ViewResult>(res);
         }
@@ -116,7 +116,7 @@ namespace GameStore.Tests.Controllers
             _gameService.Setup(service => service.IsUniqueKey(It.IsAny<ExtendGameDTO>())).Returns(true);
             _gameService.Setup(service => service.Update(fakeGameDTO));
 
-            _sut.Update(fakeGameViewModel);
+            _sut.Update(fakeGameViewModel, null);
 
             _gameService.Verify(s => s.Update(It.IsAny<ExtendGameDTO>()), Times.Once);
         }
@@ -128,7 +128,7 @@ namespace GameStore.Tests.Controllers
             _sut.ModelState.Add("testError", new ModelState());
             _sut.ModelState.AddModelError("testError", "test");
 
-            var res = _sut.Update(fakeGameViewModel);
+            var res = _sut.Update(fakeGameViewModel, null);
 
             Assert.IsType<ViewResult>(res);
         }
@@ -201,7 +201,7 @@ namespace GameStore.Tests.Controllers
             var fakeGameViewModel = new GameViewModel() { NameEn = "test", Key = "1" };
             _gameService.Setup(service => service.IsUniqueKey(It.IsAny<ExtendGameDTO>())).Returns(false);
 
-            _sut.New(fakeGameViewModel);
+            _sut.New(fakeGameViewModel, null);
 
             _gameService.Verify(s => s.IsUniqueKey(It.IsAny<ExtendGameDTO>()), Times.Once);
         }
@@ -212,7 +212,7 @@ namespace GameStore.Tests.Controllers
             var fakeGameViewModel = new GameViewModel() { NameEn = "test", Key = "1" };
             _gameService.Setup(service => service.IsUniqueKey(It.IsAny<ExtendGameDTO>())).Returns(false);
 
-            _sut.Update(fakeGameViewModel);
+            _sut.Update(fakeGameViewModel, null);
 
             _gameService.Verify(s => s.IsUniqueKey(It.IsAny<ExtendGameDTO>()), Times.Once);
         }

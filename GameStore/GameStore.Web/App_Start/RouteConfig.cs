@@ -43,6 +43,12 @@ namespace GameStore.Web
                 constraints: new { lang = @"ru|en" });
 
             routes.MapRoute(
+                name: "AsyncGetImage",
+                url: "{lang}/Async/Game/pictures/{gamekey}",
+                defaults: new { controller = "Game", action = "AsyncGetImage", gamekey = UrlParameter.Optional, lang = "en" },
+                constraints: new { lang = @"ru|en" });
+
+            routes.MapRoute(
                 name: "GamePictures",
                 url: "{lang}/Game/pictures/{gamekey}",
                 defaults: new { controller = "Game", action = "GetImage", gamekey = UrlParameter.Optional, lang = "en" },
@@ -222,7 +228,7 @@ namespace GameStore.Web
                 defaults: new { controller = "Game", action = "FilteredGames", id = UrlParameter.Optional, lang = "en" });
         }
 
-        class CustomRouteHandler : IRouteHandler
+        private class CustomRouteHandler : IRouteHandler
         {
             public IHttpHandler GetHttpHandler(RequestContext requestContext)
             {
