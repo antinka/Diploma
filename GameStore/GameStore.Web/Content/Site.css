@@ -85,9 +85,13 @@ footer a {
     margin-right: auto;
 }
 
+.footer-forms-container {
+    position: relative;
+}
+
 .footer-forms-buttons {
-    display: block;
-    margin-left: 66%;
+    position: absolute;
+    right: 12%;
 }
 
 .image-menu {
