@@ -65,7 +65,7 @@ namespace GameStore.Web.Controllers
 
                 if (image != null)
                 {
-                    var pictureName = game.Key + "_" + image.FileName;
+                    var pictureName = gameDTO.Key + "_" + image.FileName;
                     image.SaveAs(Server.MapPath($"~/Content/Images/Games/{pictureName}"));
                     gameDTO.ImageName = pictureName;
                     gameDTO.ImageMimeType = image.ContentType;
@@ -73,6 +73,7 @@ namespace GameStore.Web.Controllers
                 else
                 {
                     gameDTO.ImageName = "Game-Zone.png";
+                    gameDTO.ImageMimeType = "image/png";
                 }
 
                 _gameService.AddNew(gameDTO);
@@ -132,7 +133,7 @@ namespace GameStore.Web.Controllers
 
                 if (image != null)
                 {
-                    var pictureName = game.Key + "_" + image.FileName;
+                    var pictureName = gameExtendGameDto.Key + "_" + image.FileName;
                     image.SaveAs(Server.MapPath($"~/Content/Images/Games/{pictureName}"));
                     gameExtendGameDto.ImageName = pictureName;
                     gameExtendGameDto.ImageMimeType = image.ContentType;
@@ -140,6 +141,7 @@ namespace GameStore.Web.Controllers
                 else
                 {
                     gameExtendGameDto.ImageName = "Game-Zone.png";
+                    gameExtendGameDto.ImageMimeType = "image/png";
                 }
 
                 _gameService.Update(gameExtendGameDto);
@@ -148,6 +150,26 @@ namespace GameStore.Web.Controllers
             }
 
             return View(GetGameViewModelForUpdate(game));
+        }
+
+        [HttpPost]
+        public void SetImage(HttpPostedFileBase image)
+        {
+            if (image != null)
+            {
+                var pictureName = image.FileName;
+                image.SaveAs(Server.MapPath($"~/Content/Images/Games/{pictureName}"));
+            }
+        }
+
+        [HttpPost]
+        public async Task SetAsyncImageAsync(HttpPostedFileBase image)
+        {
+            if (image != null)
+            {
+                var pictureName = image.FileName;
+                await Task.Run(() => image.SaveAs(Server.MapPath($"~/Content/Images/Games/{pictureName}")));
+            }
         }
 
         public ActionResult GetImage(string gamekey)

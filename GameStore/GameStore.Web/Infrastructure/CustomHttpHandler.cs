@@ -1,9 +1,5 @@
-﻿using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web;
-using System.Web.Mvc;
-using GameStore.BLL.Interfaces;
 
 namespace GameStore.Web.Infrastructure
 {
@@ -11,14 +7,11 @@ namespace GameStore.Web.Infrastructure
     {
         public override async Task ProcessRequestAsync(HttpContext context)
         {
-            var key = context.Request.Url.Segments.Last();
-            var gameService = DependencyResolver.Current.GetService<IGameService>();
-            var game = await Task.Run(() => gameService.GetByKey(key));
-            var imagePath = context.Server.MapPath($"~/Content/Images/Games/{game.ImageName}");
-            var imageByteData = File.ReadAllBytes(imagePath);
+            var image = context.Request.Files[0];
+            var pictureName = image.FileName;
+            await Task.Run(() => image.SaveAs(context.Server.MapPath($"~/Content/Images/Games/{pictureName}")));
 
-            context.Response.BinaryWrite(imageByteData);
-            context.Response.ContentType = game.ImageMimeType;
+            context.Response.Write("1231231");
         }
     }
 }

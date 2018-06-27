@@ -135,6 +135,10 @@ footer a {
         font-size: 30px;
     }
 
+.main-game-img {
+    height: 250px;
+}
+
 @media (max-width: 650px) {
     .image-menu {
         display: none;

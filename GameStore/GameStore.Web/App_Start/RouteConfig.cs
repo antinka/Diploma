@@ -10,7 +10,8 @@ namespace GameStore.Web
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-            routes.Add("Image", new Route("GamePicture/{key}", new CustomRouteHandler()));
+
+            routes.IgnoreRoute("handler/{*path}");
 
             routes.MapRoute(
                 name: "order",
@@ -52,6 +53,18 @@ namespace GameStore.Web
                 name: "GamePictures",
                 url: "{lang}/Game/pictures/{gamekey}",
                 defaults: new { controller = "Game", action = "GetImage", gamekey = UrlParameter.Optional, lang = "en" },
+                constraints: new { lang = @"ru|en" });
+
+            routes.MapRoute(
+                name: "SetAsyncImageAsync",
+                url: "{lang}/AsyncSetImage",
+                defaults: new { controller = "Game", action = "SetAsyncImageAsync", lang = "en" },
+                constraints: new { lang = @"ru|en" });
+
+            routes.MapRoute(
+                name: "SetImage",
+                url: "{lang}/SetImage",
+                defaults: new { controller = "Game", action = "SetImage", lang = "en" },
                 constraints: new { lang = @"ru|en" });
 
             routes.MapRoute(
