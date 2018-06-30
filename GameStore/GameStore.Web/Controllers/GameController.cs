@@ -16,6 +16,7 @@ using GameStore.Web.Builder.Implementation;
 using GameStore.Web.Authorization.Interfaces;
 using GameStore.Web.ViewModels;
 using GameStore.Web.ViewModels.Games;
+using System.Net;
 
 namespace GameStore.Web.Controllers
 {
@@ -153,23 +154,31 @@ namespace GameStore.Web.Controllers
         }
 
         [HttpPost]
-        public void SetImage(HttpPostedFileBase image)
+        public ActionResult SetImage(string gamekey, HttpPostedFileBase image)
         {
             if (image != null)
             {
                 var pictureName = image.FileName;
+                var imageMimeType = image.ContentType;
                 image.SaveAs(Server.MapPath($"~/Content/Images/Games/{pictureName}"));
+                _gameService.UpdateImage(gamekey, pictureName, imageMimeType);
             }
+
+            return RedirectToAction("GetGame", "Game", new { gamekey });
         }
 
         [HttpPost]
-        public async Task SetAsyncImageAsync(HttpPostedFileBase image)
+        public async Task<ActionResult> SetImageAsync(string gamekey, HttpPostedFileBase image)
         {
             if (image != null)
             {
                 var pictureName = image.FileName;
+                var imageMimeType = image.ContentType;
+                _gameService.UpdateImage(gamekey, pictureName, imageMimeType);
                 await Task.Run(() => image.SaveAs(Server.MapPath($"~/Content/Images/Games/{pictureName}")));
             }
+
+            return RedirectToAction("GetGame", "Game", new { gamekey });
         }
 
         public ActionResult GetImage(string gamekey)

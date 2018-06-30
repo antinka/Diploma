@@ -242,6 +242,16 @@ namespace GameStore.BLL.Service
             return false;
         }
 
+        public void UpdateImage(string gameKey, string pictureName, string imageMimeType)
+        {
+            var game = _unitOfWork.Games.Get(g => g.Key == gameKey).FirstOrDefault();
+            game.ImageName = pictureName;
+            game.ImageMimeType = imageMimeType;
+
+            _unitOfWork.Games.Update(game);
+            _unitOfWork.Save();
+        }
+
         private void IncreaseGameView(Game game)
         {
             game.Views += 1;

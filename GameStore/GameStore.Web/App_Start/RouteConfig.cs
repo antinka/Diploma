@@ -58,7 +58,7 @@ namespace GameStore.Web
             routes.MapRoute(
                 name: "SetAsyncImageAsync",
                 url: "{lang}/AsyncSetImage",
-                defaults: new { controller = "Game", action = "SetAsyncImageAsync", lang = "en" },
+                defaults: new { controller = "Game", action = "SetImageAsync", lang = "en" },
                 constraints: new { lang = @"ru|en" });
 
             routes.MapRoute(

@@ -23,6 +23,8 @@ namespace GameStore.BLL.Interfaces
 
         void Renew(string gameKey);
 
+        void UpdateImage(string gameKey, string pictureName, string imageMimeType);
+
         IEnumerable<GameDTO> GetGamesByFilter(FilterDTO filter, int page, PageSize pageSize, out int totalItemsByFilter);
     }
 }
