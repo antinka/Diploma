@@ -68,6 +68,12 @@ namespace GameStore.Web
                 constraints: new { lang = @"ru|en" });
 
             routes.MapRoute(
+               name: "SetImageHttp",
+               url: "{lang}/SetImageUsingHandler/{gamekey}",
+               defaults: new { controller = "Game", action = "PostPicture", gamekey = UrlParameter.Optional, lang = "en" },
+               constraints: new { lang = @"ru|en" });
+
+            routes.MapRoute(
                 name: "getGame",
                 url: "{lang}/game/{gamekey}",
                 defaults: new { controller = "Game", action = "GetGame", gamekey = UrlParameter.Optional, lang = "en" },

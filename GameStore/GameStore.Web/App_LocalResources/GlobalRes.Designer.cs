@@ -775,6 +775,33 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Загрузка изображения асинхронно.
+        /// </summary>
+        public static string LoadAsynchronously {
+            get {
+                return ResourceManager.GetString("LoadAsynchronously", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Загрузка изображения с помощью обработчика.
+        /// </summary>
+        public static string LoadHttpAsynchronously {
+            get {
+                return ResourceManager.GetString("LoadHttpAsynchronously", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Загрузка изображения синхронно.
+        /// </summary>
+        public static string LoadSynchronously {
+            get {
+                return ResourceManager.GetString("LoadSynchronously", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Войти.
         /// </summary>
         public static string Login {

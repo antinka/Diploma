@@ -555,4 +555,13 @@
   <data name="Picture" xml:space="preserve">
     <value>Картинка</value>
   </data>
+  <data name="LoadAsynchronously" xml:space="preserve">
+    <value>Загрузка изображения асинхронно</value>
+  </data>
+  <data name="LoadHttpAsynchronously" xml:space="preserve">
+    <value>Загрузка изображения с помощью обработчика</value>
+  </data>
+  <data name="LoadSynchronously" xml:space="preserve">
+    <value>Загрузка изображения синхронно</value>
+  </data>
 </root>

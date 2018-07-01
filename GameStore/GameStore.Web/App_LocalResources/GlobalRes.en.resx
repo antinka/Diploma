@@ -552,4 +552,13 @@
   <data name="Picture" xml:space="preserve">
     <value>Picture</value>
   </data>
+  <data name="LoadAsynchronously" xml:space="preserve">
+    <value>Load image asynchronously</value>
+  </data>
+  <data name="LoadHttpAsynchronously" xml:space="preserve">
+    <value>Load image using handler</value>
+  </data>
+  <data name="LoadSynchronously" xml:space="preserve">
+    <value>Load image synchronously</value>
+  </data>
 </root>

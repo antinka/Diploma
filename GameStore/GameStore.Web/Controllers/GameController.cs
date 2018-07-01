@@ -17,6 +17,7 @@ using GameStore.Web.Authorization.Interfaces;
 using GameStore.Web.ViewModels;
 using GameStore.Web.ViewModels.Games;
 using System.Net;
+using GameStore.Web.Infrastructure;
 
 namespace GameStore.Web.Controllers
 {
@@ -181,7 +182,17 @@ namespace GameStore.Web.Controllers
             return RedirectToAction("GetGame", "Game", new { gamekey });
         }
 
-        public ActionResult GetImage(string gamekey)
+        [HttpPost]
+        public async Task<ActionResult> PostPicture(string gamekey, HttpPostedFileBase image)
+        {
+            HttpContext context = HttpContext.ApplicationInstance.Context;
+            CustomHttpHandler customHttpHandler = new CustomHttpHandler();
+            await customHttpHandler.ProcessRequestAsync(context);
+
+            return RedirectToAction("GetGame", "Game", new { gamekey });
+        }
+
+            public ActionResult GetImage(string gamekey)
         {
             var game = _gameService.GetByKey(gamekey);
             var imagePath = Server.MapPath($"~/Content/Images/Games/{game.ImageName}");

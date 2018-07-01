@@ -1,8 +1,8 @@
-﻿using GameStore.BLL.Interfaces;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using GameStore.BLL.Interfaces;
 
 namespace GameStore.Web.Infrastructure
 {
@@ -14,6 +14,7 @@ namespace GameStore.Web.Infrastructure
         {
             _gameService = DependencyResolver.Current.GetService<IGameService>();
         }
+
         public override async Task ProcessRequestAsync(HttpContext context)
         {
             string gameKey = context.Request.Url.Segments.Last();
