@@ -559,7 +559,7 @@
     <value>Загрузка изображения асинхронно</value>
   </data>
   <data name="LoadHttpAsynchronously" xml:space="preserve">
-    <value>Загрузка изображения с помощью обработчика</value>
+    <value>Загрузка изображения используя HTTP </value>
   </data>
   <data name="LoadSynchronously" xml:space="preserve">
     <value>Загрузка изображения синхронно</value>

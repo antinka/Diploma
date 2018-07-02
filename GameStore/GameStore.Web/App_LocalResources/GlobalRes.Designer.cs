@@ -784,7 +784,7 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Загрузка изображения с помощью обработчика.
+        ///   Looks up a localized string similar to Загрузка изображения используя HTTP .
         /// </summary>
         public static string LoadHttpAsynchronously {
             get {
