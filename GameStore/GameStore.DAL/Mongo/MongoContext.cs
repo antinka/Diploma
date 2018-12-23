@@ -13,11 +13,11 @@ namespace GameStore.DAL.Mongo
 
         public MongoContext()
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["GameStoreMongoContext"].ConnectionString;
-            var client = new MongoClient(connectionString);
-            var dbName = MongoUrl.Create(connectionString).DatabaseName;
+            //var connectionString = ConfigurationManager.ConnectionStrings["GameStoreMongoContext"].ConnectionString;
+            //var client = new MongoClient(connectionString);
+            //var dbName = MongoUrl.Create(connectionString).DatabaseName;
 
-            _database = client.GetDatabase(dbName);
+            //_database = client.GetDatabase(dbName);
         }
 
         public IMongoCollection<TEntity> GetCollection<TEntity>()

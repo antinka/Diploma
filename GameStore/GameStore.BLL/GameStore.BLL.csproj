@@ -163,6 +163,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CollaborativeFiltering\CollaborativeFilteringExamples\CollaborativeFilteringExamples.csproj">
+      <Project>{2561BC6C-F947-4D9A-8BDE-815C059C5C03}</Project>
+      <Name>CollaborativeFilteringExamples</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GameStore.DAL\GameStore.DAL.csproj">
       <Project>{36F7A06D-95A3-4D75-8FE1-284806F45845}</Project>
       <Name>GameStore.DAL</Name>

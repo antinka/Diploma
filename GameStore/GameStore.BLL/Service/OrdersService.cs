@@ -156,7 +156,7 @@ namespace GameStore.BLL.Service
 
             order.IsPaid = true;
             order.Date = DateTime.UtcNow;
-            order.ShipVia = _unitOfWork.Shippers.Get(s => s.Id == order.ShipperId).FirstOrDefault().ShipperID;
+            //order.ShipVia = _unitOfWork.Shippers.Get(s => s.Id == order.ShipperId).FirstOrDefault().ShipperID;
 
             foreach (var orderDetail in order.OrderDetails)
             {
@@ -204,13 +204,13 @@ namespace GameStore.BLL.Service
             }
 
             var ordersDTO = _mapper.Map<IEnumerable<Order>, IEnumerable<OrderDTO>>(orders);
-            var shippers = _unitOfWork.Shippers.GetAll();
+           // var shippers = _unitOfWork.Shippers.GetAll();
 
             foreach (var orderDTO in ordersDTO)
             {
                 if (orderDTO.ShipVia != null)
                 {
-                    orderDTO.ShipViaName = shippers.Single(s => s.ShipperID == orderDTO.ShipVia).CompanyName;
+                   // orderDTO.ShipViaName = shippers.Single(s => s.ShipperID == orderDTO.ShipVia).CompanyName;
                 }
 
                 foreach (var i in orderDTO.OrderDetails)
@@ -258,9 +258,9 @@ namespace GameStore.BLL.Service
 
         public IEnumerable<ShipperDTO> GetAllShippers()
         {
-            var shippers = _unitOfWork.Shippers.GetAll();
+           // var shippers = _unitOfWork.Shippers.GetAll();
 
-            return _mapper.Map<IEnumerable<ShipperDTO>>(shippers);
+            return _mapper.Map<IEnumerable<ShipperDTO>>(null);
         }
 
         public void UpdateShipper(OrderDTO orderDto)

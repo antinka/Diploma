@@ -14,6 +14,8 @@ namespace GameStore.Web.Controllers
 {
     public class CommentController : BaseController
     {
+        private static CommentViewModel commentStatic = null;
+
         private readonly ICommentService _commentService;
         private readonly IGameService _gameService;
         private readonly IMapper _mapper;
@@ -77,13 +79,14 @@ namespace GameStore.Web.Controllers
 
             return PartialView(comment);
         }
-
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CommentToGame(CommentViewModel comment)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && commentStatic == null || ModelState.IsValid && commentStatic.Body != comment.Body && commentStatic.Name != comment.Name)
             {
+                commentStatic = comment;
                 _commentService.AddComment(_mapper.Map<CommentDTO>(comment));
 
                 return PartialView("CommentAdded");

@@ -1,6 +1,28 @@
 ﻿@using System.Threading
 @using GameStore.Web.App_LocalResources
 @model GameStore.Web.ViewModels.FilterViewModel
+
+@if (User != null && User.IsInRole("Manager"))
+{
+    <h5>@ViewBag.filtration</h5>
+
+    using (Html.BeginForm("ChangeFiltration", "Game", FormMethod.Get))
+    {
+        <div id="results">
+            @Html.RadioButton("Filtration", "content")
+            <span> content </span> <br />
+            @Html.RadioButton("Filtration", "collaborative")
+            <span> collaborative </span>
+
+            <p><input type="submit" value="submit" /></p>
+
+        </div>
+    }
+}
+
+
+@Html.Action("UserInformtion")
+<br />
 @using (Html.BeginForm("FilteredGames", "Game", FormMethod.Get, null))
 {
 
@@ -31,7 +53,7 @@
                     </a>
 
                     <p class="price">@GlobalRes.Price: @item.Price</p>
-                    <img class="img-thumbnail main-game-img" src="@Url.Action("GetImage", "Game", new { gamekey = item.Key })" alt="@item.Name"/>
+                    <img class="img-thumbnail main-game-img" src="@Url.Action("GetImage", "Game", new { gamekey = item.Key })" alt="@item.Name" />
                     <div id="hover">
                         <p>
                             <ul>

@@ -7,6 +7,10 @@ namespace GameStore.BLL.DTO
     {
         public Guid Id { get; set; }
 
+        public bool Adulthood { get; set; }
+
+        public bool IsWoman { get; set; }
+
         public string Name { get; set; }
 
         public string Email { get; set; }

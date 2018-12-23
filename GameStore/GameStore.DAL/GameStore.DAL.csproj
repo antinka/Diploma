@@ -138,6 +138,10 @@
     <Compile Include="Migrations\201806201331566_AddImageToGame.Designer.cs">
       <DependentUpon>201806201331566_AddImageToGame.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812091814571_AddToUserGenderAndAge.cs" />
+    <Compile Include="Migrations\201812091814571_AddToUserGenderAndAge.Designer.cs">
+      <DependentUpon>201812091814571_AddToUserGenderAndAge.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mongo\CollectionName.cs" />
     <Compile Include="Mongo\MongoContext.cs" />
@@ -185,6 +189,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806201331566_AddImageToGame.resx">
       <DependentUpon>201806201331566_AddImageToGame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812091814571_AddToUserGenderAndAge.resx">
+      <DependentUpon>201812091814571_AddToUserGenderAndAge.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

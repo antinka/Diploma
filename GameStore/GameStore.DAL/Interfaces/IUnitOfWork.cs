@@ -19,7 +19,7 @@ namespace GameStore.DAL.Interfaces
 
         IGenericRepository<Publisher> Publishers { get; }
 
-        IGenericRepository<Shipper> Shippers { get; }
+        //IGenericRepository<Shipper> Shippers { get; }
 
         IGenericRepository<User> Users { get; }
 

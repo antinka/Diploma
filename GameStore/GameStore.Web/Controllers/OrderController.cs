@@ -21,18 +21,21 @@ namespace GameStore.Web.Controllers
         private readonly IGameService _gameService;
         private readonly IMapper _mapper;
         private readonly IPaymentStrategy _paymentStrategy;
+        private readonly IUserService _userService;
 
         public OrderController(
             IOrdersService ordersService,
-            IGameService gameService, 
+            IGameService gameService,
             IMapper mapper,
             IPaymentStrategy paymentStrategy,
+            IUserService userService,
             IAuthentication authentication) : base(authentication)
         {
             _ordersService = ordersService;
             _gameService = gameService;
             _mapper = mapper;
             _paymentStrategy = paymentStrategy;
+            _userService = userService;
         }
 
         [HttpGet]
@@ -54,7 +57,7 @@ namespace GameStore.Web.Controllers
 
             var orderViewModel = _mapper.Map<OrderViewModel>(order);
             var shippers = _mapper.Map<IEnumerable<ShipperViewModel>>(_ordersService.GetAllShippers());
-            orderViewModel.ShipperList = new SelectList(shippers, "Id", "CompanyName");
+            // orderViewModel.ShipperList = new SelectList(shippers, "Id", "CompanyName");
 
             return View(orderViewModel);
         }
@@ -67,7 +70,88 @@ namespace GameStore.Web.Controllers
             if (userId == Guid.Empty)
             {
                 userId = GetUserId();
+                string userInformation = HttpContext.Request.Cookies["userInformation"].Value;
+                var userFromDB = _userService.GetById(userId);
+
+                if (userInformation == "Girl 18+")
+                {
+                    if (userFromDB == null)
+                    {
+                        var user = new UserDTO()
+                        {
+                            Id = userId,
+                            Adulthood = true,
+                            IsWoman = true
+                        };
+                        _userService.AddNew(user);
+                    }
+                    else
+                    {
+                        userFromDB.Adulthood = true;
+                        userFromDB.IsWoman = true;
+                        _userService.Update(userFromDB);
+                    }
+                }
+                else if (userInformation == "Boy 18+")
+                {
+                    if (userFromDB == null)
+                    {
+                        var user = new UserDTO()
+                        {
+                            Id = userId,
+                            Adulthood = true,
+                            IsWoman = false
+                        };
+                        _userService.AddNew(user);
+                    }
+                    else
+                    {
+                        userFromDB.Adulthood = true;
+                        userFromDB.IsWoman = false;
+                        _userService.Update(userFromDB);
+                    }
+                }
+                else if (userInformation == "Girl less than 18")
+                {
+                    if (userFromDB == null)
+                    {
+                        var user = new UserDTO()
+                        {
+                            Id = userId,
+                            Adulthood = false,
+                            IsWoman = true
+                        };
+                        _userService.AddNew(user);
+                    }
+                    else
+                    {
+                        userFromDB.Adulthood = false;
+                        userFromDB.IsWoman = true;
+                        _userService.Update(userFromDB);
+                    }
+                }
+                else if (userInformation == "Boy less than 18")
+                {
+                    if (userFromDB == null)
+                    {
+                        var user = new UserDTO()
+                        {
+                            Id = userId,
+                            Adulthood = false,
+                            IsWoman = false
+                        };
+                        _userService.AddNew(user);
+                    }
+                    else
+                    {
+                        userFromDB.Adulthood = false;
+                        userFromDB.IsWoman = false;
+                        _userService.Update(userFromDB);
+                    }
+                }
             }
+
+
 
             var gameDTO = _gameService.GetByKey(gameKey);
             var game = _mapper.Map<DetailsGameViewModel>(gameDTO);
@@ -164,7 +248,7 @@ namespace GameStore.Web.Controllers
 
         public ActionResult HistoryOrders(FilterOrder filterOrder)
         {
-            if (filterOrder.DateTimeFrom != null 
+            if (filterOrder.DateTimeFrom != null
                 && filterOrder.DateTimeTo != null
                 && filterOrder.DateTimeFrom > filterOrder.DateTimeTo)
             {
@@ -211,8 +295,8 @@ namespace GameStore.Web.Controllers
 
         public ActionResult Orders(FilterOrder filterOrder)
         {
-            if (filterOrder.DateTimeFrom != null 
-                && filterOrder.DateTimeTo != null 
+            if (filterOrder.DateTimeFrom != null
+                && filterOrder.DateTimeTo != null
                 && filterOrder.DateTimeFrom > filterOrder.DateTimeTo)
             {
                 ModelState.AddModelError(string.Empty, GlobalRes.DataTimeFromTo);
@@ -224,10 +308,20 @@ namespace GameStore.Web.Controllers
             }
 
             var ordersDTO = _ordersService.GetOrdersWithUnpaidBetweenDates(
-                filterOrder.DateTimeFrom, 
+                filterOrder.DateTimeFrom,
                 filterOrder.DateTimeTo);
             filterOrder.OrdersViewModel = _mapper.Map<IEnumerable<OrderViewModel>>(ordersDTO);
 
+            int count = 0;
+            foreach (var i in filterOrder.OrdersViewModel)
+            {
+                foreach (var j in i.OrderDetails)
+                {
+                    count += j.Quantity;
+                }
+            }
+            ViewBag.userCount = "Users quantity - " + filterOrder.OrdersViewModel.Count();
+            ViewBag.gameCount = "Games quantity - " + count;
             return View(filterOrder);
         }
 

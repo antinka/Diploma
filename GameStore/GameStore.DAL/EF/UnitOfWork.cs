@@ -16,10 +16,10 @@ namespace GameStore.DAL.EF
         private readonly Lazy<GenericRepository<Genre>> _lazyGenreRepository;
         private readonly Lazy<GenericRepository<Comment>> _lazyCommentRepository;
         private readonly Lazy<GenericRepository<PlatformType>> _lazyPlatformTypeRepository;
-        private readonly Lazy<OrderDecoratorRepository> _lazyOrderRepository;
+        private readonly Lazy<GenericRepository<Order>> _lazyOrderRepository;
         private readonly Lazy<OrderDetailRepository> _lazyOrderDetailRepository;
         private readonly Lazy<GenericRepository<Publisher>> _lazyPublisherRepository;
-        private readonly Lazy<ReadOnlyGenericRepository<Shipper>> _lazyShipperRepository;
+       // private readonly Lazy<ReadOnlyGenericRepository<Shipper>> _lazyShipperRepository;
 
         private readonly Lazy<GenericRepository<User>> _lazyUserRepository;
         private readonly Lazy<GenericRepository<Role>> _lazyRoleRepository;
@@ -29,16 +29,16 @@ namespace GameStore.DAL.EF
             _context = context;
             var mongoDb = new MongoContext();
 
-            _lazyGameRepository = new Lazy<GenericRepository<Game>>(() => new GenericRepository<Game>(_context, mongoDb));
-            _lazyGenreRepository = new Lazy<GenericRepository<Genre>>(() => new GenericRepository<Genre>(_context, mongoDb));
-            _lazyCommentRepository = new Lazy<GenericRepository<Comment>>(() => new GenericRepository<Comment>(_context, mongoDb));
-            _lazyPlatformTypeRepository = new Lazy<GenericRepository<PlatformType>>(() => new GenericRepository<PlatformType>(_context, mongoDb));
-            _lazyOrderDetailRepository = new Lazy<OrderDetailRepository>(() => new OrderDetailRepository(_context, mongoDb));
-            _lazyOrderRepository = new Lazy<OrderDecoratorRepository>(() => new OrderDecoratorRepository(_context, mongoDb, mapper));
-            _lazyPublisherRepository = new Lazy<GenericRepository<Publisher>>(() => new GenericRepository<Publisher>(_context, mongoDb));
-            _lazyShipperRepository = new Lazy<ReadOnlyGenericRepository<Shipper>>(() => new ReadOnlyGenericRepository<Shipper>(mongoDb));
-            _lazyUserRepository = new Lazy<GenericRepository<User>>(() => new GenericRepository<User>(_context, mongoDb));
-            _lazyRoleRepository = new Lazy<GenericRepository<Role>>(() => new GenericRepository<Role>(_context, mongoDb));
+            _lazyGameRepository = new Lazy<GenericRepository<Game>>(() => new GenericRepository<Game>(_context));
+            _lazyGenreRepository = new Lazy<GenericRepository<Genre>>(() => new GenericRepository<Genre>(_context));
+            _lazyCommentRepository = new Lazy<GenericRepository<Comment>>(() => new GenericRepository<Comment>(_context));
+            _lazyPlatformTypeRepository = new Lazy<GenericRepository<PlatformType>>(() => new GenericRepository<PlatformType>(_context));
+            _lazyOrderDetailRepository = new Lazy<OrderDetailRepository>(() => new OrderDetailRepository(_context));
+            _lazyOrderRepository = new Lazy<GenericRepository <Order>>(() => new GenericRepository<Order>(_context));
+            _lazyPublisherRepository = new Lazy<GenericRepository<Publisher>>(() => new GenericRepository<Publisher>(_context));
+          //  _lazyShipperRepository = new Lazy<ReadOnlyGenericRepository<Shipper>>(() => new ReadOnlyGenericRepository<Shipper>(mongoDb));
+            _lazyUserRepository = new Lazy<GenericRepository<User>>(() => new GenericRepository<User>(_context));
+            _lazyRoleRepository = new Lazy<GenericRepository<Role>>(() => new GenericRepository<Role>(_context));
         }
 
         public IGenericRepository<Game> Games => _lazyGameRepository.Value;
@@ -55,7 +55,7 @@ namespace GameStore.DAL.EF
 
         public IGenericRepository<Publisher> Publishers => _lazyPublisherRepository.Value;
 
-        public IGenericRepository<Shipper> Shippers => _lazyShipperRepository.Value;
+        //public IGenericRepository<Shipper> Shippers => _lazyShipperRepository.Value;
 
         public IGenericRepository<User> Users => _lazyUserRepository.Value;
 

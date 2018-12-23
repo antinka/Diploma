@@ -47,5 +47,7 @@ namespace GameStore.Web.ViewModels.Games
 
         [Display(Name = "PlatformTypes", ResourceType = typeof(GlobalRes))]
         public ICollection<DetailsPlatformTypeViewModel> PlatformTypes { get; set; }
+
+        public ICollection<DetailsGameViewModel> Games { get; set; }
     }
 }

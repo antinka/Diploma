@@ -42,6 +42,48 @@ namespace GameStore.Web.Controllers
 
             if (ModelState.IsValid)
             {
+                var userId = CurrentUser.Id;
+
+                if (userId == Guid.Empty)
+                {
+                    if (HttpContext.Request.Cookies["userId"] != null)
+                    {
+                        userId = Guid.Parse(HttpContext.Request.Cookies["userId"].Value);
+                    }
+                    else
+                    {
+                        userId = Guid.NewGuid();
+                        HttpContext.Response.Cookies["userId"].Value = userId.ToString();
+                    }
+                }
+
+                string userInformation = HttpContext.Request.Cookies["userInformation"].Value;
+
+                if (userInformation == "Girl 18+")
+                {
+                    userDto.Id = userId;
+                    userDto.Adulthood = true;
+                    userDto.IsWoman = true;
+                }
+                else if (userInformation == "Boy 18+")
+                {
+                    userDto.Id = userId;
+                    userDto.Adulthood = true;
+                    userDto.IsWoman = false;
+                }
+                else if (userInformation == "Girl less than 18")
+                {
+                    userDto.Id = userId;
+                    userDto.Adulthood = false;
+                    userDto.IsWoman = true;
+                }
+                else if (userInformation == "Boy less than 18")
+                {
+                    userDto.Id = userId;
+                    userDto.Adulthood = false;
+                    userDto.IsWoman = false;
+                }
+
                 _userService.AddNew(userDto);
 
                 return RedirectToAction("Login");

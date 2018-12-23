@@ -17,11 +17,11 @@ namespace GameStore.DAL.Repositories
         private readonly IDbSet<TEntity> _dbSet;
         private readonly MongoContext _mongoDb;
 
-        public GenericRepository(IDbContext db, MongoContext mongoDb)
+        public GenericRepository(IDbContext db)
         {
             _db = db;
             _dbSet = db.Set<TEntity>();
-            _mongoDb = mongoDb;
+         //   _mongoDb = mongoDb;
         }
 
         public virtual void Create(TEntity item)
@@ -86,7 +86,7 @@ namespace GameStore.DAL.Repositories
                 OldObject = oldObject
             };
 
-            _mongoDb.GetCollection<Log>().InsertOne(log);
+        //    _mongoDb.GetCollection<Log>().InsertOne(log);
         }
     }
 }

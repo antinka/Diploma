@@ -321,6 +321,9 @@
     <Content Include="Views\Publisher\EditProfile.cshtml" />
     <Content Include="Views\Publisher\NothingToUpd.cshtml" />
     <Content Include="Views\Game\NothingToDisplay.cshtml" />
+    <Content Include="Views\Game\UserInformtion.cshtml" />
+    <Content Include="Views\Game\empty.cshtml" />
+    <Content Include="Views\Game\Reload.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -44,6 +44,18 @@ namespace GameStore.Web
                 constraints: new { lang = @"ru|en" });
 
             routes.MapRoute(
+              name: "UserInformtion",
+              url: "{lang}/games/UserInformtion",
+              defaults: new { controller = "Game", action = "UserInformtion", lang = "en" },
+              constraints: new { lang = @"ru|en" });
+
+            routes.MapRoute(
+            name: "ChangeFiltration",
+            url: "{lang}/games/ChangeFiltration",
+            defaults: new { controller = "Game", action = "ChangeFiltration", lang = "en" },
+            constraints: new { lang = @"ru|en" });
+
+            routes.MapRoute(
                 name: "AsyncGetImage",
                 url: "{lang}/Async/Game/pictures/{gamekey}",
                 defaults: new { controller = "Game", action = "AsyncGetImage", gamekey = UrlParameter.Optional, lang = "en" },

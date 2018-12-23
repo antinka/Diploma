@@ -47,7 +47,7 @@
                                 <li> @Html.ActionLink(GlobalRes.GetAllDeleteGames, "GetAllDeleteGames", "Game")</li>
                                 <li> @Html.ActionLink(GlobalRes.Orders, "AllOrders", "Order")</li>
                             }
-                            <li> @Html.ActionLink(GlobalRes.Shipper, "GetAll", "Shipper")</li>
+                            @*<li> @Html.ActionLink(GlobalRes.Shipper, "GetAll", "Shipper")</li>*@
                             @if (User != null && User.IsInRole("Administrator"))
                             {
                                 <li> @Html.ActionLink(GlobalRes.Users, "GetAll", "User")</li>

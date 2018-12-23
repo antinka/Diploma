@@ -26,5 +26,9 @@ namespace GameStore.BLL.Interfaces
         void UpdateImage(string gameKey, string pictureName, string imageMimeType);
 
         IEnumerable<GameDTO> GetGamesByFilter(FilterDTO filter, int page, PageSize pageSize, out int totalItemsByFilter);
+
+        IEnumerable<GameDTO> GetGamesByCollaborative(Guid gamekey,UserDTO userDTO);
+
+        IEnumerable<GameDTO> GetGamesByContent(Guid gamekey, UserDTO userDTO);
     }
 }

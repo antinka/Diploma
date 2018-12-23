@@ -26,7 +26,9 @@ namespace GameStore.BLL.Service
 
         public void AddNew(UserDTO userDto)
         {
-            userDto.Id = Guid.NewGuid();
+            if (userDto.Id == null)
+                userDto.Id = Guid.NewGuid();
+
             var newUser = _mapper.Map<User>(userDto);
 
             if (userDto.SelectedRolesName != null)
@@ -37,8 +39,8 @@ namespace GameStore.BLL.Service
             {
                 newUser.Roles = _unitOfWork.Roles.Get(role => role.Name == "User").ToList();
             }
-
-            newUser.Password = userDto.Password.GetHashCode().ToString();
+            if(userDto.Password != null)
+                newUser.Password = userDto.Password.GetHashCode().ToString();
 
             _unitOfWork.Users.Create(newUser);
             _unitOfWork.Save();
@@ -52,10 +54,10 @@ namespace GameStore.BLL.Service
 
             if (user != null)
             {
-                user.Roles.Clear();
-                user.Roles = _unitOfWork.Roles.Get(role => userDto.SelectedRolesName.Contains(role.Name)).ToList();
+                //user.Roles.Clear();
+                //user.Roles = _unitOfWork.Roles.Get(role => userDto.SelectedRolesName.Contains(role.Name)).ToList();
 
-                _unitOfWork.Users.Update(user);
+               // _unitOfWork.Users.Update(user);
                 user = _mapper.Map<User>(userDto);
                 _unitOfWork.Users.Update(user);
                 _unitOfWork.Save();
@@ -138,7 +140,7 @@ namespace GameStore.BLL.Service
 
             if (user == null)
             {
-                throw new EntityNotFound($"{nameof(UserService)} - attempt to take not existed user, id {id}");
+                return null;
             }
 
             return user;

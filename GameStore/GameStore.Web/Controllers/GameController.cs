@@ -23,6 +23,9 @@ namespace GameStore.Web.Controllers
 {
     public class GameController : BaseController
     {
+        public static bool IsContentFiltration = true;
+        private static int count = 0;
+
         private readonly IGameService _gameService;
         private readonly IGenreService _genreService;
         private readonly IPlatformTypeService _platformTypeService;
@@ -45,6 +48,43 @@ namespace GameStore.Web.Controllers
             _genreService = genreService;
             _platformTypeService = platformTypeService;
             _filterViewModelBuilder = filterViewModelBuilder;
+        }
+
+        [Authorize(Roles = "Manager")]
+        [HttpGet]
+        public ActionResult ChangeFiltration(string Filtration)
+        {
+            if (Filtration == "content")
+            {
+                IsContentFiltration = true;
+            }
+            else
+                IsContentFiltration = false;
+
+            return RedirectToAction("FilteredGames");
+        }
+
+        public ActionResult UserInformtion()
+        {
+            if (HttpContext.Request.Cookies["userInformation"] != null)
+            {
+                return PartialView("empty");
+            }
+
+            return PartialView();
+        }
+        [HttpPost]
+        public ActionResult UserInformtion(string Person)
+        {
+            HttpContext.Response.Cookies["userInformation"].Value = Person.ToString();
+
+            if (count == 0)
+            {
+                count++;
+                return PartialView("Reload");
+            }
+
+            return PartialView("empty");
         }
 
         [Authorize(Roles = "Manager")]
@@ -192,7 +232,7 @@ namespace GameStore.Web.Controllers
             return RedirectToAction("GetGame", "Game", new { gamekey });
         }
 
-            public ActionResult GetImage(string gamekey)
+        public ActionResult GetImage(string gamekey)
         {
             var game = _gameService.GetByKey(gamekey);
             var imagePath = Server.MapPath($"~/Content/Images/Games/{game.ImageName}");
@@ -221,6 +261,13 @@ namespace GameStore.Web.Controllers
         [HttpGet]
         public ActionResult FilteredGames(FilterViewModel filter, int page = 1)
         {
+            if (IsContentFiltration)
+            {
+                ViewBag.filtration = "content";
+            }
+            else
+                ViewBag.filtration = "collaborative";
+
             if (filter.MinPrice > filter.MaxPrice)
             {
                 ModelState.AddModelError("MinPrice", GlobalRes.MinMaxPrice);
@@ -269,7 +316,9 @@ namespace GameStore.Web.Controllers
             }
             else
             {
-                filter.Games = new List<DetailsGameViewModel>() { new DetailsGameViewModel() };
+                filter.Games = new List<DetailsGameViewModel>() { new DetailsGameViewModel() {
+                    Genres = new List<DelailsGenreViewModel>(),
+                    PlatformTypes = new List<DetailsPlatformTypeViewModel>()} };
             }
 
             return View(filter);
@@ -281,6 +330,19 @@ namespace GameStore.Web.Controllers
             var gameDTO = _gameService.GetByKey(gamekey);
             var gameForView = _mapper.Map<DetailsGameViewModel>(gameDTO);
 
+            var user = GetUserInformationFromCookie();
+            IEnumerable<GameDTO> games;
+
+            if (IsContentFiltration)
+            {
+                games = _gameService.GetGamesByContent(gameDTO.Id, user);
+            }
+            else
+            {
+                games = _gameService.GetGamesByCollaborative(gameDTO.Id, user);
+            }
+
+            gameForView.Games = _mapper.Map<IEnumerable<DetailsGameViewModel>>(games).ToList();
             return View(gameForView);
         }
 
@@ -423,6 +485,85 @@ namespace GameStore.Web.Controllers
             }
 
             return gameViewModel;
+        }
+
+        private UserDTO GetUserInformationFromCookie()
+        {
+            var userId = CurrentUser.Id;
+
+            if (userId == Guid.Empty)
+            {
+                userId = GetUserId();
+            }
+
+            string userInformation = HttpContext.Request.Cookies["userInformation"]?.Value;
+
+            if (userInformation == "Girl 18+")
+            {
+                var user = new UserDTO()
+                {
+                    Id = GetUserId(),
+                    Adulthood = true,
+                    IsWoman = true
+                };
+                return user;
+            }
+            else if (userInformation == "Boy 18+")
+            {
+                var user = new UserDTO()
+                {
+                    Id = GetUserId(),
+                    Adulthood = true,
+                    IsWoman = false
+                };
+                return user;
+            }
+            else if (userInformation == "Girl less than 18")
+            {
+                var user = new UserDTO()
+                {
+                    Id = GetUserId(),
+                    Adulthood = false,
+                    IsWoman = true
+                };
+                return user;
+            }
+            else if (userInformation == "Boy less than 18")
+            {
+                var user = new UserDTO()
+                {
+                    Id = GetUserId(),
+                    Adulthood = false,
+                    IsWoman = false
+                };
+                return user;
+            }
+
+            else
+            {
+                var user = new UserDTO()
+                {
+                    Id = GetUserId(),
+                };
+                return user;
+            }
+        }
+
+        private Guid GetUserId()
+        {
+            Guid userId;
+
+            if (HttpContext.Request.Cookies["userId"] != null)
+            {
+                userId = Guid.Parse(HttpContext.Request.Cookies["userId"].Value);
+            }
+            else
+            {
+                userId = Guid.NewGuid();
+                HttpContext.Response.Cookies["userId"].Value = userId.ToString();
+            }
+
+            return userId;
         }
     }
 }

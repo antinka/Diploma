@@ -9,6 +9,10 @@ namespace GameStore.DAL.Entities
     {
         public string Name { get; set; }
 
+        public bool Adulthood { get; set; }
+
+        public bool IsWoman { get; set; }
+
         public string Email { get; set; }
 
         public string Password { get; set; }

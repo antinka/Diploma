@@ -7,9 +7,9 @@
     ViewBag.Title = "GetGame";
 }
 <div>
-    <hr /> 
+    <hr />
     <div style="float: left;">
-        <img class="img-thumbnail" width="300"src="@Url.Action("GetImage", "Game", new { gamekey = Model.Key })" alt="@Model.Name"/>
+        <img class="img-thumbnail" width="300" src="@Url.Action("GetImage", "Game", new { gamekey = Model.Key })" alt="@Model.Name" />
     </div>
     <dl class="dl-horizontal" style="float: left;">
         <dt>
@@ -65,11 +65,11 @@
         <dd>
             <ul>
                 @foreach (var i in Model.PlatformTypes)
-            {
-                <li>
-                    @i.Name
-                </li>
-        }
+                {
+                    <li>
+                        @i.Name
+                    </li>
+                }
             </ul>
         </dd>
 
@@ -80,72 +80,152 @@
 
             <ul>
                 @if (Model.Genres.Any())
-            {
-                foreach (var i in Model.Genres)
                 {
-                    <li>
-                        @i.Name
-                    </li>
-            }
-        }
-        else
-        {
-            if (Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToUpperInvariant() == "EN")
-            {
-                <li>Other</li>
-        }
-        else
-        {
-            <li>Другие</li>
-    }
-}
+                    foreach (var i in Model.Genres)
+                    {
+                        <li>
+                            @i.Name
+                        </li>
+                    }
+                }
+                else
+                {
+                    if (Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToUpperInvariant() == "EN")
+                    {
+                        <li>Other</li>
+                    }
+                    else
+                    {
+                        <li>Другие</li>
+                    }
+                }
             </ul>
         </dd>
         @{if (Model.PublisherId != null)
-        {
-            <dt>
-                @Html.DisplayNameFor(model => model.Publisher)
-            </dt>
-            <dd>
-                <ul>
-                    <li>
-                        @Html.ActionLink(Model.Publisher.Name, "Get", "Publisher", new { companyName = Model.Publisher.Name }, null)
-                    </li>
-                </ul>
-            </dd>
-    }
-    else
-    {
-        <dt>
-            @Html.DisplayNameFor(model => model.Publisher)
-        </dt>
-        <dd>
-            <ul>
-                <li>
-                    unknown
-                </li>
-            </ul>
-        </dd>
-}
+            {
+                <dt>
+                    @Html.DisplayNameFor(model => model.Publisher)
+                </dt>
+                <dd>
+                    <ul>
+                        <li>
+                            @Html.ActionLink(Model.Publisher.Name, "Get", "Publisher", new { companyName = Model.Publisher.Name }, null)
+                        </li>
+                    </ul>
+                </dd>
+            }
+            else
+            {
+                <dt>
+                    @Html.DisplayNameFor(model => model.Publisher)
+                </dt>
+                <dd>
+                    <ul>
+                        <li>
+                            unknown
+                        </li>
+                    </ul>
+                </dd>
+            }
         }
 
         <dd>
             @{
-        if (Model.IsDelete == false)
-        {
-            <p>
-                @Html.ActionLink(GlobalRes.Download, "Download", new { gamekey = Model.Key }, new { target = "_blank" })
+                if (Model.IsDelete == false)
+                {
+                    <p>
+                        @Html.ActionLink(GlobalRes.Download, "Download", new { gamekey = Model.Key }, new { target = "_blank" })
 
-                | @Html.ActionLink(GlobalRes.Buy, "AddGameToOrder", "Order", new { gamekey = Model.Key }, null)
+                        | @Html.ActionLink(GlobalRes.Buy, "AddGameToOrder", "Order", new { gamekey = Model.Key }, null)
 
-                |@Html.ActionLink(GlobalRes.Comment, "GetAllCommentToGame", "Comment", new { gamekey = Model.Key }, null)
-            </p>
-}
-else
-{
-        @Html.ActionLink(GlobalRes.Comment, "GetAllCommentToGame", "Comment", new { gamekey = Model.Key }, null)
-}
+                        |@Html.ActionLink(GlobalRes.Comment, "GetAllCommentToGame", "Comment", new { gamekey = Model.Key }, null)
+                    </p>
+                }
+                else
+                {
+                    @Html.ActionLink(GlobalRes.Comment, "GetAllCommentToGame", "Comment", new { gamekey = Model.Key }, null)
+                }
             }
         </dd>
     </dl>
 </div>
+<div class="row col-12" style="float: initial">
+    </div>
+    <div class="row">
+        <div class="row col-12" style="float: initial">
+            <br /> <br /> <br />
+            <br /> <br /> <br />
+            <p style="font-family: Verdana, Arial, Helvetica, sans-serif; text-align:center;font-weight: bold;">
+                Recommendation games
+            </p>
+            <div class="row" style="float: initial">
+                @foreach (var item in Model.Games)
+                {
+                    <div class="col-md-4">
+                        <div id="image">
+                            <a href=@Url.Action("GetGame", "Game", new { gamekey = item.Key })>
+                                <h3>@item.Name</h3>
+                            </a>
+
+                            <p class="price">@GlobalRes.Price: @item.Price</p>
+                            <img class="img-thumbnail main-game-img" src="@Url.Action("GetImage", "Game", new { gamekey = item.Key })" alt="@item.Name" />
+                            <div id="hover">
+                                <p>
+                                    <ul>
+                                        @GlobalRes.Genres:
+                                        @if (item.Genres.Any())
+                                        {
+                                            foreach (var i in item.Genres)
+                                            {
+                                                <li>
+                                                    @i.Name
+                                                </li>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToUpperInvariant() == "EN")
+                                            {
+                                                <li>Other</li>
+                                            }
+                                            else
+                                            {
+                                                <li>Другие</li>
+                                            }
+                                        }
+                                    </ul>
+                                </p>
+
+                                <p>
+                                    <ul>
+                                        @GlobalRes.PlatformTypes:
+
+                                        @foreach (var i in item.PlatformTypes)
+                                        {
+                                            <li>
+                                                @i.Name
+                                            </li>
+                                        }
+                                    </ul>
+                                </p>
+
+                                <p>
+
+                                    @GlobalRes.Publisher:
+                                    @Html.DisplayFor(modelItem => item.Publisher.Name)
+                                </p>
+                            </div>
+                        </div>
+                        <p>
+                            @if (User != null && User.IsInRole("Manager"))
+                            {
+                                @Html.ActionLink(GlobalRes.Update, "Update", new { gamekey = item.Key })
+                                <br />
+                                @Ajax.ActionLink(GlobalRes.Remove, "Remove", new { gameId = item.Id }, new AjaxOptions { HttpMethod = "POST", UpdateTargetId = @item.Key })
+                            }
+                        </p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>

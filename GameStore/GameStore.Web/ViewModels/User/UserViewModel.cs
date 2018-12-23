@@ -9,6 +9,10 @@ namespace GameStore.Web.ViewModels
 {
     public class UserViewModel
     {
+        public bool Adulthood { get; set; }
+
+        public bool IsWoman { get; set; }
+
         public Guid Id { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(GlobalRes), ErrorMessageResourceName = "Existent")]

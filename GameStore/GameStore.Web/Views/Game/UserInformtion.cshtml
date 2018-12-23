@@ -1,0 +1,18 @@
+﻿@using (Ajax.BeginForm("UserInformtion", "Game", FormMethod.Post, new AjaxOptions { UpdateTargetId = "results" }))
+{
+<div id="results">
+    <div id="ModalViewDelete" class="modal-content">
+        <div class="modal-header">
+            <button class="close" data-dismiss="modal" area-hidden="true" onclick="$('#ModalViewDelete').hide()">X</button>
+            <p style="font-size: 120%; font-family: Verdana, Arial, Helvetica, sans-serif;">Improve recommendation system</p>
+        </div>
+        <div class="modal-body">
+            <input type="submit" name="Person" value="Girl 18+" class="btn btn-default" style="width:50%; background:#FE7773" />
+            <input type="submit" name="Person" value="Boy 18+" class="btn btn-default" style="width:50%; background:#32C3EE" />
+            <br />
+            <input type="submit" name="Person" value="Girl less than 18" class="btn btn-default" style="width:50%; background:#feadab" />
+            <input type="submit" name="Person" value="Boy less than 18" class="btn btn-default" style="width:50%; background:#87CEEB" />
+        </div>
+    </div>
+</div>
+        }

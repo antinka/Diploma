@@ -11,7 +11,7 @@
         @Html.HiddenFor(model => model.UserId)
     </dl>
 
-    @using (Html.BeginForm("UpdateShipper", "Order", FormMethod.Get, null))
+    @*@using (Html.BeginForm("UpdateShipper", "Order", FormMethod.Get, null))
     {
         @Html.HiddenFor(model => model.Id)
         <div class="form-group">
@@ -21,7 +21,7 @@
             </div>
         </div>
 
-    }
+    }*@
 
     <table class="table">
         <tr>
@@ -63,7 +63,7 @@
         }
 
     </table>
-    @if (Model.ShipperId != null)
+    @*@if (Model.ShipperId != null)*@
     {
         @Html.ActionLink(GlobalRes.MakeOrder, "Order", "Order", null, new { @class = "btn btn-primary btn-large" })
     }
